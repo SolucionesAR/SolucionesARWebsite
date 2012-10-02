@@ -1,10 +1,13 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.User>
+﻿@using SolucionesARWebsite.ModelsWebsite.Views.Users
+
+@model IndexViewModel
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Users";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,57 +15,57 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CedNumber)
+            CedNumber
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FName)
+            FName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LName1)
+            LName1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LName2)
+            LName2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GeneratedCode)
+            GeneratedCode
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Dob)
+            Dob
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address1)
+            Address1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address2)
+            Address2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            PhoneNumber
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cellphone)
+            Cellphone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatetedAt)
+            CreatetedAt
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
+            UpdatedAt
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Enabled)
+            Enabled
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cashback)
+            Cashback
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserRol.Name)
+            UserRol.Name
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Users) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.CedNumber)
@@ -110,12 +113,11 @@
             @Html.DisplayFor(modelItem => item.Cashback)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserRol.Name)
+            @Html.DisplayFor(modelItem => item.UserRole.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }) 
         </td>
     </tr>
 }

@@ -1,69 +1,12 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.Transaction>
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section PageContent {
 
-@{
-    ViewBag.Title = "Index";
+    @{
+        Html.RenderPartial("Header");
+        Html.RenderPartial("Menu");
+    }
+
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BillBarCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatetedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Store.PhoneNumber1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesMan.FName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer.FName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillBarCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatetedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Store.PhoneNumber1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesMan.FName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.FName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TransactionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TransactionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TransactionId })
-        </td>
-    </tr>
-}
-
-</table>

@@ -162,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RelationshipsController.cs" />
@@ -173,11 +174,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\VersionNumberHelper.cs" />
     <Compile Include="Migrations\201210020304040_001.cs" />
     <Compile Include="Migrations\201210020304040_001.Designer.cs">
       <DependentUpon>201210020304040_001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelsWebsite\AccountModels.cs" />
+    <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\ModelErrors.cs" />
+    <Compile Include="ModelsWebsite\SubmitResults.cs" />
+    <Compile Include="ModelsWebsite\Views\BaseViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Users\DetailsViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Users\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Users\IndexViewModel.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DbModel.cs" />
@@ -244,13 +254,64 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\GReptem\fonts\Actor.css" />
+    <Content Include="Content\themes\GReptem\fonts\Arial.css" />
+    <Content Include="Content\themes\GReptem\fonts\Cicle.css" />
+    <Content Include="Content\themes\GReptem\fonts\cicle_semi-webfont.svg" />
+    <Content Include="Content\themes\GReptem\fonts\Exo.css" />
+    <Content Include="Content\themes\GReptem\fonts\Gudea.css" />
+    <Content Include="Content\themes\GReptem\fonts\Kreon.css" />
+    <Content Include="Content\themes\GReptem\fonts\Magra.css" />
+    <Content Include="Content\themes\GReptem\fonts\Ruluko.css" />
+    <Content Include="Content\themes\GReptem\fonts\Share.css" />
+    <Content Include="Content\themes\GReptem\fonts\Terminal.css" />
+    <Content Include="Content\themes\GReptem\fonts\Ubuntu.css" />
+    <Content Include="Content\themes\GReptem\fonts\websymbols-regular-webfont.svg" />
+    <Content Include="Content\themes\GReptem\jquery.fancybox.css" />
+    <Content Include="Content\themes\GReptem\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\themes\GReptem\bgr_map.png" />
+    <Content Include="Images\themes\GReptem\bgr_pattern.png" />
+    <Content Include="Images\themes\GReptem\bgr_quote.png" />
+    <Content Include="Images\themes\GReptem\bgr_scroller.png" />
+    <Content Include="Images\themes\GReptem\bgr_shadow.png" />
+    <Content Include="Images\themes\GReptem\bgr_shadow_w.png" />
+    <Content Include="Images\themes\GReptem\bgr_work_item.png" />
+    <Content Include="Images\themes\GReptem\blank.gif" />
+    <Content Include="Images\themes\GReptem\btn_pag_arrows.png" />
+    <Content Include="Images\themes\GReptem\btn_pag_arrows_b.png" />
+    <Content Include="Images\themes\GReptem\fancybox_loading.gif" />
+    <Content Include="Images\themes\GReptem\logo.png" />
+    <Content Include="Images\themes\GReptem\logo2.png" />
+    <Content Include="Images\themes\GReptem\pic_about.png" />
+    <Content Include="Images\themes\GReptem\pic_blog_1.png" />
+    <Content Include="Images\themes\GReptem\pic_blog_2.png" />
+    <Content Include="Images\themes\GReptem\pic_blog_3.png" />
+    <Content Include="Images\themes\GReptem\pic_blog_4.png" />
+    <Content Include="Images\themes\GReptem\pic_work.png" />
+    <Content Include="Images\themes\GReptem\pic_work_2.png" />
+    <Content Include="Images\themes\GReptem\pic_work_3.png" />
+    <Content Include="Images\themes\GReptem\pic_work_4.png" />
+    <Content Include="Images\themes\GReptem\pic_work_5.png" />
+    <Content Include="Images\themes\GReptem\pic_work_6.png" />
+    <Content Include="Images\themes\GReptem\pic_work_7.png" />
+    <Content Include="Images\themes\GReptem\pic_work_8.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_2.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_3.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_4.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_5.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_6.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_7.png" />
+    <Content Include="Images\themes\GReptem\pic_work_big_8.png" />
+    <Content Include="Scripts\general.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.contactform.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -260,7 +321,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\libs\farbtastic.js" />
+    <Content Include="Scripts\libs\jquery.fancybox.js" />
+    <Content Include="Scripts\libs\jquery.js" />
+    <Content Include="Scripts\libs\modernizr-1.7.min.js" />
+    <Content Include="Scripts\libs\modernizr.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\plugins.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -311,18 +379,6 @@
     <EmbeddedResource Include="Migrations\201210020304040_001.resx">
       <DependentUpon>201210020304040_001.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Companies\Index.cshtml" />
@@ -413,6 +469,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.eot" />
+    <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.ttf" />
+    <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.woff" />
+    <None Include="Content\themes\GReptem\fonts\websymbols-regular-webfont.eot" />
+    <None Include="Content\themes\GReptem\fonts\websymbols-regular-webfont.ttf" />
+    <None Include="Content\themes\GReptem\fonts\websymbols-regular-webfont.woff" />
+    <Content Include="Views\Shared\Back.cshtml" />
+    <Content Include="Views\Shared\EditionLayout.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\ListLayout.cshtml" />
+    <Content Include="Views\Shared\MasterLayout.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\SocialNetworks.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

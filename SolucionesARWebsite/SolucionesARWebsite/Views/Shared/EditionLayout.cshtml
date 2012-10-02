@@ -1,0 +1,16 @@
+﻿@using SolucionesARTest_FrontEnd.Models.Views
+
+@model BaseViewModel
+           
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section PageContent {
+    <div class="edition-content">
+
+            @RenderSection("Messages", true)
+
+            @RenderSection("EditionContent", true)
+    </div>
+}
