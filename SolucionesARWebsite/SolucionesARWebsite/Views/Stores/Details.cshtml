@@ -1,0 +1,64 @@
+﻿@model SolucionesARWebsite.Models.Store
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Store</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PhoneNumber1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNumber1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PhoneNumber2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNumber2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FaxNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FaxNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CityId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CityId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatetedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatetedAt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdatedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedAt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Company.CompanyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Company.CompanyName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.StoreId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

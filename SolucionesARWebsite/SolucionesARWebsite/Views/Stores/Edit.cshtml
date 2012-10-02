@@ -1,0 +1,85 @@
+﻿@model SolucionesARWebsite.Models.Store
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Store</legend>
+
+        @Html.HiddenFor(model => model.StoreId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneNumber1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber1)
+            @Html.ValidationMessageFor(model => model.PhoneNumber1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneNumber2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber2)
+            @Html.ValidationMessageFor(model => model.PhoneNumber2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FaxNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FaxNumber)
+            @Html.ValidationMessageFor(model => model.FaxNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CityId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CityId)
+            @Html.ValidationMessageFor(model => model.CityId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatetedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatetedAt)
+            @Html.ValidationMessageFor(model => model.CreatetedAt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpdatedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UpdatedAt)
+            @Html.ValidationMessageFor(model => model.UpdatedAt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CompanyId, "Company")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CompanyId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CompanyId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
