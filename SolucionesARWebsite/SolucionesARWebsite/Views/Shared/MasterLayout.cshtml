@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 
-	<title>SolucionesAR with GRepTEM template</title>
+	<title>SolucionesAR</title>
 	<meta name="description" content="">
 	<meta name="author" content="SolucionesAR - Develpoment Department">
     
@@ -26,13 +26,11 @@
     <script src="@Url.Content("~/Scripts/solucionesar.js")" type="text/javascript"></script>
 </head>
 <body>
-    @{
-        Html.RenderPartial("SocialNetworks");
+    @{  
+        <section class="background">
+            @RenderSection("PageContent")
+        </section>
         
-        Html.RenderPartial("Back");
-        
-        @RenderSection("PageContent")
-            
         Html.RenderPartial("Footer");
     }
 </body>

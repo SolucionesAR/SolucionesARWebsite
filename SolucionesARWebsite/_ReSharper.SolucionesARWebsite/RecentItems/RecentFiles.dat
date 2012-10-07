@@ -1,54 +1,30 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Scripts/f:jquery-ui-1.8.20.js" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Models/f:DbModel.cs" caret="284" fromTop="12" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:RolesController.cs" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:BaseController.cs" caret="333" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Properties/f:AssemblyInfo.cs" caret="465" fromTop="8" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Helpers/f:VersionNumberHelper.cs" caret="2109" fromTop="16" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:Footer.cshtml" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:App_Start/f:RouteConfig.cs" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:App_Start/f:WebApiConfig.cs" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:UsersController.cs" caret="983" fromTop="12" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:MasterLayout.cshtml" caret="1176" fromTop="33" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/f:_ViewStart.cshtml" caret="54" fromTop="1" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Home/f:Index.cshtml" caret="149" fromTop="7" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Content/d:themes/d:GReptem/f:style.css" caret="21695" fromTop="23" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Content/f:Site.css" caret="10986" fromTop="17" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Models/f:Rol.cs" caret="246" fromTop="12" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Index.cshtml" caret="52" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Details.cshtml" caret="52" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Delete.cshtml" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Create.cshtml" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Edit.cshtml" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:_Layout.cshtml" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Forms/d:Users/f:EditFormModel.cs" caret="2078" fromTop="86" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:IndexViewModel.cs" caret="397" fromTop="15" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:DetailsViewModel.cs" caret="1523" fromTop="17" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:EditViewModel.cs" caret="2680" fromTop="12" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/f:BaseViewModel.cs" caret="72" fromTop="2" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/f:SubmitResults.cs" caret="1285" fromTop="45" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/f:ModelErrors.cs" caret="2592" fromTop="82" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/f:AccountModels.cs" caret="2843" fromTop="94" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Index.cshtml" caret="251" fromTop="13" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:TableLayout.cshtml" caret="684" fromTop="26" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:UsersController.cs" caret="7436" fromTop="12" />
+    <File id="7020124F-9FFC-4AC3-8F3D-AAB8E0240759/f:Details.cshtml/l:..?..?..?dotNet?Infutor?BackOffice?WebSite?WebApp?Views?Users?Details.cshtml" caret="1827" fromTop="11" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Scripts/f:general.js" caret="4224" fromTop="19" />
+    <File id="7020124F-9FFC-4AC3-8F3D-AAB8E0240759/f:GRepTEM - Modern and Clean HTML 5.htm/l:C!?Users?cesar?Desktop?GRepTEM - Modern and Clean HTML 5.htm" caret="11953" fromTop="4" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:MasterLayout.cshtml" caret="979" fromTop="3" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Content/d:themes/d:GReptem/f:style.css" caret="5465" fromTop="19" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:Header.cshtml" caret="0" fromTop="0" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:EditionLayout.cshtml" caret="361" fromTop="17" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/d:EditorTemplates/f:Int.cshtml" caret="190" fromTop="3" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/d:EditorTemplates/f:String.cshtml" caret="190" fromTop="3" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/d:EditorTemplates/f:DateTime.cshtml" caret="78" fromTop="2" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:EditViewModel.cs" caret="3154" fromTop="3" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Edit.cshtml" caret="378" fromTop="14" />
   </RecentFiles>
   <RecentEdits>
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:BaseController.cs" caret="333" fromTop="16" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/f:AccountModels.cs" caret="2843" fromTop="94" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/f:ModelErrors.cs" caret="2592" fromTop="82" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/f:SubmitResults.cs" caret="1285" fromTop="45" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/f:BaseViewModel.cs" caret="72" fromTop="2" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Forms/d:Users/f:EditFormModel.cs" caret="2078" fromTop="86" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:IndexViewModel.cs" caret="397" fromTop="15" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:EditViewModel.cs" caret="2680" fromTop="12" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:DetailsViewModel.cs" caret="1523" fromTop="17" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Edit.cshtml" caret="40" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Details.cshtml" caret="52" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Index.cshtml" caret="52" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Models/f:DbModel.cs" caret="284" fromTop="12" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Content/d:themes/d:GReptem/f:style.css" caret="21695" fromTop="23" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:UsersController.cs" caret="2092" fromTop="29" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/f:_ViewStart.cshtml" caret="54" fromTop="1" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:Footer.cshtml" caret="0" fromTop="0" />
-    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Properties/f:AssemblyInfo.cs" caret="465" fromTop="8" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Index.cshtml" caret="205" fromTop="8" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/f:EditionLayout.cshtml" caret="361" fromTop="17" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Content/d:themes/d:GReptem/f:style.css" caret="5465" fromTop="19" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Controllers/f:UsersController.cs" caret="7436" fromTop="12" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/d:EditorTemplates/f:String.cshtml" caret="0" fromTop="0" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/d:EditorTemplates/f:Int.cshtml" caret="190" fromTop="3" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:ModelsWebsite/d:Views/d:Users/f:EditViewModel.cs" caret="2116" fromTop="14" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Shared/d:EditorTemplates/f:DateTime.cshtml" caret="78" fromTop="2" />
+    <File id="BC71C4A5-AFC7-48F8-931F-B1E230D1E430/d:Views/d:Users/f:Edit.cshtml" caret="378" fromTop="14" />
   </RecentEdits>
 </RecentFiles>

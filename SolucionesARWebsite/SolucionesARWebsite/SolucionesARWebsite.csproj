@@ -174,6 +174,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ListFilterValue.cs" />
+    <Compile Include="Helpers\ListHelper.cs" />
+    <Compile Include="Helpers\UserEditHelper.cs" />
     <Compile Include="Helpers\VersionNumberHelper.cs" />
     <Compile Include="Migrations\201210020304040_001.cs" />
     <Compile Include="Migrations\201210020304040_001.Designer.cs">
@@ -182,6 +185,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsWebsite\AccountModels.cs" />
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
+    <Compile Include="Utils\ListWrapper.cs" />
+    <Compile Include="ModelsWebsite\Views\Users\UsersList.cs" />
     <Compile Include="ModelsWebsite\ModelErrors.cs" />
     <Compile Include="ModelsWebsite\SubmitResults.cs" />
     <Compile Include="ModelsWebsite\Views\BaseViewModel.cs" />
@@ -198,6 +203,8 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\SortDirectionType.cs" />
+    <Compile Include="Utils\ValueAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -371,6 +378,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="ModelsWebsite\Lists\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -481,10 +490,15 @@
     <Content Include="Views\Shared\EditionLayout.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
-    <Content Include="Views\Shared\ListLayout.cshtml" />
+    <Content Include="Views\Shared\TableLayout.cshtml" />
     <Content Include="Views\Shared\MasterLayout.cshtml" />
-    <Content Include="Views\Shared\Menu.cshtml" />
     <Content Include="Views\Shared\SocialNetworks.cshtml" />
+    <Content Include="Views\Home\Header.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Int.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Users\CompanySelector.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -502,7 +516,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5848</DevelopmentServerPort>
+          <DevelopmentServerPort>11109</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

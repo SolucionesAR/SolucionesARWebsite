@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
 {
@@ -11,74 +12,129 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
 
         #region Properties
 
+        /// <summary>
+        /// The Unique user identifier
+        /// </summary>
+        [Required]
         public int UserId { get; set; }
 
+        /// <summary>
+        /// The Identification number
+        /// </summary>
         [Required]
-        [DisplayName("Número de cédula")]
-        public int CedNumber { get; set; }
+        public string CedNumber { get; set; }
 
+        /// <summary>
+        /// The First Name
+        /// </summary>
         [Required]
-        [DisplayName("Nombre")]
-        public string FName { get; set; }
+        public string FirstName { get; set; }
 
+        /// <summary>
+        /// The first Last Name
+        /// </summary>
         [Required]
-        [DisplayName("Primer Apellido")]
-        public string LName1 { get; set; }
+        public string LastName1 { get; set; }
 
+        /// <summary>
+        /// The second Last Name
+        /// </summary>
         [Required]
-        [DisplayName("Segundo Apellido")]
-        public string LName2 { get; set; }
+        public string LastName2 { get; set; }
 
+        /// <summary>
+        /// The date of birth
+        /// </summary>
         [Required]
-        [DisplayName("Código Generado")]
-        public string GeneratedCode { get; set; }
-
-        [Required]
-        [DisplayName("Fecha Nacimiento")]
         public DateTime Dob { get; set; }
 
+        /// <summary>
+        /// The address 1
+        /// </summary>
         [Required]
-        [DisplayName("Dirección Primaria")]
         public string Address1 { get; set; }
 
-        [DisplayName("Dirección Complementaria")]
+        /// <summary>
+        /// The address 2
+        /// </summary>
         public string Address2 { get; set; }
 
-        [DisplayName("Teléfono")]
+        /// <summary>
+        /// The address 1
+        /// </summary>
+        [Required]
+        public string City { get; set; }
+
+        /// <summary>
+        /// The address 1
+        /// </summary>
+        [Required]
+        public string State { get; set; }
+
+        /// <summary>
+        /// The users phone number
+        /// </summary>
         public string PhoneNumber { get; set; }
 
-        [DisplayName("Celular")]
+        /// <summary>
+        /// The cell phone number
+        /// </summary>
         public string Cellphone { get; set; }
 
-        [DisplayName("Correo Electrónico")]
+        /// <summary>
+        /// The email
+        /// </summary>
         public string Email { get; set; }
 
-        [Required]
-        [DisplayName("Habilidato")]
+        /// <summary>
+        /// To check if the user is enabled
+        /// </summary>
         public bool Enabled { get; set; }
 
-        [Required]
-        [DisplayName("Cashback")]
-        public double Cashback { get; set; }
+        /// <summary>
+        /// A code that will be generated automatically to each user
+        /// </summary>
+        public string ParentUser { get; set; }
 
+        /// <summary>
+        /// The Rol id
+        /// </summary>
         [Required]
         [DisplayName("Rol")]
         public int RolId { get; set; }
 
-        public DateTime CreatetedAt { get; set; }
-
-        public DateTime UpdatedAt { get; set; }
-
-
+        /// <summary>
+        /// The Company id
+        /// </summary>
+        public int CompanyId { get; set; }
+        
         #endregion
 
         #region Private Members
+
+        private int CedNumberInt { get; set; }
+
         #endregion
 
         #region Contructors
         #endregion
 
         #region Public Methods
+
+        public void ValidateModel(ModelStateDictionary modelState)
+        {
+            int numeroCedula;
+            var isValidCedNumber = Int32.TryParse(CedNumber, out numeroCedula);
+            if (isValidCedNumber)
+            {
+                CedNumberInt = numeroCedula;
+            }
+            else
+            {
+                modelState.AddModelError("CedNumber", "El número de cédula debe ser numérico.");
+            }
+        }
+
         #endregion
 
         #region Private Methods

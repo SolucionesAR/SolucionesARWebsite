@@ -1,4 +1,4 @@
-﻿@using SolucionesARTest_FrontEnd.Models.Views
+﻿@using SolucionesARWebsite.ModelsWebsite.Views
 
 @model BaseViewModel
            
@@ -8,9 +8,13 @@
 
 @section PageContent {
     <div class="edition-content">
+        
+    @{
+        Html.RenderPartial("Header");
 
-            @RenderSection("Messages", true)
+        @RenderSection("Messages", true)
 
-            @RenderSection("EditionContent", true)
+        @RenderSection("EditionContent", true)
+    }
     </div>
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using SolucionesARWebsite.Models;
-
-namespace SolucionesARWebsite.ModelsWebsite.Views.Users
+﻿namespace SolucionesARWebsite.ModelsWebsite.Views.Users
 {
     public class IndexViewModel : BaseViewModel
     {
@@ -13,7 +10,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// Displayed items
         /// </summary>
-        public IEnumerable<User> Users { get; set; }
+        public UsersList UsersList { get; set; }
 
         #endregion
 

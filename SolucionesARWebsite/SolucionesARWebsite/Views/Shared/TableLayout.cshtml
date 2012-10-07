@@ -1,0 +1,43 @@
+﻿@using SolucionesARWebsite.ModelsWebsite.Views
+
+@model BaseViewModel
+           
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section PageContent {
+
+    @{
+        Html.RenderPartial("Header");
+    }
+
+    <div class="main-content">
+
+        @using (@Html.BeginForm(Model.RouteValues))
+        {
+            @RenderSection("Messages", true);
+
+            <div class="ui-widget-header ui-corner-all">            
+                <div class="main-actions">
+                    @RenderSection("ListActions", true)
+                </div>
+                <div class="title">
+                    @RenderSection("ListTitle", true)
+                </div>
+            </div>
+            
+            <div class="ui-widget-content ui-corner-bottom">
+                @RenderSection("ListContent", true)
+            </div>
+            
+            <div class="table-footer ui-widget-content ui-corner-bottom">
+                @RenderSection("ListPaging", true)
+            </div>
+            
+            <div id="properties-edition">
+                @RenderSection("RecordEdition", true)
+            </div>
+        }
+    </div>
+}
