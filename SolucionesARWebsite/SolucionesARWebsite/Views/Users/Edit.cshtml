@@ -38,7 +38,7 @@
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     @using (Html.BeginForm("Save", "Users")) {
                         <fieldset>
-                            @Html.EditorFor(model => model.FirstName)
+                            @Html.EditorFor(model => model.CedNumber)
                             @Html.EditorFor(model => model.FirstName)
                             @Html.EditorFor(model => model.LastName1)
                             @Html.EditorFor(model => model.LastName2)
@@ -50,12 +50,12 @@
                             @Html.EditorFor(model => model.Email)
                         </fieldset>
                         <fieldset>
-                            @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
-                            @Html.EditorFor(model => model.City)
                             @Html.EditorFor(model => model.State)
+                            @Html.EditorFor(model => model.City)
+                            @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
                         </fieldset>
                             
-                            Html.RenderPartial("CompanySelector", Model);
+                        Html.RenderPartial("CompanySelector", Model);
                             
                         <input name="submit" type="submit" value="Submit">
                             

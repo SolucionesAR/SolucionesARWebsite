@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
@@ -99,6 +100,18 @@ namespace SolucionesARWebsite.Models
         /// The Rol id
         /// </summary>
         public int RolId { get; set; }
+
+
+        /// <summary>
+        /// The reference user id
+        /// </summary>
+        public int UserReferenceId { get; set; }
+
+        /// <summary>
+        /// The reference user
+        /// </summary>
+        [ForeignKey("UserReferenceId")]
+        public virtual User UserReference { get; set; }
 
     }
 }

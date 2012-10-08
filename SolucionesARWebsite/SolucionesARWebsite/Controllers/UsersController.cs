@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
+using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.ModelsWebsite.Forms.Users;
 using SolucionesARWebsite.ModelsWebsite.Views.Users;
@@ -9,10 +10,16 @@ namespace SolucionesARWebsite.Controllers
 {
     public class UsersController : BaseController
     {
+        public UsersController()
+        {
+            _usersManagement = new UsersManagement();
+        }
         #region Constants
         #endregion
 
         #region Properties
+
+        private UsersManagement _usersManagement;
         #endregion
 
         #region Private Members

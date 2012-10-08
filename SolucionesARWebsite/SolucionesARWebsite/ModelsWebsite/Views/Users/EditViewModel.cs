@@ -69,7 +69,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// The address 1
         /// </summary>
         [Required]
-        [Display(Name = "Dirección*", Prompt = "Dirección")]
+        [Display(Name = "Otras Señas", Prompt = "Dirección")]
         public string Address1 { get; set; }
 
         /// <summary>
@@ -130,8 +130,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// A code that will be generated automatically to each user
         /// </summary>
-        [DisplayName("Referencia")]
-        [Display(Name = "Referencia", Prompt = "Código Usuario Referencia")]
+        [Display(Name = "Referente", Prompt = "Código Usuario Referente")]
         public string ParentUser { get; set; }
 
         /// <summary>
@@ -156,7 +155,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// The Companies List
         /// </summary>
         public List<Company> CompaniesList { get; set; }
-    
+
         #endregion
 
         #region Private Members
