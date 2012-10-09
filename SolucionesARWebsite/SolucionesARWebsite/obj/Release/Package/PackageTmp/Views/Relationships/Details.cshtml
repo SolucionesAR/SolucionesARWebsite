@@ -1,0 +1,50 @@
+﻿@model SolucionesARWebsite.Models.Relationship
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Relationship</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatetedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatetedAt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdatedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedAt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.User1.FName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User1.FName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.User2.FName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User2.FName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RelationshipType.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RelationshipType.Description)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RelationshipId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

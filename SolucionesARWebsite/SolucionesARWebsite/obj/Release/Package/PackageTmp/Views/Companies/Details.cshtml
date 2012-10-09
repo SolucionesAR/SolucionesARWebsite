@@ -1,0 +1,50 @@
+﻿@model SolucionesARWebsite.Models.Company
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Company</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CompanyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompanyName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CashBackPercentaje)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CashBackPercentaje)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CorporateId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CorporateId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatetedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatetedAt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdatedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedAt)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CompanyId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

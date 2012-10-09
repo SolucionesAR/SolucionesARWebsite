@@ -31,6 +31,7 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/
         public ActionResult Index()
         {
+            
             var indexViewModel = new IndexViewModel
                                      {
                                          //UsersList = db.Users.Include(u => u.UserRol) 
@@ -58,6 +59,9 @@ namespace SolucionesARWebsite.Controllers
                                                                  }
                                                  }
                                      };
+
+            //var usersList = _usersManagement.GetUsers();
+            //indexViewModel.UsersList.Items = usersList;
             return View(indexViewModel);
         }
 

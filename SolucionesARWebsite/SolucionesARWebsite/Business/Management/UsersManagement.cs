@@ -9,7 +9,7 @@ namespace SolucionesARWebsite.Business.Management
 {
     public class UsersManagement
     {
-        private UsersAccess _usersAccess;
+        private readonly UsersAccess _usersAccess;
 
         public UsersManagement()
         {

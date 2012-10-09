@@ -1,0 +1,20 @@
+﻿@using SolucionesARWebsite.ModelsWebsite.Views
+
+@model BaseViewModel
+           
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section PageContent {
+    <div class="edition-content">
+        
+    @{
+        Html.RenderPartial("Header");
+
+        @RenderSection("Messages", true)
+
+        @RenderSection("EditionContent", true)
+    }
+    </div>
+}

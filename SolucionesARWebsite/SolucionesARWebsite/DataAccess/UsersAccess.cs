@@ -12,13 +12,8 @@ namespace SolucionesARWebsite.DataAccess
 
         public List<User> GetUsers()
         {
-            var users = db.Users.ToList();
-            List<User> usersList = new List<User>();
-            foreach (var user in users)
-            {
-                
-            }
-            return usersList;
+            List<User> users = db.Users.ToList();
+            return users;
         } 
     }
 }

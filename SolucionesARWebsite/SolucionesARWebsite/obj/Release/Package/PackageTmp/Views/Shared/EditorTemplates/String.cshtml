@@ -1,0 +1,4 @@
+﻿<span>
+    @Html.Label(ViewData.ModelMetadata.DisplayName)
+    @Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = ViewData.ModelMetadata.Watermark })
+</span>

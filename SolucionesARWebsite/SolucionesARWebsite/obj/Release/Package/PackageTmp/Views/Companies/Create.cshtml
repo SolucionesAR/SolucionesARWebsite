@@ -1,0 +1,67 @@
+﻿@model SolucionesARWebsite.Models.Company
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Company</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CompanyName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CompanyName)
+            @Html.ValidationMessageFor(model => model.CompanyName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CashBackPercentaje)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CashBackPercentaje)
+            @Html.ValidationMessageFor(model => model.CashBackPercentaje)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CorporateId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CorporateId)
+            @Html.ValidationMessageFor(model => model.CorporateId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatetedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatetedAt)
+            @Html.ValidationMessageFor(model => model.CreatetedAt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpdatedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UpdatedAt)
+            @Html.ValidationMessageFor(model => model.UpdatedAt)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
