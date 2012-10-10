@@ -18,25 +18,21 @@
         {
             @RenderSection("Messages", true);
 
-            <div class="ui-widget-header ui-corner-all">            
+            <div class="title">
+                <h1>
+                    @RenderSection("ListTitle", true)
+                </h1>
+            </div> 
+            
+            <div class="table-content">         
                 <div class="main-actions">
                     @RenderSection("ListActions", true)
                 </div>
-                <div class="title">
-                    @RenderSection("ListTitle", true)
-                </div>
-            </div>
-            
-            <div class="ui-widget-content ui-corner-bottom">
                 @RenderSection("ListContent", true)
             </div>
             
-            <div class="table-footer ui-widget-content ui-corner-bottom">
+            <div class="">
                 @RenderSection("ListPaging", true)
-            </div>
-            
-            <div id="properties-edition">
-                @RenderSection("RecordEdition", true)
             </div>
         }
     </div>

@@ -751,6 +751,25 @@ h2 strong {
 	background-color:rgba(0, 0, 0, 0.5);
 	color:#fff;
 }
+form .main-actions .button {
+	background:rgba(225, 225, 225, 0.5);
+	border:0;
+	display:block;
+	position:relative;
+	z-index:9;
+	float:left;
+	cursor:pointer;
+	margin:0;
+	height:30px;
+	padding:0 10px;
+	color:rgba(0, 0, 0, 0.7);
+	font-size:15px;
+	line-height:30px;
+}
+form .main-actions .button :hover {
+	background-color:rgba(0, 0, 0, 0.5);
+	color:#fff;
+}
 .edition_content form textarea {
 	background:rgba(0, 0, 0, 0.5);
 	border:0;
