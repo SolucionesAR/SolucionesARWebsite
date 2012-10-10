@@ -19,7 +19,6 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The Identification number
         /// </summary>
-        [Required]
         public int CedNumber { get; set; }
 
         /// <summary>
@@ -48,9 +47,9 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         public bool Enabled { get; set; }
 
         /// <summary>
-        /// The total amount of users cash back 
+        /// The total amount of users cash back with colones format 
         /// </summary>
-        public double Cashback { get; set; }
+        public string Cashback { get; set; }
 
         /// <summary>
         /// The rol id

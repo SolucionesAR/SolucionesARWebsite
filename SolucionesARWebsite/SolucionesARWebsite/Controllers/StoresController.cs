@@ -1,125 +1,135 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
+using SolucionesARWebsite.ModelsWebsite.Forms.Stores;
+using SolucionesARWebsite.ModelsWebsite.Lists;
+using SolucionesARWebsite.ModelsWebsite.Views.Stores;
 
 namespace SolucionesARWebsite.Controllers
 {
-    public class StoresController : Controller
+    public class StoresController : BaseController
     {
-        private DbModel db = new DbModel();
+        #region Constants
+        #endregion
+
+        #region Properties
+
+        #endregion
+
+        #region Private Members
+
+        private StoresManagement _storesManagement;
+
+        #endregion
+
+        #region Constructors
+
+        public StoresController()
+        {
+            _storesManagement = new StoresManagement();
+        }
+
+        #endregion
+
+        #region Public Actions
 
         //
-        // GET: /Stores/
-
+        // GET: /Users/
         public ActionResult Index()
         {
-            var stores = db.Stores.Include(s => s.Company);
-            return View(stores.ToList());
+            var indexViewModel = new IndexViewModel
+                                     {
+                                         StoresList =
+                                             new StoresList
+                                                 {
+                                                     Items = new List<Store>
+                                                                 {
+                                                                     new Store
+                                                                         {
+                                                                             StoreId = 1,
+                                                                             CompanyId = 2,
+                                                                         },
+                                                                     new Store
+                                                                         {
+                                                                             StoreId = 2,
+                                                                             CompanyId = 2,
+                                                                         },
+                                                                     new Store
+                                                                         {
+                                                                             StoreId = 3,
+                                                                             CompanyId = 2,
+                                                                         },
+                                                                 }
+                                                 }
+                                     };
+            return View(indexViewModel);
         }
 
         //
-        // GET: /Stores/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return HttpNotFound();
-            }
-            return View(store);
-        }
-
-        //
-        // GET: /Stores/Create
-
+        // GET: /Users/Create/
         public ActionResult Create()
         {
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName");
-            return View();
+            var editViewModel = new EditViewModel
+                                    {
+                                        StoreId = 0,
+                                    };
+
+            return View("Edit", editViewModel);
         }
 
         //
-        // POST: /Stores/Create
-
-        [HttpPost]
-        public ActionResult Create(Store store)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Stores.Add(store);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", store.CompanyId);
-            return View(store);
-        }
-
-        //
-        // GET: /Stores/Edit/5
-
+        // GET: /Users/Edit/{id}
         public ActionResult Edit(int id = 0)
         {
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", store.CompanyId);
-            return View(store);
+            var editViewModel = new EditViewModel
+                                    {
+                                        StoreId = 1,
+                                        Company = new Company
+                                                      {
+                                                          CompanyId = 1,
+                                                          CompanyName = "SolucionesAR",
+                                                          CashBackPercentaje = 0.0,
+                                                          CorporateId = "001-0000000-0",
+                                                      },
+                                        CompaniesList =
+                                            new List<Company>
+                                                {
+                                                    new Company {CompanyName = "Coopeservidores"},
+                                                    new Company {CompanyName = "Curacao"},
+                                                    new Company {CompanyName = "SolucionesAR"},
+                                                },
+                                    };
+            return View(editViewModel);
         }
 
         //
-        // POST: /Stores/Edit/5
-
+        // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
-        public ActionResult Edit(Store store)
+        public ActionResult Save(EditFormModel editFormModel)
         {
+            var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                db.Entry(store).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                editViewModel.StoreId = 1;
             }
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", store.CompanyId);
-            return View(store);
+
+            return View("Edit", editViewModel);
         }
 
-        //
-        // GET: /Stores/Delete/5
+        #endregion
 
-        public ActionResult Delete(int id = 0)
+        #region Private Members
+
+        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
         {
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return HttpNotFound();
-            }
-            return View(store);
+            return new EditViewModel
+                       {
+                           StoreId = editFormModel.StoreId,
+                           Company = new Company {CompanyId = editFormModel.CompanyId},
+                       };
         }
 
-        //
-        // POST: /Stores/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Store store = db.Stores.Find(id);
-            db.Stores.Remove(store);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
     }
 }

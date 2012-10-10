@@ -1,4 +1,6 @@
-﻿namespace SolucionesARWebsite.ModelsWebsite.Views.Users
+﻿using SolucionesARWebsite.ModelsWebsite.Lists;
+
+namespace SolucionesARWebsite.ModelsWebsite.Views.Users
 {
     public class IndexViewModel : BaseViewModel
     {

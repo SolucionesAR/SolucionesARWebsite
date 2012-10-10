@@ -1,69 +1,49 @@
-﻿@model SolucionesARWebsite.Models.Company
+﻿@using SolucionesARWebsite.Helpers
+@using SolucionesARWebsite.ModelsWebsite.Views.Companies
+
+@model EditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "SolucionesAR | Compañias";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-<h2>Edit</h2>
+@section Messages {
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Company</legend>
-
-        @Html.HiddenFor(model => model.CompanyId)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CompanyName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CompanyName)
-            @Html.ValidationMessageFor(model => model.CompanyName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CashBackPercentaje)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CashBackPercentaje)
-            @Html.ValidationMessageFor(model => model.CashBackPercentaje)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CorporateId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CorporateId)
-            @Html.ValidationMessageFor(model => model.CorporateId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreatetedAt)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreatetedAt)
-            @Html.ValidationMessageFor(model => model.CreatetedAt)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UpdatedAt)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UpdatedAt)
-            @Html.ValidationMessageFor(model => model.UpdatedAt)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section EditionContent {
+    <div class="edition_content content_box ">
+        
+        @if (Model.UserId > 0)
+        {
+            <h1>EDITAR COMPAÑIA</h1>
+        }
+        else
+        {
+            <h1>NUEVO COMPAÑIA</h1>
+        }
+
+        <div class="entry jspScrollable">
+            <p class="note">Favor complete el siguiente formulario</p>
+            <div class="jspContainer" style="width: 960px; height: 400px;">
+                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+                    @using (Html.BeginForm("Save", "Companies"))
+                    {
+                        @Html.HiddenFor(model => model.Id)
+                        <fieldset>
+                            @Html.EditorFor(model => model.CorporateId)
+                            @Html.EditorFor(model => model.Name)
+                        </fieldset>
+                        <fieldset>
+                            @Html.EditorFor(model => model.CashBackPercentaje)
+                        </fieldset>
+                       
+                        <input name="submit" type="submit" value="Submit">
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 }

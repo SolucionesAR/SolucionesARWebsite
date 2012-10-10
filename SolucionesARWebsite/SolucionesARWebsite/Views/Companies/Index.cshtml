@@ -1,57 +1,80 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.Company>
+﻿@using SolucionesARWebsite.Helpers
+@using SolucionesARWebsite.ModelsWebsite.Views.Companies
+
+@model IndexViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SolucionesAR | Compañias";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CashBackPercentaje)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CorporateId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatetedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CashBackPercentaje)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CorporateId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatetedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CompanyId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CompanyId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CompanyId })
-        </td>
-    </tr>
+@section Messages {
 }
 
-</table>
+@section ListTitle {
+    COMPAÑIAS
+}
+
+@section ListActions {
+    @if (Model.CompaniesList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }
+        @Html.ActionLink("Nueva Compañia", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Cédula Jurídica
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Porcentage
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.CompaniesList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CorporateId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CashBackPercentaje)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CompanyId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}

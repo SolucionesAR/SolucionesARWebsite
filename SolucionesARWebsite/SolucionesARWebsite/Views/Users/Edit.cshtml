@@ -1,9 +1,10 @@
-﻿@using SolucionesARWebsite.ModelsWebsite.Views.Users
+﻿@using SolucionesARWebsite.Helpers
+@using SolucionesARWebsite.ModelsWebsite.Views.Users
 
 @model EditViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "SolucionesAR | Usuarios";
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
@@ -36,7 +37,9 @@
             <p class="note">Favor complete el siguiente formulario</p>
             <div class="jspContainer" style="width: 960px; height: 400px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Users")) {
+                    @using (Html.BeginForm("Save", "Users"))
+                    {
+                        @Html.HiddenFor(model => model.Id)
                         <fieldset>
                             @Html.EditorFor(model => model.CedNumber)
                             @Html.EditorFor(model => model.FirstName)
@@ -54,11 +57,19 @@
                             @Html.EditorFor(model => model.City)
                             @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
                         </fieldset>
-                            
-                        Html.RenderPartial("CompanySelector", Model);
+                        <fieldset>
+                            @Html.EditorFor(model => model.ParentUser)
+                            <span>
+                                @Html.LabelFor(model => model.Rol) <br/>
+                                @Html.DropDownListForRolesList(model => model.Rol.RolId)
+                            </span>
+                            <span>
+                                @Html.LabelFor(model => model.Company) <br/>
+                                @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
+                            </span>
+                        </fieldset>
                             
                         <input name="submit" type="submit" value="Submit">
-                            
                     }
                 </div>
             </div>

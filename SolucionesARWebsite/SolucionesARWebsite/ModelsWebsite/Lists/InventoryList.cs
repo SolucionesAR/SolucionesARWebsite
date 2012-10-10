@@ -2,58 +2,47 @@
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.Utils;
 
-namespace SolucionesARWebsite.ModelsWebsite.Views.Users
+namespace SolucionesARWebsite.ModelsWebsite.Lists
 {
     #region enums
-    public enum UserListSortField
+
+    public enum InventoryListSortField
     {
-        [Value("id")]
+        [Value("inventory_id")]
         Id,
         [Value("name")]
         Name,
-        [Value("email")]
-        Email,
         [Value("username")]
         Username,
-        [Value("role")]
-        Role,
-        [Value("enabled")]
-        Enabled,
         [Value("created_at")]
         CreatedAt,
-        [Value("updated_at")]
-        UpdatedAt,
     }
 
-    public enum UserListFilter
+    public enum InventoryListFilter
     {
-        [Value("userId")]
+        [Value("inventory_id")]
         Id,
         [Value("name")]
         Name,
         [Value("username")]
         Username,
-        [Value("email")]
-        Email,
-        [Value("role")]
-        Role,
-        [Value("enabled")]
-        Enabled,
     }
+
     #endregion
 
-    public class UsersList : ListWrapper
+    public class InventoryList : ListWrapper
     {
         #region Properties
+
         /// <summary>
         /// Gets or sets the counts.
         /// </summary>
         /// <value>The counts.</value>
-        public new List<User> Items
+        public new List<List<Transaction>> Items
         {
             get
             {
-                return (List<User>)base.Items;
+                return (List<List<Transaction>>)base.Items;
             }
             set
             {
@@ -65,11 +54,11 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// Gets or sets the current sorting field.
         /// </summary>
         /// <value></value>
-        public new UserListSortField SortField
+        public new InventoryListSortField SortField
         {
             get
             {
-                return (UserListSortField)base.SortField;
+                return (InventoryListSortField)base.SortField;
             }
             set
             {
@@ -81,28 +70,31 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// Gets or sets the filters.
         /// </summary>
         /// <value>The filters.</value>
-        public new Dictionary<UserListFilter, string> Filters
+        public new Dictionary<InventoryListFilter, string> Filters
         {
             get
             {
-                return (Dictionary<UserListFilter, string>)base.Filters;
+                return (Dictionary<InventoryListFilter, string>)base.Filters;
             }
             set
             {
                 base.Filters = value;
             }
         }
+
         #endregion
 
         #region Constructors
-        public UsersList()
+
+        public InventoryList()
         {
         }
 
-        public UsersList(UserListSortField sort, SortDirectionType dir, Dictionary<UserListFilter, string> filters)
+        public InventoryList(InventoryListSortField sort, SortDirectionType dir, Dictionary<InventoryListFilter, string> filters)
             : base(sort, dir, filters)
         {
         }
+
         #endregion
     }
 }

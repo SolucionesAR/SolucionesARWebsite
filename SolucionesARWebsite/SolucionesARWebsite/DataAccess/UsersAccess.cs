@@ -1,19 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.DataAccess
 {
     public class UsersAccess
     {
-        private DbModel db = new DbModel();
+        #region Constants
+        #endregion
 
+        #region Properties
+        #endregion
+
+        #region Private Members
+
+        private readonly DbModel _databaseModel;
+
+        #endregion
+
+        #region Contructors
+
+        public UsersAccess()
+        {
+            _databaseModel = new DbModel();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetUsers()
         {
-            List<User> users = db.Users.ToList();
+            var users = _databaseModel.Users.ToList();
             return users;
         } 
+
+        #endregion
+
+        #region Private Methods
+        #endregion
     }
 }

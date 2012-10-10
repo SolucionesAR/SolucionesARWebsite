@@ -45,13 +45,11 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// The date of birth
         /// </summary>
-        [Required]
         public DateTime Dob { get; set; }
 
         /// <summary>
         /// The address 1
         /// </summary>
-        [Required]
         public string Address1 { get; set; }
 
         /// <summary>
@@ -60,15 +58,13 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         public string Address2 { get; set; }
 
         /// <summary>
-        /// The address 1
+        /// The city
         /// </summary>
-        [Required]
         public string City { get; set; }
 
         /// <summary>
-        /// The address 1
+        /// The State
         /// </summary>
-        [Required]
         public string State { get; set; }
 
         /// <summary>

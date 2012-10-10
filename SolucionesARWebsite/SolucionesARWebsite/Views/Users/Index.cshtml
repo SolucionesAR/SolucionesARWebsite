@@ -9,7 +9,6 @@
     Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-
 @section Messages {
 }
 
@@ -20,68 +19,73 @@
 @section ListActions {
     @if (Model.UsersList.HasFilters())
     {
-        @Html.ActionLink("Show All", "Index", null, new { @class = "button" } )
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
     }
-        @Html.ActionLink("Create User", "Create", null, new { @class = "button" })
+        @Html.ActionLink("Nuevo Usuario", "Create", null, new { @class = "button" })
     }
 }
 
 @section ListContent {
     <div class="entry jspScrollable">
         <div class="table_style">
-                <table>
+            <table>
+                <tr>
+                    <th>
+                        Código
+                    </th>
+                    <th>
+                        Cédula
+                    </th>
+                    <th>
+                        Apellidos
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Cashback
+                    </th>
+                    <th>
+                        Rol
+                    </th>
+                    <th>
+                        Habilitado
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.UsersList.Items) {
                     <tr>
-                        <th>
-                            Código
-                        </th>
-                        <th>
-                            Apellidos
-                        </th>
-                        <th>
-                            Nombre
-                        </th>
-                        <th>
-                            Cashback
-                        </th>
-                        <th>
-                            Rol
-                        </th>
-                        <th>
-                            Habilitado
-                        </th>
-                        <th></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GeneratedCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CedNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LName1)
+                            @Html.DisplayFor(modelItem => item.LName2)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cashback)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserRol.Name)
+                        </td> 
+                        <td>
+                            @Html.Encode(item.Enabled ? "Habilitado" : "Deshabilitado")
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.UserId }) |
+                            @Html.ActionLink("Detalles", "Details", new { id = item.UserId }) 
+                        </td>
                     </tr>
-
-                    @foreach (var item in Model.UsersList.Items) {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.GeneratedCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LName1)
-                                @Html.DisplayFor(modelItem => item.LName2)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cashback)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserRol.Name)
-                            </td> 
-                            <td>
-                                @Html.Encode(item.Enabled ? "Habilitado" : "Deshabilitado")
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.UserId }) 
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-            </div>
+                }
+            </table>
+        </div>
     </div>
 }
 

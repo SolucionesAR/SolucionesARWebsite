@@ -21,14 +21,12 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The Identification number
         /// </summary>
-        [Required]
         [Display(Name = "Cédula*", Prompt = "Cédula")]
         public string CedNumber { get; set; }
 
         /// <summary>
         /// The First Name
         /// </summary>
-        [Required]
         [Display(Name = "Nombre*", Prompt = "Nombre")]
         public string FirstName { get; set; }
 
@@ -42,7 +40,6 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The second Last Name
         /// </summary>
-        [Required]
         [Display(Name = "Segundo Apellido*", Prompt = "Segundo Apellido")]
         public string LastName2 { get; set; }
 
@@ -61,14 +58,12 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The date of birth
         /// </summary>
-        [Required]
         [Display(Name = "Fecha Nacimiento*", Prompt = "Fecha Nacimiento")]
         public DateTime Dob { get; set; }
 
         /// <summary>
         /// The address 1
         /// </summary>
-        [Required]
         [Display(Name = "Otras Señas", Prompt = "Dirección")]
         public string Address1 { get; set; }
 
@@ -81,15 +76,13 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The address 1
         /// </summary>
-        [Required]
-        [Display(Name = "Cantón*", Prompt = "Cantón")]
+        [Display(Name = "Cantón", Prompt = "Cantón")]
         public string City { get; set; }
 
         /// <summary>
         /// The address 1
         /// </summary>
-        [Required]
-        [Display(Name = "Provincia*", Prompt = "Provincia")]
+        [Display(Name = "Provincia", Prompt = "Provincia")]
         public string State { get; set; }
 
         /// <summary>

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SolucionesARWebsite.Models
 {
     public class Company
     {
+        #region Properties
 
         public int CompanyId { get; set; }
 
@@ -24,6 +23,8 @@ namespace SolucionesARWebsite.Models
         public DateTime UpdatedAt { get; set; }
 
         public virtual ICollection<Store> Stores { get; set; }
+
+        #endregion
     }
 
 }

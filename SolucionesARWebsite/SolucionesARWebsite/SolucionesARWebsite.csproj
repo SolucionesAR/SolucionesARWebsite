@@ -166,6 +166,7 @@
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
     <Compile Include="Business\Management\RelationshisManagement.cs" />
     <Compile Include="Business\Management\RolesManagement.cs" />
+    <Compile Include="Business\Management\InventoryManagement.cs" />
     <Compile Include="Business\Management\StoresManagement.cs" />
     <Compile Include="Business\Management\TransactionsManagement.cs" />
     <Compile Include="Business\Management\UsersManagement.cs" />
@@ -176,10 +177,12 @@
     <Compile Include="Controllers\RelationshipsController.cs" />
     <Compile Include="Controllers\RelationshipTypesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataAccess\CompaniesAccess.cs" />
+    <Compile Include="DataAccess\InventoryAccess.cs" />
     <Compile Include="DataAccess\RelationshipsAccess.cs" />
     <Compile Include="DataAccess\RelationshipTypesAccess.cs" />
     <Compile Include="DataAccess\RolesAccess.cs" />
@@ -204,9 +207,22 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsWebsite\AccountModels.cs" />
+    <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
+    <Compile Include="ModelsWebsite\Lists\StoresList.cs" />
+    <Compile Include="ModelsWebsite\Views\Companies\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Companies\IndexViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Inventory\DetailsViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Inventory\UploadViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Inventory\IndexViewModel.cs" />
+    <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
+    <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
     <Compile Include="Utils\ListWrapper.cs" />
-    <Compile Include="ModelsWebsite\Views\Users\UsersList.cs" />
+    <Compile Include="ModelsWebsite\Lists\InventoryList.cs" />
     <Compile Include="ModelsWebsite\ModelErrors.cs" />
     <Compile Include="ModelsWebsite\SubmitResults.cs" />
     <Compile Include="ModelsWebsite\Views\BaseViewModel.cs" />
@@ -399,7 +415,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="ModelsWebsite\Lists\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -416,16 +431,7 @@
     <Content Include="Views\Companies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Companies\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Companies\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Companies\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Companies\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Relationships\Index.cshtml" />
@@ -479,13 +485,7 @@
     <Content Include="Views\Stores\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Stores\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Stores\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Stores\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\Index.cshtml" />
@@ -494,13 +494,7 @@
     <Content Include="Views\Users\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Users\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Users\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Users\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.eot" />
@@ -520,7 +514,6 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Users\CompanySelector.cshtml" />
     <Content Include="Views\Shared\Menu.cshtml" />
     <None Include="Properties\PublishProfiles\solucionesardemo1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\solucionesardemo1 - Web Deploy.pubxml" />
@@ -529,6 +522,9 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Inventory\Details.cshtml" />
+    <Content Include="Views\Inventory\New.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
