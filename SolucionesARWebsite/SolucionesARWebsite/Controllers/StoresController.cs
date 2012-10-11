@@ -48,17 +48,32 @@ namespace SolucionesARWebsite.Controllers
                                                                      new Store
                                                                          {
                                                                              StoreId = 1,
-                                                                             CompanyId = 2,
+                                                                             Company = new Company
+                                                                                           {
+                                                                                               CompanyId = 1,
+                                                                                               CompanyName =
+                                                                                                   "SolucionesAR",
+                                                                                           },
                                                                          },
                                                                      new Store
                                                                          {
                                                                              StoreId = 2,
-                                                                             CompanyId = 2,
+                                                                             Company = new Company
+                                                                                           {
+                                                                                               CompanyId = 1,
+                                                                                               CompanyName =
+                                                                                                   "SolucionesAR",
+                                                                                           },
                                                                          },
                                                                      new Store
                                                                          {
                                                                              StoreId = 3,
-                                                                             CompanyId = 2,
+                                                                             Company = new Company
+                                                                                           {
+                                                                                               CompanyId = 1,
+                                                                                               CompanyName =
+                                                                                                   "SolucionesAR",
+                                                                                           },
                                                                          },
                                                                  }
                                                  }

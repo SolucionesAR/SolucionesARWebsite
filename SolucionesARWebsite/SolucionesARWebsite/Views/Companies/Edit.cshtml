@@ -16,7 +16,7 @@
 @section EditionContent {
     <div class="edition_content content_box ">
         
-        @if (Model.UserId > 0)
+        @if (Model.CompanyId > 0)
         {
             <h1>EDITAR COMPAÑIA</h1>
         }
@@ -31,10 +31,10 @@
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     @using (Html.BeginForm("Save", "Companies"))
                     {
-                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.CompanyId)
                         <fieldset>
                             @Html.EditorFor(model => model.CorporateId)
-                            @Html.EditorFor(model => model.Name)
+                            @Html.EditorFor(model => model.CompanyName)
                         </fieldset>
                         <fieldset>
                             @Html.EditorFor(model => model.CashBackPercentaje)

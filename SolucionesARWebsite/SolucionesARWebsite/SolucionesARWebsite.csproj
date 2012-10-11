@@ -467,16 +467,7 @@
     <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Roles\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Roles\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Roles\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Roles\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Stores\Index.cshtml" />

@@ -1,69 +1,70 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.Store>
+﻿@using SolucionesARWebsite.ModelsWebsite.Views.Stores
+
+@model IndexViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SolucionesAR | Tiendas";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FaxNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CityId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatetedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Company.CompanyName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FaxNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CityId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatetedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Company.CompanyName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StoreId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StoreId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StoreId })
-        </td>
-    </tr>
+@section Messages {
 }
 
-</table>
+@section ListTitle {
+    TIENDAS
+}
+
+@section ListActions {
+    @if (Model.StoresList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }
+        @Html.ActionLink("Nueva Tienda", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Compañia
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.StoresList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CompanyId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}

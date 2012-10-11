@@ -39,7 +39,7 @@
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     @using (Html.BeginForm("Save", "Users"))
                     {
-                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.UserId)
                         <fieldset>
                             @Html.EditorFor(model => model.CedNumber)
                             @Html.EditorFor(model => model.FirstName)
