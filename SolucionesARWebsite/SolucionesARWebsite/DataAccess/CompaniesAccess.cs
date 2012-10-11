@@ -39,9 +39,24 @@ namespace SolucionesARWebsite.DataAccess
             return companies;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="store"></param>
+        /// <returns></returns>
+        public Company GetCompany(Store store)
+        {
+            var companies = _databaseModel.Stores.
+                Select(s => s.Company).
+                Where(c => c.CompanyId == store.CompanyId);
+            return companies.First();
+        }
+
         #endregion
 
         #region Private Methods
         #endregion
+
+       
     }
 }

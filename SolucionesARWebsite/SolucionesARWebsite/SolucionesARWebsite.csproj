@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
