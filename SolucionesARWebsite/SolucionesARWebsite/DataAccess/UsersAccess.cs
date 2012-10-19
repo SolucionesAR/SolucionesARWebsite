@@ -37,11 +37,22 @@ namespace SolucionesARWebsite.DataAccess
         {
             var users = _databaseModel.Users.ToList();
             return users;
-        } 
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        public bool UpdateUser(User user)
+        {
+            //TODO: por implementar: con solo salvar la bd con el user actualizado? o hay q sacarlo, cambiar todo y guardar??
+            return true;
+        }
         #endregion
 
         #region Private Methods
         #endregion
+
+        
     }
 }

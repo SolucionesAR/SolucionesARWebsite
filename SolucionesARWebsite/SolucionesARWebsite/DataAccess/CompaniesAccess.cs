@@ -46,8 +46,7 @@ namespace SolucionesARWebsite.DataAccess
         /// <returns></returns>
         public Company GetCompany(Store store)
         {
-            var companies = _databaseModel.Stores.
-                Select(s => s.Company).
+            var companies = _databaseModel.Companies.
                 Where(c => c.CompanyId == store.CompanyId);
             return companies.First();
         }

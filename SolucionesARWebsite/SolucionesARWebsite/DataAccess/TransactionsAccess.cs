@@ -36,21 +36,27 @@ namespace SolucionesARWebsite.DataAccess
         /// 
         /// </summary>
         /// <returns></returns>
-         public List<Transaction> GetTransactions()
-         {
-             var transactions = _databaseModel.Transactions.ToList();
-             return transactions;
-         }
+        public List<Transaction> GetTransactions()
+        {
+            var transactions = _databaseModel.Transactions.ToList();
+            return transactions;
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public bool SaveTransaction(Transaction transaction)
+        {
+            return _databaseModel.Transactions.Add(transaction) != null;
+        }
 
         #endregion
 
         #region Private Methods
         #endregion
 
-        public bool SaveTransaction(Transaction transaction)
-        {
-            return _databaseModel.Transactions.Add(transaction) != null;
-        }
+
     }
 }

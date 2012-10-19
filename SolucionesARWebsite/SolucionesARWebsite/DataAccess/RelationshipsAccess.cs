@@ -30,11 +30,15 @@ namespace SolucionesARWebsite.DataAccess
         #endregion
 
         #region Public Methods
-        public User GetRelatedUser(User customer, RelationshipType relationshipTypeGold)
+        public User GetRelatedUser(User customer, RelationshipType relationshipType)
         {
-            //TODO: por implementar
-            return new User();
+            //TODO: Revisar con julio
+            var user = _databaseModel.Relationships
+                                    .Where(r => r.User1 == customer && r.RelationshipType == relationshipType)
+                                    .Select(rs => rs.User2).FirstOrDefault();
+            return user;
         }
+
         #endregion
 
         #region Private Methods

@@ -109,5 +109,7 @@ namespace SolucionesARWebsite.Models
         [ForeignKey("UserReferenceId")]
         public virtual User UserReference { get; set; }
 
+        //TODO: agregar tipo de identificacion
+
     }
 }
