@@ -32,10 +32,12 @@ namespace SolucionesARWebsite.DataAccess
         #region Public Methods
         public User GetRelatedUser(User customer, RelationshipType relationshipType)
         {
-            //TODO: Revisar con julio
             var user = _databaseModel.Relationships
-                                    .Where(r => r.User1 == customer && r.RelationshipType == relationshipType)
-                                    .Select(rs => rs.User2).FirstOrDefault();
+                .Where(
+                    r =>
+                    r.User1.UserId == customer.UserId &&
+                    r.RelationshipType.RelationshipTypeId == relationshipType.RelationshipTypeId)
+                .Select(rs => rs.User2).FirstOrDefault();
             return user;
         }
 

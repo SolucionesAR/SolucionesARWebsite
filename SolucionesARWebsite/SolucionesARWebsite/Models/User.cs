@@ -109,7 +109,40 @@ namespace SolucionesARWebsite.Models
         [ForeignKey("UserReferenceId")]
         public virtual User UserReference { get; set; }
 
-        //TODO: agregar tipo de identificacion
+        /// <summary>
+        /// The reference to the identification type
+        /// </summary>
+        public virtual IdentificationType IdentificationType { get; set; }
+
+        /// <summary>
+        /// The identification type id
+        /// </summary>
+        public int IdentificationTypeId { get; set; }
+        
+        /// <summary>
+        /// The user nationality
+        /// </summary>
+        public string Nationality { get; set; }
+
+        /// <summary>
+        /// The password encryption key
+        /// </summary>
+        public string PasswordKey { get; set; }
+
+        /// <summary>
+        /// The user password
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// The company reference
+        /// </summary>
+        public virtual Company Company { get; set; }
+
+        /// <summary>
+        /// The company id
+        /// </summary>
+        public int CompanyId { get; set; }
 
     }
 }

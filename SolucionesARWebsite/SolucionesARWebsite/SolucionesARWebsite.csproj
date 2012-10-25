@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201210080502578_002.Designer.cs">
       <DependentUpon>201210080502578_002.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201210250506067_003.cs" />
+    <Compile Include="Migrations\201210250506067_003.Designer.cs">
+      <DependentUpon>201210250506067_003.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsWebsite\AccountModels.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
@@ -222,6 +226,7 @@
     <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
+    <Compile Include="Models\IdentificationType.cs" />
     <Compile Include="Utils\ListWrapper.cs" />
     <Compile Include="ModelsWebsite\Lists\InventoryList.cs" />
     <Compile Include="ModelsWebsite\ModelErrors.cs" />
@@ -426,6 +431,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201210080502578_002.resx">
       <DependentUpon>201210080502578_002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210250506067_003.resx">
+      <DependentUpon>201210250506067_003.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

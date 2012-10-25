@@ -38,9 +38,8 @@ namespace SolucionesARWebsite.DataAccess
 
         public RelationshipType GetRelationShipType(string relationDescription)
         {
-            //TODO: Revisar con julio
             var relationshipType = _databaseModel.RelationshipTypes
-                                    .First(r => r.Description.Equals(relationDescription));
+                                    .FirstOrDefault(r => r.Description.Equals(relationDescription));
             return relationshipType;
         }
 
