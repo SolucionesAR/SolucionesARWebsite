@@ -28,18 +28,27 @@ namespace SolucionesARWebsite.Business.Management
         #endregion
 
         #region Public Methods
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<User> GetUsers()
+        public List<User> GetUsersList()
         {
-            return _usersAccess.GetUsers();
+            return _usersAccess.GetUsersList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public User GetUser(int userId)
+        {
+            return _usersAccess.GetUser(userId);
         }
 
         #endregion
-        
+
         #region Private Methods
         #endregion
     }

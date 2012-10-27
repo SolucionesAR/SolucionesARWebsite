@@ -9,6 +9,9 @@ namespace SolucionesARWebsite.Business.Management
     {
 
         #region Constants
+
+        private const int TOP_LAST_TRANSACTIONS = 10;
+
         #endregion
 
         #region Properties
@@ -32,7 +35,7 @@ namespace SolucionesARWebsite.Business.Management
         #endregion
 
         #region Public Methods
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,6 +43,15 @@ namespace SolucionesARWebsite.Business.Management
         public List<Transaction> GetTransactions()
         {
             return _transactionsAccess.GetTransactions();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<Transaction> GetLastTransactions(int userId)
+        {
+            return _transactionsAccess.GetLastTransactions(userId, TOP_LAST_TRANSACTIONS);
         }
 
         /// <summary>
@@ -53,11 +65,11 @@ namespace SolucionesARWebsite.Business.Management
             {
                 _transactionsLogic.DistributeTransactionCashback(transaction);
             }
-            
+
         }
 
         #endregion
-        
+
         #region Private Methods
         #endregion
     }

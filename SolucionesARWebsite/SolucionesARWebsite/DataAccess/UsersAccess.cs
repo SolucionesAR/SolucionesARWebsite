@@ -29,15 +29,24 @@ namespace SolucionesARWebsite.DataAccess
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<User> GetUsersList()
+        {
+            var users = _databaseModel.Users.ToList();
+            return users;
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<User> GetUsers()
+        public User GetUser(int userId)
         {
-            var users = _databaseModel.Users.ToList();
-            return users;
+            var user = _databaseModel.Users.FirstOrDefault(u => u.UserId.Equals(userId));
+            return user;
         }
 
         /// <summary>

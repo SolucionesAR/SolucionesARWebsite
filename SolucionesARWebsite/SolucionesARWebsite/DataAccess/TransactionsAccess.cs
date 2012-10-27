@@ -45,6 +45,20 @@ namespace SolucionesARWebsite.DataAccess
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public List<Transaction> GetLastTransactions(int userId, int top)
+        {
+            var transactions =
+                _databaseModel.Transactions
+                    .Where(t => t.CustomerId.Equals(userId))
+                    .OrderByDescending(t => t.CreatetedAt)
+                    .Take(top).ToList();
+            return transactions;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="transaction"></param>
         /// <returns></returns>
         public bool SaveTransaction(Transaction transaction)
@@ -56,7 +70,6 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Private Methods
         #endregion
-
 
     }
 }

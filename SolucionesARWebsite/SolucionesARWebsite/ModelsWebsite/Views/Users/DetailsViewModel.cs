@@ -59,7 +59,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The last N transactions
         /// </summary>
-        public List<string> LastTransactions { get; set; }
+        public List<Transaction> LastTransactions { get; set; }
 
         #endregion
 
