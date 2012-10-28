@@ -21,12 +21,15 @@
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     @using (Html.BeginForm("Login", "Account"))
                     {
+                        @Html.AntiForgeryToken()
                         <fieldset>
                             @Html.EditorFor(model => model.Username)
+                            @Html.ValidationMessage("Username", "*")
                         </fieldset>
                         <fieldset>
                             @Html.LabelFor(model => model.Password)
                             @Html.PasswordFor(model => model.Password)
+                            @Html.ValidationMessage("Username", "*")Password
                         </fieldset>
                         <input name="submit" type="submit" value="Submit">
                     }

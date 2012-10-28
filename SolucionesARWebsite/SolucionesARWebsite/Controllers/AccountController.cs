@@ -1,9 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using Microsoft.Web.WebPages.OAuth;
+using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.ModelsWebsite.Views.Account;
 using WebMatrix.WebData;
 using SolucionesARWebsite.Filters;
-using SolucionesARWebsite.Models;
+using SolucionesARWebsite.ModelsWebsite.Forms.Account;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -11,14 +12,46 @@ namespace SolucionesARWebsite.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        #region Constants
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Private Members
+
+        private readonly UsersAccess _usersAccess;
+
+        #endregion
+
+        #region Constructors
+
+        public AccountController()
+        {
+            _usersAccess = new UsersAccess();
+        }
+
+        #endregion
+
+        #region Public Actions
+        
         //
         // GET: /Account/Login
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            HttpContext.Response.Cookies.Remove("__RequestVerificationToken_Lw__");
+            /*
+            var homePage = ThemeHelper.GetData(ThemeDataKey.HomePage);
+            if (!string.IsNullOrEmpty(homePage) && (access == null || !access.Value))
+                return Redirect(homePage);
+
+            if (_authManager.IsLoggedIn())
+                return Redirect(_authManager.GetDefaultUrl());
+            */
+            var loginViewModel = new LoginViewModel();
+            return View(loginViewModel);
         }
 
         //
@@ -27,16 +60,22 @@ namespace SolucionesARWebsite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginFormModel loginFormModel, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //if (ModelState.IsValid && _accountLogic.IsValidLogin(loginFormModel))
+            if(true)
             {
+                FormsAuthentication.SetAuthCookie(loginFormModel.Username, false);
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            return View(model);
+            var loginViewModel = new LoginViewModel
+                                     {
+                                         Username = loginFormModel.Username,
+                                     };
+            return View(loginViewModel);
         }
 
         //
@@ -50,8 +89,11 @@ namespace SolucionesARWebsite.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        
+
+        #endregion
+
         #region Helpers
+        
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -64,67 +106,6 @@ namespace SolucionesARWebsite.Controllers
             }
         }
 
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-        }
-
-        internal class ExternalLoginResult : ActionResult
-        {
-            public ExternalLoginResult(string provider, string returnUrl)
-            {
-                Provider = provider;
-                ReturnUrl = returnUrl;
-            }
-
-            public string Provider { get; private set; }
-            public string ReturnUrl { get; private set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
-            }
-        }
-
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
-        {
-            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
-            // a full list of status codes.
-            switch (createStatus)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
-
-                case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-                case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-                default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-            }
-        }
         #endregion
     }
 }

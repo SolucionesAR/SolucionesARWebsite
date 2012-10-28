@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.DataAccess
@@ -52,6 +53,16 @@ namespace SolucionesARWebsite.DataAccess
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public User GetUser(string username)
+        {
+            var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username));
+            return user;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="user"></param>
         public bool UpdateUser(User user)
         {
@@ -60,11 +71,21 @@ namespace SolucionesARWebsite.DataAccess
             _databaseModel.SaveChanges();
             return true;
         }
+
+        public void EditUser(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddUser(User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
 
         #region Private Methods
         #endregion
 
-        
     }
 }

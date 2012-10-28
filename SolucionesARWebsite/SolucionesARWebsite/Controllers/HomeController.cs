@@ -6,7 +6,7 @@ using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private DbModel db = new DbModel();
 

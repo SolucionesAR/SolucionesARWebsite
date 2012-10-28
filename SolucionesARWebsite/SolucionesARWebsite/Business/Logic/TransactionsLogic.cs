@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using SolucionesARWebsite.DataAccess;
+﻿using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.Business.Logic

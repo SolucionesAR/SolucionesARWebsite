@@ -1,9 +1,15 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
+using System.Web.Security;
+using SolucionesARWebsite.Business.Logic;
+using SolucionesARWebsite.Business.Management;
+using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : SecuredController
     {
         #region Constants
 
@@ -16,6 +22,17 @@ namespace SolucionesARWebsite.Controllers
         #region Private Members
 
         private readonly DbModel _entityModel = new DbModel();
+        protected readonly UsersManagement UsersManagement;
+
+        #endregion
+
+        #region Constructors
+
+        public  BaseController()
+        {
+            UsersManagement = new UsersManagement();
+            CreateSecurityContext();
+        }
 
         #endregion
 
@@ -30,9 +47,35 @@ namespace SolucionesARWebsite.Controllers
         #endregion
 
         #region Public Actions
+
         #endregion
 
         #region Private Members
+
+        /// <summary>
+        /// Creates the security context.
+        /// </summary>
+        private void CreateSecurityContext()
+        {
+            if (SecurityContext == null)
+            {
+                var identity = System.Web.HttpContext.Current.User.Identity;
+                if (identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name))
+                {
+                    SecurityContext = new SecurityContext
+                                          {
+                                              User = UsersManagement.GetUserInformation(identity.Name),
+                                          };
+                }
+                else
+                {
+                    System.Web.HttpContext.Current.Session.Abandon();
+                    FormsAuthentication.SignOut();
+                    FormsAuthentication.RedirectToLoginPage();
+                }
+            }
+        }
+
         #endregion
     }
 }

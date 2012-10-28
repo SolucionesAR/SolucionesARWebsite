@@ -90,7 +90,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// A code that will be generated automatically to each user
         /// </summary>
-        public string ParentUser { get; set; }
+        public int ParentUser { get; set; }
 
         /// <summary>
         /// The Rol id

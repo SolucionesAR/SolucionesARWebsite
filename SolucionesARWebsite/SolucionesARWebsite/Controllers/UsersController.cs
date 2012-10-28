@@ -110,20 +110,20 @@ namespace SolucionesARWebsite.Controllers
             */
             var userInformation = _usersManagement.GetUser(id);
             var detailsViewModel = new DetailsViewModel
-            {
-                UserId = id,
-                CedNumber = userInformation.CedNumber,
-                FName = userInformation.FName,
-                LName1 = userInformation.LName1,
-                LName2 = userInformation.LName2,
-                Cashback = string.Format("{0} colones", userInformation.Cashback),
-                Enabled = userInformation.Enabled,
-                GeneratedCode =
-                    GenerateUserCode(userInformation.LName1, userInformation.LName2,
-                                     userInformation.CedNumber
-                                         .ToString(CultureInfo.InvariantCulture)),
-                LastTransactions = _transactionsManagement.GetLastTransactions(id),
-            };
+                                       {
+                                           UserId = id,
+                                           CedNumber = userInformation.CedNumber,
+                                           FName = userInformation.FName,
+                                           LName1 = userInformation.LName1,
+                                           LName2 = userInformation.LName2,
+                                           Cashback = string.Format("{0} colones", userInformation.Cashback),
+                                           Enabled = userInformation.Enabled,
+                                           GeneratedCode =
+                                               GenerateUserCode(userInformation.LName1, userInformation.LName2,
+                                                                userInformation.CedNumber
+                                                                    .ToString(CultureInfo.InvariantCulture)),
+                                           LastTransactions = _transactionsManagement.GetLastTransactions(id),
+                                       };
 
             return View(detailsViewModel);
         }
@@ -137,20 +137,20 @@ namespace SolucionesARWebsite.Controllers
                                         UserId = 0,
                                         Rol = new Rol(),
                                         //Current user´s role id
-                                        //RolesList = GetRolesList(SecurityContext),
+                                        RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
                                         //Availables companies 
-                                        //CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
                                     };
             return View("Edit", editViewModel);
         }
 
         //
         // GET: /Users/Edit/{id}
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int userId = 0)
         {
             //var userInformation = _usersManagement.GetUser(SecurityContext.User.Id);
-            var userInformation = _usersManagement.GetUser(1);
+            var userInformation = _usersManagement.GetUser(userId);
             var editViewModel = new EditViewModel
                                     {
                                         UserId = userInformation.UserId,
@@ -166,9 +166,9 @@ namespace SolucionesARWebsite.Controllers
                                                              userInformation.CedNumber.ToString(
                                                                  CultureInfo.InvariantCulture)),
                                         Rol = new Rol {RolId = userInformation.RolId},
-                                        //RolesList = GetRolesList(SecurityContext),
+                                        RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
-                                        //CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
                                     };
             return View(editViewModel);
         }
@@ -183,8 +183,11 @@ namespace SolucionesARWebsite.Controllers
             {
                 editViewModel.UserId = 504;
             }
-            //editViewModel.RolesList = GetRolesList(SecurityContext);
-            //editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
+
+            _usersManagement.Save(editFormModel, SecurityContext.User.Id);
+            
+            editViewModel.RolesList = GetRolesList(SecurityContext);
+            editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
 
             return View("Edit", editViewModel);
         }
@@ -196,25 +199,25 @@ namespace SolucionesARWebsite.Controllers
         private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
         {
             return new EditViewModel
-            {
-                UserId = editFormModel.UserId,
-                CedNumber = editFormModel.CedNumber,
-                FirstName = editFormModel.FirstName,
-                LastName1 = editFormModel.LastName1,
-                LastName2 = editFormModel.LastName2,
-                GeneratedCode =
-                    GenerateUserCode(editFormModel.LastName1, editFormModel.LastName2,
-                                     editFormModel.CedNumber),
-                Dob = editFormModel.Dob,
-                Address1 = editFormModel.Address1,
-                Address2 = editFormModel.Address2,
-                PhoneNumber = editFormModel.PhoneNumber,
-                Cellphone = editFormModel.Cellphone,
-                Email = editFormModel.Email,
-                Enabled = editFormModel.Enabled,
-                Rol = new Rol { RolId = editFormModel.RolId },
-                Company = new Company { CompanyId = editFormModel.CompanyId },
-            };
+                       {
+                           UserId = editFormModel.UserId,
+                           CedNumber = editFormModel.CedNumber,
+                           FirstName = editFormModel.FirstName,
+                           LastName1 = editFormModel.LastName1,
+                           LastName2 = editFormModel.LastName2,
+                           GeneratedCode =
+                               GenerateUserCode(editFormModel.LastName1, editFormModel.LastName2,
+                                                editFormModel.CedNumber),
+                           Dob = editFormModel.Dob,
+                           Address1 = editFormModel.Address1,
+                           Address2 = editFormModel.Address2,
+                           PhoneNumber = editFormModel.PhoneNumber,
+                           Cellphone = editFormModel.Cellphone,
+                           Email = editFormModel.Email,
+                           Enabled = editFormModel.Enabled,
+                           Rol = new Rol {RolId = editFormModel.RolId},
+                           Company = new Company {CompanyId = editFormModel.CompanyId},
+                       };
         }
 
         private static string GenerateUserCode(string lastName1, string lastName2, string cedNumber)

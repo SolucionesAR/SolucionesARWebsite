@@ -2,7 +2,7 @@
 
 namespace SolucionesARWebsite.Controllers
 {
-    public class ReportsController : Controller
+    public class ReportsController : BaseController
     {
         #region Constants
         #endregion

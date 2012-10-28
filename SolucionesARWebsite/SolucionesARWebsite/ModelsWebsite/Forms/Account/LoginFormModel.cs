@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace SolucionesARWebsite.ModelsWebsite.Forms.Account
 {
     public class LoginFormModel
@@ -8,8 +10,10 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Account
 
         #region Properties
 
+        [Required(ErrorMessage = "Nombre de usuario es requerido")]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "Contraseña es requerida")]
         public string Password { get; set; }
 
         #endregion
