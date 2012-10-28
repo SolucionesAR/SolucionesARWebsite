@@ -22,5 +22,9 @@ namespace SolucionesARWebsite.Models
 
         public DbSet<Transaction> Transactions { get; set; }
 
+        public DbSet<GlobalParameter> GlobalParameters { get; set; }
+
+        public DbSet<IdentificationType> IdentificationType { get; set; }
+
     }
 }

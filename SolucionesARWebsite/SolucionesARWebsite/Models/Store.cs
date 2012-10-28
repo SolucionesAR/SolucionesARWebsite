@@ -30,7 +30,12 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// 
         /// </summary>
-        public int CityId { get; set; }//TODO: Crear tabla de ciudades y estados
+        public virtual District District { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public int DistrictId { get; set; }
 
         /// <summary>
         /// 

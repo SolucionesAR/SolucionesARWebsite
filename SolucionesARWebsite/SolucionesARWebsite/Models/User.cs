@@ -63,6 +63,11 @@ namespace SolucionesARWebsite.Models
         public string Cellphone { get; set; }
 
         /// <summary>
+        /// Any other telephone number available
+        /// </summary>
+        public string OtherPhones { get; set; }
+
+        /// <summary>
         /// The email
         /// </summary>
         public string Email { get; set; }
@@ -132,6 +137,7 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// The user password
         /// </summary>
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         /// <summary>
@@ -144,5 +150,34 @@ namespace SolucionesARWebsite.Models
         /// </summary>
         public int CompanyId { get; set; }
 
+        /// <summary>
+        /// Users profesion
+        /// </summary>
+        public string Profision { get; set; }
+
+        /// <summary>
+        /// Other products that the user sales
+        /// </summary>
+        public string OtherProducts { get; set; }
+
+        /// <summary>
+        /// Users personal references
+        /// </summary>
+        public string PersonalReference1 { get; set; }
+
+        /// <summary>
+        ///  Users personal references
+        /// </summary>
+        public string PersonalReference2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual District District { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int DistrictId { get; set; }
     }
 }

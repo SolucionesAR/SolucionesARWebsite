@@ -216,6 +216,10 @@
     <Compile Include="Migrations\201210250506067_003.Designer.cs">
       <DependentUpon>201210250506067_003.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201210282306572_004.cs" />
+    <Compile Include="Migrations\201210282306572_004.Designer.cs">
+      <DependentUpon>201210282306572_004.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ModelsWebsite\AccountModels.cs" />
@@ -235,7 +239,11 @@
     <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
+    <Compile Include="Models\Canton.cs" />
+    <Compile Include="Models\District.cs" />
+    <Compile Include="Models\GlobalParameter.cs" />
     <Compile Include="Models\IdentificationType.cs" />
+    <Compile Include="Models\Province.cs" />
     <Compile Include="Security\AllowedAction.cs" />
     <Compile Include="Security\RolesProvider.cs" />
     <Compile Include="Security\SecurityRol.cs" />
@@ -452,6 +460,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201210250506067_003.resx">
       <DependentUpon>201210250506067_003.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201210282306572_004.resx">
+      <DependentUpon>201210282306572_004.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
