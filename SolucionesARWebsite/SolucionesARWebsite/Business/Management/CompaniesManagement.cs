@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Enumerations;
+using SolucionesARWebsite.Enumerations;
 
 namespace SolucionesARWebsite.Business.Management
 {
@@ -37,22 +38,27 @@ namespace SolucionesARWebsite.Business.Management
             return _companiesAccess.GetCompanies();
         }
 
-        public List<Company> GetCompanies(int userId, int roleId)
+        public List<Company> GetCompanies(SecurityContext securityContext)
         {
             var companiesList = new List<Company>();
 
-            switch ((UserRole)roleId)
+            switch ((UserRole) securityContext.User.RoleId)
             {
                 case UserRole.Customer:
-                    companiesList = new List<Company>();
-                    break;
                 case UserRole.Manager:
                 case UserRole.Salesman:
-                    companiesList = new List<Company>();
+                    companiesList = new List<Company>
+                                        {
+                                            new Company
+                                                {
+                                                    CompanyId = securityContext.User.CompanyId,
+                                                    CompanyName = securityContext.User.CompanyName
+                                                }
+                                        };
                     break;
                 case UserRole.SuperUser:
                 case UserRole.Administrator:
-                    companiesList = new List<Company>();
+                    companiesList = _companiesAccess.GetAllCompanies();
                     break;
             }
 

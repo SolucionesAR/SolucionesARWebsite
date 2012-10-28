@@ -42,6 +42,16 @@ namespace SolucionesARWebsite.DataAccess
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public List<Company> GetAllCompanies()
+        {
+            var companies = _databaseModel.Companies.ToList();
+            return companies;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
         public Company GetCompany(Store store)

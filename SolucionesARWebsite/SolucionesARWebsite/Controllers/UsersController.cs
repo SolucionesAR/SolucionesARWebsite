@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
+using SolucionesARWebsite.DataObjects;
+using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Enumerations;
 using SolucionesARWebsite.ModelsWebsite.Forms.Users;
 using SolucionesARWebsite.ModelsWebsite.Lists;
 using SolucionesARWebsite.ModelsWebsite.Views.Users;
+using UserRole = SolucionesARWebsite.Enumerations.UserRole;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -77,12 +78,12 @@ namespace SolucionesARWebsite.Controllers
                                      };
            */
             var indexViewModel = new IndexViewModel
-            {
-                UsersList = new UsersList
-                {
-                    Items = _usersManagement.GetUsersList(),
-                }
-            };
+                                     {
+                                         UsersList = new UsersList
+                                                         {
+                                                             Items = _usersManagement.GetUsersList(),
+                                                         }
+                                     };
             return View(indexViewModel);
         }
 
@@ -131,40 +132,16 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/Create/
         public ActionResult Create()
         {
-            /*
             var editViewModel = new EditViewModel
                                     {
                                         UserId = 0,
                                         Rol = new Rol(),
-                                        RolesList =
-                                            new List<Rol>
-                                                {
-                                                    new Rol {Name = "Vendedor"},
-                                                    new Rol {Name = "Dependiente"},
-                                                    new Rol {Name = "Gerente"},
-                                                    new Rol {Name = "Administrador"},
-                                                },
+                                        //Current user´s role id
+                                        //RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
-                                        CompaniesList =
-                                            new List<Company>
-                                                {
-                                                    new Company {CompanyName = "Coopeservidores"},
-                                                    new Company {CompanyName = "Curacao"},
-                                                    new Company {CompanyName = "SolucionesAR"},
-                                                }
+                                        //Availables companies 
+                                        //CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
                                     };
-            */
-
-            var editViewModel = new EditViewModel
-            {
-                UserId = 0,
-                Rol = new Rol(),
-                //Current user´s role id
-                RolesList = GetRolesList(10),
-                Company = new Company(),
-                //Availables companies 
-                CompaniesList = _companiesManagement.GetCompanies(),
-            };
             return View("Edit", editViewModel);
         }
 
@@ -172,34 +149,27 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/Edit/{id}
         public ActionResult Edit(int id = 0)
         {
+            //var userInformation = _usersManagement.GetUser(SecurityContext.User.Id);
+            var userInformation = _usersManagement.GetUser(1);
             var editViewModel = new EditViewModel
-            {
-                UserId = 504,
-                CedNumber = "206620452",
-                FirstName = "César",
-                LastName1 = "Barboza",
-                LastName2 = "González",
-                Cashback = "₡5,025.00",
-                Enabled = true,
-                GeneratedCode = "BarbozaCesar452",
-                Rol = new Rol(),
-                RolesList =
-                    new List<Rol>
-                                                {
-                                                    new Rol {Name = "Vendedor"},
-                                                    new Rol {Name = "Dependiente"},
-                                                    new Rol {Name = "Gerente"},
-                                                    new Rol {Name = "Administrador"},
-                                                },
-                Company = new Company(),
-                CompaniesList =
-                    new List<Company>
-                                                {
-                                                    new Company {CompanyName = "Coopeservidores"},
-                                                    new Company {CompanyName = "Curacao"},
-                                                    new Company {CompanyName = "SolucionesAR"},
-                                                }
-            };
+                                    {
+                                        UserId = userInformation.UserId,
+                                        CedNumber = userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
+                                        FirstName = userInformation.FName,
+                                        LastName1 = userInformation.LName1,
+                                        LastName2 = userInformation.LName2,
+                                        //Cashback = "₡5,025.00",
+                                        Cashback = userInformation.Cashback.ToString(CultureInfo.InvariantCulture),
+                                        Enabled = userInformation.Enabled,
+                                        GeneratedCode =
+                                            GenerateUserCode(userInformation.LName1, userInformation.LName2,
+                                                             userInformation.CedNumber.ToString(
+                                                                 CultureInfo.InvariantCulture)),
+                                        Rol = new Rol {RolId = userInformation.RolId},
+                                        //RolesList = GetRolesList(SecurityContext),
+                                        Company = new Company(),
+                                        //CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                    };
             return View(editViewModel);
         }
 
@@ -213,21 +183,8 @@ namespace SolucionesARWebsite.Controllers
             {
                 editViewModel.UserId = 504;
             }
-            editViewModel.RolesList =
-                new List<Rol>
-                    {
-                        new Rol {Name = "Vendedor"},
-                        new Rol {Name = "Dependiente"},
-                        new Rol {Name = "Gerente"},
-                        new Rol {Name = "Administrador"},
-                    };
-            editViewModel.CompaniesList =
-                new List<Company>
-                    {
-                        new Company {CompanyName = "Coopeservidores"},
-                        new Company {CompanyName = "Curacao"},
-                        new Company {CompanyName = "SolucionesAR"},
-                    };
+            //editViewModel.RolesList = GetRolesList(SecurityContext);
+            //editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
 
             return View("Edit", editViewModel);
         }
@@ -280,14 +237,14 @@ namespace SolucionesARWebsite.Controllers
             return string.Format("{0}{1}{2}", lastName1Encoded, lastName2Encoded, cedNumberEncoded);
         }
 
-        private List<Rol> GetRolesList(int rolId)
+        private static List<Rol> GetRolesList(SecurityContext securityContext)
         {
             var rolesList = new List<Rol>();
             foreach (var rol in EnumUtil.GetValues<UserRole>())
             {
-                if (rol.GetHashCode() < rolId)
+                if (rol.GetHashCode() < securityContext.User.RoleId)
                 {
-                    rolesList.Add(new Rol { Name = Enums.GetRoleDescription(rol), RolId = rolId, });
+                    rolesList.Add(new Rol {Name = Roles.GetRoleDescription(rol), RolId = (int) rol,});
                 }
             }
             return rolesList;

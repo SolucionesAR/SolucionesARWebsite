@@ -177,8 +177,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RelationshipsController.cs" />
     <Compile Include="Controllers\RelationshipTypesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\SecuredController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -190,6 +192,9 @@
     <Compile Include="DataAccess\StoresAccess.cs" />
     <Compile Include="DataAccess\TransactionsAccess.cs" />
     <Compile Include="DataAccess\UsersAccess.cs" />
+    <Compile Include="DataObjects\UserInformation.cs" />
+    <Compile Include="Enumerations\Routes.cs" />
+    <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,13 +217,15 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsWebsite\AccountModels.cs" />
-    <Compile Include="ModelsWebsite\Enumerations\Enums.cs" />
+    <Compile Include="Enumerations\Roles.cs" />
+    <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
     <Compile Include="ModelsWebsite\Lists\StoresList.cs" />
+    <Compile Include="ModelsWebsite\Views\Account\LoginViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Inventory\DetailsViewModel.cs" />
@@ -228,6 +235,9 @@
     <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
     <Compile Include="Models\IdentificationType.cs" />
+    <Compile Include="Security\AllowedAction.cs" />
+    <Compile Include="Security\RolesProvider.cs" />
+    <Compile Include="Security\SecurityRol.cs" />
     <Compile Include="Utils\ListWrapper.cs" />
     <Compile Include="ModelsWebsite\Lists\InventoryList.cs" />
     <Compile Include="ModelsWebsite\ModelErrors.cs" />
@@ -246,6 +256,7 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataObjects\SecurityContext.cs" />
     <Compile Include="Utils\SortDirectionType.cs" />
     <Compile Include="Utils\ValueAttribute.cs" />
     <Compile Include="Utils\ValueAttributeExtensions.cs" />
@@ -380,6 +391,11 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Security\Roles\administrator.xml" />
+    <Content Include="Security\Roles\customer.xml" />
+    <Content Include="Security\Roles\manager.xml" />
+    <Content Include="Security\Roles\salesman.xml" />
+    <Content Include="Security\Roles\super_user.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -544,7 +560,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>11109</DevelopmentServerPort>
+          <DevelopmentServerPort>5789</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

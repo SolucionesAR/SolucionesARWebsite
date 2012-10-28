@@ -1,10 +1,9 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolucionesARWebsite.Utils;
 
-namespace SolucionesARWebsite.ModelsWebsite.Enumerations
+namespace SolucionesARWebsite.Enumerations
 {
     #region Enums
 
@@ -16,16 +15,16 @@ namespace SolucionesARWebsite.ModelsWebsite.Enumerations
         Salesman = 2,
         [Value("manager")]
         Manager = 5,
-        [Value("super_user")]
-        SuperUser = 10,
         [Value("administrator")]
-        Administrator = 11,
+        Administrator = 10,
+        [Value("super_user")]
+        SuperUser = 11,
     }
 
     #endregion
 
 
-    public static class Enums
+    public static class Roles
     {
         #region Static Methods
 

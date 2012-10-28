@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using SolucionesARWebsite.ModelsWebsite;
 using WebMatrix.WebData;
 using SolucionesARWebsite.Models;
 
