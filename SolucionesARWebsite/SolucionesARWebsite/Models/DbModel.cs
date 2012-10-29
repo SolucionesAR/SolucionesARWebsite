@@ -26,5 +26,11 @@ namespace SolucionesARWebsite.Models
 
         public DbSet<IdentificationType> IdentificationType { get; set; }
 
+        public DbSet<Province> Provinces { get; set; }
+
+        public DbSet<Canton> Cantons { get; set; }
+
+        public DbSet<District> Districts { get; set; }
+
     }
 }

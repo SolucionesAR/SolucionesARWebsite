@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SolucionesARWebsite.Business.Logic;
 using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataObjects;
@@ -89,7 +90,7 @@ namespace SolucionesARWebsite.Business.Management
         
         public void Save(EditFormModel editFormModel, int updatedBy)
         {
-            var user = new FormMapper().Map(editFormModel);
+            var user = Map(editFormModel);
 
             if (editFormModel.UserId == 0)
             {
@@ -103,13 +104,41 @@ namespace SolucionesARWebsite.Business.Management
 
         private void AddUser(User user)
         {
+            user.CreatetedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.Now;
             _usersAccess.AddUser(user);
         }
 
         private void EditUser(User user)
         {
+            user.UpdatedAt = DateTime.Now;
             _usersAccess.EditUser(user);
         }
+
+        private User Map(EditFormModel editFormMode)
+        {
+            return new User
+            {
+                Address1 = editFormMode.Address1,
+                Address2 = editFormMode.Address2,
+                //tenemos que eliminar los guiones
+                CedNumber = Convert.ToInt32(editFormMode.CedNumber),
+                //tenemos que eliminar los guiones
+                Cellphone = editFormMode.CedNumber,
+                Company = new Company { CompanyId = editFormMode.CompanyId },
+                Dob = editFormMode.Dob,
+                Email = editFormMode.Email,
+                Enabled = editFormMode.Enabled,
+                FName = editFormMode.FirstName,
+                LName1 = editFormMode.LastName1,
+                LName2 = editFormMode.LastName2,
+                UserReferenceId = editFormMode.ParentUser,
+                RolId = editFormMode.RolId,
+                //tenemos que eliminar los guiones
+                PhoneNumber = editFormMode.PhoneNumber,
+            };
+        }
+
 
         #endregion    
     }

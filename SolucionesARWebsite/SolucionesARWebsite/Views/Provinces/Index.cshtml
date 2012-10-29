@@ -1,0 +1,65 @@
+﻿@using SolucionesARWebsite.ModelsWebsite.Views.Provinces
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | provincias";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
+}
+
+@section Messages {
+}
+
+@section ListTitle {
+    PROVINCIAS
+}
+
+@section ListActions {
+    @if (Model.ProvincesList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }
+        @Html.ActionLink("Nueva pROVINCIA", "Create", null, new { @class = "button" })
+    }
+}
+@section ListContent {
+
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nom
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.ProvincesList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProvinceId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.ProvinceId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}

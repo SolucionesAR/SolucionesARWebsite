@@ -74,12 +74,14 @@ namespace SolucionesARWebsite.DataAccess
 
         public void EditUser(User user)
         {
-            throw new System.NotImplementedException();
+            _databaseModel.Entry(user).State = EntityState.Modified;
+            _databaseModel.SaveChanges();
         }
 
         public void AddUser(User user)
         {
-            throw new System.NotImplementedException();
+            _databaseModel.Users.Add(user);
+            _databaseModel.SaveChanges();
         }
 
         #endregion

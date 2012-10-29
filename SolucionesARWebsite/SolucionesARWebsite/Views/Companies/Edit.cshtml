@@ -35,11 +35,14 @@
                         <fieldset>
                             @Html.EditorFor(model => model.CorporateId)
                             @Html.EditorFor(model => model.CompanyName)
+                            @Html.EditorFor(model => model.CompanyNickname)
                         </fieldset>
                         <fieldset>
                             @Html.EditorFor(model => model.CashBackPercentaje)
                         </fieldset>
-                       
+                       <fieldset>
+                            @Html.CheckBoxFor(model => model.Enabled)
+                        </fieldset>
                         <input name="submit" type="submit" value="Submit">
                     }
                 </div>

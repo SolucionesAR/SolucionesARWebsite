@@ -181,11 +181,9 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                editViewModel.UserId = 504;
+                _usersManagement.Save(editFormModel, SecurityContext.User.Id);
             }
 
-            _usersManagement.Save(editFormModel, SecurityContext.User.Id);
-            
             editViewModel.RolesList = GetRolesList(SecurityContext);
             editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
 

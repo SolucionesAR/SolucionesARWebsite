@@ -38,6 +38,7 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/
         public ActionResult Index()
         {
+            /*
             var indexViewModel = new IndexViewModel
                                      {
                                          CompaniesList =
@@ -68,6 +69,14 @@ namespace SolucionesARWebsite.Controllers
                                                                          },
                                                                  }
                                                  }
+                                     };
+             */
+            var indexViewModel = new IndexViewModel
+                                     {
+                                         CompaniesList = new CompaniesList()
+                                                             {
+                                                                 Items = _companiesManagement.GetCompanies(),
+                                                             }
                                      };
             return View(indexViewModel);
         }
@@ -106,7 +115,7 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                editViewModel.CompanyId = 1;
+                _companiesManagement.Save(editFormModel);
             }
 
             return View("Edit", editViewModel);

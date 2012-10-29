@@ -3,13 +3,11 @@ using System.Web.Security;
 using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.ModelsWebsite.Views.Account;
 using WebMatrix.WebData;
-using SolucionesARWebsite.Filters;
 using SolucionesARWebsite.ModelsWebsite.Forms.Account;
 
 namespace SolucionesARWebsite.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         #region Constants

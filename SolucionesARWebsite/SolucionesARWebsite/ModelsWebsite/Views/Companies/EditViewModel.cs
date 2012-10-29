@@ -30,8 +30,22 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Companies
         /// The first Last Name
         /// </summary>
         [Required]
-        [Display(Name = "Porcentage Cashback*", Prompt = "10.0")]
+        [Display(Name = "Porcentaje Cashback*", Prompt = "10.0")]
         public double CashBackPercentaje { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        [Display(Name = "Nickname*", Prompt = "Nickname")]
+        public string CompanyNickname { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        [Display(Name = "Habilitada*")]
+        public bool Enabled { get; set; }
         
         #endregion
 

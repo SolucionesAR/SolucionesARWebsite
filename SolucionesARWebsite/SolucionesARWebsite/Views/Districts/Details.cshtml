@@ -1,0 +1,29 @@
+﻿@model SolucionesARWebsite.Models.District
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>District</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Canton.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Canton.Name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DistrictId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

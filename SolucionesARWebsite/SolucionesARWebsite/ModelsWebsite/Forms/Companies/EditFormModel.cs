@@ -33,6 +33,18 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Companies
         [Required]
         public double CashBackPercentaje { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        public string CompanyNickname{ get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        public bool Enabled { get; set; }
+
         #endregion
 
         #region Private Members

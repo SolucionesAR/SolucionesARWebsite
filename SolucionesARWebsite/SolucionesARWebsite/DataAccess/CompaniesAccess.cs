@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using SolucionesARWebsite.Models;
 
@@ -61,11 +62,21 @@ namespace SolucionesARWebsite.DataAccess
             return companies.First();
         }
 
+        public void EditCompany(Company company)
+        {
+            _databaseModel.Entry(company).State = EntityState.Modified;
+            _databaseModel.SaveChanges();
+        }
+
+        public void AddCompany(Company company)
+        {
+            _databaseModel.Companies.Add(company);
+            _databaseModel.SaveChanges();
+        }
+
         #endregion
 
         #region Private Methods
         #endregion
-
-       
     }
 }

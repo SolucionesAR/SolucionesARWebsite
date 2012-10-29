@@ -161,7 +161,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Business\Logic\FormMapper.cs" />
     <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
@@ -174,8 +173,11 @@
     <Compile Include="Business\Management\UsersManagement.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CantonsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProvincesController.cs" />
     <Compile Include="Controllers\RelationshipsController.cs" />
     <Compile Include="Controllers\RelationshipTypesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -196,7 +198,6 @@
     <Compile Include="DataObjects\UserInformation.cs" />
     <Compile Include="Enumerations\Routes.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,13 +223,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
-    <Compile Include="ModelsWebsite\AccountModels.cs" />
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
+    <Compile Include="ModelsWebsite\Lists\ProvincesList.cs" />
     <Compile Include="ModelsWebsite\Lists\StoresList.cs" />
     <Compile Include="ModelsWebsite\Views\Account\LoginViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\EditViewModel.cs" />
@@ -237,6 +238,8 @@
     <Compile Include="ModelsWebsite\Views\Inventory\UploadViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Inventory\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
+    <Compile Include="ModelsWebsite\Views\Provinces\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Provinces\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
     <Compile Include="Models\Canton.cs" />
@@ -446,6 +449,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
@@ -554,6 +558,21 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\Details.cshtml" />
     <Content Include="Views\Inventory\New.cshtml" />
+    <Content Include="Views\Provinces\Index.cshtml" />
+    <Content Include="Views\Provinces\Details.cshtml" />
+    <Content Include="Views\Provinces\Create.cshtml" />
+    <Content Include="Views\Provinces\Edit.cshtml" />
+    <Content Include="Views\Provinces\Delete.cshtml" />
+    <Content Include="Views\Cantons\Index.cshtml" />
+    <Content Include="Views\Cantons\Details.cshtml" />
+    <Content Include="Views\Cantons\Create.cshtml" />
+    <Content Include="Views\Cantons\Edit.cshtml" />
+    <Content Include="Views\Cantons\Delete.cshtml" />
+    <Content Include="Views\Districts\Index.cshtml" />
+    <Content Include="Views\Districts\Details.cshtml" />
+    <Content Include="Views\Districts\Create.cshtml" />
+    <Content Include="Views\Districts\Edit.cshtml" />
+    <Content Include="Views\Districts\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
