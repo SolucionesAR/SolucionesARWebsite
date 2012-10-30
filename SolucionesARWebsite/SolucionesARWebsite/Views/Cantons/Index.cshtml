@@ -1,39 +1,77 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.Canton>
+﻿@using SolucionesARWebsite.ModelsWebsite.Views.Cantons
+
+@model IndexViewModel
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SolucionesAR | Cantones";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Provinceanton.Name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Provinceanton.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CantonId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CantonId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CantonId })
-        </td>
-    </tr>
+@section Messages {
 }
 
-</table>
+@section ListTitle {
+    CANTONES
+}
+
+@section ListActions {
+    @if (Model.CantonsList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }
+        @Html.ActionLink("Nuevo Canton", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Provincia
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.CantonsList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CantonId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProvinceId)
+                        </td>
+                        
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CantonId }) |
+                            @Html.ActionLink("Detalles", "Details", new { id = item.CantonId }) 
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}
