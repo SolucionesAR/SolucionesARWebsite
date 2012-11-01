@@ -16,7 +16,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Lists
 
     public enum ProvinceListFilter
     {
-        [Value("provinceId")]
+        [Value("companyId")]
         Id,
         [Value("name")]
         Name,

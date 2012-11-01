@@ -6,9 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Canton;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Cantons;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -21,15 +18,8 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Index()
         {
-            var cantons = db.Cantons.ToList();
-            var indexViewModel = new IndexViewModel
-            {
-                CantonsList = new CantonsList()
-                {
-                    Items = cantons
-                }
-            };
-            return View(indexViewModel);
+            var cantons = db.Cantons.Include(c => c.Provinceanton);
+            return View(cantons.ToList());
         }
 
         //
@@ -50,20 +40,14 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Create()
         {
-            var editViewModel = new EditViewModel
-            {
-                CantonId = 0,
-                CantonName = "",
-                ProvinceId = 0,
-            };
-            return View("Edit", editViewModel);
+            ViewBag.ProvinceId = new SelectList(db.Provinces, "ProvinceId", "Name");
+            return View();
         }
-
 
         //
         // POST: /Cantons/Create
 
-    /*    [HttpPost]
+        [HttpPost]
         public ActionResult Create(Canton canton)
         {
             if (ModelState.IsValid)
@@ -75,28 +59,26 @@ namespace SolucionesARWebsite.Controllers
 
             ViewBag.ProvinceId = new SelectList(db.Provinces, "ProvinceId", "Name", canton.ProvinceId);
             return View(canton);
-        }*/
+        }
 
         //
         // GET: /Cantons/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            var cantons = db.Cantons.ToList();
-            var cantonsInfo = cantons.FirstOrDefault(p => p.CantonId == id);
-            var editViewModel = new EditViewModel
+            Canton canton = db.Cantons.Find(id);
+            if (canton == null)
             {
-                CantonId = cantonsInfo.CantonId,
-                ProvinceId = cantonsInfo.ProvinceId,
-                CantonName = cantonsInfo.Name,
-            };
-            return View(editViewModel);
+                return HttpNotFound();
+            }
+            ViewBag.ProvinceId = new SelectList(db.Provinces, "ProvinceId", "Name", canton.ProvinceId);
+            return View(canton);
         }
 
         //
         // POST: /Cantons/Edit/5
 
-      /*  [HttpPost]
+        [HttpPost]
         public ActionResult Edit(Canton canton)
         {
             if (ModelState.IsValid)
@@ -107,12 +89,12 @@ namespace SolucionesARWebsite.Controllers
             }
             ViewBag.ProvinceId = new SelectList(db.Provinces, "ProvinceId", "Name", canton.ProvinceId);
             return View(canton);
-        }*/
+        }
 
         //
         // GET: /Cantons/Delete/5
 
-  /*      public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id = 0)
         {
             Canton canton = db.Cantons.Find(id);
             if (canton == null)
@@ -120,34 +102,6 @@ namespace SolucionesARWebsite.Controllers
                 return HttpNotFound();
             }
             return View(canton);
-        }
-        */
-
-        [HttpPost]
-        public ActionResult Save(EditFormModel editFormModel)
-        {
-            var editViewModel = ModelViewFromForm(editFormModel);
-            if (ModelState.IsValid)
-            {
-                if (editFormModel.CantonId == 0)
-                {
-                    db.Cantons.Add(new Canton
-                                       {
-                                           CantonId = editFormModel.CantonId,
-                                           ProvinceId = editFormModel.ProvinceId,
-                                           Name = editFormModel.CantonName
-                                       });
-                }
-                else
-                {
-                    var canton = db.Cantons.Find(editFormModel.CantonId);
-                    canton.Name = editFormModel.CantonName;
-                    canton.ProvinceId = editFormModel.ProvinceId;
-                }
-                db.SaveChanges();
-            }
-
-            return View("Edit", editViewModel);
         }
 
         //
@@ -166,16 +120,6 @@ namespace SolucionesARWebsite.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-
-        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
-        {
-            return new EditViewModel
-            {
-                CantonId = editFormModel.CantonId,
-                ProvinceId = editFormModel.ProvinceId,
-                CantonName = editFormModel.CantonName
-            };
         }
     }
 }

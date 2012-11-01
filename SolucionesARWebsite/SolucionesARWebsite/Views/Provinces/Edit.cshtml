@@ -1,46 +1,37 @@
-﻿
-@using SolucionesARWebsite.ModelsWebsite.Views.Provinces
-
-@model EditViewModel
+﻿@model SolucionesARWebsite.Models.Province
 
 @{
-    ViewBag.Title = "SolucionesAR | provincias";
-    Layout = "~/Views/Shared/EditionLayout.cshtml";
+    ViewBag.Title = "Edit";
 }
 
-@section Messages {
+<h2>Edit</h2>
 
-}
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
 
+    <fieldset>
+        <legend>Province</legend>
 
-@section EditionContent {
-    <div class="edition_content content_box ">
-        
-        @if (Model.ProvinceId > 0)
-        {
-            <h1>EDITAR PROVINCIA</h1>
-        }
-        else
-        {
-            <h1>NUEVA PROVINCIA</h1>
-        }
+        @Html.HiddenFor(model => model.ProvinceId)
 
-        <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Provinces"))
-                    {
-                        @Html.HiddenFor(model => model.ProvinceId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.ProvinceName)
-                        </fieldset>
-                            
-                        <input name="submit" type="submit" value="Submit">
-                    }
-                </div>
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
         </div>
-    </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
 }
 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

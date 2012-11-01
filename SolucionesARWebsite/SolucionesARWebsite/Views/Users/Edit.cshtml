@@ -41,10 +41,17 @@
                     {
                         @Html.HiddenFor(model => model.UserId)
                         <fieldset>
-                            @Html.EditorFor(model => model.CedNumber)
-                            @Html.EditorFor(model => model.FirstName)
+                            <span>
+                                @Html.LabelFor(model => model.IdentificationType) <br/>
+                                @Html.DropDownListForIdenficationlList(model => model.IdentificationType.IdentificationTypeId)
+                            </span>
+                            @Html.EditorFor(model => model.IdentificationNumber)
+                            @Html.EditorFor(model => model.Nationality)
+                        </fieldset>
+                        <fieldset>
                             @Html.EditorFor(model => model.LastName1)
                             @Html.EditorFor(model => model.LastName2)
+                            @Html.EditorFor(model => model.FirstName)
                         </fieldset>
                         <fieldset>
                             @Html.EditorFor(model => model.Dob)
@@ -55,10 +62,12 @@
                         <fieldset>
                             @Html.EditorFor(model => model.State)
                             @Html.EditorFor(model => model.City)
+                            @Html.EditorFor(model => model.District)
                             @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
                         </fieldset>
                         <fieldset>
                             @Html.EditorFor(model => model.ParentUser)
+                            
                             <span>
                                 @Html.LabelFor(model => model.Rol) <br/>
                                 @Html.DropDownListForRolesList(model => model.Rol.RolId)
@@ -67,9 +76,10 @@
                                 @Html.LabelFor(model => model.Company) <br/>
                                 @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
                             </span>
+
                         </fieldset>
                             
-                        <input name="submit" type="submit" value="Submit">
+                        <input name="submit" type="submit" value="Guardar">
                     }
                 </div>
             </div>
