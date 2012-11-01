@@ -24,10 +24,12 @@
                         @Html.AntiForgeryToken()
                         <fieldset>
                             @Html.EditorFor(model => model.Username)
+                            @Html.ValidationMessage("Username", "*")
                         </fieldset>
                         <fieldset>
                             @Html.LabelFor(model => model.Password)
                             @Html.PasswordFor(model => model.Password)
+                            @Html.ValidationMessage("Username", "*")Password
                         </fieldset>
                         <input name="submit" type="submit" value="Submit">
                     }

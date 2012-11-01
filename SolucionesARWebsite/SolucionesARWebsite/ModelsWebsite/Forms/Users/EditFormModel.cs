@@ -22,19 +22,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// The Identification number
         /// </summary>
         [Required]
-        public int IdentificationTypeId { get; set; }
-
-        /// <summary>
-        /// The Identification number
-        /// </summary>
-        [Required]
-        public string IdentificationNumber { get; set; }
-            
-        /// <summary>
-        /// The Identification number
-        /// </summary>
-        [Required]
-        public string Nationality { get; set; }
+        public string CedNumber { get; set; }
 
         /// <summary>
         /// The First Name
@@ -68,11 +56,6 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// The address 2
         /// </summary>
         public string Address2 { get; set; }
-
-        /// <summary>
-        /// The city
-        /// </summary>
-        public string District { get; set; }
 
         /// <summary>
         /// The city
@@ -136,15 +119,15 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
 
         public void ValidateModel(ModelStateDictionary modelState)
         {
-            int cedNumber;
-            var isValidCedNumber = Int32.TryParse(IdentificationNumber, out cedNumber);
+            int numeroCedula;
+            var isValidCedNumber = Int32.TryParse(CedNumber, out numeroCedula);
             if (isValidCedNumber)
             {
-                CedNumberInt = cedNumber;
+                CedNumberInt = numeroCedula;
             }
             else
             {
-                modelState.AddModelError("IdentificationNumber", "El número de cédula debe ser numérico.");
+                modelState.AddModelError("CedNumber", "El número de cédula debe ser numérico.");
             }
         }
 

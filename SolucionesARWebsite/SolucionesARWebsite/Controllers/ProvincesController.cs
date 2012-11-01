@@ -5,7 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
+using SolucionesARWebsite.ModelsWebsite.Forms.Provinces;
 using SolucionesARWebsite.ModelsWebsite.Lists;
 using SolucionesARWebsite.ModelsWebsite.Views.Provinces;
 
@@ -20,11 +22,12 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Index()
         {
+            var provinces = db.Provinces.ToList();
             var indexViewModel = new IndexViewModel
             {
                 ProvincesList = new ProvincesList()
                 {
-                    Items = new List<Province>()
+                    Items = provinces
                 }
             };
             return View(indexViewModel);
@@ -48,13 +51,18 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var editViewModel = new EditViewModel
+            {
+                ProvinceId = 0,
+                ProvinceName = "",
+            };
+            return View("Edit", editViewModel);
         }
 
         //
         // POST: /Provinces/Create
 
-        [HttpPost]
+      /*  [HttpPost]
         public ActionResult Create(Province province)
         {
             if (ModelState.IsValid)
@@ -65,25 +73,27 @@ namespace SolucionesARWebsite.Controllers
             }
 
             return View(province);
-        }
+        }*/
 
         //
         // GET: /Provinces/Edit/5
 
         public ActionResult Edit(int id = 0)
-        {
-            Province province = db.Provinces.Find(id);
-            if (province == null)
+        {// TODO: esta entrando 2 veces :S
+            var provinces = db.Provinces.ToList();
+            var provinceInfo = provinces.FirstOrDefault(p => p.ProvinceId == id);
+            var editViewModel = new EditViewModel
             {
-                return HttpNotFound();
-            }
-            return View(province);
+                ProvinceId = provinceInfo.ProvinceId,
+                ProvinceName = provinceInfo.Name,
+            };
+            return View(editViewModel);
         }
-
+        
         //
         // POST: /Provinces/Edit/5
 
-        [HttpPost]
+     /*   [HttpPost]
         public ActionResult Edit(Province province)
         {
             if (ModelState.IsValid)
@@ -93,12 +103,35 @@ namespace SolucionesARWebsite.Controllers
                 return RedirectToAction("Index");
             }
             return View(province);
+        }*/
+
+        [HttpPost]
+        public ActionResult Save(EditFormModel editFormModel)
+        {
+            var editViewModel = ModelViewFromForm(editFormModel);
+            if (ModelState.IsValid)
+            {
+
+                if (editFormModel.ProvinceId==0)
+                {
+                    db.Provinces.Add(new Province { ProvinceId = editFormModel.ProvinceId, Name = editFormModel.ProvinceName });
+                    
+                }
+                else
+                {
+                    var province = db.Provinces.Find(editFormModel.ProvinceId);
+                    province.Name = editFormModel.ProvinceName;
+                }
+                db.SaveChanges();
+            }
+
+            return View("Edit", editViewModel);
         }
 
         //
         // GET: /Provinces/Delete/5
 
-        public ActionResult Delete(int id = 0)
+     /*   public ActionResult Delete(int id = 0)
         {
             Province province = db.Provinces.Find(id);
             if (province == null)
@@ -106,7 +139,7 @@ namespace SolucionesARWebsite.Controllers
                 return HttpNotFound();
             }
             return View(province);
-        }
+        }*/
 
         //
         // POST: /Provinces/Delete/5
@@ -124,6 +157,17 @@ namespace SolucionesARWebsite.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+
+
+        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        {
+            return new EditViewModel
+            {
+                ProvinceId = editFormModel.ProvinceId,
+                ProvinceName = editFormModel.ProvinceName
+            };
         }
     }
 }

@@ -122,9 +122,9 @@ namespace SolucionesARWebsite.Business.Management
                 Address1 = editFormMode.Address1,
                 Address2 = editFormMode.Address2,
                 //tenemos que eliminar los guiones
-                CedNumber = Convert.ToInt32(editFormMode.IdentificationNumber),
+                CedNumber = Convert.ToInt32(editFormMode.CedNumber),
                 //tenemos que eliminar los guiones
-                Cellphone = editFormMode.Cellphone.ToString(),
+                Cellphone = editFormMode.CedNumber,
                 Company = new Company { CompanyId = editFormMode.CompanyId },
                 Dob = editFormMode.Dob,
                 Email = editFormMode.Email,
@@ -135,7 +135,7 @@ namespace SolucionesARWebsite.Business.Management
                 UserReferenceId = editFormMode.ParentUser,
                 RolId = editFormMode.RolId,
                 //tenemos que eliminar los guiones
-                PhoneNumber = editFormMode.PhoneNumber.ToString(),
+                PhoneNumber = editFormMode.PhoneNumber,
             };
         }
 

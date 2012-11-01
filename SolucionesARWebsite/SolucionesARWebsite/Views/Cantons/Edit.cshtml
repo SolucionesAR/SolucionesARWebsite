@@ -1,45 +1,47 @@
-﻿@model SolucionesARWebsite.Models.Canton
+﻿
+@using SolucionesARWebsite.ModelsWebsite.Views.Cantons
+
+@model EditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "SolucionesAR | Cantones";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-<h2>Edit</h2>
+@section Messages {
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Canton</legend>
-
-        @Html.HiddenFor(model => model.CantonId)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProvinceId, "Provinceanton")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("ProvinceId", String.Empty)
-            @Html.ValidationMessageFor(model => model.ProvinceId)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section EditionContent {
+    <div class="edition_content content_box ">
+        
+        @if (Model.CantonId > 0)
+        {
+            <h1>EDITAR CANTON</h1>
+        }
+        else
+        {
+            <h1>NUEVO CANTON</h1>
+        }
+
+        <div class="entry jspScrollable">
+            <p class="note">Favor complete el siguiente formulario</p>
+            <div class="jspContainer" style="width: 960px; height: 400px;">
+                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+                    @using (Html.BeginForm("Save", "Cantons"))
+                    {
+                        @Html.HiddenFor(model => model.CantonId)
+                        <fieldset>
+                            @Html.EditorFor(model => model.CantonName)
+                            @Html.EditorFor(model=> model.ProvinceId)
+                        </fieldset>
+                            
+                        <input name="submit" type="submit" value="Submit">
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 }
+

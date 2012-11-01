@@ -23,13 +23,5 @@ namespace SolucionesARWebsite.Helpers
                                               new SelectList(htmlHelper.ViewData.Model.CompaniesList, "CompanyId", "CompanyName",
                                                              htmlHelper.ViewData.Model.Company.CompanyId));
         }
-
-        public static MvcHtmlString DropDownListForIdenficationlList(this HtmlHelper<EditViewModel> htmlHelper,
-            Expression<Func<EditViewModel, int>> expression)
-        {
-            return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.IdentificationTypesList, "IdentificationTypeId", "IdentificationDescription",
-                                                             htmlHelper.ViewData.Model.IdentificationType.IdentificationTypeId));
-        }
     }
 }

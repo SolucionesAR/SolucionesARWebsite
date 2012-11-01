@@ -21,25 +21,8 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The Identification number
         /// </summary>
-        [Display(Name = "Tipo de Idenficación*")]
-        public IdentificationType IdentificationType { get; set; }
-
-        /// <summary>
-        /// The Identification Types List
-        /// </summary>
-        public List<IdentificationType> IdentificationTypesList { get; set; }
-
-        /// <summary>
-        /// The Identification number
-        /// </summary>
-        [Display(Name = "Identificacion*", Prompt = "Cédula - No. Passaporte")]
-        public string IdentificationNumber { get; set; }
-
-        /// <summary>
-        /// The Nationality
-        /// </summary>
-        [Display(Name = "Nacionalidad*", Prompt = "Nacionalidad")]
-        public string Nationality { get; set; }
+        [Display(Name = "Cédula*", Prompt = "Cédula")]
+        public string CedNumber { get; set; }
 
         /// <summary>
         /// The First Name
@@ -91,19 +74,13 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         public string Address2 { get; set; }
 
         /// <summary>
-        /// The district
-        /// </summary>
-        [Display(Name = "Distrito", Prompt = "Distrito")]
-        public string District { get; set; }
-
-        /// <summary>
-        /// The city
+        /// The address 1
         /// </summary>
         [Display(Name = "Cantón", Prompt = "Cantón")]
         public string City { get; set; }
 
         /// <summary>
-        /// The state
+        /// The address 1
         /// </summary>
         [Display(Name = "Provincia", Prompt = "Provincia")]
         public string State { get; set; }
@@ -111,7 +88,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The users phone number
         /// </summary>
-        [Display(Name = "Teléfono Fijo", Prompt = "2222-2222")]
+        [Display(Name = "Teléfono", Prompt = "2222-2222")]
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -125,8 +102,18 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// The email
         /// </summary>
         [DisplayName("Email")]
-        [Display(Name = "Email", Prompt = "usuario@dominio.com")]
+        [Display(Name = "Email", Prompt = "nombreusuario@dominio.com")]
         public string Email { get; set; }
+
+        /// <summary>
+        /// When the user have been created
+        /// </summary>
+        public DateTime CreatetedAt { get; set; }
+
+        /// <summary>
+        /// Last time the user is updated
+        /// </summary>
+        public DateTime UpdatedAt { get; set; }
 
         /// <summary>
         /// To check if the user is enabled

@@ -22,7 +22,8 @@ namespace SolucionesARWebsite.Enumerations
     }
 
     #endregion
-    
+
+
     public static class Roles
     {
         #region Static Methods

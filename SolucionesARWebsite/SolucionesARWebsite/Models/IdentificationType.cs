@@ -1,4 +1,9 @@
-﻿namespace SolucionesARWebsite.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace SolucionesARWebsite.Models
 {
     public class IdentificationType
     {
@@ -11,5 +16,7 @@
         /// The identification description
         /// </summary>
         public string IdentificationDescription { get; set; }
+
+
     }
 }

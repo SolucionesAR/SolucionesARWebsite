@@ -164,6 +164,7 @@
     <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
+    <Compile Include="Business\Management\ProvincesManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
     <Compile Include="Business\Management\RelationshisManagement.cs" />
     <Compile Include="Business\Management\RolesManagement.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="DataAccess\TransactionsAccess.cs" />
     <Compile Include="DataAccess\UsersAccess.cs" />
     <Compile Include="DataObjects\UserInformation.cs" />
-    <Compile Include="Enumerations\Enumerations.cs" />
+    <Compile Include="Enumerations\Routes.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,14 +225,19 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Canton\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Provinces\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\Lists\CantonsList.cs" />
     <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
     <Compile Include="ModelsWebsite\Lists\ProvincesList.cs" />
     <Compile Include="ModelsWebsite\Lists\StoresList.cs" />
     <Compile Include="ModelsWebsite\Views\Account\LoginViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Cantons\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Cantons\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Inventory\DetailsViewModel.cs" />
@@ -430,7 +436,15 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -552,14 +566,10 @@
     <Content Include="Views\Inventory\New.cshtml" />
     <Content Include="Views\Provinces\Index.cshtml" />
     <Content Include="Views\Provinces\Details.cshtml" />
-    <Content Include="Views\Provinces\Create.cshtml" />
     <Content Include="Views\Provinces\Edit.cshtml" />
-    <Content Include="Views\Provinces\Delete.cshtml" />
     <Content Include="Views\Cantons\Index.cshtml" />
     <Content Include="Views\Cantons\Details.cshtml" />
-    <Content Include="Views\Cantons\Create.cshtml" />
     <Content Include="Views\Cantons\Edit.cshtml" />
-    <Content Include="Views\Cantons\Delete.cshtml" />
     <Content Include="Views\Districts\Index.cshtml" />
     <Content Include="Views\Districts\Details.cshtml" />
     <Content Include="Views\Districts\Create.cshtml" />

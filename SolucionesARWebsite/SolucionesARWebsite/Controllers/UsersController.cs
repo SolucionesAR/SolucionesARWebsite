@@ -8,7 +8,6 @@ using SolucionesARWebsite.Models;
 using SolucionesARWebsite.ModelsWebsite.Forms.Users;
 using SolucionesARWebsite.ModelsWebsite.Lists;
 using SolucionesARWebsite.ModelsWebsite.Views.Users;
-using SolucionesARWebsite.Utils;
 using UserRole = SolucionesARWebsite.Enumerations.UserRole;
 
 namespace SolucionesARWebsite.Controllers
@@ -37,6 +36,7 @@ namespace SolucionesARWebsite.Controllers
             _companiesManagement = new CompaniesManagement();
             _transactionsManagement = new TransactionsManagement();
             _usersManagement = new UsersManagement();
+
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace SolucionesARWebsite.Controllers
                                                                      new User
                                                                          {
                                                                              GeneratedCode = "BarbozaCesar452",
-                                                                             IdentificationNumber = 206620452,
+                                                                             CedNumber = 206620452,
                                                                              FName = "César",
                                                                              LName1 = "Barboza",
                                                                              LName2 = "González",
@@ -67,7 +67,7 @@ namespace SolucionesARWebsite.Controllers
                                                                      new User
                                                                          {
                                                                              GeneratedCode = "BarbozaCesar452",
-                                                                             IdentificationNumber = 606620452,
+                                                                             CedNumber = 606620452,
                                                                              FName = "Ricardo",
                                                                              LName1 = "Quesada",
                                                                              LName2 = "Hidalgo",
@@ -95,7 +95,7 @@ namespace SolucionesARWebsite.Controllers
             var detailsViewModel = new DetailsViewModel
                                        {
                                            UserId = 1,
-                                           IdentificationNumber = 206620452,
+                                           CedNumber = 206620452,
                                            FName = "César",
                                            LName1 = "Barboza",
                                            LName2 = "González",
@@ -112,7 +112,7 @@ namespace SolucionesARWebsite.Controllers
             var detailsViewModel = new DetailsViewModel
                                        {
                                            UserId = id,
-                                           IdentificationNumber = userInformation.CedNumber,
+                                           CedNumber = userInformation.CedNumber,
                                            FName = userInformation.FName,
                                            LName1 = userInformation.LName1,
                                            LName2 = userInformation.LName2,
@@ -141,10 +141,6 @@ namespace SolucionesARWebsite.Controllers
                                         Company = new Company(),
                                         //Availables companies 
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
-                                        IdentificationType =
-                                            new IdentificationType
-                                                {IdentificationTypeId = (int) IdentificationTypes.CedNumber},
-                                        IdentificationTypesList = GetIdentificationTypesList(),
                                     };
             return View("Edit", editViewModel);
         }
@@ -158,7 +154,7 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = new EditViewModel
                                     {
                                         UserId = userInformation.UserId,
-                                        IdentificationNumber = userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
+                                        CedNumber = userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
                                         FirstName = userInformation.FName,
                                         LastName1 = userInformation.LName1,
                                         LastName2 = userInformation.LName2,
@@ -173,7 +169,6 @@ namespace SolucionesARWebsite.Controllers
                                         RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
-                                        IdentificationTypesList = GetIdentificationTypesList(),
                                     };
             return View(editViewModel);
         }
@@ -191,7 +186,6 @@ namespace SolucionesARWebsite.Controllers
 
             editViewModel.RolesList = GetRolesList(SecurityContext);
             editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
-            editViewModel.IdentificationTypesList = GetIdentificationTypesList();
 
             return View("Edit", editViewModel);
         }
@@ -205,25 +199,22 @@ namespace SolucionesARWebsite.Controllers
             return new EditViewModel
                        {
                            UserId = editFormModel.UserId,
-                           IdentificationNumber = editFormModel.IdentificationNumber,
-                           IdentificationType = new IdentificationType { IdentificationTypeId = editFormModel.IdentificationTypeId },
+                           CedNumber = editFormModel.CedNumber,
                            FirstName = editFormModel.FirstName,
                            LastName1 = editFormModel.LastName1,
                            LastName2 = editFormModel.LastName2,
                            GeneratedCode =
                                GenerateUserCode(editFormModel.LastName1, editFormModel.LastName2,
-                                                editFormModel.IdentificationNumber),
+                                                editFormModel.CedNumber),
                            Dob = editFormModel.Dob,
                            Address1 = editFormModel.Address1,
-                           District = editFormModel.District,
-                           City = editFormModel.City,
-                           State = editFormModel.State,
+                           Address2 = editFormModel.Address2,
                            PhoneNumber = editFormModel.PhoneNumber,
                            Cellphone = editFormModel.Cellphone,
                            Email = editFormModel.Email,
                            Enabled = editFormModel.Enabled,
-                           Rol = new Rol { RolId = editFormModel.RolId },
-                           Company = new Company { CompanyId = editFormModel.CompanyId },
+                           Rol = new Rol {RolId = editFormModel.RolId},
+                           Company = new Company {CompanyId = editFormModel.CompanyId},
                        };
         }
 
@@ -258,16 +249,6 @@ namespace SolucionesARWebsite.Controllers
                 }
             }
             return rolesList;
-        }
-
-        private static List<IdentificationType> GetIdentificationTypesList()
-        {
-            var identificationTypesList = new List<IdentificationType>();
-            foreach (var type in EnumUtil.GetValues<IdentificationTypes>())
-            {
-                identificationTypesList.Add(new IdentificationType { IdentificationDescription = type.ToStringValue(), IdentificationTypeId = (int)type, });
-            }
-            return identificationTypesList;
         }
 
         #endregion

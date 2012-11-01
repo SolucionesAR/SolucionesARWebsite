@@ -19,7 +19,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// <summary>
         /// The Identification number
         /// </summary>
-        public int IdentificationNumber { get; set; }
+        public int CedNumber { get; set; }
 
         /// <summary>
         /// The First Name
