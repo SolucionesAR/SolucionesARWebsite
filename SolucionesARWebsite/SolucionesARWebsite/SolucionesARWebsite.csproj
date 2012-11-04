@@ -222,17 +222,23 @@
     <Compile Include="Migrations\201210282306572_004.Designer.cs">
       <DependentUpon>201210282306572_004.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211040603433_005.cs" />
+    <Compile Include="Migrations\201211040603433_005.Designer.cs">
+      <DependentUpon>201211040603433_005.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Canton\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Districts\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Provinces\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Lists\CantonsList.cs" />
     <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
+    <Compile Include="ModelsWebsite\Lists\DistrictsList.cs" />
     <Compile Include="ModelsWebsite\Lists\ProvincesList.cs" />
     <Compile Include="ModelsWebsite\Lists\StoresList.cs" />
     <Compile Include="ModelsWebsite\Views\Account\LoginViewModel.cs" />
@@ -240,6 +246,8 @@
     <Compile Include="ModelsWebsite\Views\Cantons\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Companies\IndexViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Districts\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Districts\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Inventory\DetailsViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Inventory\UploadViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Inventory\IndexViewModel.cs" />
@@ -474,6 +482,9 @@
     <EmbeddedResource Include="Migrations\201210282306572_004.resx">
       <DependentUpon>201210282306572_004.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211040603433_005.resx">
+      <DependentUpon>201211040603433_005.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Companies\Index.cshtml" />
@@ -570,11 +581,9 @@
     <Content Include="Views\Cantons\Index.cshtml" />
     <Content Include="Views\Cantons\Details.cshtml" />
     <Content Include="Views\Cantons\Edit.cshtml" />
-    <Content Include="Views\Districts\Index.cshtml" />
     <Content Include="Views\Districts\Details.cshtml" />
-    <Content Include="Views\Districts\Create.cshtml" />
+    <Content Include="Views\Districts\Index.cshtml" />
     <Content Include="Views\Districts\Edit.cshtml" />
-    <Content Include="Views\Districts\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

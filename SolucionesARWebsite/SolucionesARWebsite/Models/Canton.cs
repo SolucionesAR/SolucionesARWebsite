@@ -11,7 +11,7 @@ namespace SolucionesARWebsite.Models
 
         public string Name { get; set; }
 
-        public virtual Province Provinceanton { get; set; }
+        public virtual Province Province { get; set; }
 
         public int ProvinceId { get; set; }
 

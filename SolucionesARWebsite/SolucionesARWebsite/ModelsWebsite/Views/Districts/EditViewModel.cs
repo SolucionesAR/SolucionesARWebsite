@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SolucionesARWebsite.ModelsWebsite.Views.Cantons
+namespace SolucionesARWebsite.ModelsWebsite.Views.Districts
 {
     public class EditViewModel : BaseViewModel
     {
@@ -12,16 +12,16 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Cantons
         /// <summary>
         /// The Unique company identifier
         /// </summary>
-        public int CantonId { get; set; }
+        public int DistrictId { get; set; }
 
         /// <summary>
         /// The Identification number
         /// </summary>
         [Display(Name = "Nombre*", Prompt = "Nombre")]
-        public string CantonName { get; set; }
+        public string DistrictName { get; set; }
 
-        [Display(Name = "Id de la Provincia*", Prompt = "Provincia")]
-        public int ProvinceId { get; set; }
+        [Display(Name = "Id del Canton*", Prompt = "Canton")]
+        public int CantonId { get; set; }
 
         
         #endregion

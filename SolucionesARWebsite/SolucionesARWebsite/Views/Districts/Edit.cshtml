@@ -1,45 +1,47 @@
-﻿@model SolucionesARWebsite.Models.District
+﻿
+@using SolucionesARWebsite.ModelsWebsite.Views.Districts
+
+@model EditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "SolucionesAR | Distritos";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-<h2>Edit</h2>
+@section Messages {
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>District</legend>
-
-        @Html.HiddenFor(model => model.DistrictId)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CantonId, "Canton")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("CantonId", String.Empty)
-            @Html.ValidationMessageFor(model => model.CantonId)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section EditionContent {
+    <div class="edition_content content_box ">
+        
+        @if (Model.DistrictId > 0)
+        {
+            <h1>EDITAR DISTRITO</h1>
+        }
+        else
+        {
+            <h1>NUEVO DISTRITO</h1>
+        }
+
+        <div class="entry jspScrollable">
+            <p class="note">Favor complete el siguiente formulario</p>
+            <div class="jspContainer" style="width: 960px; height: 400px;">
+                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+                    @using (Html.BeginForm("Save", "Districts"))
+                    {
+                        @Html.HiddenFor(model => model.DistrictId)
+                        <fieldset>
+                            @Html.EditorFor(model => model.DistrictName)
+                            @Html.EditorFor(model=> model.CantonId)
+                        </fieldset>
+                            
+                        <input name="submit" type="submit" value="Submit">
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 }
+

@@ -6,27 +6,27 @@ namespace SolucionesARWebsite.ModelsWebsite.Lists
 {
     #region enums
 
-    public enum DistrictListSortField
+    public enum CantonListSortField
     {
         [Value("id")]
         Id,
         [Value("name")]
         Name,
-        [Value("cantonId")]
-        CantonId,
+        [Value("provinceId")]
+        ProvinceId,
     }
 
-    public enum DistrictListFilter
+    public enum CantonListFilter
     {
-        [Value("districtId")]
+        [Value("cantonId")]
         Id,
         [Value("name")]
         Name,
-        [Value("cantonId")]
-        CantonId,
+        [Value("provinceId")]
+        ProvinceId,
     }
     #endregion
-    public class DistrictsList : ListWrapper
+    public class CantonsList : ListWrapper
     {
         #region Properties
 
@@ -34,11 +34,11 @@ namespace SolucionesARWebsite.ModelsWebsite.Lists
         /// Gets or sets the counts.
         /// </summary>
         /// <value>The counts.</value>
-        public new List<District> Items
+        public new List<Canton> Items
         {
             get
             {
-                return (List<District>)base.Items;
+                return (List<Canton>)base.Items;
             }
             set
             {
@@ -50,11 +50,11 @@ namespace SolucionesARWebsite.ModelsWebsite.Lists
         /// Gets or sets the current sorting field.
         /// </summary>
         /// <value></value>
-        public new DistrictListSortField SortField
+        public new CantonListSortField SortField
         {
             get
             {
-                return (DistrictListSortField)base.SortField;
+                return (CantonListSortField)base.SortField;
             }
             set
             {
@@ -66,11 +66,11 @@ namespace SolucionesARWebsite.ModelsWebsite.Lists
         /// Gets or sets the filters.
         /// </summary>
         /// <value>The filters.</value>
-        public new Dictionary<DistrictListFilter, string> Filters
+        public new Dictionary<CantonListFilter, string> Filters
         {
             get
             {
-                return (Dictionary<DistrictListFilter, string>)base.Filters;
+                return (Dictionary<CantonListFilter, string>)base.Filters;
             }
             set
             {
@@ -82,11 +82,11 @@ namespace SolucionesARWebsite.ModelsWebsite.Lists
 
         #region Constructors
 
-        public DistrictsList()
+        public CantonsList()
         {
         }
 
-        public DistrictsList(DistrictListSortField sort, SortDirectionType dir, Dictionary<DistrictListFilter, string> filters)
+        public CantonsList(CantonListSortField sort, SortDirectionType dir, Dictionary<CantonListFilter, string> filters)
             : base(sort, dir, filters)
         {
         }

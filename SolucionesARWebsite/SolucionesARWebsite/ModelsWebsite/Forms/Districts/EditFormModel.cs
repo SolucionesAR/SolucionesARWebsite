@@ -1,38 +1,45 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
-namespace SolucionesARWebsite.ModelsWebsite.Views.Cantons
+namespace SolucionesARWebsite.ModelsWebsite.Forms.Districts
 {
-    public class EditViewModel : BaseViewModel
+    public class EditFormModel
     {
         #region Constants
         #endregion
 
         #region Properties
 
+        [Required]
+        public int DistrictId { get; set; }
+
         /// <summary>
-        /// The Unique company identifier
+        /// The Unique user identifier
         /// </summary>
+        [Required]
         public int CantonId { get; set; }
 
         /// <summary>
         /// The Identification number
         /// </summary>
-        [Display(Name = "Nombre*", Prompt = "Nombre")]
-        public string CantonName { get; set; }
-
-        [Display(Name = "Id de la Provincia*", Prompt = "Provincia")]
-        public int ProvinceId { get; set; }
+        [Required]
+        public string DistrictName { get; set; }
 
         
         #endregion
 
         #region Private Members
+
+
         #endregion
 
         #region Contructors
         #endregion
 
         #region Public Methods
+
         #endregion
 
         #region Private Methods
