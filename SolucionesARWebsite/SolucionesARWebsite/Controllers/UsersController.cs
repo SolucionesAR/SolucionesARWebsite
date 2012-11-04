@@ -23,9 +23,10 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
-        private CompaniesManagement _companiesManagement;
-        private TransactionsManagement _transactionsManagement;
-        private UsersManagement _usersManagement;
+        private readonly CompaniesManagement _companiesManagement;
+        private readonly TransactionsManagement _transactionsManagement;
+        private readonly UsersManagement _usersManagement;
+        private readonly LocationsManagement _locationsManagement;
 
         #endregion
 
@@ -36,7 +37,7 @@ namespace SolucionesARWebsite.Controllers
             _companiesManagement = new CompaniesManagement();
             _transactionsManagement = new TransactionsManagement();
             _usersManagement = new UsersManagement();
-
+            _locationsManagement = new LocationsManagement();
         }
 
         #endregion
@@ -47,36 +48,6 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/
         public ActionResult Index()
         {
-            /*
-            var indexViewModel = new IndexViewModel
-                                     {
-                                         UsersList =
-                                             new UsersList
-                                                 {
-                                                     Items = new List<User>
-                                                                 {
-                                                                     new User
-                                                                         {
-                                                                             GeneratedCode = "BarbozaCesar452",
-                                                                             CedNumber = 206620452,
-                                                                             FName = "César",
-                                                                             LName1 = "Barboza",
-                                                                             LName2 = "González",
-                                                                             UserRol = new Rol {Name = "Administrador"}
-                                                                         },
-                                                                     new User
-                                                                         {
-                                                                             GeneratedCode = "BarbozaCesar452",
-                                                                             CedNumber = 606620452,
-                                                                             FName = "Ricardo",
-                                                                             LName1 = "Quesada",
-                                                                             LName2 = "Hidalgo",
-                                                                             UserRol = new Rol {Name = "Administrador"}
-                                                                         }
-                                                                 }
-                                                 }
-                                     };
-           */
             var indexViewModel = new IndexViewModel
                                      {
                                          UsersList = new UsersList
@@ -87,27 +58,9 @@ namespace SolucionesARWebsite.Controllers
             return View(indexViewModel);
         }
 
-
         // GET: /Users/Details/{id}
         public ActionResult Details(int id)
         {
-            /*
-            var detailsViewModel = new DetailsViewModel
-                                       {
-                                           UserId = 1,
-                                           CedNumber = 206620452,
-                                           FName = "César",
-                                           LName1 = "Barboza",
-                                           LName2 = "González",
-                                           Cashback = "5,2005.00 colones",
-                                           Enabled = true,
-                                           GeneratedCode = "BarbozaCesar452",
-                                           LastTransactions =
-                                               new List<string>
-                                                   {"new transaction", "current transaction", "old transaction"}
-
-                                       };
-            */
             var userInformation = _usersManagement.GetUser(id);
             var detailsViewModel = new DetailsViewModel
                                        {
@@ -135,28 +88,49 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = new EditViewModel
                                     {
                                         UserId = 0,
+                                        IdentificationTypesList = GetIdentificationTypesList(),
+                                        IdentificationType =
+                                            new IdentificationType
+                                                {
+                                                    IdentificationTypeId =
+                                                        (int) IdentificationTypes.CedNumber
+                                                },
                                         Rol = new Rol(),
-                                        //Current user´s role id
                                         RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
-                                        //Availables companies 
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
-                                        IdentificationTypesList = GetIdentificationTypesList(),
-                                        IdentificationType = new IdentificationType { IdentificationTypeId =(int) Enumerations.IdentificationTypes.CedNumber }
+                                        Province = _locationsManagement.GetProvince(1),
+                                        ProvincesList = _locationsManagement.GetAllProvinces(),
+                                        Canton = new Canton(),
+                                        CantonsList = _locationsManagement.GetCantonsByProvince(1),
+                                        //CantonsList = 
+                                        District = new District(),
+                                        DistrictsList = _locationsManagement.GetDistrictsByCanton(1),
+                                        //DistrictsList = 
                                     };
             return View("Edit", editViewModel);
         }
 
         //
         // GET: /Users/Edit/{id}
-        public ActionResult Edit(int userId = 0)
+        public ActionResult Edit(int userId)
         {
             //var userInformation = _usersManagement.GetUser(SecurityContext.User.Id);
             var userInformation = _usersManagement.GetUser(userId);
+            var canton = _locationsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
+            var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             var editViewModel = new EditViewModel
                                     {
                                         UserId = userInformation.UserId,
-                                        IdentificationNumber = userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
+                                        IdentificationNumber =
+                                            userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
+                                        IdentificationType =
+                                            new IdentificationType
+                                                {
+                                                    IdentificationTypeId =
+                                                        (int) IdentificationTypes.CedNumber
+                                                },
+                                        IdentificationTypesList = GetIdentificationTypesList(),
                                         FirstName = userInformation.FName,
                                         LastName1 = userInformation.LName1,
                                         LastName2 = userInformation.LName2,
@@ -171,8 +145,12 @@ namespace SolucionesARWebsite.Controllers
                                         RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
-                                        IdentificationTypesList = GetIdentificationTypesList(),
-                                        IdentificationType = new IdentificationType { IdentificationTypeId = (int)Enumerations.IdentificationTypes.CedNumber }
+                                        Province = province,
+                                        ProvincesList = _locationsManagement.GetAllProvinces(),
+                                        Canton = canton,
+                                        CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId),
+                                        District = userInformation.District,
+                                        DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId),
                                     };
             return View(editViewModel);
         }
@@ -219,6 +197,9 @@ namespace SolucionesARWebsite.Controllers
                            Enabled = editFormModel.Enabled,
                            Rol = new Rol {RolId = editFormModel.RolId},
                            Company = new Company {CompanyId = editFormModel.CompanyId},
+                           Province = new Province {ProvinceId = editFormModel.ProvinceId},
+                           Canton = new Canton {CantonId = editFormModel.CantonId},
+                           District = new District {DistrictId = editFormModel.DistrictId},
                        };
         }
 

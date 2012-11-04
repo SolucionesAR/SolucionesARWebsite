@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -86,28 +85,43 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         public string Address1 { get; set; }
 
         /// <summary>
-        /// The address 2
+        /// The address 1
         /// </summary>
-        [Display(Name = "Dirección Complementaria", Prompt = "Dirección Complementaria")]
+        [Display(Name = "Otras Señas", Prompt = "Dirección")]
         public string Address2 { get; set; }
 
         /// <summary>
         /// The district
         /// </summary>
         [Display(Name = "Distrito", Prompt = "Distrito")]
-        public string District { get; set; }
+        public District District { get; set; }
 
         /// <summary>
         /// The city
         /// </summary>
         [Display(Name = "Cantón", Prompt = "Cantón")]
-        public string City { get; set; }
+        public Canton Canton { get; set; }
 
         /// <summary>
         /// The state
         /// </summary>
         [Display(Name = "Provincia", Prompt = "Provincia")]
-        public string State { get; set; }
+        public Province Province { get; set; }
+
+        /// <summary>
+        /// The districts list
+        /// </summary>
+        public List<District> DistrictsList { get; set; }
+
+        /// <summary>
+        /// The cities list
+        /// </summary>
+        public List<Canton> CantonsList { get; set; }
+
+        /// <summary>
+        /// The state
+        /// </summary>
+        public List<Province> ProvincesList { get; set; }
 
         /// <summary>
         /// The users phone number
@@ -162,7 +176,6 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// The Companies List
         /// </summary>
         public List<Company> CompaniesList { get; set; }
-
 
         #endregion
 

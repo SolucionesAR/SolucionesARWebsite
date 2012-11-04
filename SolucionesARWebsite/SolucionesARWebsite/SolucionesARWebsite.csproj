@@ -164,6 +164,7 @@
     <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
+    <Compile Include="Business\Management\LocationsManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
     <Compile Include="Business\Management\RelationshisManagement.cs" />
     <Compile Include="Business\Management\RolesManagement.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataAccess\CompaniesAccess.cs" />
     <Compile Include="DataAccess\InventoryAccess.cs" />
+    <Compile Include="DataAccess\LocationsAccess.cs" />
     <Compile Include="DataAccess\RelationshipsAccess.cs" />
     <Compile Include="DataAccess\RelationshipTypesAccess.cs" />
     <Compile Include="DataAccess\RolesAccess.cs" />

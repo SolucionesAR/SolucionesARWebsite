@@ -70,19 +70,19 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         public string Address2 { get; set; }
 
         /// <summary>
-        /// The city
+        /// The district
         /// </summary>
-        public string District { get; set; }
+        public int DistrictId { get; set; }
 
         /// <summary>
-        /// The city
+        /// The canton
         /// </summary>
-        public string City { get; set; }
+        public int CantonId { get; set; }
 
         /// <summary>
-        /// The State
+        /// The province
         /// </summary>
-        public string State { get; set; }
+        public int ProvinceId { get; set; }
 
         /// <summary>
         /// The users phone number

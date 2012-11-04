@@ -60,9 +60,18 @@
                             @Html.EditorFor(model => model.Email)
                         </fieldset>
                         <fieldset>
-                            @Html.EditorFor(model => model.State)
-                            @Html.EditorFor(model => model.City)
-                            @Html.EditorFor(model => model.District)
+                            <span>
+                                @Html.LabelFor(model => model.Province) <br/>
+                                @Html.DropDownListForProviceslList(model => model.Province.ProvinceId)
+                            </span>
+                            <span>
+                                @Html.LabelFor(model => model.Canton) <br/>
+                                @Html.DropDownListForCantonslList(model => model.Canton.CantonId)
+                            </span>
+                            <span>
+                                @Html.LabelFor(model => model.District) <br/>
+                                @Html.DropDownListForDistrictslList(model => model.District.DistrictId)
+                            </span>
                             @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
                         </fieldset>
                         <fieldset>

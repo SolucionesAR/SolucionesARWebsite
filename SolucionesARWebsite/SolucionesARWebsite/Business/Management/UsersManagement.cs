@@ -64,8 +64,8 @@ namespace SolucionesARWebsite.Business.Management
 
         public virtual UserInformation GetUserInformation(string username)
         {
-            var user = _usersAccess.GetUser(username);
-            user = new User
+            //var user = _usersAccess.GetUser(username);
+            var user = new User
                        {
                            UserId = 10,
                            RolId = (int) UserRole.SuperUser,
