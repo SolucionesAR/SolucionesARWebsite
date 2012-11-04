@@ -33,9 +33,9 @@ namespace SolucionesARWebsite.Enumerations
     {
         #region Public Methods
 
-        public static string GetDescription(IdentificationTypes role)
+        public static string GetDescription(IdentificationTypes idType)
         {
-            return role.ToStringValue();
+            return idType.ToStringValue();
         }
         #endregion
     }

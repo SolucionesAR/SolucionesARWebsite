@@ -141,6 +141,8 @@ namespace SolucionesARWebsite.Controllers
                                         Company = new Company(),
                                         //Availables companies 
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        IdentificationTypesList = GetIdentificationTypesList(),
+                                        IdentificationType = new IdentificationType { IdentificationTypeId =(int) Enumerations.IdentificationTypes.CedNumber }
                                     };
             return View("Edit", editViewModel);
         }
@@ -169,6 +171,8 @@ namespace SolucionesARWebsite.Controllers
                                         RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        IdentificationTypesList = GetIdentificationTypesList(),
+                                        IdentificationType = new IdentificationType { IdentificationTypeId = (int)Enumerations.IdentificationTypes.CedNumber }
                                     };
             return View(editViewModel);
         }
@@ -249,6 +253,16 @@ namespace SolucionesARWebsite.Controllers
                 }
             }
             return rolesList;
+        }
+
+        private static List<IdentificationType> GetIdentificationTypesList()
+        {
+            var identificationsList = new List<IdentificationType>();
+            foreach (var idType in EnumUtil.GetValues<IdentificationTypes>())
+            {
+                identificationsList.Add(new IdentificationType { IdentificationTypeId = (int)idType, IdentificationDescription = Enumerations.Enumerations.GetDescription(idType) });
+            }
+            return identificationsList;
         }
 
         #endregion
