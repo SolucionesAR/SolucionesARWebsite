@@ -20,7 +20,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Cantons
         [Display(Name = "Nombre*", Prompt = "Nombre")]
         public string CantonName { get; set; }
 
-        [Display(Name = "Id de la Provincia*", Prompt = "Provincia")]
+        [Display(Name = "Id de la Provincia*")]
         public int ProvinceId { get; set; }
 
         

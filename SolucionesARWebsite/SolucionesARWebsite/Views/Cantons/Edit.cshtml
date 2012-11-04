@@ -34,7 +34,12 @@
                         @Html.HiddenFor(model => model.CantonId)
                         <fieldset>
                             @Html.EditorFor(model => model.CantonName)
-                            @Html.EditorFor(model=> model.ProvinceId)
+                        </fieldset>
+                        <fieldset>
+                            <span>
+                                @Html.LabelFor(model => model.ProvinceId) <br/>
+                                @Html.EditorFor(model => model.ProvinceId)
+                            </span>
                         </fieldset>
                             
                         <input name="submit" type="submit" value="Submit">
