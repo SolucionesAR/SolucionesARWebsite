@@ -25,7 +25,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Relationships/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             Relationship relationship = db.Relationships.Find(id);
             if (relationship == null)
@@ -68,7 +68,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Relationships/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             Relationship relationship = db.Relationships.Find(id);
             if (relationship == null)
@@ -102,7 +102,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Relationships/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             Relationship relationship = db.Relationships.Find(id);
             if (relationship == null)

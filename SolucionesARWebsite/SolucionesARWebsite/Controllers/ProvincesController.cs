@@ -36,7 +36,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Provinces/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             Province province = db.Provinces.Find(id);
             if (province == null)
@@ -78,7 +78,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Provinces/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {// TODO: esta entrando 2 veces :S
             var provinces = db.Provinces.ToList();
             var provinceInfo = provinces.FirstOrDefault(p => p.ProvinceId == id);
@@ -131,7 +131,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Provinces/Delete/5
 
-     /*   public ActionResult Delete(int id = 0)
+     /*   public ActionResult Delete(int id)
         {
             Province province = db.Provinces.Find(id);
             if (province == null)

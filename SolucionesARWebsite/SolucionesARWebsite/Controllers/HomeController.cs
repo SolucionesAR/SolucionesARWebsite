@@ -22,7 +22,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Home/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)
@@ -65,7 +65,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Home/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)
@@ -99,7 +99,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Home/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)

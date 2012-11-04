@@ -47,7 +47,7 @@ namespace SolucionesARWebsite.Controllers
 
         //
         // GET: /Users/Details/{id}
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             var detailsViewModel = new DetailsViewModel();
             return View(detailsViewModel);

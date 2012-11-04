@@ -89,7 +89,7 @@ namespace SolucionesARWebsite.Controllers
 
 
         // GET: /Users/Details/{id}
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             /*
             var detailsViewModel = new DetailsViewModel
@@ -112,7 +112,7 @@ namespace SolucionesARWebsite.Controllers
             var detailsViewModel = new DetailsViewModel
                                        {
                                            UserId = id,
-                                           CedNumber = userInformation.CedNumber,
+                                           IdentificationNumber = userInformation.CedNumber,
                                            FName = userInformation.FName,
                                            LName1 = userInformation.LName1,
                                            LName2 = userInformation.LName2,
@@ -154,7 +154,7 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = new EditViewModel
                                     {
                                         UserId = userInformation.UserId,
-                                        CedNumber = userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
+                                        IdentificationNumber = userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
                                         FirstName = userInformation.FName,
                                         LastName1 = userInformation.LName1,
                                         LastName2 = userInformation.LName2,
@@ -199,13 +199,13 @@ namespace SolucionesARWebsite.Controllers
             return new EditViewModel
                        {
                            UserId = editFormModel.UserId,
-                           CedNumber = editFormModel.CedNumber,
+                           IdentificationNumber = editFormModel.IdentificationNumber,
                            FirstName = editFormModel.FirstName,
                            LastName1 = editFormModel.LastName1,
                            LastName2 = editFormModel.LastName2,
                            GeneratedCode =
                                GenerateUserCode(editFormModel.LastName1, editFormModel.LastName2,
-                                                editFormModel.CedNumber),
+                                                editFormModel.IdentificationNumber),
                            Dob = editFormModel.Dob,
                            Address1 = editFormModel.Address1,
                            Address2 = editFormModel.Address2,

@@ -24,7 +24,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /RelationshipTypes/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             RelationshipType relationshiptype = db.RelationshipTypes.Find(id);
             if (relationshiptype == null)
@@ -61,7 +61,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /RelationshipTypes/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             RelationshipType relationshiptype = db.RelationshipTypes.Find(id);
             if (relationshiptype == null)
@@ -89,7 +89,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /RelationshipTypes/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             RelationshipType relationshiptype = db.RelationshipTypes.Find(id);
             if (relationshiptype == null)

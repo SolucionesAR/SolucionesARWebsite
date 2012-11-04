@@ -164,7 +164,6 @@
     <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
-    <Compile Include="Business\Management\ProvincesManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
     <Compile Include="Business\Management\RelationshisManagement.cs" />
     <Compile Include="Business\Management\RolesManagement.cs" />
@@ -197,7 +196,7 @@
     <Compile Include="DataAccess\TransactionsAccess.cs" />
     <Compile Include="DataAccess\UsersAccess.cs" />
     <Compile Include="DataObjects\UserInformation.cs" />
-    <Compile Include="Enumerations\Routes.cs" />
+    <Compile Include="Enumerations\Enumerations.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,10 +220,6 @@
     <Compile Include="Migrations\201210282306572_004.cs" />
     <Compile Include="Migrations\201210282306572_004.Designer.cs">
       <DependentUpon>201210282306572_004.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211040603433_005.cs" />
-    <Compile Include="Migrations\201211040603433_005.Designer.cs">
-      <DependentUpon>201211040603433_005.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
@@ -444,15 +439,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -481,9 +468,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201210282306572_004.resx">
       <DependentUpon>201210282306572_004.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211040603433_005.resx">
-      <DependentUpon>201211040603433_005.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -577,13 +561,19 @@
     <Content Include="Views\Inventory\New.cshtml" />
     <Content Include="Views\Provinces\Index.cshtml" />
     <Content Include="Views\Provinces\Details.cshtml" />
+    <Content Include="Views\Provinces\Create.cshtml" />
     <Content Include="Views\Provinces\Edit.cshtml" />
+    <Content Include="Views\Provinces\Delete.cshtml" />
     <Content Include="Views\Cantons\Index.cshtml" />
     <Content Include="Views\Cantons\Details.cshtml" />
+    <Content Include="Views\Cantons\Create.cshtml" />
     <Content Include="Views\Cantons\Edit.cshtml" />
-    <Content Include="Views\Districts\Details.cshtml" />
+    <Content Include="Views\Cantons\Delete.cshtml" />
     <Content Include="Views\Districts\Index.cshtml" />
+    <Content Include="Views\Districts\Details.cshtml" />
+    <Content Include="Views\Districts\Create.cshtml" />
     <Content Include="Views\Districts\Edit.cshtml" />
+    <Content Include="Views\Districts\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

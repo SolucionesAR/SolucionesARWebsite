@@ -24,7 +24,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Roles/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             Rol rol = db.Roles.Find(id);
             if (rol == null)
@@ -61,7 +61,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Roles/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             Rol rol = db.Roles.Find(id);
             if (rol == null)
@@ -89,7 +89,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Roles/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             Rol rol = db.Roles.Find(id);
             if (rol == null)

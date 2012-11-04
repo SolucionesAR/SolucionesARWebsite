@@ -95,7 +95,7 @@ namespace SolucionesARWebsite.Controllers
 
         //
         // GET: /Users/Edit/{id}
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             var editViewModel = new EditViewModel
                                     {

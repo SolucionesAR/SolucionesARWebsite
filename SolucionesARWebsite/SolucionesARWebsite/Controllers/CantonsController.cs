@@ -35,7 +35,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Cantons/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             Canton canton = db.Cantons.Find(id);
             if (canton == null)
@@ -80,7 +80,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Cantons/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             var cantons = db.Cantons.ToList();
             var cantonsInfo = cantons.FirstOrDefault(p => p.CantonId == id);
@@ -112,7 +112,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Cantons/Delete/5
 
-  /*      public ActionResult Delete(int id = 0)
+  /*      public ActionResult Delete(int id)
         {
             Canton canton = db.Cantons.Find(id);
             if (canton == null)

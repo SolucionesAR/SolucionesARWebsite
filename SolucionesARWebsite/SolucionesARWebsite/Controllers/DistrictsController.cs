@@ -35,7 +35,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Districts/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
             District district = db.Districts.Find(id);
             if (district == null)
@@ -80,7 +80,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Districts/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
             var districts = db.Districts.ToList();
             var districtsInfo = districts.FirstOrDefault(p => p.DistrictId == id);
@@ -112,7 +112,7 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Districts/Delete/5
 
-        /*      public ActionResult Delete(int id = 0)
+        /*      public ActionResult Delete(int id)
               {
                   District district = db.Districts.Find(id);
                   if (district == null)
