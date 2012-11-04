@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -161,6 +162,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// The Companies List
         /// </summary>
         public List<Company> CompaniesList { get; set; }
+
 
         #endregion
 

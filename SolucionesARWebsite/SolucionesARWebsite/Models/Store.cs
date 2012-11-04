@@ -15,6 +15,11 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// 
         /// </summary>
+        public string StoreName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string PhoneNumber1 { get; set; }
 
         /// <summary>

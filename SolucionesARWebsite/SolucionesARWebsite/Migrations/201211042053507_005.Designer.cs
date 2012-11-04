@@ -11,7 +11,7 @@ namespace SolucionesARWebsite.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201211040603433_005"; }
+            get { return "201211042053507_005"; }
         }
         
         string IMigrationMetadata.Source

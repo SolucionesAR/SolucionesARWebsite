@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.ModelsWebsite.Forms.Provinces;
 using SolucionesARWebsite.ModelsWebsite.Lists;
@@ -79,7 +73,7 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Provinces/Edit/5
 
         public ActionResult Edit(int id)
-        {// TODO: esta entrando 2 veces :S
+        {
             var provinces = db.Provinces.ToList();
             var provinceInfo = provinces.FirstOrDefault(p => p.ProvinceId == id);
             var editViewModel = new EditViewModel

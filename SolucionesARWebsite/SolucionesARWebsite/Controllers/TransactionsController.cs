@@ -5,7 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
+
+//using SolucionesARWebsite.ModelsWebsite.Forms.Transactions;
+using SolucionesARWebsite.ModelsWebsite.Lists;
+using SolucionesARWebsite.ModelsWebsite.Views.Transactions;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -13,13 +18,45 @@ namespace SolucionesARWebsite.Controllers
     {
         private DbModel db = new DbModel();
 
+                #region Constants
+        #endregion
+
+        #region Properties
+
+        #endregion
+
+        #region Private Members
+        private TransactionsManagement _transactionsManagement;
+        private UsersManagement _usersManagement;
+        private StoresManagement _storesManagement;
+
+        #endregion
+
+        #region Constructors
+
+        public TransactionsController()
+        {
+            _transactionsManagement = new TransactionsManagement();
+            _usersManagement = new UsersManagement();
+            _storesManagement = new StoresManagement();
+        }
+
+        #endregion
+
         //
         // GET: /Transactions/
 
         public ActionResult Index()
         {
-            var transactions = db.Transactions.Include(t => t.Store).Include(t => t.SalesMan).Include(t => t.Customer);
-            return View(transactions.ToList());
+
+            var indexViewModel = new IndexViewModel
+            {
+                TransactionsList = new TransactionsList
+                {
+                    Items = _transactionsManagement.GetTransactions(),
+                }
+            };
+            return View(indexViewModel);
         }
 
         //
@@ -40,16 +77,27 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1");
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName");
-            ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName");
-            return View();
+            var usersList = _usersManagement.GetUsersList();
+            var storsList = _storesManagement.GetStores();
+            var editViewModel = new EditViewModel
+                                    {
+                                        TransactionId = 0,
+                                        Amount = 0.0,
+                                        BillBarCode = "",
+                                        Store = new Store(),
+                                        ListStores = storsList,
+                                        Customer = new User(),
+                                        ListCustomers = usersList,
+                                        SalesMan = new User(),
+                                        ListSalesMan = usersList,
+                                    };
+            return View("Edit", editViewModel);
         }
 
         //
         // POST: /Transactions/Create
 
-        [HttpPost]
+    /*    [HttpPost]
         public ActionResult Create(Transaction transaction)
         {
             if (ModelState.IsValid)
@@ -64,7 +112,7 @@ namespace SolucionesARWebsite.Controllers
             ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
             return View(transaction);
         }
-
+        */
         //
         // GET: /Transactions/Edit/5
 

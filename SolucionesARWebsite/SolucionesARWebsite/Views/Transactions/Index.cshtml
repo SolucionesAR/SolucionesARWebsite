@@ -1,69 +1,97 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.Transaction>
+﻿@using SolucionesARWebsite.ModelsWebsite.Views.Transactions
+
+@model IndexViewModel
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SolucionesAR | Ventas";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BillBarCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatetedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Store.PhoneNumber1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalesMan.FName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer.FName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillBarCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatetedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Store.PhoneNumber1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalesMan.FName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.FName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TransactionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TransactionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TransactionId })
-        </td>
-    </tr>
+@section Messages {
 }
 
-</table>
+@section ListTitle {
+    VENTAS
+}
+
+@section ListActions {
+    @if (Model.TransactionsList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }
+        @Html.ActionLink("Nueva Venta", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Codigo de Factura
+                    </th>
+                    <th>
+                        Monto
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Tienda
+                    </th>
+                    <th>
+                        Dependiente
+                    </th>
+                    <th>
+                        Vendedor
+                    </th>
+
+                    <th></th>
+                </tr>
+           
+                @foreach (var item in Model.TransactionsList.Items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillBarCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatetedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Store.DistrictId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SalesMan.FName) 
+                            @Html.DisplayFor(modelItem => item.SalesMan.LName1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.FName) 
+                            @Html.DisplayFor(modelItem => item.Customer.LName1)
+                        </td> 
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.TransactionId }) |
+                            @Html.ActionLink("Detalles", "Details", new { id = item.TransactionId }) 
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}
