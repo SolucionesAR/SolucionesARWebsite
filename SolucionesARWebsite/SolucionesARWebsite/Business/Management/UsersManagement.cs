@@ -120,30 +120,52 @@ namespace SolucionesARWebsite.Business.Management
         private User Map(EditViewModel editFormMode)
         {
             var user = _usersAccess.GetUser(editFormMode.ParentUser);
-            return new User
+            if (user != null)
             {
-                Address1 = editFormMode.Address1,
-                Address2 = editFormMode.Address2,
-                //tenemos que eliminar los guiones
-                CedNumber = Convert.ToInt32(editFormMode.IdentificationNumber),
-                //tenemos que eliminar los guiones
-                Cellphone = editFormMode.Cellphone.ToString(),
-                CompanyId = editFormMode.Company.CompanyId,
-                //Company = new Company { CompanyId = editFormMode.Company.CompanyId , UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now},
-                Dob = editFormMode.Dob,
-                Email = editFormMode.Email,
-                Enabled = editFormMode.Enabled,
-                FName = editFormMode.FirstName,
-                LName1 = editFormMode.LastName1,
-                LName2 = editFormMode.LastName2,
-                UserReferenceId = user == null ? 0 : user.UserId,
-                //UserReference = new User { UserId = /*( editFormMode.ParentUser ?? 0)*/0,  UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now},
-                RolId = editFormMode.Rol.RolId,
-                //tenemos que eliminar los guiones
-                PhoneNumber = editFormMode.PhoneNumber,
-                DistrictId = editFormMode.District.DistrictId
-                //District = editFormMode.District
-            };
+                return new User
+                {
+                    Address1 = editFormMode.Address1,
+                    Address2 = editFormMode.Address2,
+                    //tenemos que eliminar los guiones
+                    CedNumber = Convert.ToInt32(editFormMode.IdentificationNumber),
+                    //tenemos que eliminar los guiones
+                    Cellphone = editFormMode.Cellphone,
+                    CompanyId = editFormMode.Company.CompanyId,
+                    Dob = editFormMode.Dob,
+                    Email = editFormMode.Email,
+                    Enabled = editFormMode.Enabled,
+                    FName = editFormMode.FirstName,
+                    LName1 = editFormMode.LastName1,
+                    LName2 = editFormMode.LastName2,
+                    UserReferenceId = user.UserId,
+                    RolId = editFormMode.Rol.RolId,
+                    //tenemos que eliminar los guiones
+                    PhoneNumber = editFormMode.PhoneNumber,
+                    DistrictId = editFormMode.District.DistrictId
+                    
+                };
+            }
+            return new User
+                       {
+                           Address1 = editFormMode.Address1,
+                           Address2 = editFormMode.Address2,
+                           //tenemos que eliminar los guiones
+                           CedNumber = Convert.ToInt32(editFormMode.IdentificationNumber),
+                           //tenemos que eliminar los guiones
+                           Cellphone = editFormMode.Cellphone.ToString(),
+                           CompanyId = editFormMode.Company.CompanyId,
+                           Dob = editFormMode.Dob,
+                           Email = editFormMode.Email,
+                           Enabled = editFormMode.Enabled,
+                           FName = editFormMode.FirstName,
+                           LName1 = editFormMode.LastName1,
+                           LName2 = editFormMode.LastName2,
+                           RolId = editFormMode.Rol.RolId,
+                           //tenemos que eliminar los guiones
+                           PhoneNumber = editFormMode.PhoneNumber,
+                           DistrictId = editFormMode.District.DistrictId
+                           //District = editFormMode.District
+                       };
         }
 
 
