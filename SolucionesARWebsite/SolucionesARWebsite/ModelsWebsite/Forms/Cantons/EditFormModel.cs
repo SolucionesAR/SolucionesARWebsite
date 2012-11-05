@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace SolucionesARWebsite.ModelsWebsite.Forms.Canton
+namespace SolucionesARWebsite.ModelsWebsite.Forms.Cantons
 {
     public class EditFormModel
     {

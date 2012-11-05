@@ -40,7 +40,7 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// The date of birth
         /// </summary>
-        public DateTime Dob { get; set; }
+        public DateTime? Dob { get; set; }
 
         /// <summary>
         /// The address 1
@@ -75,12 +75,12 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// When the user have been created
         /// </summary>
-        public DateTime CreatetedAt { get; set; }
+        public DateTime? CreatetedAt { get; set; }
 
         /// <summary>
         /// Last time the user is updated
         /// </summary>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         /// <summary>
         /// To check if the user is enabled

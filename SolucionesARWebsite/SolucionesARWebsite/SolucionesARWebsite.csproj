@@ -240,10 +240,14 @@
     <Compile Include="Migrations\201211050144577_008.Designer.cs">
       <DependentUpon>201211050144577_008.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211050229167_009.cs" />
+    <Compile Include="Migrations\201211050229167_009.Designer.cs">
+      <DependentUpon>201211050229167_009.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Canton\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Cantons\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Districts\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
@@ -503,6 +507,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201211050144577_008.resx">
       <DependentUpon>201211050144577_008.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211050229167_009.resx">
+      <DependentUpon>201211050229167_009.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

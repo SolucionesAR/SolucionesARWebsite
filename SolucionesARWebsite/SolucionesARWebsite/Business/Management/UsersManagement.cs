@@ -6,6 +6,7 @@ using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.ModelsWebsite.Forms.Users;
+using SolucionesARWebsite.ModelsWebsite.Views.Users;
 using SolucionesARWebsite.Utils;
 
 namespace SolucionesARWebsite.Business.Management
@@ -88,7 +89,7 @@ namespace SolucionesARWebsite.Business.Management
             return userInformation;
         }
         
-        public void Save(EditFormModel editFormModel, int updatedBy)
+        public void Save(EditViewModel editFormModel, int updatedBy)
         {
             var user = Map(editFormModel);
 
@@ -104,9 +105,9 @@ namespace SolucionesARWebsite.Business.Management
 
         private void AddUser(User user)
         {
-            user.CreatetedAt = DateTime.Now;
-            user.UpdatedAt = DateTime.Now;
-            user.Dob = DateTime.Now;
+            user.CreatetedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.UtcNow;
+            user.Dob = DateTime.UtcNow;
             _usersAccess.AddUser(user);
         }
 
@@ -116,8 +117,9 @@ namespace SolucionesARWebsite.Business.Management
             _usersAccess.EditUser(user);
         }
 
-        private User Map(EditFormModel editFormMode)
+        private User Map(EditViewModel editFormMode)
         {
+            var user = _usersAccess.GetUser(editFormMode.ParentUser);
             return new User
             {
                 Address1 = editFormMode.Address1,
@@ -126,17 +128,21 @@ namespace SolucionesARWebsite.Business.Management
                 CedNumber = Convert.ToInt32(editFormMode.IdentificationNumber),
                 //tenemos que eliminar los guiones
                 Cellphone = editFormMode.Cellphone.ToString(),
-                Company = new Company { CompanyId = editFormMode.CompanyId },
+                CompanyId = editFormMode.Company.CompanyId,
+                //Company = new Company { CompanyId = editFormMode.Company.CompanyId , UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now},
                 Dob = editFormMode.Dob,
                 Email = editFormMode.Email,
                 Enabled = editFormMode.Enabled,
                 FName = editFormMode.FirstName,
                 LName1 = editFormMode.LastName1,
                 LName2 = editFormMode.LastName2,
-                UserReference = new User { UserId = (editFormMode.ParentUser ?? 0)},
-                RolId = editFormMode.RolId,
+                UserReferenceId = user == null ? 0 : user.UserId,
+                //UserReference = new User { UserId = /*( editFormMode.ParentUser ?? 0)*/0,  UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now},
+                RolId = editFormMode.Rol.RolId,
                 //tenemos que eliminar los guiones
-                PhoneNumber = editFormMode.PhoneNumber.ToString(),
+                PhoneNumber = editFormMode.PhoneNumber,
+                DistrictId = editFormMode.District.DistrictId
+                //District = editFormMode.District
             };
         }
 

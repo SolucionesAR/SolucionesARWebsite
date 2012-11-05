@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
@@ -159,12 +160,12 @@ namespace SolucionesARWebsite.Controllers
         //
         // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
-        public ActionResult Save(EditFormModel editFormModel)
+        public ActionResult Save(EditViewModel editViewModel)
         {
-            var editViewModel = ModelViewFromForm(editFormModel);
+           // var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                _usersManagement.Save(editFormModel, SecurityContext.User.Id);
+                _usersManagement.Save(editViewModel, SecurityContext.User.Id);
             }
 
             editViewModel.RolesList = GetRolesList(SecurityContext);
@@ -182,7 +183,7 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
-        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        private EditViewModel ModelViewFromForm(EditFormModel editFormModel)
         {
             return new EditViewModel
                        {
@@ -202,7 +203,8 @@ namespace SolucionesARWebsite.Controllers
                            Email = editFormModel.Email,
                            Enabled = editFormModel.Enabled,
                            Rol = new Rol {RolId = editFormModel.RolId},
-                           Company = new Company {CompanyId = editFormModel.CompanyId},
+                           //TODO: hay q hacer la parte de las companies
+                           Company = new Company { CompanyId = editFormModel.CompanyId , UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now},//_companiesManagement.GetCompany(editFormModel.CompanyId), //
                            Province = new Province {ProvinceId = editFormModel.ProvinceId},
                            Canton = new Canton {CantonId = editFormModel.CantonId},
                            District = new District {DistrictId = editFormModel.DistrictId},

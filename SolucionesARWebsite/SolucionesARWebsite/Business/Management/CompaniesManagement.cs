@@ -110,5 +110,10 @@ namespace SolucionesARWebsite.Business.Management
 
         #endregion
 
+        public Company GetCompany(int companyId)
+        {
+
+            return _companiesAccess.GetCompany(companyId);
+        }
     }
 }

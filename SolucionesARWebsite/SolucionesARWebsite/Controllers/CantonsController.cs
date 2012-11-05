@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Canton;
+using SolucionesARWebsite.ModelsWebsite.Forms.Cantons;
 using SolucionesARWebsite.ModelsWebsite.Lists;
 using SolucionesARWebsite.ModelsWebsite.Views.Cantons;
 
@@ -131,12 +131,13 @@ namespace SolucionesARWebsite.Controllers
             {
                 if (editFormModel.CantonId == 0)
                 {
-                    db.Cantons.Add(new Canton
-                                       {
-                                           CantonId = editFormModel.CantonId,
-                                           ProvinceId = editFormModel.ProvinceId,
-                                           Name = editFormModel.CantonName
-                                       });
+                    var canton = new Canton
+                                     {
+                                         CantonId = editFormModel.CantonId,
+                                         ProvinceId = editFormModel.ProvinceId,
+                                         Name = editFormModel.CantonName
+                                     };
+                    db.Cantons.Add(canton);
                 }
                 else
                 {

@@ -62,6 +62,12 @@ namespace SolucionesARWebsite.DataAccess
             return companies.First();
         }
 
+        public Company GetCompany(int companyId)
+        {
+            return _databaseModel.Companies.First(c => c.CompanyId == companyId);
+
+        }
+
         public void EditCompany(Company company)
         {
             _databaseModel.Entry(company).State = EntityState.Modified;
@@ -78,5 +84,7 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Private Methods
         #endregion
+
+        
     }
 }
