@@ -106,6 +106,7 @@ namespace SolucionesARWebsite.Business.Management
         {
             user.CreatetedAt = DateTime.Now;
             user.UpdatedAt = DateTime.Now;
+            user.Dob = DateTime.Now;
             _usersAccess.AddUser(user);
         }
 
@@ -132,7 +133,7 @@ namespace SolucionesARWebsite.Business.Management
                 FName = editFormMode.FirstName,
                 LName1 = editFormMode.LastName1,
                 LName2 = editFormMode.LastName2,
-                UserReferenceId = editFormMode.ParentUser,
+                UserReference = new User { UserId = (editFormMode.ParentUser ?? 0)},
                 RolId = editFormMode.RolId,
                 //tenemos que eliminar los guiones
                 PhoneNumber = editFormMode.PhoneNumber.ToString(),

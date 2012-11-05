@@ -83,6 +83,14 @@
             </table>
         </div>
     </div>
+     <p>
+    @using (Html.BeginForm("UploadFile", "Transactions"))
+    { 
+        <label for="file">Elija el archivo que desea subir:</label>
+        <input type="file" name="file" id="file"/>
+        <input type="submit" value="Subir" />
+    }
+</p>
 }
 
 @section ListPaging {

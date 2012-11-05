@@ -57,11 +57,13 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// The date of birth
         /// </summary>
+        [Required]
         public DateTime Dob { get; set; }
 
         /// <summary>
         /// The address 1
         /// </summary>
+        [Required]
         public string Address1 { get; set; }
 
         /// <summary>
@@ -72,16 +74,19 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// The district
         /// </summary>
+        [Required]
         public int DistrictId { get; set; }
 
         /// <summary>
         /// The canton
         /// </summary>
+        [Required]
         public int CantonId { get; set; }
 
         /// <summary>
         /// The province
         /// </summary>
+        [Required]
         public int ProvinceId { get; set; }
 
         /// <summary>
@@ -107,7 +112,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// A code that will be generated automatically to each user
         /// </summary>
-        public int ParentUser { get; set; }
+        public int? ParentUser { get; set; }
 
         /// <summary>
         /// The Rol id

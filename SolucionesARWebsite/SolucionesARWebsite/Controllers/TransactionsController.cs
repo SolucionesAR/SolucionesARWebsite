@@ -172,6 +172,16 @@ namespace SolucionesARWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file)
+        {
+            string path = System.IO.Path.Combine(Server.MapPath("~/Files"), System.IO.Path.GetFileName(file.FileName));
+            file.SaveAs(path);
+            ViewBag.Message = "File uploaded successfully";
+            //guardo lo q traiga el file
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

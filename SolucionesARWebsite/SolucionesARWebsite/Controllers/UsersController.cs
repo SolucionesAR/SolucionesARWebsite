@@ -58,6 +58,7 @@ namespace SolucionesARWebsite.Controllers
             return View(indexViewModel);
         }
 
+        //
         // GET: /Users/Details/{id}
         public ActionResult Details(int id)
         {
@@ -168,6 +169,11 @@ namespace SolucionesARWebsite.Controllers
 
             editViewModel.RolesList = GetRolesList(SecurityContext);
             editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
+
+            editViewModel.IdentificationTypesList = GetIdentificationTypesList();
+            editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
+            editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(1);
+            editViewModel.DistrictsList = _locationsManagement.GetDistrictsByCanton(1);
 
             return View("Edit", editViewModel);
         }

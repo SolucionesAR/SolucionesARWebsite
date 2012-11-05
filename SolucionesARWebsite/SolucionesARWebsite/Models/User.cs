@@ -101,12 +101,11 @@ namespace SolucionesARWebsite.Models
         /// The Rol id
         /// </summary>
         public int RolId { get; set; }
-
-
+        
         /// <summary>
         /// The reference user id
         /// </summary>
-        public int UserReferenceId { get; set; }
+        public int? UserReferenceId { get; set; }
 
         /// <summary>
         /// The reference user

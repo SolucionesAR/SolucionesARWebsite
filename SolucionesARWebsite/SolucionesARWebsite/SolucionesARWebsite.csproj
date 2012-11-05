@@ -228,6 +228,18 @@
     <Compile Include="Migrations\201211042053507_005.Designer.cs">
       <DependentUpon>201211042053507_005.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211050022244_006.cs" />
+    <Compile Include="Migrations\201211050022244_006.Designer.cs">
+      <DependentUpon>201211050022244_006.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211050023420_007.cs" />
+    <Compile Include="Migrations\201211050023420_007.Designer.cs">
+      <DependentUpon>201211050023420_007.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211050144577_008.cs" />
+    <Compile Include="Migrations\201211050144577_008.Designer.cs">
+      <DependentUpon>201211050144577_008.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
@@ -482,6 +494,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201211042053507_005.resx">
       <DependentUpon>201211042053507_005.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211050022244_006.resx">
+      <DependentUpon>201211050022244_006.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211050023420_007.resx">
+      <DependentUpon>201211050023420_007.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211050144577_008.resx">
+      <DependentUpon>201211050144577_008.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

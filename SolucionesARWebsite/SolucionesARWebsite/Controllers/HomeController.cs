@@ -15,8 +15,7 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Index()
         {
-            var transactions = db.Transactions.Include(t => t.Store).Include(t => t.SalesMan).Include(t => t.Customer);
-            return View(transactions.ToList());
+            return View();
         }
 
         //
