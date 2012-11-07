@@ -13,7 +13,7 @@ namespace SolucionesARWebsite.Helpers
         {
             return htmlHelper.DropDownListFor(expression,
                                               new SelectList(htmlHelper.ViewData.Model.RolesList, "RolId", "Name",
-                                                             htmlHelper.ViewData.Model.Rol.RolId));
+                                                             htmlHelper.ViewData.Model.UserRol.RolId));
         }
 
         public static MvcHtmlString DropDownListForCompanieslList(this HtmlHelper<EditViewModel> htmlHelper,

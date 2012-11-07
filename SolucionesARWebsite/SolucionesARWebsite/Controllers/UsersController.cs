@@ -29,6 +29,9 @@ namespace SolucionesARWebsite.Controllers
         private readonly UsersManagement _usersManagement;
         private readonly LocationsManagement _locationsManagement;
 
+        //to delete
+        private readonly RolesManagement _rolesManagement;
+
         #endregion
 
         #region Constructors
@@ -39,6 +42,9 @@ namespace SolucionesARWebsite.Controllers
             _transactionsManagement = new TransactionsManagement();
             _usersManagement = new UsersManagement();
             _locationsManagement = new LocationsManagement();
+
+            //to delete
+            _rolesManagement = new RolesManagement();
         }
 
         #endregion
@@ -97,7 +103,7 @@ namespace SolucionesARWebsite.Controllers
                                                     IdentificationTypeId =
                                                         (int) IdentificationTypes.CedNumber
                                                 },
-                                        Rol = new Rol(),
+                                        UserRol = new Rol(),
                                         RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
@@ -115,10 +121,9 @@ namespace SolucionesARWebsite.Controllers
 
         //
         // GET: /Users/Edit/{id}
-        public ActionResult Edit(int userId)
+        public ActionResult Edit(int id)
         {
-            //var userInformation = _usersManagement.GetUser(SecurityContext.User.Id);
-            var userInformation = _usersManagement.GetUser(userId);
+            var userInformation = _usersManagement.GetUser(id);
             var canton = _locationsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             var editViewModel = new EditViewModel
@@ -133,9 +138,11 @@ namespace SolucionesARWebsite.Controllers
                                                         (int) IdentificationTypes.CedNumber
                                                 },
                                         IdentificationTypesList = GetIdentificationTypesList(),
+                                        Address1 = userInformation.Address1,
                                         FirstName = userInformation.FName,
                                         LastName1 = userInformation.LName1,
                                         LastName2 = userInformation.LName2,
+                                        Nationality = userInformation.Nationality,
                                         //Cashback = "₡5,025.00",
                                         Cashback = userInformation.Cashback.ToString(CultureInfo.InvariantCulture),
                                         Enabled = userInformation.Enabled,
@@ -143,9 +150,9 @@ namespace SolucionesARWebsite.Controllers
                                             GenerateUserCode(userInformation.LName1, userInformation.LName2,
                                                              userInformation.CedNumber.ToString(
                                                                  CultureInfo.InvariantCulture)),
-                                        Rol = new Rol {RolId = userInformation.RolId},
+                                        UserRol = userInformation.UserRol,
                                         RolesList = GetRolesList(SecurityContext),
-                                        Company = new Company(),
+                                        Company = userInformation.Company,
                                         CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
                                         Province = province,
                                         ProvincesList = _locationsManagement.GetAllProvinces(),
@@ -160,21 +167,26 @@ namespace SolucionesARWebsite.Controllers
         //
         // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
-        public ActionResult Save(EditViewModel editViewModel)
+        public ActionResult Save(EditFormModel editFormModel)
         {
-           // var editViewModel = ModelViewFromForm(editFormModel);
+            var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                _usersManagement.Save(editViewModel, SecurityContext.User.Id);
+                //provisional para salir del paso y no tener que hacer el manejo de roles y id types
+                //_rolesManagement.Save(GetRolesList(SecurityContext));
+                //_rolesManagement.Save(GetIdentificationTypesList());
+                _usersManagement.Save(editFormModel, SecurityContext.User.Id);
             }
+
+            var canton = _locationsManagement.GetCantonByDistrict(editFormModel.District.DistrictId);
+            var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
+            editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
+            editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId);
+            editViewModel.DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId);
 
             editViewModel.RolesList = GetRolesList(SecurityContext);
             editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
-
             editViewModel.IdentificationTypesList = GetIdentificationTypesList();
-            editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
-            editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(1);
-            editViewModel.DistrictsList = _locationsManagement.GetDistrictsByCanton(1);
 
             return View("Edit", editViewModel);
         }
@@ -189,6 +201,7 @@ namespace SolucionesARWebsite.Controllers
                        {
                            UserId = editFormModel.UserId,
                            IdentificationNumber = editFormModel.IdentificationNumber,
+                           IdentificationType = editFormModel.IdentificationType,
                            FirstName = editFormModel.FirstName,
                            LastName1 = editFormModel.LastName1,
                            LastName2 = editFormModel.LastName2,
@@ -202,12 +215,13 @@ namespace SolucionesARWebsite.Controllers
                            Cellphone = editFormModel.Cellphone,
                            Email = editFormModel.Email,
                            Enabled = editFormModel.Enabled,
-                           Rol = new Rol {RolId = editFormModel.RolId},
+                           UserRol = editFormModel.UserRol,
                            //TODO: hay q hacer la parte de las companies
-                           Company = new Company { CompanyId = editFormModel.CompanyId , UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now},//_companiesManagement.GetCompany(editFormModel.CompanyId), //
-                           Province = new Province {ProvinceId = editFormModel.ProvinceId},
-                           Canton = new Canton {CantonId = editFormModel.CantonId},
-                           District = new District {DistrictId = editFormModel.DistrictId},
+                           //Company = new Company { CompanyId = editFormModel.CompanyId, UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now },//_companiesManagement.GetCompany(editFormModel.CompanyId), //
+                           Company = editFormModel.Company,
+                           Province = editFormModel.Province,
+                           Canton = editFormModel.Canton,
+                           District = editFormModel.District,
                        };
         }
 

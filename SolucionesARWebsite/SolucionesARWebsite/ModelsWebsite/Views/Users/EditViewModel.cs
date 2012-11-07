@@ -159,7 +159,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Users
         /// </summary>
         [Required]
         [DisplayName("Rol")]
-        public Rol Rol { get; set; }
+        public Rol UserRol { get; set; }
 
         /// <summary>
         /// The Roles List 

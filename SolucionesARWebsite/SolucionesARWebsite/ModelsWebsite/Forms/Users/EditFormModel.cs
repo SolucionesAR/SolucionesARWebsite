@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
 {
@@ -15,14 +16,13 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// The Unique user identifier
         /// </summary>
-        [Required]
         public int UserId { get; set; }
 
         /// <summary>
         /// The Identification number
         /// </summary>
         [Required]
-        public int IdentificationTypeId { get; set; }
+        public IdentificationType IdentificationType { get; set; }
 
         /// <summary>
         /// The Identification number
@@ -75,19 +75,19 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// The district
         /// </summary>
         [Required]
-        public int DistrictId { get; set; }
+        public District District { get; set; }
 
         /// <summary>
         /// The canton
         /// </summary>
         [Required]
-        public int CantonId { get; set; }
+        public Canton Canton { get; set; }
 
         /// <summary>
         /// The province
         /// </summary>
         [Required]
-        public int ProvinceId { get; set; }
+        public Province Province { get; set; }
 
         /// <summary>
         /// The users phone number
@@ -112,19 +112,17 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Users
         /// <summary>
         /// A code that will be generated automatically to each user
         /// </summary>
-        public int? ParentUser { get; set; }
+        public string ParentUser { get; set; }
 
         /// <summary>
         /// The Rol id
         /// </summary>
-        [Required]
-        [DisplayName("Rol")]
-        public int RolId { get; set; }
+        public Rol UserRol { get; set; }
 
         /// <summary>
         /// The Company id
         /// </summary>
-        public int CompanyId { get; set; }
+        public Company Company { get; set; }
         
         #endregion
 
