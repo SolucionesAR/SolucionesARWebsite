@@ -21,6 +21,7 @@
         @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
     }
         @Html.ActionLink("Nueva Venta", "Create", null, new { @class = "button" })
+        @Html.ActionLink("Ingresar Ventas", "FileUpload", null, new { @class = "button" })
     }
 }
 
@@ -83,14 +84,7 @@
             </table>
         </div>
     </div>
-     <p>
-    @using (Html.BeginForm("UploadFile", "Transactions"))
-    { 
-        <label for="file">Elija el archivo que desea subir:</label>
-        <input type="file" name="file" id="file"/>
-        <input type="submit" value="Subir" />
-    }
-</p>
+     
 }
 
 @section ListPaging {

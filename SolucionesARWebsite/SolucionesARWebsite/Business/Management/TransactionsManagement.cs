@@ -68,9 +68,21 @@ namespace SolucionesARWebsite.Business.Management
 
         }
 
+        public Transaction GetTransaction(int id)
+        {
+            return _transactionsAccess.GetTransaction(id);
+        }
+
+
+        public bool SaveTransactions(string filename, string sheetName)
+        {
+            return _transactionsLogic.SaveTransactionsFromFile(filename, sheetName);
+        }
         #endregion
 
         #region Private Methods
         #endregion
+
+        
     }
 }

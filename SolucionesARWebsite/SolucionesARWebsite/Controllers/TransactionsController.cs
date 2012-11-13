@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
 
-//using SolucionesARWebsite.ModelsWebsite.Forms.Transactions;
 using SolucionesARWebsite.ModelsWebsite.Lists;
 using SolucionesARWebsite.ModelsWebsite.Views.Transactions;
 
@@ -16,9 +17,8 @@ namespace SolucionesARWebsite.Controllers
 {
     public class TransactionsController : Controller
     {
-        private DbModel db = new DbModel();
 
-                #region Constants
+        #region Constants
         #endregion
 
         #region Properties
@@ -43,6 +43,9 @@ namespace SolucionesARWebsite.Controllers
 
         #endregion
 
+
+        #region public methods
+
         //
         // GET: /Transactions/
 
@@ -62,15 +65,6 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /Transactions/Details/5
 
-        public ActionResult Details(int id)
-        {
-            Transaction transaction = db.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transaction);
-        }
 
         //
         // GET: /Transactions/Create
@@ -94,98 +88,75 @@ namespace SolucionesARWebsite.Controllers
             return View("Edit", editViewModel);
         }
 
-        //
-        // POST: /Transactions/Create
-
-    /*    [HttpPost]
-        public ActionResult Create(Transaction transaction)
+        public ActionResult FileUpload()
         {
-            if (ModelState.IsValid)
+            var usersList = _usersManagement.GetUsersList();
+            var storsList = _storesManagement.GetStores();
+            var editViewModel = new EditViewModel
             {
-                db.Transactions.Add(transaction);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1", transaction.StoreId);
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
-            ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
-            return View(transaction);
+                TransactionId = 0,
+                Amount = 0.0,
+                BillBarCode = "",
+                Store = new Store(),
+                ListStores = storsList,
+                Customer = new User(),
+                ListCustomers = usersList,
+                SalesMan = new User(),
+                ListSalesMan = usersList,
+            };
+            return View("FileUpload", editViewModel);
         }
-        */
+
+     
         //
         // GET: /Transactions/Edit/5
 
         public ActionResult Edit(int id)
         {
-            Transaction transaction = db.Transactions.Find(id);
-            if (transaction == null)
+            var transaction = _transactionsManagement.GetTransaction(id);
+            var usersList = _usersManagement.GetUsersList();
+            var storsList = _storesManagement.GetStores();
+            var editViewModel = new EditViewModel
             {
-                return HttpNotFound();
-            }
-            ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1", transaction.StoreId);
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
-            ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
-            return View(transaction);
+                TransactionId = id,
+                Amount = transaction.Amount,
+                BillBarCode = transaction.BillBarCode,
+                Store = transaction.Store,
+                ListStores = storsList,
+                Customer = transaction.Customer,
+                ListCustomers = usersList,
+                SalesMan = transaction.SalesMan,
+                ListSalesMan = usersList,
+            };
+            return View("Edit", editViewModel);
         }
 
-        //
-        // POST: /Transactions/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Transaction transaction)
+        public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)
         {
-            if (ModelState.IsValid)
+            if (file != null)
             {
-                db.Entry(transaction).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string filename = Path.Combine(Server.MapPath("~/Files"), Path.GetFileName(file.FileName));
+                
+                if (Directory.Exists(Path.GetDirectoryName(filename)))
+                {
+                    file.SaveAs(filename);
+                }
+                else
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(filename));
+                }
+
+                bool result = _transactionsManagement.SaveTransactions(filename, sheetName);
+                //TODO: aqui necesitamos devolver la misma vista pero con un error si falla...
+                return RedirectToAction(result ? "Index" : "FileUpload");
             }
-            ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1", transaction.StoreId);
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
-            ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
-            return View(transaction);
+            //TODO: aqui necesitamos devolver la misma vista pero con un error...
+
+            return RedirectToAction("FileUpload");
         }
 
-        //
-        // GET: /Transactions/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            Transaction transaction = db.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transaction);
-        }
-
-        //
-        // POST: /Transactions/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Transaction transaction = db.Transactions.Find(id);
-            db.Transactions.Remove(transaction);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file)
-        {
-            string path = System.IO.Path.Combine(Server.MapPath("~/Files"), System.IO.Path.GetFileName(file.FileName));
-            file.SaveAs(path);
-            ViewBag.Message = "File uploaded successfully";
-            //guardo lo q traiga el file
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
     }
 }

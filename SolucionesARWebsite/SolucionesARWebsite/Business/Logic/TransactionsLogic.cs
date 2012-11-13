@@ -1,4 +1,8 @@
-﻿using SolucionesARWebsite.DataAccess;
+﻿using System;
+using System.Data;
+using System.Data.OleDb;
+using System.Linq;
+using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.Business.Logic
@@ -99,6 +103,39 @@ namespace SolucionesARWebsite.Business.Logic
             return updatedUser;
         }
         #endregion
- 
+
+        public bool SaveTransactionsFromFile(string filename, string sheetName)
+        {
+            try
+            {
+                string connectionString = string.Format(filename.Substring(filename.LastIndexOf('.')).ToLower() == ".xlsx" ?
+                           "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=0\"" :
+                           "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=0\"",
+                           filename);
+
+
+                var adapter = new OleDbDataAdapter(string.Format("SELECT * FROM [{0}]", sheetName), connectionString);
+                var ds = new DataSet();
+
+                adapter.Fill(ds, "mytable");
+
+                var data = ds.Tables["mytable"].AsEnumerable();
+
+                //TODO: agregar la logica con el formato del file correspondiente
+                var query = data.Where(x => x.Field<double>("phone") != 0.0)
+                    .Select(x => x.Field<string>("fname")).ToList();
+
+                foreach (var que in query)
+                {
+                    Console.WriteLine(que);
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
