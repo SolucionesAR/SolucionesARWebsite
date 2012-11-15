@@ -12,10 +12,20 @@ namespace SolucionesARWebsite.Business.Logic
         #region Constants
 
         public const double SOLUCIONES_AR_PERCENTAJE = 0.2;
-
         public const double GOLD_USER_PERCENTAJE = 0.1;
         public const double SILVER_USER_PERCENTAJE = 0.3;
         public const double REAL_USER_PERCENTAJE = 0.6;
+        private const string EXCEL_2007_EXTENSION = ".xlsx";
+        private const string SELECT_ALL_QUERY = "SELECT * FROM [{0}$]";
+        private const string DATA_TABLE_NAME = "datatable";
+
+        private const string EXCEL_2007_CONNECTION_STRING =
+            "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=0\"";
+
+        private const string EXCEL_2005_CONNECTION_STRING =
+            "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=0\"";
+
+
 
         #endregion
 
@@ -46,6 +56,7 @@ namespace SolucionesARWebsite.Business.Logic
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -57,16 +68,16 @@ namespace SolucionesARWebsite.Business.Logic
             var company = _companiesAccess.GetCompany(transaction.Store);
 
             // del 100% esto es la comision total
-            var cashBackPercentajeAssignable = transaction.Amount * company.CashBackPercentaje / 100;
+            var cashBackPercentajeAssignable = transaction.Amount*company.CashBackPercentaje/100;
             // Este seria el 20% para soluciones AR
-            var solucionesArAmount = cashBackPercentajeAssignable * SOLUCIONES_AR_PERCENTAJE;
+            var solucionesArAmount = cashBackPercentajeAssignable*SOLUCIONES_AR_PERCENTAJE;
             //TODO: falta aca darle esta cantidad al usuario solucionesAR
             // Este seria el 80% del que los usuarios van a tomar sus %
             var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
 
             // Calculo del cashback para el usuario gold.
             var goldUser = AssingMoneyToUser(transaction.Customer, RelationshipTypesAccess.GOLD_RELATION,
-                                            forUsersAmount, GOLD_USER_PERCENTAJE);
+                                             forUsersAmount, GOLD_USER_PERCENTAJE);
             _usersAccess.UpdateUser(goldUser);
 
 
@@ -77,15 +88,17 @@ namespace SolucionesARWebsite.Business.Logic
 
             // Calculo del cashback para el usuario que hizo la compra
             var transactionUser = transaction.Customer;
-            var moneyForRealUser = forUsersAmount * REAL_USER_PERCENTAJE;
+            var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
             transactionUser.Cashback += moneyForRealUser;
             _usersAccess.UpdateUser(transactionUser);
 
             return _transactionsAccess.SaveTransaction(transaction);
         }
+
         #endregion
 
         #region Private Methods
+
         /// <summary>
         /// 
         /// </summary>
@@ -98,32 +111,38 @@ namespace SolucionesARWebsite.Business.Logic
         {
             var relationshipType = _relationshipTypesAccess.GetRelationShipType(relationType);
             var updatedUser = _relationshipsAccess.GetRelatedUser(user, relationshipType);
-            var moneyForUser = forUsersAmount * userPecentaje;
+            var moneyForUser = forUsersAmount*userPecentaje;
             updatedUser.Cashback += moneyForUser;
             return updatedUser;
         }
-        #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="sheetName"></param>
+        /// <returns></returns>
         public bool SaveTransactionsFromFile(string filename, string sheetName)
         {
             try
             {
-                string connectionString = string.Format(filename.Substring(filename.LastIndexOf('.')).ToLower() == ".xlsx" ?
-                           "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=0\"" :
-                           "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=0\"",
-                           filename);
+                string connectionString =
+                    string.Format(
+                        filename.Substring(filename.LastIndexOf('.')).ToLower() == EXCEL_2007_EXTENSION
+                            ? EXCEL_2007_CONNECTION_STRING
+                            : EXCEL_2005_CONNECTION_STRING, filename);
 
 
-                var adapter = new OleDbDataAdapter(string.Format("SELECT * FROM [{0}]", sheetName), connectionString);
+                var adapter = new OleDbDataAdapter(string.Format(SELECT_ALL_QUERY, sheetName), connectionString);
                 var ds = new DataSet();
 
-                adapter.Fill(ds, "mytable");
+                adapter.Fill(ds, DATA_TABLE_NAME);
 
-                var data = ds.Tables["mytable"].AsEnumerable();
+                var data = ds.Tables[DATA_TABLE_NAME].AsEnumerable();
 
                 //TODO: agregar la logica con el formato del file correspondiente
-                var query = data.Where(x => x.Field<double>("phone") != 0.0)
-                    .Select(x => x.Field<string>("fname")).ToList();
+                var query = data.Where(x => x.Field<double?>(4) != 0.0) //x indice de columna.
+                    .Select(x => x.Field<string>("Vendedor")).ToList(); //o por nombre de columna.
 
                 foreach (var que in query)
                 {
@@ -132,10 +151,15 @@ namespace SolucionesARWebsite.Business.Logic
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
+
+        #endregion
+
+       
     }
 }

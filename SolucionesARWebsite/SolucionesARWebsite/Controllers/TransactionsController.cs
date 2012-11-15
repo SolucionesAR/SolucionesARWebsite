@@ -62,9 +62,6 @@ namespace SolucionesARWebsite.Controllers
             return View(indexViewModel);
         }
 
-        //
-        // GET: /Transactions/Details/5
-
 
         //
         // GET: /Transactions/Create
@@ -133,7 +130,7 @@ namespace SolucionesARWebsite.Controllers
 
 
         [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)
+        public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)//TODO: no me esta llegando el sheetname
         {
             if (file != null)
             {
@@ -148,7 +145,7 @@ namespace SolucionesARWebsite.Controllers
                     Directory.CreateDirectory(Path.GetDirectoryName(filename));
                 }
 
-                bool result = _transactionsManagement.SaveTransactions(filename, sheetName);
+                bool result = _transactionsManagement.SaveTransactions(filename, "Hoja1");//TODO: estoy amarrando el nombre
                 //TODO: aqui necesitamos devolver la misma vista pero con un error si falla...
                 return RedirectToAction(result ? "Index" : "FileUpload");
             }
