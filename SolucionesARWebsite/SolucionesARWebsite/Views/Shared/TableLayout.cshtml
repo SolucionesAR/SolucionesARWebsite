@@ -9,11 +9,11 @@
 @section PageContent {
 
     @{
-        Html.RenderPartial("Header");
+        Html.RenderPartial("Menu");
     }
-
+    
     <div class="main-content">
-
+             
         @using (@Html.BeginForm(Model.RouteValues))
         {
             @RenderSection("Messages", true);
@@ -24,15 +24,16 @@
                 </h1>
             </div> 
             
-            <div class="table-content">         
+            <div class="table-content">   
+            
+                <div class="pagination_nav">
+                    @RenderSection("ListPaging", true)
+                </div>      
                 <div class="main-actions">
                     @RenderSection("ListActions", true)
                 </div>
+
                 @RenderSection("ListContent", true)
-            </div>
-            
-            <div class="">
-                @RenderSection("ListPaging", true)
             </div>
         }
     </div>

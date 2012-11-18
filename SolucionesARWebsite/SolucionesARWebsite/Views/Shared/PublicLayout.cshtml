@@ -9,11 +9,9 @@
 @section PageContent {
     <div class="edition_content">
     @{
-        Html.RenderPartial("Menu");
-    
         @RenderSection("Messages", true)
 
-        @RenderSection("EditionContent", true)
+        @RenderSection("PublicContent", true)
     }
     </div>
 }

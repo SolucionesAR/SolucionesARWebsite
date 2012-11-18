@@ -380,6 +380,7 @@
     <Content Include="Content\themes\GReptem\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\logo.gif" />
     <Content Include="Images\themes\GReptem\bgr_map.png" />
     <Content Include="Images\themes\GReptem\bgr_pattern.png" />
     <Content Include="Images\themes\GReptem\bgr_quote.png" />
@@ -472,7 +473,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -615,6 +615,7 @@
     <Content Include="Views\Districts\Delete.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Transactions\FileUpload.cshtml" />
+    <Content Include="Views\Shared\PublicLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

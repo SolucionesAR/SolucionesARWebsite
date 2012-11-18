@@ -15,13 +15,29 @@
     USUARIOS
 }
 
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }   
+    <a class="prev"><</a>
+    <a>1</a>
+    <a>2</a>
+    <a class="activeSlide">3</a>
+    <a class="next">></a>
+}
+
 @section ListActions {
     @if (Model.UsersList.HasFilters())
     {
         @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
     }
-        @Html.ActionLink("Nuevo Usuario", "Create", null, new { @class = "button" })
-    }
+    
+    @Html.ActionLink("Nuevo Usuario", "Create", null, new { @class = "button" })
 }
 
 @section ListContent {
@@ -86,15 +102,4 @@
             </table>
         </div>
     </div>
-}
-
-@section ListPaging {
-    @{
-        /*
-        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
-        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
-        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
-        @ListHelper.Paging(Url, Model.UsersList)
-        */
-    }
 }
