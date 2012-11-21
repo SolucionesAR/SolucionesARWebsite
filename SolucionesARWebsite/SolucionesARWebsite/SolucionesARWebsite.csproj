@@ -380,7 +380,8 @@
     <Content Include="Content\themes\GReptem\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\logo.gif" />
+    <Content Include="Images\logo-shared.png" />
+    <Content Include="Images\logo-index.png" />
     <Content Include="Images\themes\GReptem\bgr_map.png" />
     <Content Include="Images\themes\GReptem\bgr_pattern.png" />
     <Content Include="Images\themes\GReptem\bgr_quote.png" />
@@ -392,8 +393,6 @@
     <Content Include="Images\themes\GReptem\btn_pag_arrows.png" />
     <Content Include="Images\themes\GReptem\btn_pag_arrows_b.png" />
     <Content Include="Images\themes\GReptem\fancybox_loading.gif" />
-    <Content Include="Images\themes\GReptem\logo.png" />
-    <Content Include="Images\themes\GReptem\logo2.png" />
     <Content Include="Images\themes\GReptem\pic_about.png" />
     <Content Include="Images\themes\GReptem\pic_blog_1.png" />
     <Content Include="Images\themes\GReptem\pic_blog_2.png" />
@@ -453,19 +452,6 @@
     </Content>
     <Content Include="Content\solucionesar.style.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\About.cshtml" />

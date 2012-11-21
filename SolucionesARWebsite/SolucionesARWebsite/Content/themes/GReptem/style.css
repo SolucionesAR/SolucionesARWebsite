@@ -143,13 +143,20 @@ body {
 }
 
 	/* ------- 3-1. LOGO --------- */
-	#logo {
+	#logo-index {
 		display: block;
-	    margin-left: 5%;
-		width: 400px;
+        width:100%;
+        background-color:#b0e0e6;
+        margin: 4% 0 0 30%;
+		height: 130px;
+		background: url(../../../Images/logo-index.png) no-repeat;
+	}
+	#logo-shared {
+		display: block;
+	    margin-left: 2%;
+	    margin-top: 2%;
 		height: 100px;
-		background: url(../../../Images/logo.gif) no-repeat;
-		text-indent: -999em;
+		background: url(../../../Images/logo-shared.png) no-repeat;
 	}
 	
 	/* ----- 3-2. SHARE BOX ------ */
