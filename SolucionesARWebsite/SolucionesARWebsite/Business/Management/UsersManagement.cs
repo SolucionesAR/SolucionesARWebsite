@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolucionesARWebsite.Business.Logic;
 using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.ModelsWebsite.Forms.Users;
-using SolucionesARWebsite.ModelsWebsite.Views.Users;
 using SolucionesARWebsite.Utils;
 
 namespace SolucionesARWebsite.Business.Management
@@ -112,7 +110,7 @@ namespace SolucionesARWebsite.Business.Management
 
         private void EditUser(User user)
         {
-            user.UpdatedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.UtcNow;
             _usersAccess.EditUser(user);
         }
 

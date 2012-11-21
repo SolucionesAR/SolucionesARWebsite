@@ -1,45 +1,70 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.Rol>
+﻿@using SolucionesARWebsite.ModelsWebsite.Views.Roles
+
+@model IndexViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SolucionesAR | Roles";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RolId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RolId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RolId })
-        </td>
-    </tr>
+@section Messages {
 }
 
-</table>
+@section ListTitle {
+    TIENDAS
+}
+
+@section ListActions {
+    @if (Model.RolesList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }
+        @Html.ActionLink("Nuevo Rol", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.RolesList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RolId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.RolId }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.RolId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}

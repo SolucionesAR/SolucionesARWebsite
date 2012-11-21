@@ -43,7 +43,7 @@ namespace SolucionesARWebsite.Controllers
 
         #endregion
 
-        #region public methods
+        #region Public methods
 
         //
         // GET: /Transactions/

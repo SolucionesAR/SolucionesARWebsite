@@ -1,39 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.DataAccess
 {
     public class RolesAccess
     {
-        public void AddRoles(List<Rol> rolesList)
+        #region Constants
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Private Members
+
+        private readonly DbModel _databaseModel;
+
+        #endregion
+
+        #region Contructors
+
+        public RolesAccess()
         {
-            DbModel _databaseModel = new DbModel();
-            var i = 1;
-            foreach (var rol in rolesList)
-            {
-                rol.RolId = i;
-                rol.CreatedAt = DateTime.UtcNow;
-                rol.UpdatedAt = DateTime.UtcNow;
-                _databaseModel.Roles.Add(rol);
-                i += 1;
-                _databaseModel.SaveChanges();
-            }
+            _databaseModel = new DbModel();
         }
 
-        public void Add(List<IdentificationType> identificationTypesList)
+        #endregion
+
+        #region Public Methods
+
+        public void EditRol(Rol rol)
         {
-            DbModel _databaseModel = new DbModel();
-            var i = 1;
-            foreach (var rol in identificationTypesList)
+            var rolEntity = _databaseModel.Roles.FirstOrDefault(r => r.RolId.Equals(rol.RolId));
+            if (rolEntity!= null)
             {
-                rol.IdentificationTypeId = i;
-                _databaseModel.IdentificationType.Add(rol);
-                i += 1;
-                _databaseModel.SaveChanges();
+                rolEntity.Name = rol.Name;
             }
+            _databaseModel.SaveChanges();
         }
+
+        public void AddRol(Rol rol)
+        {
+            _databaseModel.Roles.Add(rol);
+            _databaseModel.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<Rol> GetRoles()
+        {
+            var rolesList = _databaseModel.Roles.ToList();
+            return rolesList;
+        }
+
+        public Rol GetRol(int rolId)
+        {
+            var rol = _databaseModel.Roles.FirstOrDefault(r => r.RolId.Equals(rolId));
+            return rol;
+        }
+
+        public void Delete(int rolId)
+        {
+            //TODO: Create and set a disable property
+            var rolEntity = _databaseModel.Roles.FirstOrDefault(r => r.RolId.Equals(rolId));
+            _databaseModel.Roles.Remove(rolEntity);
+            _databaseModel.SaveChanges();
+        }
+
+        #endregion
     }
 }

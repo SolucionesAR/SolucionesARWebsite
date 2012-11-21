@@ -253,6 +253,7 @@
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Cantons\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
+    <Compile Include="ModelsWebsite\Forms\Roles\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Districts\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Provinces\EditFormModel.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Lists\CantonsList.cs" />
     <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
+    <Compile Include="ModelsWebsite\Lists\RolesList.cs" />
     <Compile Include="ModelsWebsite\Lists\TransactionsList.cs" />
     <Compile Include="ModelsWebsite\Lists\DistrictsList.cs" />
     <Compile Include="ModelsWebsite\Lists\ProvincesList.cs" />
@@ -277,6 +279,8 @@
     <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
     <Compile Include="ModelsWebsite\Views\Provinces\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Provinces\IndexViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Roles\EditViewModel.cs" />
+    <Compile Include="ModelsWebsite\Views\Roles\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Transactions\DetailsViewModel.cs" />

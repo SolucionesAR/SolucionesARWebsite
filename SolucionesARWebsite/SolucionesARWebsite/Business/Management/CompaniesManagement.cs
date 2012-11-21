@@ -84,14 +84,14 @@ namespace SolucionesARWebsite.Business.Management
 
         private void AddCompany(Company company)
         {
-            company.CreatetedAt = DateTime.Now;
-            company.UpdatedAt = DateTime.Now;
+            company.CreatetedAt = DateTime.UtcNow;
+            company.UpdatedAt = DateTime.UtcNow;
             _companiesAccess.AddCompany(company);
         }
 
         private void EditCompany(Company company)
         {
-            company.UpdatedAt = DateTime.Now;
+            company.UpdatedAt = DateTime.UtcNow;
             _companiesAccess.EditCompany(company);
         }
 
