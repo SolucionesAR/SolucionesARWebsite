@@ -178,5 +178,10 @@ namespace SolucionesARWebsite.Models
         /// 
         /// </summary>
         public int DistrictId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Points { get; set; }
     }
 }

@@ -43,7 +43,6 @@ namespace SolucionesARWebsite.Controllers
 
         #endregion
 
-
         #region public methods
 
         //
@@ -130,7 +129,7 @@ namespace SolucionesARWebsite.Controllers
 
 
         [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)//TODO: no me esta llegando el sheetname
+        public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)
         {
             if (file != null)
             {
@@ -145,7 +144,7 @@ namespace SolucionesARWebsite.Controllers
                     Directory.CreateDirectory(Path.GetDirectoryName(filename));
                 }
 
-                bool result = _transactionsManagement.SaveTransactions(filename, "Hoja1");//TODO: estoy amarrando el nombre
+                bool result = _transactionsManagement.SaveTransactions(filename, sheetName);
                 //TODO: aqui necesitamos devolver la misma vista pero con un error si falla...
                 return RedirectToAction(result ? "Index" : "FileUpload");
             }

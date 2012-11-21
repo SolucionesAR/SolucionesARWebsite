@@ -66,6 +66,11 @@ namespace SolucionesARWebsite.Models
         [ForeignKey("CustomerId")]
         public virtual User Customer { get; set; }
 
+        /// <summary>
+        /// The amount of points earned for the transaction
+        /// </summary>
+        public int Points { get; set; }
+
     }
 
 }

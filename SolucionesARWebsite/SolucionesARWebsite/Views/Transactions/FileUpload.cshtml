@@ -17,11 +17,17 @@
             <div class="jspContainer" style="width: 960px; height: 400px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     <p>
-                        @using (Html.BeginForm("UploadFile", "Transactions", FormMethod.Post, new { @enctype = "multipart/form-data", sheetName = "Hoja1" }))
+                        @using (Html.BeginForm("UploadFile", "Transactions", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                         { 
                             <label for="file">
                                 Elija el archivo que desea subir:</label>
-                            <input type="file" name="file" id="file"  />
+                            <input type="file" name="file" id="file"  size="200" />
+                            
+                            
+                            <label for="sheetName">
+                                Nombre de la hoja:</label>
+                            <input type="text" name="sheetName" />
+                            
                             <input type="submit" value="Subir" />
                         }
                     </p>
