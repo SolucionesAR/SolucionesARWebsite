@@ -1,111 +1,120 @@
-﻿using System.Web.Mvc;
-using SolucionesARWebsite.Business.Management;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Roles;
-using SolucionesARWebsite.ModelsWebsite.Forms.Roles;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.Controllers
 {
     public class RolesController : Controller
     {
-        
-        #region Constants
-        #endregion
-
-        #region Properties
-        #endregion
-
-        #region Private Members
-        
-        private readonly RolesManagement _rolesManagement;
-
-        #endregion
-
-        #region Constructors
-
-        public RolesController()
-        {
-            _rolesManagement = new RolesManagement();
-        }
-
-        #endregion
-
-        #region Public Actions
+        private DbModel db = new DbModel();
 
         //
-        // GET: /Users/
+        // GET: /Roles/
+
         public ActionResult Index()
         {
-            var indexViewModel = new IndexViewModel
-                                     {
-                                         RolesList = new RolesList
-                                                         {
-                                                             Items = _rolesManagement.GetRoles(),
-                                                         }
-                                     };
-            return View(indexViewModel);
+            return View(db.Roles.ToList());
         }
 
         //
-        // GET: /Users/Create/
+        // GET: /Roles/Details/5
+
+        public ActionResult Details(int id)
+        {
+            Rol rol = db.Roles.Find(id);
+            if (rol == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rol);
+        }
+
+        //
+        // GET: /Roles/Create
+
         public ActionResult Create()
         {
-            var editViewModel = new EditViewModel
-                                    {
-                                        RolId = 0,
-                                        RolName = string.Empty,
-                                    };
-            return View("Edit", editViewModel);
+            return View();
         }
 
         //
-        // GET: /Users/Edit/{id}
-        public ActionResult Edit(int id)
-        {
-            var rolInformation = _rolesManagement.GetRol(id);
-            var editViewModel = new EditViewModel
-                                    {
-                                        RolId = rolInformation.RolId,
-                                        RolName = rolInformation.Name,
-                                    };
-            return View(editViewModel);
-        }
+        // POST: /Roles/Create
 
-        //
-        // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
-        public ActionResult Save(EditFormModel editFormModel)
+        public ActionResult Create(Rol rol)
         {
-            var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                _rolesManagement.Save(editFormModel);
+                db.Roles.Add(rol);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View("Edit", editViewModel);
+
+            return View(rol);
         }
 
         //
-        // GET: /Users/Delete/{id}
+        // GET: /Roles/Edit/5
+
+        public ActionResult Edit(int id)
+        {
+            Rol rol = db.Roles.Find(id);
+            if (rol == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rol);
+        }
+
+        //
+        // POST: /Roles/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(Rol rol)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(rol).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(rol);
+        }
+
+        //
+        // GET: /Roles/Delete/5
+
         public ActionResult Delete(int id)
         {
-            _rolesManagement.Delete(id);
+            Rol rol = db.Roles.Find(id);
+            if (rol == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rol);
+        }
 
+        //
+        // POST: /Roles/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Rol rol = db.Roles.Find(id);
+            db.Roles.Remove(rol);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        #endregion
-
-        #region Private Members
-
-        private EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        protected override void Dispose(bool disposing)
         {
-            return new EditViewModel
-                       {
-                           RolId = editFormModel.RolId,
-                           RolName = editFormModel.RolName,
-                       };
+            db.Dispose();
+            base.Dispose(disposing);
         }
-
-        #endregion
     }
 }

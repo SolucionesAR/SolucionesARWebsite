@@ -16,13 +16,6 @@ namespace SolucionesARWebsite.Helpers
                                                              htmlHelper.ViewData.Model.Store.StoreId));
         }
 
-        public static MvcHtmlString DropDownListForSalesManList(this HtmlHelper<EditViewModel> htmlHelper,
-           Expression<Func<EditViewModel, int>> expression)
-        {
-            return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.ListSalesMan, "UserId", "FName",
-                                                             htmlHelper.ViewData.Model.SalesMan.UserId));
-        }
 
         public static MvcHtmlString DropDownListForCustomersList(this HtmlHelper<EditViewModel> htmlHelper,
            Expression<Func<EditViewModel, int>> expression)

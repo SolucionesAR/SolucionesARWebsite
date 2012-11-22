@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
@@ -19,7 +19,9 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
-        private StoresManagement _storesManagement;
+        private readonly StoresManagement _storesManagement;
+        private readonly CompaniesManagement _companiesManagement;
+        private readonly LocationsManagement _districtsManagement;
 
         #endregion
 
@@ -28,6 +30,8 @@ namespace SolucionesARWebsite.Controllers
         public StoresController()
         {
             _storesManagement = new StoresManagement();
+            _companiesManagement = new CompaniesManagement();
+            _districtsManagement = new LocationsManagement();
         }
 
         #endregion
@@ -38,46 +42,14 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/
         public ActionResult Index()
         {
+            var stores = _storesManagement.GetStores();
             var indexViewModel = new IndexViewModel
-                                     {
-                                         StoresList =
-                                             new StoresList
-                                                 {
-                                                     Items = new List<Store>
-                                                                 {
-                                                                     new Store
-                                                                         {
-                                                                             StoreId = 1,
-                                                                             Company = new Company
-                                                                                           {
-                                                                                               CompanyId = 1,
-                                                                                               CompanyName =
-                                                                                                   "SolucionesAR",
-                                                                                           },
-                                                                         },
-                                                                     new Store
-                                                                         {
-                                                                             StoreId = 2,
-                                                                             Company = new Company
-                                                                                           {
-                                                                                               CompanyId = 1,
-                                                                                               CompanyName =
-                                                                                                   "SolucionesAR",
-                                                                                           },
-                                                                         },
-                                                                     new Store
-                                                                         {
-                                                                             StoreId = 3,
-                                                                             Company = new Company
-                                                                                           {
-                                                                                               CompanyId = 1,
-                                                                                               CompanyName =
-                                                                                                   "SolucionesAR",
-                                                                                           },
-                                                                         },
-                                                                 }
-                                                 }
-                                     };
+            {
+                StoresList = new StoresList
+                {
+                    Items = stores
+                }
+            };
             return View(indexViewModel);
         }
 
@@ -85,9 +57,19 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/Create/
         public ActionResult Create()
         {
+            var companies = _companiesManagement.GetCompanies();
+            var districts = _districtsManagement.GetAllDistricts();
             var editViewModel = new EditViewModel
                                     {
                                         StoreId = 0,
+                                        StoreName = "",
+                                        CompaniesList = companies,
+                                        Districts = districts,
+                                        Company = new Company{CompanyId = 0},
+                                        District = new District{DistrictId = 0},
+                                        FaxNumber = "",
+                                        PhoneNumber1 = "",
+                                        PhoneNumber2 = ""
                                     };
 
             return View("Edit", editViewModel);
@@ -97,24 +79,21 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/Edit/{id}
         public ActionResult Edit(int id)
         {
+            var store = _storesManagement.GetStore(id);
+            var companies = _companiesManagement.GetCompanies();
+            var districts = _districtsManagement.GetAllDistricts();
             var editViewModel = new EditViewModel
-                                    {
-                                        StoreId = 1,
-                                        Company = new Company
-                                                      {
-                                                          CompanyId = 1,
-                                                          CompanyName = "SolucionesAR",
-                                                          CashBackPercentaje = 0.0,
-                                                          CorporateId = "001-0000000-0",
-                                                      },
-                                        CompaniesList =
-                                            new List<Company>
-                                                {
-                                                    new Company {CompanyName = "Coopeservidores"},
-                                                    new Company {CompanyName = "Curacao"},
-                                                    new Company {CompanyName = "SolucionesAR"},
-                                                },
-                                    };
+            {
+                StoreId = store.StoreId,
+                StoreName = store.StoreName,
+                Company = store.Company,
+                CompaniesList = companies,
+                District = store.District,
+                Districts = districts,
+                FaxNumber = store.FaxNumber,
+                PhoneNumber1 = store.PhoneNumber1,
+                PhoneNumber2 = store.PhoneNumber2
+            };
             return View(editViewModel);
         }
 
@@ -126,9 +105,40 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                editViewModel.StoreId = 1;
-            }
+                Store store;
+                if (editFormModel.StoreId == 0)
+                {
+                    store = new Store
+                    {
+                        StoreId = editFormModel.StoreId,
+                        //Company = _companiesManagement.GetCompany( editFormModel.Company.CompanyId),
+                        CompanyId = editFormModel.Company.CompanyId,
+                        DistrictId = editFormModel.District.DistrictId,
+                        FaxNumber = editFormModel.FaxNumber,
+                        PhoneNumber1 = editFormModel.PhoneNumber1,
+                        PhoneNumber2 = editFormModel.PhoneNumber2,
+                        StoreName = editFormModel.StoreName,
+                        CreatetedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow
+                    };
+                    
+                }
+                else
+                {
+                    store = _storesManagement.GetStore(editFormModel.StoreId);
+                    store.StoreName = editFormModel.StoreName;
+                    store.PhoneNumber1 = editFormModel.PhoneNumber1;
+                    store.PhoneNumber2 = editFormModel.PhoneNumber2;
+                    store.CompanyId = editFormModel.Company.CompanyId;
+                    store.DistrictId = editFormModel.District.DistrictId;
+                    store.FaxNumber = editFormModel.FaxNumber;
+                    store.UpdatedAt = new DateTime();
+                }
 
+                _storesManagement.SaveStore(store);
+            }
+            editViewModel.Districts = _districtsManagement.GetAllDistricts();
+            editViewModel.CompaniesList = _companiesManagement.GetCompanies();
             return View("Edit", editViewModel);
         }
 
@@ -141,7 +151,15 @@ namespace SolucionesARWebsite.Controllers
             return new EditViewModel
                        {
                            StoreId = editFormModel.StoreId,
-                           Company = new Company {CompanyId = editFormModel.CompanyId},
+                           StoreName = editFormModel.StoreName,
+                           Company = editFormModel.Company,
+                           District = editFormModel.District,
+                           FaxNumber = editFormModel.FaxNumber,
+                           PhoneNumber1 = editFormModel.PhoneNumber1,
+                           PhoneNumber2 = editFormModel.PhoneNumber2,
+                           Districts = editFormModel.Districts,
+                           CompaniesList = editFormModel.CompaniesList
+
                        };
         }
 

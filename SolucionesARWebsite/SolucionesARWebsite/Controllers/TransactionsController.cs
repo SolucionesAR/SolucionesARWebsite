@@ -43,7 +43,7 @@ namespace SolucionesARWebsite.Controllers
 
         #endregion
 
-        #region Public methods
+        #region public methods
 
         //
         // GET: /Transactions/
@@ -78,8 +78,8 @@ namespace SolucionesARWebsite.Controllers
                                         ListStores = storsList,
                                         Customer = new User(),
                                         ListCustomers = usersList,
-                                        SalesMan = new User(),
-                                        ListSalesMan = usersList,
+                                        //SalesMan = new User(),
+                                        //ListSalesMan = usersList,
                                     };
             return View("Edit", editViewModel);
         }
@@ -97,8 +97,8 @@ namespace SolucionesARWebsite.Controllers
                 ListStores = storsList,
                 Customer = new User(),
                 ListCustomers = usersList,
-                SalesMan = new User(),
-                ListSalesMan = usersList,
+                //SalesMan = new User(),
+                //ListSalesMan = usersList,
             };
             return View("FileUpload", editViewModel);
         }
@@ -121,8 +121,8 @@ namespace SolucionesARWebsite.Controllers
                 ListStores = storsList,
                 Customer = transaction.Customer,
                 ListCustomers = usersList,
-                SalesMan = transaction.SalesMan,
-                ListSalesMan = usersList,
+                //SalesMan = transaction.SalesMan,
+                //ListSalesMan = usersList,
             };
             return View("Edit", editViewModel);
         }

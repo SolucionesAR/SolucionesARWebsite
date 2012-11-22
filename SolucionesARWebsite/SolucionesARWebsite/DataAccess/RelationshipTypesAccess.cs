@@ -10,8 +10,8 @@ namespace SolucionesARWebsite.DataAccess
     {
         #region Constants
 
-        public const string GOLD_RELATION = "gold";
-        public const string SILVER_RELATION = "silver";
+        public const string MASTER_RELATION = "master";
+        public const string SENIOR_RELATION = "senior";
 
         #endregion
 

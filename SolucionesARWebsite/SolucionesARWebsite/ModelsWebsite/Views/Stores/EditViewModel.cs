@@ -35,24 +35,32 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Stores
         public List<Company> CompaniesList { get; set; }
 
         /// <summary>
-        /// The address 1
+        /// 
         /// </summary>
-        [Display(Name = "Otras Señas", Prompt = "Dirección")]
-        public string Address { get; set; }
+        public string PhoneNumber1 { get; set; }
 
         /// <summary>
-        /// The city
+        /// 
         /// </summary>
-        [Display(Name = "Cantón", Prompt = "Cantón")]
-        public string City { get; set; }
+        public string PhoneNumber2 { get; set; }
 
         /// <summary>
-        /// The state
+        /// 
         /// </summary>
-        [Display(Name = "Provincia", Prompt = "Provincia")]
-        public string State { get; set; }
+        public string FaxNumber { get; set; }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("Distrito")]
+        public District District { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>  
+        public List<District> Districts { get; set; }
+
+
         #endregion
 
         #region Private Members

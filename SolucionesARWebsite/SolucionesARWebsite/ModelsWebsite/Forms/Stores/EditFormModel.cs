@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.ModelsWebsite.Forms.Stores
 {
@@ -8,39 +11,55 @@ namespace SolucionesARWebsite.ModelsWebsite.Forms.Stores
         #endregion
 
         #region Properties
-
         /// <summary>
-        /// The Unique store identifier
+        /// The Identification number
         /// </summary>
-        [Required]
         public int StoreId { get; set; }
 
         /// <summary>
         /// The store name
         /// </summary>
-        [Required]
+        [Display(Name = "Nombre*", Prompt = "Nombre")]
         public string StoreName { get; set; }
 
         /// <summary>
-        /// The Unique company identifier
+        /// The Company id
         /// </summary>
-        [Required]
-        public int CompanyId { get; set; }
+        [DisplayName("Compañia")]
+        public Company Company { get; set; }
 
         /// <summary>
-        /// The address 1
+        /// The Companies List
         /// </summary>
-        public string Address { get; set; }
+        public List<Company> CompaniesList { get; set; }
+
+
+
 
         /// <summary>
-        /// The city
+        /// 
         /// </summary>
-        public string City { get; set; }
+        public string PhoneNumber1 { get; set; }
 
         /// <summary>
-        /// The state
+        /// 
         /// </summary>
-        public string State { get; set; }
+        public string PhoneNumber2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FaxNumber { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual District District { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<District> Districts { get; set; }
 
         #endregion
 

@@ -41,9 +41,9 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Transactions
         /// <summary>
         /// The one who sales in the store
         /// </summary>
-        [Required]
-        [DisplayName("Dependiente")]
-        public User SalesMan { get; set; }
+       // [Required]
+       // [DisplayName("Dependiente")]
+       // public User SalesMan { get; set; }
 
         /// <summary>
         /// The one that makes the purchase
@@ -54,7 +54,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Transactions
 
         public List<User> ListCustomers { get; set; }
 
-        public List<User> ListSalesMan { get; set; }
+       // public List<User> ListSalesMan { get; set; }
 
         public List<Store> ListStores { get; set; }
 

@@ -39,9 +39,32 @@ namespace SolucionesARWebsite.DataAccess
             return stores;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// <returns></returns>
+        public Store GetStore(int storeId)
+        {
+
+            return _databaseModel.Stores.FirstOrDefault(p => p.StoreId == storeId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="store"></param>
+        public void SaveStore(Store store)
+        {
+            _databaseModel.Stores.Add(store);
+            _databaseModel.SaveChanges();
+        }
+
         #endregion
 
         #region Private Methods
         #endregion
+
+        
     }
 }

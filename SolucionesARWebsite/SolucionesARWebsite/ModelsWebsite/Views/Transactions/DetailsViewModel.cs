@@ -34,7 +34,7 @@ namespace SolucionesARWebsite.ModelsWebsite.Views.Transactions
         /// <summary>
         /// The one who sales in the store
         /// </summary>
-        public User SalesMan { get; set; }
+        //public User SalesMan { get; set; }
 
         /// <summary>
         /// The one that makes the purchase

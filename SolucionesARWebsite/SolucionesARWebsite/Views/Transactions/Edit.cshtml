@@ -43,10 +43,10 @@
 
                         </fieldset>
                         <fieldset>
-                            <span>
+                           @* <span>
                                 @Html.LabelFor(model => model.SalesMan) <br/>
                                 @Html.DropDownListForSalesManList(model => model.SalesMan.UserId)
-                            </span>
+                            </span>*@
                             <span>
                                 @Html.LabelFor(model => model.Customer) <br/>
                                 @Html.DropDownListForCustomersList(model => model.Customer.UserId)

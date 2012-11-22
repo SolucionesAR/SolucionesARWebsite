@@ -16,8 +16,13 @@
     
         <!-- scripts -->
         <script src="~/Scripts/libs/modernizr.js"></script>
+        <script src="~/Scripts/libs/jquery.js"></script>
+        <script src="~/Scripts/libs/jquery.fancybox.js"></script>
+        <script src="~/Scripts/plugins.js"></script>
+        <script src="~/Scripts/script.js"></script>
     
         <!-- website scripts -->
+        <script src="@Url.Content("~/Scripts/solucionesar.js")" type="text/javascript"></script>
     </head>
 
     <body>
@@ -28,13 +33,6 @@
                 @RenderSection("PageContent")
 
                 Html.RenderPartial("Footer");
-                
-                @RenderSection("Scripts", required: false)
-                <script type="text/javascript" src="~/Scripts/libs/jquery.js"></script>
-                <script type="text/javascript" src="~/Scripts/libs/jquery.fancybox.js"></script>
-                <script type="text/javascript" src="~/Scripts/plugins.js"></script>
-                <script type="text/javascript" src="~/Scripts/script.js"></script>
-                <script type="text/javascript" src="~/Scripts/solucionesar.js"></script>
             }
         </section>
     </body>

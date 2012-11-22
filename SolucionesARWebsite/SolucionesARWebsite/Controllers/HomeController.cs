@@ -56,7 +56,7 @@ namespace SolucionesARWebsite.Controllers
             }
 
             ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1", transaction.StoreId);
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
+            //ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
             ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
             return View(transaction);
         }
@@ -72,7 +72,7 @@ namespace SolucionesARWebsite.Controllers
                 return HttpNotFound();
             }
             ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1", transaction.StoreId);
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
+           // ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
             ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
             return View(transaction);
         }
@@ -90,7 +90,7 @@ namespace SolucionesARWebsite.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.StoreId = new SelectList(db.Stores, "StoreId", "PhoneNumber1", transaction.StoreId);
-            ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
+            //ViewBag.SalesManId = new SelectList(db.Users, "UserId", "FName", transaction.SalesManId);
             ViewBag.CustomerId = new SelectList(db.Users, "UserId", "FName", transaction.CustomerId);
             return View(transaction);
         }

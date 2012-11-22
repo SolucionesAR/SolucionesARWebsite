@@ -203,6 +203,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StoresEditHelper.cs" />
     <Compile Include="Helpers\TransactionsEditHelper.cs" />
     <Compile Include="Helpers\ListFilterValue.cs" />
     <Compile Include="Helpers\ListHelper.cs" />
@@ -248,12 +249,15 @@
     <Compile Include="Migrations\201211210338493_010.Designer.cs">
       <DependentUpon>201211210338493_010.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211220329040_011.cs" />
+    <Compile Include="Migrations\201211220329040_011.Designer.cs">
+      <DependentUpon>201211220329040_011.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Cantons\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Roles\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Districts\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ModelsWebsite\Forms\Provinces\EditFormModel.cs" />
@@ -261,7 +265,6 @@
     <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
     <Compile Include="ModelsWebsite\Lists\CantonsList.cs" />
     <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
-    <Compile Include="ModelsWebsite\Lists\RolesList.cs" />
     <Compile Include="ModelsWebsite\Lists\TransactionsList.cs" />
     <Compile Include="ModelsWebsite\Lists\DistrictsList.cs" />
     <Compile Include="ModelsWebsite\Lists\ProvincesList.cs" />
@@ -279,8 +282,6 @@
     <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
     <Compile Include="ModelsWebsite\Views\Provinces\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Provinces\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Roles\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Roles\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
     <Compile Include="ModelsWebsite\Views\Transactions\DetailsViewModel.cs" />
@@ -507,6 +508,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201211210338493_010.resx">
       <DependentUpon>201211210338493_010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211220329040_011.resx">
+      <DependentUpon>201211220329040_011.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

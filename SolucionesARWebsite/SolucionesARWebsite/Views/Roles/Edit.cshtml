@@ -1,44 +1,53 @@
-﻿@using SolucionesARWebsite.Helpers
-@using SolucionesARWebsite.ModelsWebsite.Views.Roles
-
-@model EditViewModel
+﻿@model SolucionesARWebsite.Models.Rol
 
 @{
-    ViewBag.Title = "SolucionesAR | Roles";
-    Layout = "~/Views/Shared/EditionLayout.cshtml";
+    ViewBag.Title = "Edit";
 }
 
-@section Messages {
+<h2>Edit</h2>
 
-}
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
 
+    <fieldset>
+        <legend>Rol</legend>
 
-@section EditionContent {
-    <div class="edition_content content_box ">
-        
-        @if (Model.RolId > 0)
-        {
-            <h1>EDITAR ROL</h1>
-        }
-        else
-        {
-            <h1>NUEVO ROL</h1>
-        }
+        @Html.HiddenFor(model => model.RolId)
 
-        <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Roles"))
-                    {
-                        @Html.HiddenFor(model => model.RolId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.RolName)
-                        </fieldset>
-                        <input name="submit" type="submit" value="Submit">
-                    }
-                </div>
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
         </div>
-    </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedAt)
+            @Html.ValidationMessageFor(model => model.CreatedAt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UpdatedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UpdatedAt)
+            @Html.ValidationMessageFor(model => model.UpdatedAt)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -42,9 +42,9 @@
                     <th>
                         Tienda
                     </th>
-                    <th>
+                    @*<th>
                         Dependiente
-                    </th>
+                    </th>*@
                     <th>
                         Vendedor
                     </th>
@@ -67,10 +67,10 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Store.DistrictId)
                         </td>
-                        <td>
+                       @* <td>
                             @Html.DisplayFor(modelItem => item.SalesMan.FName) 
                             @Html.DisplayFor(modelItem => item.SalesMan.LName1)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Customer.FName) 
                             @Html.DisplayFor(modelItem => item.Customer.LName1)

@@ -29,7 +29,7 @@
             <p class="note">Favor complete el siguiente formulario</p>
             <div class="jspContainer" style="width: 960px; height: 400px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Users"))
+                    @using (Html.BeginForm("Save", "Stores"))
                     {
                         @Html.HiddenFor(model => model.StoreId)
                         <fieldset>
@@ -40,9 +40,10 @@
                             </span>
                         </fieldset>
                         <fieldset>
-                            @Html.EditorFor(model => model.State)
-                            @Html.EditorFor(model => model.City)
-                            @Html.EditorFor(model => model.Address, new { style = "width=400px" })
+                            <span>
+                                @Html.LabelFor(model => model.District) <br/>
+                                @Html.DropDownListForDistrictsList(model => model.District.DistrictId)
+                            </span>
                         </fieldset>
                             
                         <input name="submit" type="submit" value="Submit">

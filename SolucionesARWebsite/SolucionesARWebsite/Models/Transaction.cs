@@ -46,13 +46,13 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// The one who sales in the store
         /// </summary>
-        public int SalesManId { get; set; }
+        //public int SalesManId { get; set; }
 
         /// <summary>
         /// The one who sales in the store
         /// </summary>
-        [ForeignKey("SalesManId")]
-        public virtual User SalesMan { get; set; }
+        //[ForeignKey("SalesManId")]
+        //public virtual User SalesMan { get; set; }
 
 
         /// <summary>
