@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Cantons;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Cantons;
+using SolucionesARWebsite.ViewModels.Forms.Cantons;
+using SolucionesARWebsite.ViewModels.Lists;
+using SolucionesARWebsite.ViewModels.Views.Cantons;
 
 namespace SolucionesARWebsite.Controllers
 {

@@ -1,9 +1,5 @@
-﻿using System.Diagnostics;
-using System.Web.Mvc;
-using System.Web.Security;
-using SolucionesARWebsite.Business.Logic;
+﻿using System.Web.Security;
 using SolucionesARWebsite.Business.Management;
-using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 
@@ -12,6 +8,10 @@ namespace SolucionesARWebsite.Controllers
     public class BaseController : SecuredController
     {
         #region Constants
+
+        public int PageSize = 10;
+
+        public int FirstPage = 1;
 
         #endregion
 

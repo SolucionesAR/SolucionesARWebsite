@@ -1,5 +1,5 @@
 ﻿@using SolucionesARWebsite.Helpers
-@using SolucionesARWebsite.ModelsWebsite.Views.Users
+@using SolucionesARWebsite.ViewModels.Users
 
 @model EditViewModel
 
@@ -14,83 +14,81 @@
 
 
 @section EditionContent {
-    <div class="edition_content content_box ">
-        
-        @if (Model.UserId > 0)
-        {
-            <h1>EDITAR USUARIO</h1>
-            <div class="entry" style="overflow: hidden; padding: 0px; width: 410px;  height: 100px;">
-                <div class="jspContainer" style="width: 410px;  height: 100px;">
-                    <div class="jspPane" style="padding: 15px 25px 0px; top: 0px; width: 200px;">
-                        <h3>Código: <span>@Model.GeneratedCode</span></h3>
-                        <h3>Cashback: <span>@Model.Cashback</span></h3>
-                    </div>
+    @if (Model.UserId > 0)
+    {
+        <h1>EDITAR USUARIO: @Model.GeneratedCode</h1>
+        <div class="entry" style="overflow: hidden; padding: 0px; width: 410px;  height: 40px;">
+            <div class="jspContainer" style="width: 410px;  height: 40px;">
+                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px; width: 200px;">
+                    <h3>Cashback: <span>@Model.Cashback</span></h3>
                 </div>
             </div>
-        }
-        else
-        {
-            <h1>NUEVO USUARIO</h1>
-        }
+        </div>
+    }
+    else
+    {
+        <h1>NUEVO USUARIO</h1>
+    }
 
-        <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Users"))
-                    {
-                        @Html.HiddenFor(model => model.UserId)
-                        <fieldset>
-                            <span>
-                                @Html.LabelFor(model => model.IdentificationType) <br/>
-                                @Html.DropDownListForIdenficationlList(model => model.IdentificationType.IdentificationTypeId)
-                            </span>
-                            @Html.EditorFor(model => model.IdentificationNumber)
-                            @Html.EditorFor(model => model.Nationality)
-                        </fieldset>
-                        <fieldset>
-                            @Html.EditorFor(model => model.LastName1)
-                            @Html.EditorFor(model => model.LastName2)
-                            @Html.EditorFor(model => model.FirstName)
-                        </fieldset>
-                        <fieldset>
-                            @Html.EditorFor(model => model.Dob)
-                            @Html.EditorFor(model => model.PhoneNumber)
-                            @Html.EditorFor(model => model.Cellphone)
-                            @Html.EditorFor(model => model.Email)
-                        </fieldset>
-                        <fieldset>
-                            <span>
-                                @Html.LabelFor(model => model.Province) <br/>
-                                @Html.DropDownListForProviceslList(model => model.Province.ProvinceId)
-                            </span>
-                            <span>
-                                @Html.LabelFor(model => model.Canton) <br/>
-                                @Html.DropDownListForCantonslList(model => model.Canton.CantonId)
-                            </span>
-                            <span>
-                                @Html.LabelFor(model => model.District) <br/>
-                                @Html.DropDownListForDistrictslList(model => model.District.DistrictId)
-                            </span>
-                            @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
-                        </fieldset>
-                        <fieldset>
-                            @Html.EditorFor(model => model.ParentUser)
+    <div class="entry jspScrollable">
+        @Html.ValidationSummary()
+        <p class="note">Favor complete el siguiente formulario</p>
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Users"))
+                {
+                    @Html.HiddenFor(model => model.UserId)
+                    <fieldset>
+                        <span>
+                            @Html.LabelFor(model => model.IdentificationType) <br/>
+                            @Html.DropDownListForIdenficationlList(model => model.IdentificationType.IdentificationTypeId)
+                        </span>
+                        @Html.ValidationMessageFor(model => model.IdentificationNumber)
+                        @Html.EditorFor(model => model.IdentificationNumber)
+                        @Html.EditorFor(model => model.Nationality)
+                    </fieldset>
+                    <fieldset>
+                        @Html.EditorFor(model => model.LastName1)
+                        @Html.EditorFor(model => model.LastName2)
+                        @Html.EditorFor(model => model.FirstName)
+                    </fieldset>
+                    <fieldset>
+                        @Html.EditorFor(model => model.Dob)
+                        @Html.EditorFor(model => model.PhoneNumber)
+                        @Html.EditorFor(model => model.Cellphone)
+                        @Html.EditorFor(model => model.Email)
+                    </fieldset>
+                    <fieldset>
+                        <span>
+                            @Html.LabelFor(model => model.Province) <br/>
+                            @Html.DropDownListForProviceslList(model => model.Province.ProvinceId)
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.Canton) <br/>
+                            @Html.DropDownListForCantonslList(model => model.Canton.CantonId)
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.District) <br/>
+                            @Html.DropDownListForDistrictslList(model => model.District.DistrictId)
+                        </span>
+                        @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
+                    </fieldset>
+                    <fieldset>
+                        @Html.EditorFor(model => model.ParentUser)
                             
-                            <span>
-                                @Html.LabelFor(model => model.UserRol) <br/>
-                                @Html.DropDownListForRolesList(model => model.UserRol.RolId)
-                            </span>
-                            <span>
-                                @Html.LabelFor(model => model.Company) <br/>
-                                @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
-                            </span>
+                        <span>
+                            @Html.LabelFor(model => model.UserRol) <br/>
+                            @Html.DropDownListForRolesList(model => model.UserRol.RolId)
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.Company) <br/>
+                            @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
+                        </span>
 
-                        </fieldset>
+                    </fieldset>
                             
-                        <input name="submit" type="submit" value="Guardar">
-                    }
-                </div>
+                    <input name="submit" type="submit" value="Guardar">
+                }
             </div>
         </div>
     </div>

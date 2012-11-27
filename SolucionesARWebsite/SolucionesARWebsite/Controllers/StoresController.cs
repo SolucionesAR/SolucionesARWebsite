@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Stores;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Stores;
+using SolucionesARWebsite.ViewModels.Forms.Stores;
+using SolucionesARWebsite.ViewModels.Lists;
+using SolucionesARWebsite.ViewModels.Views.Stores;
 
 namespace SolucionesARWebsite.Controllers
 {

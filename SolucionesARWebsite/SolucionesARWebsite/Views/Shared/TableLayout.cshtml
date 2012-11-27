@@ -1,17 +1,12 @@
-﻿@using SolucionesARWebsite.ModelsWebsite.Views
+﻿@using SolucionesARWebsite.ViewModels.Views
 
-@model BaseViewModel
+@model SolucionesARWebsite.ViewModels.BaseViewModel
            
 @{
     Layout = "~/Views/Shared/MasterLayout.cshtml";
 }
 
 @section PageContent {
-
-    @{
-        Html.RenderPartial("Menu");
-    }
-    
     <div class="main-content">
              
         @using (@Html.BeginForm(Model.RouteValues))

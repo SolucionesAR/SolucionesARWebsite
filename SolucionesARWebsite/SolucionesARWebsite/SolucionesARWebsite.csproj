@@ -36,6 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.15.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.3.18.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -206,7 +212,6 @@
     <Compile Include="Helpers\StoresEditHelper.cs" />
     <Compile Include="Helpers\TransactionsEditHelper.cs" />
     <Compile Include="Helpers\ListFilterValue.cs" />
-    <Compile Include="Helpers\ListHelper.cs" />
     <Compile Include="Helpers\UserEditHelper.cs" />
     <Compile Include="Helpers\VersionNumberHelper.cs" />
     <Compile Include="Migrations\201210020304040_001.cs" />
@@ -255,38 +260,34 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
-    <Compile Include="ModelsWebsite\Forms\Account\LoginFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Cantons\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Companies\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Districts\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Inventory\UploadFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Provinces\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Stores\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Forms\Users\EditFormModel.cs" />
-    <Compile Include="ModelsWebsite\Lists\CantonsList.cs" />
-    <Compile Include="ModelsWebsite\Lists\CompaniesList.cs" />
-    <Compile Include="ModelsWebsite\Lists\TransactionsList.cs" />
-    <Compile Include="ModelsWebsite\Lists\DistrictsList.cs" />
-    <Compile Include="ModelsWebsite\Lists\ProvincesList.cs" />
-    <Compile Include="ModelsWebsite\Lists\StoresList.cs" />
-    <Compile Include="ModelsWebsite\Views\Account\LoginViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Cantons\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Cantons\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Companies\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Companies\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Districts\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Districts\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Inventory\DetailsViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Inventory\UploadViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Inventory\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Lists\UsersList.cs" />
-    <Compile Include="ModelsWebsite\Views\Provinces\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Provinces\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Stores\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Stores\IndexViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Transactions\DetailsViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Transactions\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Transactions\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Forms\Account\LoginFormModel.cs" />
+    <Compile Include="ViewModels\Forms\Cantons\EditFormModel.cs" />
+    <Compile Include="ViewModels\Companies\EditViewModel.cs" />
+    <Compile Include="ViewModels\Forms\Districts\EditFormModel.cs" />
+    <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
+    <Compile Include="ViewModels\Forms\Provinces\EditFormModel.cs" />
+    <Compile Include="ViewModels\Forms\Stores\EditFormModel.cs" />
+    <Compile Include="ViewModels\Users\EditViewModel.cs" />
+    <Compile Include="ViewModels\Lists\TransactionsList.cs" />
+    <Compile Include="ViewModels\Lists\DistrictsList.cs" />
+    <Compile Include="ViewModels\Lists\ProvincesList.cs" />
+    <Compile Include="ViewModels\Lists\StoresList.cs" />
+    <Compile Include="ViewModels\Views\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Views\Cantons\EditViewModel.cs" />
+    <Compile Include="ViewModels\Views\Cantons\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Companies\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Views\Districts\EditViewModel.cs" />
+    <Compile Include="ViewModels\Views\Districts\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Views\Inventory\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Views\Inventory\UploadViewModel.cs" />
+    <Compile Include="ViewModels\Views\Inventory\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Views\Provinces\EditViewModel.cs" />
+    <Compile Include="ViewModels\Views\Provinces\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Views\Stores\EditViewModel.cs" />
+    <Compile Include="ViewModels\Views\Stores\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Views\Transactions\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Views\Transactions\EditViewModel.cs" />
+    <Compile Include="ViewModels\Views\Transactions\IndexViewModel.cs" />
     <Compile Include="Models\Canton.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\GlobalParameter.cs" />
@@ -295,14 +296,13 @@
     <Compile Include="Security\AllowedAction.cs" />
     <Compile Include="Security\RolesProvider.cs" />
     <Compile Include="Security\SecurityRol.cs" />
-    <Compile Include="Utils\ListWrapper.cs" />
-    <Compile Include="ModelsWebsite\Lists\InventoryList.cs" />
-    <Compile Include="ModelsWebsite\ModelErrors.cs" />
-    <Compile Include="ModelsWebsite\SubmitResults.cs" />
-    <Compile Include="ModelsWebsite\Views\BaseViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Users\DetailsViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Users\EditViewModel.cs" />
-    <Compile Include="ModelsWebsite\Views\Users\IndexViewModel.cs" />
+    <Compile Include="ViewModels\BaseListModel.cs" />
+    <Compile Include="ViewModels\Lists\InventoryList.cs" />
+    <Compile Include="ViewModels\ModelErrors.cs" />
+    <Compile Include="ViewModels\SubmitResults.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Users\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Users\IndexViewModel.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DbModel.cs" />
     <Compile Include="Models\Relationship.cs" />
@@ -318,6 +318,7 @@
     <Compile Include="Utils\ValueAttributeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

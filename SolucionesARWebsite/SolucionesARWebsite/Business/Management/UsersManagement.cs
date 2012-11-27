@@ -5,9 +5,8 @@ using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Users;
-using SolucionesARWebsite.ModelsWebsite.Views.Users;
 using SolucionesARWebsite.Utils;
+using SolucionesARWebsite.ViewModels.Users;
 
 namespace SolucionesARWebsite.Business.Management
 {
@@ -89,10 +88,10 @@ namespace SolucionesARWebsite.Business.Management
             return userInformation;
         }
 
-        public void Save(EditFormModel editFormModel, int updatedBy)
+        public void Save(EditViewModel editViewModel, int updatedBy)
         {
-            var user = Map(editFormModel);
-            if (editFormModel.UserId == 0)
+            var user = Map(editViewModel);
+            if (editViewModel.UserId == 0)
             {
                 AddUser(user);
             }
@@ -116,33 +115,33 @@ namespace SolucionesARWebsite.Business.Management
             _usersAccess.EditUser(user);
         }
 
-        private User Map(EditFormModel editFormMode)
+        private User Map(EditViewModel editViewMode)
         {
             var user = new User
                            {
-                               Address1 = editFormMode.Address1,
-                               Address2 = editFormMode.Address2,
-                               IdentificationTypeId = editFormMode.IdentificationType.IdentificationTypeId,
-                               CompanyId = editFormMode.Company.CompanyId,
-                               Dob = editFormMode.Dob,
-                               Email = editFormMode.Email,
-                               Enabled = editFormMode.Enabled,
-                               FName = editFormMode.FirstName,
-                               LName1 = editFormMode.LastName1,
-                               LName2 = editFormMode.LastName2,
-                               Nationality = editFormMode.Nationality,
-                               RolId = editFormMode.UserRol.RolId,
-                               UserId = editFormMode.UserId,
+                               Address1 = editViewMode.Address1,
+                               Address2 = editViewMode.Address2,
+                               IdentificationTypeId = editViewMode.IdentificationType.IdentificationTypeId,
+                               CompanyId = editViewMode.Company.CompanyId,
+                               Dob = editViewMode.Dob,
+                               Email = editViewMode.Email,
+                               Enabled = editViewMode.Enabled,
+                               FName = editViewMode.FirstName,
+                               LName1 = editViewMode.LastName1,
+                               LName2 = editViewMode.LastName2,
+                               Nationality = editViewMode.Nationality,
+                               RolId = editViewMode.UserRol.RolId,
+                               UserId = editViewMode.UserId,
                                //tenemos que eliminar los guiones
-                               CedNumber = Convert.ToInt32(editFormMode.IdentificationNumber),
-                               Cellphone = editFormMode.Cellphone,
-                               PhoneNumber = editFormMode.PhoneNumber,
-                               DistrictId = editFormMode.District.DistrictId,
+                               CedNumber = Convert.ToInt32(editViewMode.IdentificationNumber),
+                               Cellphone = editViewMode.Cellphone,
+                               PhoneNumber = editViewMode.PhoneNumber,
+                               DistrictId = editViewMode.District.DistrictId,
                            };
 
-            if (!string.IsNullOrEmpty(editFormMode.ParentUser))
+            if (!string.IsNullOrEmpty(editViewMode.ParentUser))
             {
-                var parentUser = _usersAccess.GetUser(editFormMode.ParentUser);
+                var parentUser = _usersAccess.GetUser(editViewMode.ParentUser);
                 user.UserReferenceId = parentUser.UserId;
             }
 

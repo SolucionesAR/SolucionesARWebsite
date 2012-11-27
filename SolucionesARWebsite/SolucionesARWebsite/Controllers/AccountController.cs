@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using SolucionesARWebsite.DataAccess;
-using SolucionesARWebsite.ModelsWebsite.Views.Account;
+using SolucionesARWebsite.ViewModels.Views.Account;
 using WebMatrix.WebData;
-using SolucionesARWebsite.ModelsWebsite.Forms.Account;
+using SolucionesARWebsite.ViewModels.Forms.Account;
 
 namespace SolucionesARWebsite.Controllers
 {

@@ -1,4 +1,6 @@
-﻿@using SolucionesARWebsite.ModelsWebsite.Views.Users
+﻿@using PagedList.Mvc; 
+ 
+@using SolucionesARWebsite.ViewModels.Users
 
 @model IndexViewModel
 
@@ -16,26 +18,18 @@
 }
 
 @section ListPaging {
-    @{
-        /*
-        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
-        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
-        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
-        @ListHelper.Paging(Url, Model.UsersList)
-        */
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
     }   
-    <a class="prev"><</a>
-    <a>1</a>
-    <a>2</a>
-    <a class="activeSlide">3</a>
-    <a class="next">></a>
 }
 
 @section ListActions {
-    @if (Model.UsersList.HasFilters())
-    {
-        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
-    }
     
     @Html.ActionLink("Nuevo Usuario", "Create", null, new { @class = "button" })
 }
@@ -69,7 +63,8 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.UsersList.Items) {
+                @foreach (var item in Model.PagedItems)
+                {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.GeneratedCode)

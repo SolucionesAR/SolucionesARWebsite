@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using SolucionesARWebsite.ModelsWebsite.Views.Stores;
+using SolucionesARWebsite.ViewModels.Views.Stores;
 
 namespace SolucionesARWebsite.Helpers
 {

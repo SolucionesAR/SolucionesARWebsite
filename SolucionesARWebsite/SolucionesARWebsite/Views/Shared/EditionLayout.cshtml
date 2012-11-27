@@ -1,4 +1,4 @@
-﻿@using SolucionesARWebsite.ModelsWebsite.Views
+﻿@using SolucionesARWebsite.ViewModels
 
 @model BaseViewModel
            
@@ -9,8 +9,6 @@
 @section PageContent {
     <div class="edition_content">
     @{
-        Html.RenderPartial("Menu");
-    
         @RenderSection("Messages", true)
 
         @RenderSection("EditionContent", true)

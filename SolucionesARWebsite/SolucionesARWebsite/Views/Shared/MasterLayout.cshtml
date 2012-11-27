@@ -26,14 +26,16 @@
     </head>
 
     <body>
-        <section class="background">
-            @{  
-                Html.RenderPartial("Header");
+        <div id="wrap">
+            <section id="background">
+                @{  
+                    Html.RenderPartial("Header");
         
-                @RenderSection("PageContent")
+                    @RenderSection("PageContent")
 
-                Html.RenderPartial("Footer");
-            }
-        </section>
+                    Html.RenderPartial("Footer");
+                }
+            </section>
+        </div>
     </body>
 </html>

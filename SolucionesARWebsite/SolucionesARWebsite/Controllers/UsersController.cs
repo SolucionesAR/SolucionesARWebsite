@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
+using PagedList;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Users;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Users;
+using SolucionesARWebsite.ViewModels.Users;
 using UserRole = SolucionesARWebsite.Enumerations.UserRole;
 
 namespace SolucionesARWebsite.Controllers
@@ -51,17 +50,13 @@ namespace SolucionesARWebsite.Controllers
 
         #region Public Actions
 
-        //
-        // GET: /Users/
-        public ActionResult Index()
+        public ActionResult Index(IndexViewModel indexViewModel)
         {
-            var indexViewModel = new IndexViewModel
-                                     {
-                                         UsersList = new UsersList
-                                                         {
-                                                             Items = _usersManagement.GetUsersList(),
-                                                         }
-                                     };
+            var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
+            //missing filtering
+            var results = _usersManagement.GetUsersList();
+            indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
+            
             return View(indexViewModel);
         }
 
@@ -167,18 +162,18 @@ namespace SolucionesARWebsite.Controllers
         //
         // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
-        public ActionResult Save(EditFormModel editFormModel)
+        public ActionResult Save(EditViewModel editViewModel)
         {
-            var editViewModel = ModelViewFromForm(editFormModel);
+            //var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
                 //provisional para salir del paso y no tener que hacer el manejo de roles y id types
                 //_rolesManagement.Save(GetRolesList(SecurityContext));
                 //_rolesManagement.Save(GetIdentificationTypesList());
-                _usersManagement.Save(editFormModel, SecurityContext.User.Id);
+                _usersManagement.Save(editViewModel, SecurityContext.User.Id);
             }
 
-            var canton = _locationsManagement.GetCantonByDistrict(editFormModel.District.DistrictId);
+            var canton = _locationsManagement.GetCantonByDistrict(editViewModel.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
             editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId);
@@ -195,33 +190,33 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
-        private EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        private EditViewModel ModelViewFromForm(EditViewModel editViewModel)
         {
             return new EditViewModel
                        {
-                           UserId = editFormModel.UserId,
-                           IdentificationNumber = editFormModel.IdentificationNumber,
-                           IdentificationType = editFormModel.IdentificationType,
-                           FirstName = editFormModel.FirstName,
-                           LastName1 = editFormModel.LastName1,
-                           LastName2 = editFormModel.LastName2,
+                           UserId = editViewModel.UserId,
+                           IdentificationNumber = editViewModel.IdentificationNumber,
+                           IdentificationType = editViewModel.IdentificationType,
+                           FirstName = editViewModel.FirstName,
+                           LastName1 = editViewModel.LastName1,
+                           LastName2 = editViewModel.LastName2,
                            GeneratedCode =
-                               GenerateUserCode(editFormModel.LastName1, editFormModel.LastName2,
-                                                editFormModel.IdentificationNumber),
-                           Dob = editFormModel.Dob,
-                           Address1 = editFormModel.Address1,
-                           Address2 = editFormModel.Address2,
-                           PhoneNumber = editFormModel.PhoneNumber,
-                           Cellphone = editFormModel.Cellphone,
-                           Email = editFormModel.Email,
-                           Enabled = editFormModel.Enabled,
-                           UserRol = editFormModel.UserRol,
+                               GenerateUserCode(editViewModel.LastName1, editViewModel.LastName2,
+                                                editViewModel.IdentificationNumber),
+                           Dob = editViewModel.Dob,
+                           Address1 = editViewModel.Address1,
+                           Address2 = editViewModel.Address2,
+                           PhoneNumber = editViewModel.PhoneNumber,
+                           Cellphone = editViewModel.Cellphone,
+                           Email = editViewModel.Email,
+                           Enabled = editViewModel.Enabled,
+                           UserRol = editViewModel.UserRol,
                            //TODO: hay q hacer la parte de las companies
-                           //Company = new Company { CompanyId = editFormModel.CompanyId, UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now },//_companiesManagement.GetCompany(editFormModel.CompanyId), //
-                           Company = editFormModel.Company,
-                           Province = editFormModel.Province,
-                           Canton = editFormModel.Canton,
-                           District = editFormModel.District,
+                           //Company = new Company { CompanyId = EditViewModel.CompanyId, UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now },//_companiesManagement.GetCompany(EditViewModel.CompanyId), //
+                           Company = editViewModel.Company,
+                           Province = editViewModel.Province,
+                           Canton = editViewModel.Canton,
+                           District = editViewModel.District,
                        };
         }
 

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Provinces;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Provinces;
+using SolucionesARWebsite.ViewModels.Forms.Provinces;
+using SolucionesARWebsite.ViewModels.Lists;
+using SolucionesARWebsite.ViewModels.Views.Provinces;
 
 namespace SolucionesARWebsite.Controllers
 {

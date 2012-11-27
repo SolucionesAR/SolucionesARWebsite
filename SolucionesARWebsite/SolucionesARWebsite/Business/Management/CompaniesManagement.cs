@@ -4,7 +4,7 @@ using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.Enumerations;
-using SolucionesARWebsite.ModelsWebsite.Forms.Companies;
+using SolucionesARWebsite.ViewModels.Companies;
 
 namespace SolucionesARWebsite.Business.Management
 {
@@ -67,11 +67,11 @@ namespace SolucionesARWebsite.Business.Management
             return companiesList;
         }
         
-        public void Save(EditFormModel editFormModel)
+        public void Save(EditViewModel editViewModel)
         {
-            var company = Map(editFormModel);
+            var company = Map(editViewModel);
 
-            if (editFormModel.CompanyId == 0)
+            if (editViewModel.CompanyId == 0)
             {
                 AddCompany(company);
             }
@@ -95,16 +95,16 @@ namespace SolucionesARWebsite.Business.Management
             _companiesAccess.EditCompany(company);
         }
 
-        private Company Map(EditFormModel editFormMode)
+        private Company Map(EditViewModel editViewMode)
         {
             return new Company
                        {
-                           CashBackPercentaje = editFormMode.CashBackPercentaje,
-                           CompanyId = editFormMode.CompanyId,
-                           CompanyName = editFormMode.CompanyName,
-                           CompanyNickName = editFormMode.CompanyNickname,
-                           CorporateId = editFormMode.CorporateId,
-                           Enabled = editFormMode.Enabled,
+                           CashBackPercentaje = editViewMode.CashBackPercentaje,
+                           CompanyId = editViewMode.CompanyId,
+                           CompanyName = editViewMode.CompanyName,
+                           CompanyNickName = editViewMode.CompanyNickname,
+                           CorporateId = editViewMode.CorporateId,
+                           Enabled = editViewMode.Enabled,
                        };
         }
 

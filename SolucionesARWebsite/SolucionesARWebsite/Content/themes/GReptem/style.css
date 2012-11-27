@@ -90,17 +90,16 @@ a:hover { color:rgba(0, 0, 0, 0.7); }
 /* --------- 2. MAIN --------- */
 /* --------------------------- */
 
-body {
-	min-height: 740px;
+#wrap {
+	min-height: 675px;
 	min-width: 960px;
 	position: absolute;
 	width: 100%;
-	height: 100%;
+	height: 80%;
 	overflow: hidden;
-	background: url(../../../Images/themes/GReptem/bgr_shadow.png) no-repeat 50% 50% #4b596a;
-	
+	background: url(../../../Images/themes/GReptem/bgr_shadow.png) no-repeat 50% 50% ;
 }
-.background {
+#background {
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -108,18 +107,25 @@ body {
 	left: 0;
 	z-index: 1;
 	background: url(../../../Images/themes/GReptem/bgr_pattern.png) repeat 50% 50%;
+	background-color: rgb(36, 130, 153);
 }
-.content_box {
-	overflow :hidden;
-	width: 940px;
-	height: 530px;
-	margin: -290px 0 0 -488px;
-	position: absolute;
-	top: 50%;
-	padding: 25px;
+#inner_wrap {
+	height: 65%;
+    margin-bottom: 15px;
+}
+.edition_content {
+    overflow: hidden;
+	width: 75%;
+	height: 75%;
+	margin: 50px auto 0 auto;
+    margin-left: 10%;
+	top: 0%;
 	left: 50%;
 }
-
+.jspContainer{
+	width: 960px; 
+	height: 760px;
+}
 /* --------------------------- */
 /* --------- 3. HOME --------- */
 /* --------------------------- */
@@ -153,8 +159,8 @@ body {
 	}
 	#logo-shared {
 		display: block;
-	    margin-left: 2%;
-	    margin-top: 2%;
+	    margin-left: 7%;
+	    margin-top: 1.5%;
 		height: 100px;
 		background: url(../../../Images/logo-shared.png) no-repeat;
 	}
@@ -286,7 +292,7 @@ body {
 		top: 152px;
 	}
 	div#top-menu {
-	    margin-top: 0px;
+	    margin-top: -5%;
 	}
 	div#top-menu nav{
 		position: relative;
@@ -297,7 +303,7 @@ body {
 	    height:30px;
 	    position:relative;
 	    z-index:9;
-	    margin-right: 5%;
+	    margin-right: 7%;
 	    margin-top: 15px;
 	}
 	div#top-menu nav ul 
@@ -729,7 +735,7 @@ h2 strong {
 	font-family:Arial, Helvetica, sans-serif;
 	width:150px;
 	position:relative;
-	z-index:9;
+	z-index:1;
 	margin:0 0 15px;
 	padding:8px;
 	height:18px;
@@ -828,18 +834,14 @@ form .main-actions .button :hover {
 /* --------------------------- */
 /* ------- 11. FOOTER -------- */
 /* --------------------------- */
-
 #footer-container {
-	
 	background-color:rgba(0, 0, 0, 0.2);
 	border-top:1px solid rgba(0, 0, 0, 0.3);
 	left:0;
 	font-size:11px;
 	font-family:Arial, Helvetica, sans-serif;
-	padding:15px 0;
 	text-align:center;
 	color:#fff;
-    margin-top: 40%;
 	width:100%;
 	height: 100%;
 }
@@ -884,6 +886,10 @@ form .main-actions .button :hover {
 }
 .pagination_nav .innernav {
 	float:left;
+}
+.pagination_nav ul li {
+    list-style-type: none;
+    display:inline;
 }
 .pagination_nav a {
 	float:left;

@@ -1,5 +1,5 @@
 ﻿
-@using SolucionesARWebsite.ModelsWebsite.Views.Cantons
+@using SolucionesARWebsite.ViewModels.Views.Cantons
 
 @model EditViewModel
 
@@ -14,39 +14,30 @@
 
 
 @section EditionContent {
-    <div class="edition_content content_box ">
-        
-        @if (Model.CantonId > 0)
-        {
-            <h1>EDITAR CANTON</h1>
-        }
-        else
-        {
-            <h1>NUEVO CANTON</h1>
-        }
-
-        <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Cantons"))
-                    {
-                        @Html.HiddenFor(model => model.CantonId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.CantonName)
-                        </fieldset>
-                        <fieldset>
-                            <span>
-                                @Html.LabelFor(model => model.ProvinceId) <br/>
-                                @Html.EditorFor(model => model.ProvinceId)
-                            </span>
-                        </fieldset>
+    @if (Model.CantonId > 0)
+    {
+        <h1>EDITAR CANTON</h1>
+    }
+    else
+    {
+        <h1>NUEVO CANTON</h1>
+    }
+    
+    <p class="note">Favor complete el siguiente formulario</p>
+    @using (Html.BeginForm("Save", "Cantons"))
+    {
+        @Html.HiddenFor(model => model.CantonId)
+        <fieldset>
+            @Html.EditorFor(model => model.CantonName)
+        </fieldset>
+        <fieldset>
+            <span>
+                @Html.LabelFor(model => model.ProvinceId) <br/>
+                @Html.EditorFor(model => model.ProvinceId)
+            </span>
+        </fieldset>
                             
-                        <input name="submit" type="submit" value="Submit">
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+        <input name="submit" type="submit" value="Submit">
+    }
 }
 

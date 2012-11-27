@@ -10,8 +10,8 @@ using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
 
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Transactions;
+using SolucionesARWebsite.ViewModels.Lists;
+using SolucionesARWebsite.ViewModels.Views.Transactions;
 
 namespace SolucionesARWebsite.Controllers
 {

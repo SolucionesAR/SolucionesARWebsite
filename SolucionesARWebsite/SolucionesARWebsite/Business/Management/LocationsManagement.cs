@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SolucionesARWebsite.DataAccess;
-using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.Enumerations;
-using SolucionesARWebsite.ModelsWebsite.Forms.Companies;
 
 namespace SolucionesARWebsite.Business.Management
 {

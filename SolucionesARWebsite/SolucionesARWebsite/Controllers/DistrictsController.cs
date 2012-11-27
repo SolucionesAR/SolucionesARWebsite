@@ -1,34 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Districts;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Districts;
+using SolucionesARWebsite.ViewModels.Forms.Districts;
+using SolucionesARWebsite.ViewModels.Views.Districts;
 
 namespace SolucionesARWebsite.Controllers
 {
-    public class DistrictsController : Controller
+    public class DistrictsController : BaseController
     {
         private DbModel db = new DbModel();
 
         //
         // GET: /Districts/
 
-        public ActionResult Index()
+        public ActionResult Index(IndexViewModel indexViewModel)
         {
-            var districts = db.Districts.ToList();
-            var indexViewModel = new IndexViewModel
-            {
-                DistrictsList = new DistrictsList()
-                {
-                    Items = districts
-                }
-            };
+            var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
+            //missing filtering
+            var results = db.Districts.ToList();
+            indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
+
             return View(indexViewModel);
         }
 

@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using PagedList;
 using SolucionesARWebsite.Business.Management;
-using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Companies;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Companies;
+using SolucionesARWebsite.ViewModels.Companies;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -36,48 +33,13 @@ namespace SolucionesARWebsite.Controllers
 
         //
         // GET: /Users/
-        public ActionResult Index()
+        public ActionResult Index(IndexViewModel indexViewModel)
         {
-            /*
-            var indexViewModel = new IndexViewModel
-                                     {
-                                         CompaniesList =
-                                             new CompaniesList
-                                                 {
-                                                     Items = new List<Company>
-                                                                 {
-                                                                     new Company
-                                                                         {
-                                                                             CompanyId = 1,
-                                                                             CompanyName = "SolucionesAR",
-                                                                             CashBackPercentaje = 0.0,
-                                                                             CorporateId = "001-0000000-0",
-                                                                         },
-                                                                     new Company
-                                                                         {
-                                                                             CompanyId = 2,
-                                                                             CompanyName = "Coopeservidores",
-                                                                             CashBackPercentaje = 10.0,
-                                                                             CorporateId = "002-0000000-0",
-                                                                         },
-                                                                     new Company
-                                                                         {
-                                                                             CompanyId = 3,
-                                                                             CompanyName = "Coracao",
-                                                                             CashBackPercentaje = 5.0,
-                                                                             CorporateId = "003-0000000-0",
-                                                                         },
-                                                                 }
-                                                 }
-                                     };
-             */
-            var indexViewModel = new IndexViewModel
-                                     {
-                                         CompaniesList = new CompaniesList()
-                                                             {
-                                                                 Items = _companiesManagement.GetCompanies(),
-                                                             }
-                                     };
+            var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
+            //missing filtering
+            var results = _companiesManagement.GetCompanies();
+            indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
+
             return View(indexViewModel);
         }
 
@@ -110,12 +72,12 @@ namespace SolucionesARWebsite.Controllers
         //
         // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
-        public ActionResult Save(EditFormModel editFormModel)
+        public ActionResult Save(EditViewModel editViewModel)
         {
-            var editViewModel = ModelViewFromForm(editFormModel);
+            //var editViewModel = ModelViewFromForm(EditViewModel);
             if (ModelState.IsValid)
             {
-                _companiesManagement.Save(editFormModel);
+                _companiesManagement.Save(editViewModel);
             }
 
             return View("Edit", editViewModel);
@@ -125,14 +87,14 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
-        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        private static EditViewModel ModelViewFromForm(EditViewModel editViewModel)
         {
             return new EditViewModel
                        {
-                           CompanyId = editFormModel.CompanyId,
-                           CompanyName = editFormModel.CompanyName,
-                           CorporateId = editFormModel.CorporateId,
-                           CashBackPercentaje = editFormModel.CashBackPercentaje,
+                           CompanyId = editViewModel.CompanyId,
+                           CompanyName = editViewModel.CompanyName,
+                           CorporateId = editViewModel.CorporateId,
+                           CashBackPercentaje = editViewModel.CashBackPercentaje,
                        };
         }
 

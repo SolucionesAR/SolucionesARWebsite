@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ModelsWebsite.Forms.Inventory;
-using SolucionesARWebsite.ModelsWebsite.Lists;
-using SolucionesARWebsite.ModelsWebsite.Views.Inventory;
+using SolucionesARWebsite.ViewModels.Forms.Inventory;
+using SolucionesARWebsite.ViewModels.Lists;
+using SolucionesARWebsite.ViewModels.Views.Inventory;
 
 namespace SolucionesARWebsite.Controllers
 {
