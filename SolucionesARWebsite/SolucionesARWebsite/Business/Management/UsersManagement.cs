@@ -116,6 +116,7 @@ namespace SolucionesARWebsite.Business.Management
                                FName = editViewMode.FirstName,
                                LName1 = editViewMode.LastName1,
                                LName2 = editViewMode.LastName2,
+                               GeneratedCode = editViewMode.GeneratedCode,
                                Nationality = editViewMode.Nationality,
                                RolId = editViewMode.UserRol.RolId,
                                UserId = editViewMode.UserId,

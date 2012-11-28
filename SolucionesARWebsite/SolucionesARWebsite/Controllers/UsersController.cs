@@ -55,12 +55,6 @@ namespace SolucionesARWebsite.Controllers
             var results = _usersManagement.GetUsersList();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
 
-            foreach (var pagedItem in indexViewModel.PagedItems)
-            {
-                pagedItem.GeneratedCode = GenerateUserCode(pagedItem.LName1, pagedItem.LName2,
-                                                           pagedItem.CedNumber.ToString(CultureInfo.InvariantCulture));
-            }
-
             return View(indexViewModel);
         }
 
@@ -139,10 +133,7 @@ namespace SolucionesARWebsite.Controllers
                                         //Cashback = "₡5,025.00",
                                         Cashback = userInformation.Cashback.ToString(CultureInfo.InvariantCulture),
                                         Enabled = userInformation.Enabled,
-                                        GeneratedCode =
-                                            GenerateUserCode(userInformation.LName1, userInformation.LName2,
-                                                             userInformation.CedNumber.ToString(
-                                                                 CultureInfo.InvariantCulture)),
+                                        GeneratedCode =userInformation.GeneratedCode,
                                         UserRol = userInformation.UserRol,
                                         RolesList = GetRolesList(SecurityContext),
                                         Company = userInformation.Company,
@@ -166,6 +157,10 @@ namespace SolucionesARWebsite.Controllers
                 //provisional para salir del paso y no tener que hacer el manejo de roles y id types
                 //_rolesManagement.Save(GetRolesList(SecurityContext));
                 //_rolesManagement.Save(GetIdentificationTypesList());
+                editViewModel.GeneratedCode =
+                    GenerateUserCode(editViewModel.LastName1, editViewModel.LastName2,
+                                     editViewModel.IdentificationNumber.ToString(
+                                         CultureInfo.InvariantCulture));
                 _usersManagement.Save(editViewModel, SecurityContext.User.Id);
             }
 
