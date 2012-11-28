@@ -1,45 +1,42 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SolucionesARWebsite.ViewModels.Forms.Districts
+namespace SolucionesARWebsite.ViewModels.Districts
 {
-    public class EditFormModel
+    public class EditViewModel : BaseViewModel
     {
         #region Constants
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// The district id
+        /// </summary>
         [Required]
         public int DistrictId { get; set; }
 
         /// <summary>
-        /// The Unique user identifier
+        /// The district name
         /// </summary>
-        [Required]
-        public int CantonId { get; set; }
-
-        /// <summary>
-        /// The Identification number
-        /// </summary>
-        [Required]
+        [Display(Name = "Nombre*", Prompt = "Nombre")]
         public string DistrictName { get; set; }
 
+        /// <summary>
+        /// The canton id
+        /// </summary>
+        [Required]
+        [Display(Name = "Id del Canton*", Prompt = "Canton")]
+        public int CantonId { get; set; }
         
         #endregion
 
         #region Private Members
-
-
         #endregion
 
         #region Contructors
         #endregion
 
         #region Public Methods
-
         #endregion
 
         #region Private Methods

@@ -1,18 +1,16 @@
-﻿using SolucionesARWebsite.ViewModels.Lists;
+﻿using PagedList;
+using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.ViewModels.Views.Cantons
+namespace SolucionesARWebsite.ViewModels.Districts
 {
-    public class IndexViewModel : BaseViewModel
+    public class IndexViewModel : BaseListModel
     {
         #region Constants
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Displayed items
-        /// </summary>
-        public CantonsList CantonsList { get; set; }
+        public IPagedList<District> PagedItems { get; set; }
 
         #endregion
 

@@ -27,10 +27,11 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public StoresController()
+        public StoresController(CompaniesManagement companiesManagement)
         {
+            _companiesManagement = companiesManagement;
+
             _storesManagement = new StoresManagement();
-            _companiesManagement = new CompaniesManagement();
             _districtsManagement = new LocationsManagement();
         }
 

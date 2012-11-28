@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.Enumerations;
@@ -11,33 +11,36 @@ namespace SolucionesARWebsite.Business.Management
     public class CompaniesManagement
     {
         #region Constants
-
         #endregion
 
         #region Properties
-
         #endregion
 
         #region Private Members
 
-        private readonly CompaniesAccess _companiesAccess;
+        private readonly ICompaniesRepository _companiesRepository;
 
         #endregion
 
         #region Constructors
 
-        public CompaniesManagement()
+        public CompaniesManagement(ICompaniesRepository companiesRepository)
         {
-            _companiesAccess = new CompaniesAccess();
+            _companiesRepository = companiesRepository;
         }
 
         #endregion
 
         #region Public Methods
 
+        public Company GetCompany(int companyId)
+        {
+            return _companiesRepository.GetCompany(companyId);
+        }
+
         public List<Company> GetCompanies()
         {
-            return _companiesAccess.GetCompanies();
+            return _companiesRepository.GetCompanies();
         }
 
         public List<Company> GetCompanies(SecurityContext securityContext)
@@ -60,7 +63,7 @@ namespace SolucionesARWebsite.Business.Management
                     break;
                 case UserRole.SuperUser:
                 case UserRole.Administrator:
-                    companiesList = _companiesAccess.GetAllCompanies();
+                    companiesList = _companiesRepository.GetAllCompanies();
                     break;
             }
 
@@ -86,13 +89,13 @@ namespace SolucionesARWebsite.Business.Management
         {
             company.CreatetedAt = DateTime.Now;
             company.UpdatedAt = DateTime.Now;
-            _companiesAccess.AddCompany(company);
+            _companiesRepository.AddCompany(company);
         }
 
         private void EditCompany(Company company)
         {
             company.UpdatedAt = DateTime.Now;
-            _companiesAccess.EditCompany(company);
+            _companiesRepository.EditCompany(company);
         }
 
         private Company Map(EditViewModel editViewMode)
@@ -109,11 +112,5 @@ namespace SolucionesARWebsite.Business.Management
         }
 
         #endregion
-
-        public Company GetCompany(int companyId)
-        {
-
-            return _companiesAccess.GetCompany(companyId);
-        }
     }
 }

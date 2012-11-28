@@ -1,8 +1,7 @@
 ﻿using PagedList;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ViewModels.Lists;
 
-namespace SolucionesARWebsite.ViewModels.Views.Districts
+namespace SolucionesARWebsite.ViewModels.Cantons
 {
     public class IndexViewModel : BaseListModel
     {
@@ -11,7 +10,10 @@ namespace SolucionesARWebsite.ViewModels.Views.Districts
 
         #region Properties
 
-        public IPagedList<District> PagedItems { get; set; }
+        /// <summary>
+        /// Displayed items
+        /// </summary>
+        public IPagedList<Canton> PagedItems { get; set; }
 
         #endregion
 

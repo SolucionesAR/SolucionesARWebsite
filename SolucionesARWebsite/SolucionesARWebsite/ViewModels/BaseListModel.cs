@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using PagedList;
 
 namespace SolucionesARWebsite.ViewModels
 {

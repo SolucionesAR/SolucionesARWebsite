@@ -1,7 +1,7 @@
-﻿@using SolucionesARWebsite.ViewModels.Views.Cantons
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite.ViewModels.Cantons
 
 @model IndexViewModel
-
 
 @{
     ViewBag.Title = "SolucionesAR | Cantones";
@@ -15,11 +15,19 @@
     CANTONES
 }
 
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
+}
+
 @section ListActions {
-    @if (Model.CantonsList.HasFilters())
-    {
-        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
-    }
         @Html.ActionLink("Nuevo Canton", "Create", null, new { @class = "button" })
     }
 }
@@ -42,7 +50,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.CantonsList.Items) {
+                @foreach (var item in Model.PagedItems) {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.CantonId)
@@ -55,23 +63,11 @@
                         </td>
                         
                         <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.CantonId }) |
-                            @Html.ActionLink("Detalles", "Details", new { id = item.CantonId }) 
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CantonId })
                         </td>
                     </tr>
                 }
             </table>
         </div>
     </div>
-}
-
-@section ListPaging {
-    @{
-        /*
-        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
-        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
-        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
-        @ListHelper.Paging(Url, Model.UsersList)
-        */
-    }
 }

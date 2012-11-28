@@ -17,7 +17,7 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public ReportsController()
+        public ReportsController() : base()
         {
         }
 

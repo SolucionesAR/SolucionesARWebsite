@@ -2,9 +2,12 @@
 <info>
     <actions>
         <action controller="Account" action="*" enabled="true" />
+        <action controller="Cantons" action="*" enabled="true" />
         <action controller="Companies" action="*" enabled="true" />
+        <action controller="Districts" action="*" enabled="true" />
         <action controller="Home" action="*" enabled="true" />
         <action controller="Inventory" action="*" enabled="true" />
+        <action controller="Provinces" action="*" enabled="true" />
         <action controller="Reports" action="*" enabled="true" />
         <action controller="Stores" action="*" enabled="true" />
         <action controller="Transactions" action="*" enabled="true" />

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataAccess.Repositories;
 using SolucionesARWebsite.ViewModels.Views.Account;
 using WebMatrix.WebData;
 using SolucionesARWebsite.ViewModels.Forms.Account;
@@ -18,7 +19,7 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
-        private readonly UsersAccess _usersAccess;
+        private readonly UsersRepository _usersRepository;
 
         #endregion
 
@@ -26,7 +27,7 @@ namespace SolucionesARWebsite.Controllers
 
         public AccountController()
         {
-            _usersAccess = new UsersAccess();
+            _usersRepository = new UsersRepository();
         }
 
         #endregion

@@ -1,5 +1,6 @@
 ﻿using System.Web.Security;
 using SolucionesARWebsite.Business.Management;
+using SolucionesARWebsite.DataAccess.Repositories;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
 
@@ -15,8 +16,7 @@ namespace SolucionesARWebsite.Controllers
 
         #endregion
 
-        #region Properties
-        
+        #region Properties  
         #endregion
 
         #region Private Members
@@ -30,7 +30,7 @@ namespace SolucionesARWebsite.Controllers
 
         public  BaseController()
         {
-            UsersManagement = new UsersManagement();
+            UsersManagement = new UsersManagement(new UsersRepository());
             CreateSecurityContext();
         }
 

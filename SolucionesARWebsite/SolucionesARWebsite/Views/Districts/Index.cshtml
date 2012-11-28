@@ -1,7 +1,7 @@
-﻿@using SolucionesARWebsite.ViewModels.Views.Districts
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite.ViewModels.Districts
 
 @model IndexViewModel
-
 
 @{
     ViewBag.Title = "SolucionesAR | Distritos";
@@ -12,16 +12,23 @@
 }
 
 @section ListTitle {
-    CANTONES
+    DISTRITOS
+}
+
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
 }
 
 @section ListActions {
-    @if (Model.DistrictsList.HasFilters())
-    {
-        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
-    }
-        @Html.ActionLink("Nuevo Distrito", "Create", null, new { @class = "button" })
-    }
+    @Html.ActionLink("Nuevo Distrito", "Create", null, new { @class = "button" })
 }
 
 @section ListContent {
@@ -42,7 +49,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.DistrictsList.Items) {
+                @foreach (var item in Model.PagedItems) {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.DistrictId)
@@ -55,23 +62,11 @@
                         </td>
                         
                         <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.DistrictId }) |
-                            @Html.ActionLink("Detalles", "Details", new { id = item.DistrictId }) 
+                            @Html.ActionLink("Editar", "Edit", new { id = item.DistrictId })
                         </td>
                     </tr>
                 }
             </table>
         </div>
     </div>
-}
-
-@section ListPaging {
-    @{
-        /*
-        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
-        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
-        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
-        @ListHelper.Paging(Url, Model.UsersList)
-        */
-    }
 }

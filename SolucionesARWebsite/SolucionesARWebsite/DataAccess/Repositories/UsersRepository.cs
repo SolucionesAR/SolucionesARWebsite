@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.DataAccess
+namespace SolucionesARWebsite.DataAccess.Repositories
 {
-    public class UsersAccess
+    public class UsersRepository : IUsersRepository
     {
         #region Constants
         #endregion
@@ -21,7 +22,7 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Contructors
 
-        public UsersAccess()
+        public UsersRepository()
         {
             _databaseModel = new DbModel();
         }
@@ -29,40 +30,37 @@ namespace SolucionesARWebsite.DataAccess
         #endregion
 
         #region Public Methods
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+
+        public void AddUser(User user)
+        {
+            _databaseModel.Users.Add(user);
+            _databaseModel.SaveChanges();
+        }
+
+        public void EditUser(User user)
+        {
+            _databaseModel.Entry(user).State = EntityState.Modified;
+            _databaseModel.SaveChanges();
+        }
+        
         public List<User> GetUsersList()
         {
             var users = _databaseModel.Users.ToList();
             return users;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public User GetUser(int userId)
         {
             var user = _databaseModel.Users.FirstOrDefault(u => u.UserId.Equals(userId));
             return user;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public User GetUser(string username)
         {
             var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username));
             return user;
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
         public bool UpdateUser(User user)
         {
             //TODO: por implementar: con solo salvar la bd con el user actualizado? o hay q sacarlo, cambiar todo y guardar??
@@ -71,22 +69,9 @@ namespace SolucionesARWebsite.DataAccess
             return true;
         }
 
-        public void EditUser(User user)
-        {
-            _databaseModel.Entry(user).State = EntityState.Modified;
-            _databaseModel.SaveChanges();
-        }
-
-        public void AddUser(User user)
-        {
-            _databaseModel.Users.Add(user);
-            _databaseModel.SaveChanges();
-        }
-
         #endregion
 
         #region Private Methods
         #endregion
-
     }
 }

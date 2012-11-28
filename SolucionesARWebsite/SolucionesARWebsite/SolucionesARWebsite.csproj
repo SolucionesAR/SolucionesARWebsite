@@ -35,6 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.15.0.0\lib\net40\PagedList.dll</HintPath>
@@ -170,6 +179,8 @@
     <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
+    <Compile Include="Business\Management\CantonsManagement.cs" />
+    <Compile Include="Business\Management\DistrictsManagement.cs" />
     <Compile Include="Business\Management\LocationsManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
     <Compile Include="Business\Management\RelationshisManagement.cs" />
@@ -194,15 +205,21 @@
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="DataAccess\CompaniesAccess.cs" />
+    <Compile Include="DataAccess\Interfaces\ICantonsRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\IDistrictsRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\ICompaniesRepository.cs" />
+    <Compile Include="DataAccess\Repositories\CompaniesRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\IUsersRepository.cs" />
     <Compile Include="DataAccess\InventoryAccess.cs" />
     <Compile Include="DataAccess\LocationsAccess.cs" />
     <Compile Include="DataAccess\RelationshipsAccess.cs" />
     <Compile Include="DataAccess\RelationshipTypesAccess.cs" />
+    <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
     <Compile Include="DataAccess\RolesAccess.cs" />
     <Compile Include="DataAccess\StoresAccess.cs" />
     <Compile Include="DataAccess\TransactionsAccess.cs" />
-    <Compile Include="DataAccess\UsersAccess.cs" />
+    <Compile Include="DataAccess\Repositories\UsersRepository.cs" />
     <Compile Include="DataObjects\UserInformation.cs" />
     <Compile Include="Enumerations\Enumerations.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
@@ -261,23 +278,20 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="ViewModels\Forms\Account\LoginFormModel.cs" />
-    <Compile Include="ViewModels\Forms\Cantons\EditFormModel.cs" />
     <Compile Include="ViewModels\Companies\EditViewModel.cs" />
-    <Compile Include="ViewModels\Forms\Districts\EditFormModel.cs" />
     <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ViewModels\Forms\Provinces\EditFormModel.cs" />
     <Compile Include="ViewModels\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ViewModels\Users\EditViewModel.cs" />
     <Compile Include="ViewModels\Lists\TransactionsList.cs" />
-    <Compile Include="ViewModels\Lists\DistrictsList.cs" />
     <Compile Include="ViewModels\Lists\ProvincesList.cs" />
     <Compile Include="ViewModels\Lists\StoresList.cs" />
     <Compile Include="ViewModels\Views\Account\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Views\Cantons\EditViewModel.cs" />
-    <Compile Include="ViewModels\Views\Cantons\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Cantons\EditViewModel.cs" />
+    <Compile Include="ViewModels\Cantons\IndexViewModel.cs" />
     <Compile Include="ViewModels\Companies\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Views\Districts\EditViewModel.cs" />
-    <Compile Include="ViewModels\Views\Districts\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Districts\EditViewModel.cs" />
+    <Compile Include="ViewModels\Districts\IndexViewModel.cs" />
     <Compile Include="ViewModels\Views\Inventory\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Views\Inventory\UploadViewModel.cs" />
     <Compile Include="ViewModels\Views\Inventory\IndexViewModel.cs" />
@@ -473,8 +487,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Filters\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -606,18 +618,12 @@
     <Content Include="Views\Provinces\Edit.cshtml" />
     <Content Include="Views\Provinces\Delete.cshtml" />
     <Content Include="Views\Cantons\Index.cshtml" />
-    <Content Include="Views\Cantons\Details.cshtml" />
-    <Content Include="Views\Cantons\Create.cshtml" />
     <Content Include="Views\Cantons\Edit.cshtml" />
-    <Content Include="Views\Cantons\Delete.cshtml" />
-    <Content Include="Views\Districts\Index.cshtml" />
-    <Content Include="Views\Districts\Details.cshtml" />
-    <Content Include="Views\Districts\Create.cshtml" />
     <Content Include="Views\Districts\Edit.cshtml" />
-    <Content Include="Views\Districts\Delete.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Transactions\FileUpload.cshtml" />
     <Content Include="Views\Shared\PublicLayout.cshtml" />
+    <Content Include="Views\Districts\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

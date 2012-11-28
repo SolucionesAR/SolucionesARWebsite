@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using PagedList;
@@ -18,16 +17,15 @@ namespace SolucionesARWebsite.Controllers
         #endregion
 
         #region Properties
-
         #endregion
 
         #region Private Members
 
         private readonly CompaniesManagement _companiesManagement;
-        private readonly TransactionsManagement _transactionsManagement;
         private readonly UsersManagement _usersManagement;
-        private readonly LocationsManagement _locationsManagement;
 
+        private readonly TransactionsManagement _transactionsManagement;
+        private readonly LocationsManagement _locationsManagement;
         //to delete
         private readonly RolesManagement _rolesManagement;
 
@@ -35,13 +33,13 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public UsersController()
+        public UsersController(CompaniesManagement companiesManagement, UsersManagement usersManagement)
         {
-            _companiesManagement = new CompaniesManagement();
-            _transactionsManagement = new TransactionsManagement();
-            _usersManagement = new UsersManagement();
-            _locationsManagement = new LocationsManagement();
+            _companiesManagement = companiesManagement;
+            _usersManagement = usersManagement;
 
+            _transactionsManagement = new TransactionsManagement();
+            _locationsManagement = new LocationsManagement();
             //to delete
             _rolesManagement = new RolesManagement();
         }
@@ -60,8 +58,6 @@ namespace SolucionesARWebsite.Controllers
             return View(indexViewModel);
         }
 
-        //
-        // GET: /Users/Details/{id}
         public ActionResult Details(int id)
         {
             var userInformation = _usersManagement.GetUser(id);
@@ -84,8 +80,6 @@ namespace SolucionesARWebsite.Controllers
             return View(detailsViewModel);
         }
 
-        //
-        // GET: /Users/Create/
         public ActionResult Create()
         {
             var editViewModel = new EditViewModel
@@ -114,8 +108,6 @@ namespace SolucionesARWebsite.Controllers
             return View("Edit", editViewModel);
         }
 
-        //
-        // GET: /Users/Edit/{id}
         public ActionResult Edit(int id)
         {
             var userInformation = _usersManagement.GetUser(id);
@@ -159,8 +151,6 @@ namespace SolucionesARWebsite.Controllers
             return View(editViewModel);
         }
 
-        //
-        // POST: /Users/Save/{editeditFormModel}
         [HttpPost]
         public ActionResult Save(EditViewModel editViewModel)
         {
@@ -189,37 +179,7 @@ namespace SolucionesARWebsite.Controllers
         #endregion
 
         #region Private Members
-
-        private EditViewModel ModelViewFromForm(EditViewModel editViewModel)
-        {
-            return new EditViewModel
-                       {
-                           UserId = editViewModel.UserId,
-                           IdentificationNumber = editViewModel.IdentificationNumber,
-                           IdentificationType = editViewModel.IdentificationType,
-                           FirstName = editViewModel.FirstName,
-                           LastName1 = editViewModel.LastName1,
-                           LastName2 = editViewModel.LastName2,
-                           GeneratedCode =
-                               GenerateUserCode(editViewModel.LastName1, editViewModel.LastName2,
-                                                editViewModel.IdentificationNumber),
-                           Dob = editViewModel.Dob,
-                           Address1 = editViewModel.Address1,
-                           Address2 = editViewModel.Address2,
-                           PhoneNumber = editViewModel.PhoneNumber,
-                           Cellphone = editViewModel.Cellphone,
-                           Email = editViewModel.Email,
-                           Enabled = editViewModel.Enabled,
-                           UserRol = editViewModel.UserRol,
-                           //TODO: hay q hacer la parte de las companies
-                           //Company = new Company { CompanyId = EditViewModel.CompanyId, UpdatedAt = DateTime.Now, CreatetedAt = DateTime.Now },//_companiesManagement.GetCompany(EditViewModel.CompanyId), //
-                           Company = editViewModel.Company,
-                           Province = editViewModel.Province,
-                           Canton = editViewModel.Canton,
-                           District = editViewModel.District,
-                       };
-        }
-
+        
         private static string GenerateUserCode(string lastName1, string lastName2, string cedNumber)
         {
             var lastName1Encoded = lastName1 != null

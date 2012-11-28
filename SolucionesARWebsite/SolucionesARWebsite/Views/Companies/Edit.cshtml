@@ -12,7 +12,6 @@
 
 }
 
-
 @section EditionContent {
     <div class="edition_content content_box ">
         
@@ -40,10 +39,7 @@
                         <fieldset>
                             @Html.EditorFor(model => model.CashBackPercentaje)
                         </fieldset>
-                       <fieldset>
-                            @Html.CheckBoxFor(model => model.Enabled)
-                        </fieldset>
-                        <input name="submit" type="submit" value="Submit">
+                        <input name="submit" type="submit" value="Guardar">
                     }
                 </div>
             </div>

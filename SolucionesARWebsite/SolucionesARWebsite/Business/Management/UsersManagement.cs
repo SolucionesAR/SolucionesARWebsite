@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolucionesARWebsite.Business.Logic;
-using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
@@ -20,51 +19,39 @@ namespace SolucionesARWebsite.Business.Management
 
         #region Private Members
 
-        private readonly UsersAccess _usersAccess;
+        private readonly IUsersRepository _usersRepository;
 
         #endregion
 
         #region Constructors
 
-        public UsersManagement()
+        public UsersManagement(IUsersRepository usersRepository)
         {
-            _usersAccess = new UsersAccess();
+            _usersRepository = usersRepository;
         }
 
         #endregion
 
         #region Public Methods
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public List<User> GetUsersList()
         {
-            return _usersAccess.GetUsersList();
+            return _usersRepository.GetUsersList();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public User GetUser(int userId)
         {
-            return _usersAccess.GetUser(userId);
+            return _usersRepository.GetUser(userId);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public User GetUser(string username)
         {
-            return _usersAccess.GetUser(username);
+            return _usersRepository.GetUser(username);
         }
 
         public virtual UserInformation GetUserInformation(string username)
         {
-            //var user = _usersAccess.GetUser(username);
+            //var user = _usersRepository.GetUser(username);
             var user = new User
                        {
                            UserId = 10,
@@ -106,13 +93,13 @@ namespace SolucionesARWebsite.Business.Management
             user.CreatetedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
             user.Dob = DateTime.UtcNow;
-            _usersAccess.AddUser(user);
+            _usersRepository.AddUser(user);
         }
 
         private void EditUser(User user)
         {
             user.UpdatedAt = DateTime.Now;
-            _usersAccess.EditUser(user);
+            _usersRepository.EditUser(user);
         }
 
         private User Map(EditViewModel editViewMode)
@@ -141,7 +128,7 @@ namespace SolucionesARWebsite.Business.Management
 
             if (!string.IsNullOrEmpty(editViewMode.ParentUser))
             {
-                var parentUser = _usersAccess.GetUser(editViewMode.ParentUser);
+                var parentUser = _usersRepository.GetUser(editViewMode.ParentUser);
                 user.UserReferenceId = parentUser.UserId;
             }
 
