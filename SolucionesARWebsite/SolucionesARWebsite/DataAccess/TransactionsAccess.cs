@@ -63,7 +63,9 @@ namespace SolucionesARWebsite.DataAccess
         /// <returns></returns>
         public bool SaveTransaction(Transaction transaction)
         {
-            return _databaseModel.Transactions.Add(transaction) != null;
+            var result = _databaseModel.Transactions.Add(transaction);
+            _databaseModel.SaveChanges();
+            return result != null;
         }
 
 

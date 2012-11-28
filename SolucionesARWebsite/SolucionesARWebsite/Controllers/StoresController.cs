@@ -21,7 +21,7 @@ namespace SolucionesARWebsite.Controllers
 
         private readonly StoresManagement _storesManagement;
         private readonly CompaniesManagement _companiesManagement;
-        private readonly LocationsManagement _districtsManagement;
+        private readonly LocationsManagement _locationsManagement;
 
         #endregion
 
@@ -32,7 +32,7 @@ namespace SolucionesARWebsite.Controllers
             _companiesManagement = companiesManagement;
 
             _storesManagement = new StoresManagement();
-            _districtsManagement = new LocationsManagement();
+            _locationsManagement = new LocationsManagement();
         }
 
         #endregion
@@ -59,19 +59,24 @@ namespace SolucionesARWebsite.Controllers
         public ActionResult Create()
         {
             var companies = _companiesManagement.GetCompanies();
-            var districts = _districtsManagement.GetAllDistricts();
             var editViewModel = new EditViewModel
-                                    {
-                                        StoreId = 0,
-                                        StoreName = "",
-                                        CompaniesList = companies,
-                                        Districts = districts,
-                                        Company = new Company{CompanyId = 0},
-                                        District = new District{DistrictId = 0},
-                                        FaxNumber = "",
-                                        PhoneNumber1 = "",
-                                        PhoneNumber2 = ""
-                                    };
+            {
+                StoreId = 0,
+                StoreName = "",
+                CompaniesList = companies,
+                Company = new Company { CompanyId = 0 },
+                FaxNumber = "",
+                PhoneNumber1 = "",
+                PhoneNumber2 = "",
+                Province = _locationsManagement.GetProvince(1),
+                ProvincesList = _locationsManagement.GetAllProvinces(),
+                Canton = new Canton(),
+                CantonsList = _locationsManagement.GetCantonsByProvince(1),
+                //CantonsList = 
+                District = new District(),
+                DistrictsList = _locationsManagement.GetDistrictsByCanton(1),
+                //DistrictsList = 
+            };
 
             return View("Edit", editViewModel);
         }
@@ -82,18 +87,25 @@ namespace SolucionesARWebsite.Controllers
         {
             var store = _storesManagement.GetStore(id);
             var companies = _companiesManagement.GetCompanies();
-            var districts = _districtsManagement.GetAllDistricts();
+            var canton = _locationsManagement.GetCantonByDistrict(store.District.DistrictId);
+            var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             var editViewModel = new EditViewModel
             {
                 StoreId = store.StoreId,
                 StoreName = store.StoreName,
                 Company = store.Company,
                 CompaniesList = companies,
-                District = store.District,
-                Districts = districts,
+
                 FaxNumber = store.FaxNumber,
                 PhoneNumber1 = store.PhoneNumber1,
-                PhoneNumber2 = store.PhoneNumber2
+                PhoneNumber2 = store.PhoneNumber2,
+
+                Province = province,
+                ProvincesList = _locationsManagement.GetAllProvinces(),
+                Canton = canton,
+                CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId),
+                District = store.District,
+                DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId),
             };
             return View(editViewModel);
         }
@@ -122,7 +134,7 @@ namespace SolucionesARWebsite.Controllers
                         CreatetedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
-                    
+
                 }
                 else
                 {
@@ -133,12 +145,16 @@ namespace SolucionesARWebsite.Controllers
                     store.CompanyId = editFormModel.Company.CompanyId;
                     store.DistrictId = editFormModel.District.DistrictId;
                     store.FaxNumber = editFormModel.FaxNumber;
-                    store.UpdatedAt = new DateTime();
+                    store.UpdatedAt = DateTime.UtcNow;
                 }
 
                 _storesManagement.SaveStore(store);
             }
-            editViewModel.Districts = _districtsManagement.GetAllDistricts();
+            var canton = _locationsManagement.GetCantonByDistrict(editFormModel.District.DistrictId);
+            var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
+            editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
+            editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId);
+            editViewModel.DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId);
             editViewModel.CompaniesList = _companiesManagement.GetCompanies();
             return View("Edit", editViewModel);
         }
@@ -150,18 +166,20 @@ namespace SolucionesARWebsite.Controllers
         private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
         {
             return new EditViewModel
-                       {
-                           StoreId = editFormModel.StoreId,
-                           StoreName = editFormModel.StoreName,
-                           Company = editFormModel.Company,
-                           District = editFormModel.District,
-                           FaxNumber = editFormModel.FaxNumber,
-                           PhoneNumber1 = editFormModel.PhoneNumber1,
-                           PhoneNumber2 = editFormModel.PhoneNumber2,
-                           Districts = editFormModel.Districts,
-                           CompaniesList = editFormModel.CompaniesList
+            {
+                StoreId = editFormModel.StoreId,
+                StoreName = editFormModel.StoreName,
+                Company = editFormModel.Company,
+                FaxNumber = editFormModel.FaxNumber,
+                PhoneNumber1 = editFormModel.PhoneNumber1,
+                PhoneNumber2 = editFormModel.PhoneNumber2,
+                DistrictsList = editFormModel.Districts,
+                CompaniesList = editFormModel.CompaniesList,
+                Province = editFormModel.Province,
+                Canton = editFormModel.Canton,
+                District = editFormModel.District,
 
-                       };
+            };
         }
 
         #endregion

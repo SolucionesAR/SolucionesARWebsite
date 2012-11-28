@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.ViewModels.Views.Transactions
+namespace SolucionesARWebsite.ViewModels.Forms.Transactions
 {
-    public class EditViewModel : BaseViewModel
+    public class EditFormModel
     {
         #region Constants
         #endregion
@@ -20,13 +21,11 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "Codigo Fractura*", Prompt = "Codigo Fractura")]
         public string BillBarCode { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "Monto*", Prompt = "000.00")]
         public double Amount { get; set; }
 
 
@@ -34,7 +33,6 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
         /// 
         /// </summary>
         [Required]
-        [DisplayName("Tienda")]
         public Store Store { get; set; }
 
 
@@ -49,7 +47,6 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
         /// The one that makes the purchase
         /// </summary>
         [Required]
-        [DisplayName("Vendedor")]
         public User Customer { get; set; }
 
         public List<User> ListCustomers { get; set; }
@@ -58,7 +55,6 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
 
         public List<Store> ListStores { get; set; }
 
-        [Display(Name = "Puntos*", Prompt = "50")]
         public int Points { get; set; }
 
 

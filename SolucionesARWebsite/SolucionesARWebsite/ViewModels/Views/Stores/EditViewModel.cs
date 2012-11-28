@@ -37,28 +37,53 @@ namespace SolucionesARWebsite.ViewModels.Views.Stores
         /// <summary>
         /// 
         /// </summary>
+        [DisplayName("Teléfono 1")]
         public string PhoneNumber1 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [DisplayName("Teléfono 2")]
         public string PhoneNumber2 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [DisplayName("Número de Fax")]
         public string FaxNumber { get; set; }
 
         /// <summary>
-        /// 
+        /// The district
         /// </summary>
-        [DisplayName("Distrito")]
+        [Display(Name = "Distrito", Prompt = "Distrito")]
         public District District { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>  
-        public List<District> Districts { get; set; }
+        /// The city
+        /// </summary>
+        [Display(Name = "Cantón", Prompt = "Cantón")]
+        public Canton Canton { get; set; }
+
+        /// <summary>
+        /// The state
+        /// </summary>
+        [Display(Name = "Provincia", Prompt = "Provincia")]
+        public Province Province { get; set; }
+
+        /// <summary>
+        /// The districts list
+        /// </summary>
+        public List<District> DistrictsList { get; set; }
+
+        /// <summary>
+        /// The cities list
+        /// </summary>
+        public List<Canton> CantonsList { get; set; }
+
+        /// <summary>
+        /// The state
+        /// </summary>
+        public List<Province> ProvincesList { get; set; }
 
 
         #endregion

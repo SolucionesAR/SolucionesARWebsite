@@ -55,12 +55,18 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return user;
         }
 
-        public User GetUser(string username)
+        public User GetUserByCode(string username)
         {
             var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username));
             return user;
         }
-        
+
+        public User GetUserByName(string username)
+        {
+            var user = _databaseModel.Users.FirstOrDefault(u => u.FName.Equals(username));
+            return user;
+        }
+
         public bool UpdateUser(User user)
         {
             //TODO: por implementar: con solo salvar la bd con el user actualizado? o hay q sacarlo, cambiar todo y guardar??

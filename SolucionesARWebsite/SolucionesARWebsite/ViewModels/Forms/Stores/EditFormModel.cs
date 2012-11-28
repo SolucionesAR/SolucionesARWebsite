@@ -54,12 +54,16 @@ namespace SolucionesARWebsite.ViewModels.Forms.Stores
         /// <summary>
         /// 
         /// </summary>
-        public virtual District District { get; set; }
+        public District District { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public List<District> Districts { get; set; }
+
+        public Province Province { get; set; }
+
+        public Canton Canton { get; set; }
 
         #endregion
 

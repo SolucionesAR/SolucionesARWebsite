@@ -282,6 +282,7 @@
     <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ViewModels\Forms\Provinces\EditFormModel.cs" />
     <Compile Include="ViewModels\Forms\Stores\EditFormModel.cs" />
+    <Compile Include="ViewModels\Forms\Transactions\EditFormModel.cs" />
     <Compile Include="ViewModels\Users\EditViewModel.cs" />
     <Compile Include="ViewModels\Lists\TransactionsList.cs" />
     <Compile Include="ViewModels\Lists\ProvincesList.cs" />

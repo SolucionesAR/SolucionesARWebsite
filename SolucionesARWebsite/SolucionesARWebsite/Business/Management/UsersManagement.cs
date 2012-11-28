@@ -46,12 +46,12 @@ namespace SolucionesARWebsite.Business.Management
 
         public User GetUser(string username)
         {
-            return _usersRepository.GetUser(username);
+            return _usersRepository.GetUserByCode(username);
         }
 
         public virtual UserInformation GetUserInformation(string username)
         {
-            //var user = _usersRepository.GetUser(username);
+            //var user = _usersRepository.GetUserByCode(username);
             var user = new User
                        {
                            UserId = 10,
@@ -128,7 +128,7 @@ namespace SolucionesARWebsite.Business.Management
 
             if (!string.IsNullOrEmpty(editViewMode.ParentUser))
             {
-                var parentUser = _usersRepository.GetUser(editViewMode.ParentUser);
+                var parentUser = _usersRepository.GetUserByCode(editViewMode.ParentUser);
                 user.UserReferenceId = parentUser.UserId;
             }
 

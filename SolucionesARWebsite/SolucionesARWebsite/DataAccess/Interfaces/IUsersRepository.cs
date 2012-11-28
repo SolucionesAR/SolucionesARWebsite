@@ -16,7 +16,7 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
         
         User GetUser(int userId);
 
-        User GetUser(string username);
+        User GetUserByCode(string username);
 
         bool UpdateUser(User user);
     }

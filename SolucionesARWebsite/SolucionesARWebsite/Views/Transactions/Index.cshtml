@@ -16,10 +16,10 @@
 }
 
 @section ListActions {
-    @if (Model.TransactionsList.HasFilters())
+    @*@if (Model.TransactionsList.HasFilters())
     {
         @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
-    }
+    }*@
         @Html.ActionLink("Nueva Venta", "Create", null, new { @class = "button" })
         @Html.ActionLink("Ingresar Ventas", "FileUpload", null, new { @class = "button" })
     }

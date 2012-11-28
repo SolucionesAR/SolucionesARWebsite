@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
-
+using SolucionesARWebsite.ViewModels.Forms.Transactions;
 using SolucionesARWebsite.ViewModels.Lists;
 using SolucionesARWebsite.ViewModels.Views.Transactions;
 
@@ -36,9 +36,8 @@ namespace SolucionesARWebsite.Controllers
 
         public TransactionsController(UsersManagement usersManagement)
         {
-            _usersManagement = usersManagement;
-
             _transactionsManagement = new TransactionsManagement();
+            _usersManagement = usersManagement;
             _storesManagement = new StoresManagement();
         }
 
@@ -71,17 +70,17 @@ namespace SolucionesARWebsite.Controllers
             var usersList = _usersManagement.GetUsersList();
             var storsList = _storesManagement.GetStores();
             var editViewModel = new EditViewModel
-                                    {
-                                        TransactionId = 0,
-                                        Amount = 0.0,
-                                        BillBarCode = "",
-                                        Store = new Store(),
-                                        ListStores = storsList,
-                                        Customer = new User(),
-                                        ListCustomers = usersList,
-                                        //SalesMan = new User(),
-                                        //ListSalesMan = usersList,
-                                    };
+            {
+                TransactionId = 0,
+                Amount = 0.0,
+                BillBarCode = "",
+                Store = new Store(),
+                ListStores = storsList,
+                Customer = new User(),
+                ListCustomers = usersList,
+                //SalesMan = new User(),
+                //ListSalesMan = usersList,
+            };
             return View("Edit", editViewModel);
         }
 
@@ -104,7 +103,7 @@ namespace SolucionesARWebsite.Controllers
             return View("FileUpload", editViewModel);
         }
 
-     
+
         //
         // GET: /Transactions/Edit/5
 
@@ -128,6 +127,51 @@ namespace SolucionesARWebsite.Controllers
             return View("Edit", editViewModel);
         }
 
+        [HttpPost]
+        public ActionResult Save(EditFormModel editFormModel)
+        {
+            var editViewModel = ModelViewFromForm(editFormModel);
+            if (ModelState.IsValid)
+            {
+                Transaction transaction;
+                if (editFormModel.TransactionId == 0)
+                {
+                    transaction = new Transaction
+                    {
+                        TransactionId = 0,
+                        Amount = editFormModel.Amount,
+                        BillBarCode = editFormModel.BillBarCode,
+                        CreatetedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
+                        CustomerId = editFormModel.Customer.UserId,
+                        Points = editFormModel.Points,
+                        StoreId = editFormModel.Store.StoreId,
+                        // Store = _storesManagement.GetStore(editFormModel.Store.StoreId)
+
+                    };
+
+                }
+                else
+                {
+                    transaction = _transactionsManagement.GetTransaction(editFormModel.TransactionId);
+                    transaction.BillBarCode = editFormModel.BillBarCode;
+                    transaction.Amount = editFormModel.Amount;
+                    transaction.CustomerId = editFormModel.Customer.UserId;
+                    transaction.Points = editFormModel.Points;
+                    transaction.StoreId = editFormModel.Store.StoreId;
+                    //transaction.Store = _storesManagement.GetStore(editFormModel.Store.StoreId);
+                    transaction.UpdatedAt = DateTime.UtcNow;
+                }
+
+                _transactionsManagement.SaveTransaction(transaction);
+            }
+            var usersList = _usersManagement.GetUsersList();
+            var storsList = _storesManagement.GetStores();
+            editFormModel.ListCustomers = usersList;
+            editFormModel.ListStores = storsList;
+            return View("Edit", editViewModel);
+        }
+
 
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)
@@ -135,7 +179,7 @@ namespace SolucionesARWebsite.Controllers
             if (file != null)
             {
                 string filename = Path.Combine(Server.MapPath("~/Files"), Path.GetFileName(file.FileName));
-                
+
                 if (Directory.Exists(Path.GetDirectoryName(filename)))
                 {
                     file.SaveAs(filename);
@@ -154,6 +198,23 @@ namespace SolucionesARWebsite.Controllers
             return RedirectToAction("FileUpload");
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        {
+            return new EditViewModel
+            {
+                TransactionId = editFormModel.TransactionId,
+                Amount = editFormModel.Amount,
+                BillBarCode = editFormModel.BillBarCode,
+                Customer = editFormModel.Customer,
+                Points = editFormModel.Points,
+                Store = editFormModel.Store
+            };
+
+        }
         #endregion
     }
 }

@@ -15,10 +15,10 @@
 }
 
 @section ListActions {
-    @if (Model.StoresList.HasFilters())
+   @* @if (Model.StoresList.HasFilters())
     {
         @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
-    }
+    }*@
         @Html.ActionLink("Nueva Tienda", "Create", null, new { @class = "button" })
     }
 }
@@ -32,11 +32,12 @@
                         Id
                     </th>
                     <th>
-                        Compañia
-                    </th>
-                    <th>
                         Nombre
                     </th>
+                    <th>
+                        Compañia
+                    </th>
+                    
                     <th></th>
                 </tr>
 
@@ -44,6 +45,9 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.StoreId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Company.CompanyName)

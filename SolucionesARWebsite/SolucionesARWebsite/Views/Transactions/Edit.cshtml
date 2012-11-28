@@ -30,18 +30,20 @@
             <p class="note">Favor complete el siguiente formulario</p>
             <div class="jspContainer" style="width: 960px; height: 400px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Users"))
+                    @using (Html.BeginForm("Save", "Transactions"))
                     {
                         @Html.HiddenFor(model => model.TransactionId)
                         <fieldset>
                             @Html.EditorFor(model => model.BillBarCode)
                             @Html.EditorFor(model => model.Amount)
-                           <span>
-                                @Html.LabelFor(model => model.Store) <br/>
-                                @Html.DropDownListForStoresList(model => model.Store.StoreId)
+                            <span>
+                                @Html.LabelFor(model => model.Points) <br/>
+                                @Html.EditorFor(model => model.Points)
                             </span>
-
                         </fieldset>
+                           
+
+                        
                         <fieldset>
                            @* <span>
                                 @Html.LabelFor(model => model.SalesMan) <br/>
@@ -51,10 +53,14 @@
                                 @Html.LabelFor(model => model.Customer) <br/>
                                 @Html.DropDownListForCustomersList(model => model.Customer.UserId)
                             </span>
+                            <span>
+                                @Html.LabelFor(model => model.Store) <br/>
+                                @Html.DropDownListForStoresList(model => model.Store.StoreId)
+                            </span>
                         </fieldset>
                             
                         <input name="submit" type="submit" value="Guardar">
-                    }
+                        }
                 </div>
             </div>
         </div>

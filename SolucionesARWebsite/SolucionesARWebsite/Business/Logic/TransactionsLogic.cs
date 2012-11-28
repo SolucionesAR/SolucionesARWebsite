@@ -41,6 +41,7 @@ namespace SolucionesARWebsite.Business.Logic
         private readonly UsersRepository _usersRepository;
         private readonly RelationshipTypesAccess _relationshipTypesAccess;
         private readonly RelationshipsAccess _relationshipsAccess;
+        private readonly StoresAccess _storesAccess;
 
         #endregion
 
@@ -52,6 +53,7 @@ namespace SolucionesARWebsite.Business.Logic
             _companiesRepository = new CompaniesRepository();
             _usersRepository = new UsersRepository();
             _relationshipTypesAccess = new RelationshipTypesAccess();
+            _storesAccess = new StoresAccess();
         }
 
         #endregion
@@ -66,7 +68,9 @@ namespace SolucionesARWebsite.Business.Logic
         public bool DistributeTransactionCashback(Transaction transaction)
         {
             //TODO: aqui es donde me falta cambiar mucha logica
-            var company = _companiesRepository.GetCompany(transaction.Store);
+            //TODO: dar aqui tambien los puntos
+            var store = _storesAccess.GetStore(transaction.StoreId);
+            var company = _companiesRepository.GetCompany(store);
 
             // del 100% esto es la comision total
             var cashBackPercentajeAssignable = transaction.Amount*company.CashBackPercentaje/100;
@@ -77,7 +81,7 @@ namespace SolucionesARWebsite.Business.Logic
             var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
 
             // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
-            var masterUser = AssingMoneyToUser(transaction.Customer, RelationshipTypesAccess.MASTER_RELATION,
+              var masterUser = AssingMoneyToUser(transaction.Customer, RelationshipTypesAccess.MASTER_RELATION,
                                              forUsersAmount, MASTER_USER_PERCENTAJE);
             _usersRepository.UpdateUser(masterUser);
 
@@ -91,6 +95,7 @@ namespace SolucionesARWebsite.Business.Logic
             var transactionUser = transaction.Customer;
             var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
             transactionUser.Cashback += moneyForRealUser;
+            transactionUser.Points += transaction.Points;
             _usersRepository.UpdateUser(transactionUser);
 
             return _transactionsAccess.SaveTransaction(transaction);
@@ -142,7 +147,7 @@ namespace SolucionesARWebsite.Business.Logic
                         ToList(); //o por nombre de columna.
                 foreach (var individualTransaction in transactionsList)
                 {
-                    var customer = _usersRepository.GetUser(individualTransaction.vendedor);
+                    var customer = _usersRepository.GetUserByCode(individualTransaction.vendedor);
                     var store = new Store { StoreName = individualTransaction.tienda }; //Todo: sacar este de la base
                     var transaction = new Transaction
                     {
@@ -210,7 +215,7 @@ namespace SolucionesARWebsite.Business.Logic
         /// <returns></returns>
         private User UpdateSolucionesArUser(double money)
         {
-            var solucionesArUser = _usersRepository.GetUser(SOLUCIONES_AR_USER_NAME);//TODO: ver si lo agarramos asi o de la tabla de GlobalParameters?? no la hemos usado en ningun lado
+            var solucionesArUser = _usersRepository.GetUserByName(SOLUCIONES_AR_USER_NAME);//TODO: ver si lo agarramos asi o de la tabla de GlobalParameters?? no la hemos usado en ningun lado
             solucionesArUser.Cashback += money;
             return solucionesArUser;
         }

@@ -54,7 +54,13 @@ namespace SolucionesARWebsite.Controllers
             //missing filtering
             var results = _usersManagement.GetUsersList();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
-            
+
+            foreach (var pagedItem in indexViewModel.PagedItems)
+            {
+                pagedItem.GeneratedCode = GenerateUserCode(pagedItem.LName1, pagedItem.LName2,
+                                                           pagedItem.CedNumber.ToString(CultureInfo.InvariantCulture));
+            }
+
             return View(indexViewModel);
         }
 
