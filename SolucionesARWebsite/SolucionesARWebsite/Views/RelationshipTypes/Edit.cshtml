@@ -1,53 +1,48 @@
-﻿@model SolucionesARWebsite.Models.RelationshipType
+﻿@*@model SolucionesARWebsite.Models.RelationshipType*@
+
+
+@using SolucionesARWebsite.ViewModels.Views.RelationshipTypes
+
+@model EditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "SolucionesAR | Relaciones";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-<h2>Edit</h2>
+@section Messages {
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>RelationshipType</legend>
-
-        @Html.HiddenFor(model => model.RelationshipTypeId)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreatetedAt)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreatetedAt)
-            @Html.ValidationMessageFor(model => model.CreatetedAt)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UpdatedAt)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UpdatedAt)
-            @Html.ValidationMessageFor(model => model.UpdatedAt)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section EditionContent {
+    <div class="edition_content content_box ">
+        
+        @if (Model.RelationshipTypesId > 0)
+        {
+            <h1>EDITAR RELACION</h1>
+        }
+        else
+        {
+            <h1>NUEVA RELACION</h1>
+        }
+
+        <div class="entry jspScrollable">
+            <p class="note">Favor complete el siguiente formulario</p>
+            <div class="jspContainer" style="width: 960px; height: 400px;">
+                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+                    @using (Html.BeginForm("Save", "RelationshipTypes"))
+                    {
+                        @Html.HiddenFor(model => model.RelationshipTypesId)
+                        <fieldset>
+                            @Html.EditorFor(model => model.Description)
+                        </fieldset>
+                            
+                        <input name="submit" type="submit" value="Submit">
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 }
+

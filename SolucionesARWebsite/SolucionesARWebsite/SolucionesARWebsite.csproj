@@ -283,6 +283,7 @@
     <Compile Include="ViewModels\Forms\Provinces\EditFormModel.cs" />
     <Compile Include="ViewModels\Forms\Stores\EditFormModel.cs" />
     <Compile Include="ViewModels\Forms\Transactions\EditFormModel.cs" />
+    <Compile Include="ViewModels\Lists\RelationshipTypeList.cs" />
     <Compile Include="ViewModels\Users\EditViewModel.cs" />
     <Compile Include="ViewModels\Lists\TransactionsList.cs" />
     <Compile Include="ViewModels\Lists\ProvincesList.cs" />
@@ -298,6 +299,8 @@
     <Compile Include="ViewModels\Views\Inventory\IndexViewModel.cs" />
     <Compile Include="ViewModels\Views\Provinces\EditViewModel.cs" />
     <Compile Include="ViewModels\Views\Provinces\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Views\RelationshipTypes\EditViewModel.cs" />
+    <Compile Include="ViewModels\Views\RelationshipTypes\IndexViewModel.cs" />
     <Compile Include="ViewModels\Views\Stores\EditViewModel.cs" />
     <Compile Include="ViewModels\Views\Stores\IndexViewModel.cs" />
     <Compile Include="ViewModels\Views\Transactions\DetailsViewModel.cs" />
@@ -642,7 +645,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5789</DevelopmentServerPort>
+          <DevelopmentServerPort>3059</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

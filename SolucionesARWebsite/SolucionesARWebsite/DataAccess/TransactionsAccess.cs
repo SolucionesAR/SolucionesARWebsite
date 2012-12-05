@@ -75,11 +75,16 @@ namespace SolucionesARWebsite.DataAccess
             return _databaseModel.Transactions.FirstOrDefault(t => t.TransactionId == id);
         }
 
+        public void UpdateTransaction()
+        {
+            _databaseModel.SaveChanges();
+        }
+
         #endregion
 
         #region Private Methods
         #endregion
 
-
+        
     }
 }

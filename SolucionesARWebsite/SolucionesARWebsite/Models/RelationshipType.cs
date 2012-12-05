@@ -7,7 +7,6 @@ namespace SolucionesARWebsite.Models
 {
     public class RelationshipType
     {
-
         /// <summary>
         /// The Unique RelationshipType identifier
         /// </summary>

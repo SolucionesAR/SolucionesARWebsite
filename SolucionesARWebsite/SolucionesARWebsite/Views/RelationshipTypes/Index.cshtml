@@ -1,45 +1,65 @@
-﻿@model IEnumerable<SolucionesARWebsite.Models.RelationshipType>
+﻿@using SolucionesARWebsite.ViewModels.Views.RelationshipTypes
+@model IndexViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SolucionesAR | Relaciones";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatetedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatetedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RelationshipTypeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RelationshipTypeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RelationshipTypeId })
-        </td>
-    </tr>
+@section Messages {
 }
 
-</table>
+@section ListTitle {
+    RELACIONES
+}
+
+@section ListActions {
+    @*@if (Model.RelationshipTypesList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }*@
+        @Html.ActionLink("Nueva RELACION", "Create", null, new { @class = "button" })
+    @*}*@
+}
+@section ListContent {
+
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        descripcion
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.RelationshipTypesList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RelationshipTypeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.RelationshipTypeId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Models;
+using SolucionesARWebsite.ViewModels.Lists;
+using SolucionesARWebsite.ViewModels.Views.RelationshipTypes;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -18,7 +20,15 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Index()
         {
-            return View(db.RelationshipTypes.ToList());
+            var relationshipTypes = db.RelationshipTypes.ToList();
+            var indexViewModel = new IndexViewModel
+            {
+                RelationshipTypesList = new RelationshipTypeList()
+                {
+                    Items = relationshipTypes
+                }
+            };
+            return View(indexViewModel);
         }
 
         //
@@ -37,38 +47,63 @@ namespace SolucionesARWebsite.Controllers
         //
         // GET: /RelationshipTypes/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    var editViewModel = new EditViewModel
+        //    {
+        //        RelationshipTypesId = 0,
+        //        Description = "",
+        //    };
+        //    return View("Edit", editViewModel);
+        //}
 
         //
         // POST: /RelationshipTypes/Create
 
+        //[HttpPost]
+        public ActionResult Create()
+        {
+            var editViewModel = new EditViewModel
+            {
+                RelationshipTypesId = 0,
+                Description = "",
+            };
+            return View("Edit", editViewModel);
+        }
+
+
         [HttpPost]
-        public ActionResult Create(RelationshipType relationshiptype)
+        public ActionResult Save(EditViewModel editViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.RelationshipTypes.Add(relationshiptype);
+                if (editViewModel.RelationshipTypesId == 0)
+                {
+                    db.RelationshipTypes.Add(new RelationshipType(){CreatetedAt = DateTime.UtcNow, Description = editViewModel.Description, UpdatedAt = DateTime.UtcNow});
+                }
+                else
+                {
+                    var relationship = db.RelationshipTypes.Find(editViewModel.RelationshipTypesId);
+                    relationship.Description = editViewModel.Description;
+                }
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(relationshiptype);
+            return View("Edit", editViewModel);
         }
-
         //
         // GET: /RelationshipTypes/Edit/5
 
         public ActionResult Edit(int id)
         {
-            RelationshipType relationshiptype = db.RelationshipTypes.Find(id);
-            if (relationshiptype == null)
+            var relationshipTyeps = db.RelationshipTypes.ToList();
+            var relationshipTypeInfo = relationshipTyeps.FirstOrDefault(p => p.RelationshipTypeId == id);
+            var editViewModel = new EditViewModel
             {
-                return HttpNotFound();
-            }
-            return View(relationshiptype);
+                RelationshipTypesId = relationshipTypeInfo.RelationshipTypeId,
+                Description = relationshipTypeInfo.Description,
+            };
+            return View(editViewModel);
         }
 
         //

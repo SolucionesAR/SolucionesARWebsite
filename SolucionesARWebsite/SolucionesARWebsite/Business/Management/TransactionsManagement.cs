@@ -78,6 +78,11 @@ namespace SolucionesARWebsite.Business.Management
         {
             return _transactionsLogic.SaveTransactionsFromFile(filename, sheetName);
         }
+
+        public void UpdateTransaction()
+        {
+            _transactionsAccess.UpdateTransaction();
+        }
         #endregion
 
         #region Private Methods

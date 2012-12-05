@@ -72,7 +72,7 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = new EditViewModel
             {
                 TransactionId = 0,
-                Amount = 0.0,
+                Amount = 50.0,
                 BillBarCode = "",
                 Store = new Store(),
                 ListStores = storsList,
@@ -91,7 +91,7 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = new EditViewModel
             {
                 TransactionId = 0,
-                Amount = 0.0,
+                Amount = 50.0,
                 BillBarCode = "",
                 Store = new Store(),
                 ListStores = storsList,
@@ -121,8 +121,7 @@ namespace SolucionesARWebsite.Controllers
                 ListStores = storsList,
                 Customer = transaction.Customer,
                 ListCustomers = usersList,
-                //SalesMan = transaction.SalesMan,
-                //ListSalesMan = usersList,
+                Points = transaction.Points,
             };
             return View("Edit", editViewModel);
         }
@@ -146,9 +145,9 @@ namespace SolucionesARWebsite.Controllers
                         CustomerId = editFormModel.Customer.UserId,
                         Points = editFormModel.Points,
                         StoreId = editFormModel.Store.StoreId,
-                        // Store = _storesManagement.GetStore(editFormModel.Store.StoreId)
 
                     };
+                    _transactionsManagement.SaveTransaction(transaction);
 
                 }
                 else
@@ -159,11 +158,11 @@ namespace SolucionesARWebsite.Controllers
                     transaction.CustomerId = editFormModel.Customer.UserId;
                     transaction.Points = editFormModel.Points;
                     transaction.StoreId = editFormModel.Store.StoreId;
-                    //transaction.Store = _storesManagement.GetStore(editFormModel.Store.StoreId);
                     transaction.UpdatedAt = DateTime.UtcNow;
+                    _transactionsManagement.UpdateTransaction();
                 }
 
-                _transactionsManagement.SaveTransaction(transaction);
+                
             }
             var usersList = _usersManagement.GetUsersList();
             var storsList = _storesManagement.GetStores();
