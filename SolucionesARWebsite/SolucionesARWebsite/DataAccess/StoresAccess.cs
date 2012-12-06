@@ -65,6 +65,9 @@ namespace SolucionesARWebsite.DataAccess
         #region Private Methods
         #endregion
 
-        
+        public Store GetStore(string storeName)
+        {
+            return _databaseModel.Stores.FirstOrDefault(s => s.StoreName.ToLower().Equals(storeName.ToLower()));
+        }
     }
 }

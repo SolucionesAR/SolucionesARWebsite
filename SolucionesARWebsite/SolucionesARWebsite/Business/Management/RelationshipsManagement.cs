@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SolucionesARWebsite.Business.Management
 {
-    public class RelationshisManagement
+    public class RelationshipsManagement
     {
     }
 }

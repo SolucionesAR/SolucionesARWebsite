@@ -63,6 +63,7 @@ namespace SolucionesARWebsite.Business.Management
             bool saveSuccess = _transactionsAccess.SaveTransaction(transaction);
             if (saveSuccess)
             {
+                //TODO: aca recibo un  bool de exito, ver si lo ocupo
                 _transactionsLogic.DistributeTransactionCashback(transaction);
             }
 

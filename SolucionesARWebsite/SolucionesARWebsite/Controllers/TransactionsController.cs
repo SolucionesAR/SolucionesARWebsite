@@ -72,7 +72,8 @@ namespace SolucionesARWebsite.Controllers
             var editViewModel = new EditViewModel
             {
                 TransactionId = 0,
-                Amount = 50.0,
+                Amount = 0.0,
+                Points = 50,
                 BillBarCode = "",
                 Store = new Store(),
                 ListStores = storsList,

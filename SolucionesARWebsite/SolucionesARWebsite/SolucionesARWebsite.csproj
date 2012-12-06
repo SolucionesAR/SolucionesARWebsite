@@ -183,7 +183,7 @@
     <Compile Include="Business\Management\DistrictsManagement.cs" />
     <Compile Include="Business\Management\LocationsManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
-    <Compile Include="Business\Management\RelationshisManagement.cs" />
+    <Compile Include="Business\Management\RelationshipsManagement.cs" />
     <Compile Include="Business\Management\RolesManagement.cs" />
     <Compile Include="Business\Management\InventoryManagement.cs" />
     <Compile Include="Business\Management\StoresManagement.cs" />

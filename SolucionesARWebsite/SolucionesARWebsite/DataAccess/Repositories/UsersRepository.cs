@@ -69,7 +69,6 @@ namespace SolucionesARWebsite.DataAccess.Repositories
 
         public bool UpdateUser(User user)
         {
-            //TODO: por implementar: con solo salvar la bd con el user actualizado? o hay q sacarlo, cambiar todo y guardar??
             _databaseModel.Entry(user).State = EntityState.Modified;
             _databaseModel.SaveChanges();
             return true;

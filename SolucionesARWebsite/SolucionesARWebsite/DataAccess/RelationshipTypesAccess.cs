@@ -10,8 +10,8 @@ namespace SolucionesARWebsite.DataAccess
     {
         #region Constants
 
-        public const string MASTER_RELATION = "master";
-        public const string SENIOR_RELATION = "senior";
+        public const string MASTER_RELATION = "Master";
+        public const string SENIOR_RELATION = "Senior";
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace SolucionesARWebsite.DataAccess
         public RelationshipType GetRelationShipType(string relationDescription)
         {
             var relationshipType = _databaseModel.RelationshipTypes
-                                    .FirstOrDefault(r => r.Description.Equals(relationDescription));
+                                    .FirstOrDefault(r => r.Description.ToLower().Equals(relationDescription.ToLower()));
             return relationshipType;
         }
 

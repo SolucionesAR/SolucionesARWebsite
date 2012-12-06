@@ -53,6 +53,7 @@ namespace SolucionesARWebsite.Business.Logic
             _companiesRepository = new CompaniesRepository();
             _usersRepository = new UsersRepository();
             _relationshipTypesAccess = new RelationshipTypesAccess();
+            _relationshipsAccess = new RelationshipsAccess();
             _storesAccess = new StoresAccess();
         }
 
@@ -67,38 +68,45 @@ namespace SolucionesARWebsite.Business.Logic
         /// <returns></returns>
         public bool DistributeTransactionCashback(Transaction transaction)
         {
-            //TODO: aqui es donde me falta cambiar mucha logica
-            //TODO: dar aqui tambien los puntos
-            var store = _storesAccess.GetStore(transaction.StoreId);
-            var company = _companiesRepository.GetCompany(store);
+            try
+            {
+                var store = _storesAccess.GetStore(transaction.StoreId);
+                var company = _companiesRepository.GetCompany(store);
 
-            // del 100% esto es la comision total
-            var cashBackPercentajeAssignable = transaction.Amount*company.CashBackPercentaje/100;
-            // Este seria el 30% para soluciones AR
-            var solucionesArAmount = cashBackPercentajeAssignable*SOLUCIONES_AR_PERCENTAJE;
-            UpdateSolucionesArUser(solucionesArAmount);
-            // Este seria el 70% del que los usuarios van a tomar sus %
-            var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
+                // del 100% esto es la comision total
+                var cashBackPercentajeAssignable = transaction.Amount*company.CashBackPercentaje/100;
+                // Este seria el 30% para soluciones AR
+                var solucionesArAmount = cashBackPercentajeAssignable*SOLUCIONES_AR_PERCENTAJE;
+                UpdateSolucionesArUser(solucionesArAmount);
+                // Este seria el 70% del que los usuarios van a tomar sus %
+                var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
 
-            // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
-              var masterUser = AssingMoneyToUser(transaction.Customer, RelationshipTypesAccess.MASTER_RELATION,
-                                             forUsersAmount, MASTER_USER_PERCENTAJE);
-            _usersRepository.UpdateUser(masterUser);
+                // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
+                var customer = _usersRepository.GetUser(transaction.CustomerId);
+                var masterUser = AssingMoneyToUser(customer, RelationshipTypesAccess.MASTER_RELATION,
+                                                   forUsersAmount, MASTER_USER_PERCENTAJE);
+                _usersRepository.UpdateUser(masterUser);
 
 
-            // Calculo del cashback para el usuario senior, si no existe se le pasa a soluciones AR.
-            var seniorUser = AssingMoneyToUser(transaction.Customer, RelationshipTypesAccess.SENIOR_RELATION,
-                                               forUsersAmount, SENIOR_USER_PERCENTAJE);
-            _usersRepository.UpdateUser(seniorUser);
+                // Calculo del cashback para el usuario senior, si no existe se le pasa a soluciones AR.
+                var seniorUser = AssingMoneyToUser(customer, RelationshipTypesAccess.SENIOR_RELATION,
+                                                   forUsersAmount, SENIOR_USER_PERCENTAJE);
+                _usersRepository.UpdateUser(seniorUser);
 
-            // Calculo del cashback para el usuario que hizo la compra
-            var transactionUser = transaction.Customer;
-            var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
-            transactionUser.Cashback += moneyForRealUser;
-            transactionUser.Points += transaction.Points;
-            _usersRepository.UpdateUser(transactionUser);
+                // Calculo del cashback para el usuario que hizo la compra
 
-            return _transactionsAccess.SaveTransaction(transaction);
+                var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
+                customer.Cashback += moneyForRealUser;
+                customer.Points += transaction.Points;
+                _usersRepository.UpdateUser(customer);
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+
+            
         }
 
         /// <summary>
@@ -148,19 +156,20 @@ namespace SolucionesARWebsite.Business.Logic
                 foreach (var individualTransaction in transactionsList)
                 {
                     var customer = _usersRepository.GetUserByCode(individualTransaction.vendedor);
-                    var store = new Store { StoreName = individualTransaction.tienda }; //Todo: sacar este de la base
+                    var store = _storesAccess.GetStore(individualTransaction.tienda);
                     var transaction = new Transaction
                     {
                         Amount = individualTransaction.monto,
                         BillBarCode = individualTransaction.factura,
-                        CreatetedAt = new DateTime(),
                         CustomerId = customer.UserId,
                         Points = (int)individualTransaction.puntos,
-                        StoreId = store.StoreId
+                        StoreId = store.StoreId,
+                        CreatetedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow,
                     };
-                    if (DistributeTransactionCashback(transaction))
+                    if (_transactionsAccess.SaveTransaction(transaction))
                     {
-                        _transactionsAccess.SaveTransaction(transaction);
+                        DistributeTransactionCashback(transaction);
                     }
                     else
                     {
