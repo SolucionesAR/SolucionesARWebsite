@@ -21,7 +21,8 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public CompaniesController(CompaniesManagement companiesManagement)
+        public CompaniesController(CompaniesManagement companiesManagement, UsersManagement usersManagement)
+            : base(usersManagement)
         {
             _companiesManagement = companiesManagement;
         }

@@ -205,6 +205,8 @@
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataAccess\Interfaces\IRelationshipTypesRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\IRelationshipsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICantonsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IDistrictsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICompaniesRepository.cs" />
@@ -212,8 +214,8 @@
     <Compile Include="DataAccess\Interfaces\IUsersRepository.cs" />
     <Compile Include="DataAccess\InventoryAccess.cs" />
     <Compile Include="DataAccess\LocationsAccess.cs" />
-    <Compile Include="DataAccess\RelationshipsAccess.cs" />
-    <Compile Include="DataAccess\RelationshipTypesAccess.cs" />
+    <Compile Include="DataAccess\Repositories\RelationshipsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\RelationshipTypesRepository.cs" />
     <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
     <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
     <Compile Include="DataAccess\RolesAccess.cs" />
@@ -628,6 +630,7 @@
     <Content Include="Views\Transactions\FileUpload.cshtml" />
     <Content Include="Views\Shared\PublicLayout.cshtml" />
     <Content Include="Views\Districts\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -645,7 +648,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3059</DevelopmentServerPort>
+          <DevelopmentServerPort>12545</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

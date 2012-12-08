@@ -26,10 +26,11 @@ namespace SolucionesARWebsite.Business.Management
 
         #region Constructors
 
-        public TransactionsManagement()
+        public TransactionsManagement(TransactionsLogic transactionsLogic)
         {
+            _transactionsLogic = transactionsLogic;
+
             _transactionsAccess = new TransactionsAccess();
-            _transactionsLogic = new TransactionsLogic();
         }
 
         #endregion

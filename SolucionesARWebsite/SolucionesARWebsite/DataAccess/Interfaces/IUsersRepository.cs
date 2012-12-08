@@ -19,5 +19,7 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
         User GetUserByCode(string username);
 
         bool UpdateUser(User user);
+
+        void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId);
     }
 }

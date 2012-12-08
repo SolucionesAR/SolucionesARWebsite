@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using SolucionesARWebsite.DataAccess.Interfaces;
+using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.DataAccess.Repositories
@@ -57,7 +59,8 @@ namespace SolucionesARWebsite.DataAccess.Repositories
 
         public User GetUserByCode(string username)
         {
-            var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username));
+            var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username)) ??
+                       _databaseModel.Users.FirstOrDefault(u => u.UserId.Equals(Constants.SolucionesArId));
             return user;
         }
 
@@ -72,6 +75,32 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             _databaseModel.Entry(user).State = EntityState.Modified;
             _databaseModel.SaveChanges();
             return true;
+        }
+
+        public void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)
+        {
+            var relationship =
+                _databaseModel.Relationships.FirstOrDefault(
+                    r => r.UserId1.Equals(userId) && r.UserId2.Equals(userReferenceId));
+            if (relationship != null)
+            {
+                relationship.UserId2 = userReferenceId;
+                relationship.RelationshipTypeId = relationshipTypeId;
+                relationship.UpdatedAt = DateTime.Now;
+            }
+            else
+            {
+                relationship = new Relationship
+                                   {
+                                       UserId1 = userId,
+                                       UserId2 = userReferenceId,
+                                       RelationshipTypeId = relationshipTypeId,
+                                       CreatetedAt = DateTime.Now,
+                                       UpdatedAt = DateTime.Now,
+                                   };
+                _databaseModel.Relationships.Add(relationship);
+            }
+            _databaseModel.SaveChanges();
         }
 
         #endregion

@@ -27,6 +27,11 @@ namespace SolucionesARWebsite.Enumerations
         Other = 4,
     }
 
+    public enum Constants
+    {
+        SolucionesArId = 1
+    }
+
     #endregion
 
     public static class Enumerations

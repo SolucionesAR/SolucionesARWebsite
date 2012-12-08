@@ -4,7 +4,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using SolucionesARWebsite.Business.Logic;
 using SolucionesARWebsite.Business.Management;
+using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.DataAccess.Repositories;
 
@@ -34,14 +36,22 @@ namespace SolucionesARWebsite
             builder.RegisterType<CompaniesRepository>().As<ICompaniesRepository>().InstancePerHttpRequest();
             builder.RegisterType<CantonsRepository>().As<ICantonsRepository>().InstancePerHttpRequest();
             builder.RegisterType<DistrictsRepository>().As<IDistrictsRepository>().InstancePerHttpRequest();
+            builder.RegisterType<RelationshipsRepository>().As<IRelationshipsRepository>().InstancePerHttpRequest();
+            builder.RegisterType<RelationshipTypesRepository>().As<IRelationshipTypesRepository>().InstancePerHttpRequest();
             builder.RegisterType<UsersRepository>().As<IUsersRepository>().InstancePerHttpRequest();
 
-            //Managements
+            //Management
             builder.RegisterType<CantonsManagement>().InstancePerHttpRequest();
             builder.RegisterType<CompaniesManagement>().InstancePerHttpRequest();
             builder.RegisterType<DistrictsManagement>().InstancePerHttpRequest();
+            builder.RegisterType<RelationshipsManagement>().InstancePerHttpRequest();
+            builder.RegisterType<RelationshipTypesManagement>().InstancePerHttpRequest();
+            builder.RegisterType<TransactionsManagement>().InstancePerHttpRequest();
             builder.RegisterType<UsersManagement>().InstancePerHttpRequest();
- 
+
+            //Logic
+            builder.RegisterType<TransactionsLogic>().InstancePerHttpRequest();
+
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

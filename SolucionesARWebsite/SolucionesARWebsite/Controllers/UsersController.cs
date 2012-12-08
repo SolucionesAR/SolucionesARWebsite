@@ -23,9 +23,11 @@ namespace SolucionesARWebsite.Controllers
 
         private readonly CompaniesManagement _companiesManagement;
         private readonly UsersManagement _usersManagement;
-
         private readonly TransactionsManagement _transactionsManagement;
         private readonly LocationsManagement _locationsManagement;
+        private readonly RelationshipsManagement _relationshipsManagement;
+        private readonly RelationshipTypesManagement _relationshipTypesManagement;
+
         //to delete
         private readonly RolesManagement _rolesManagement;
 
@@ -33,14 +35,20 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public UsersController(CompaniesManagement companiesManagement, UsersManagement usersManagement)
+        public UsersController(CompaniesManagement companiesManagement,
+            RelationshipsManagement relationshipsManagement, 
+            RelationshipTypesManagement relationshipTypesManagement, 
+            TransactionsManagement transactionsManagement, 
+            UsersManagement usersManagement)
+            : base(usersManagement)
         {
             _companiesManagement = companiesManagement;
+            _relationshipsManagement = relationshipsManagement;
+            _relationshipTypesManagement = relationshipTypesManagement;
+            _transactionsManagement = transactionsManagement;
             _usersManagement = usersManagement;
 
-            _transactionsManagement = new TransactionsManagement();
             _locationsManagement = new LocationsManagement();
-            //to delete
             _rolesManagement = new RolesManagement();
         }
 
@@ -103,6 +111,8 @@ namespace SolucionesARWebsite.Controllers
                                         //CantonsList = 
                                         District = new District(),
                                         DistrictsList = _locationsManagement.GetDistrictsByCanton(1),
+                                        RelationshipType = new RelationshipType(),
+                                        RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
                                         //DistrictsList = 
                                     };
             return View("Edit", editViewModel);
@@ -113,40 +123,55 @@ namespace SolucionesARWebsite.Controllers
             var userInformation = _usersManagement.GetUser(id);
             var canton = _locationsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
+            var relationshipType =
+                userInformation.UserReferenceId != null
+                    ? _relationshipsManagement.GetRelationshipType(userInformation.UserId,
+                                                                   (int) userInformation.UserReferenceId) ??
+                      new RelationshipType {RelationshipTypeId = 0}
+                    : new RelationshipType {RelationshipTypeId = 0};
+
             var editViewModel = new EditViewModel
                                     {
+                                        Address1 = userInformation.Address1,
+                                        Cashback = userInformation.Cashback.ToString(CultureInfo.InvariantCulture),
+                                        Cellphone = userInformation.Cellphone,
+                                        Dob = userInformation.Dob,
+                                        Email = userInformation.Email,
+                                        Enabled = userInformation.Enabled,
+                                        FirstName = userInformation.FName,
+                                        GeneratedCode = userInformation.GeneratedCode,
+                                        LastName1 = userInformation.LName1,
+                                        LastName2 = userInformation.LName2,
+                                        Nationality = userInformation.Nationality,
                                         UserId = userInformation.UserId,
+
+                                        Canton = canton,
+                                        CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId),
+                                        Company = userInformation.Company,
+                                        CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        District = userInformation.District,
+                                        DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId),
                                         IdentificationNumber =
                                             userInformation.CedNumber.ToString(CultureInfo.InvariantCulture),
                                         IdentificationType =
                                             new IdentificationType
-                                                {
-                                                    IdentificationTypeId =
-                                                        (int) IdentificationTypes.CedNumber
-                                                },
+                                                {IdentificationTypeId = (int) IdentificationTypes.CedNumber},
                                         IdentificationTypesList = GetIdentificationTypesList(),
-                                        Address1 = userInformation.Address1,
-                                        FirstName = userInformation.FName,
-                                        LastName1 = userInformation.LName1,
-                                        LastName2 = userInformation.LName2,
-                                        Nationality = userInformation.Nationality,
-                                        //Cashback = "₡5,025.00",
-                                        Cashback = userInformation.Cashback.ToString(CultureInfo.InvariantCulture),
-                                        Enabled = userInformation.Enabled,
-                                        GeneratedCode =userInformation.GeneratedCode,
-                                        UserRol = userInformation.UserRol,
-                                        RolesList = GetRolesList(SecurityContext),
-                                        Company = userInformation.Company,
-                                        CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        ParentUser =
+                                            userInformation.UserReference != null
+                                                ? userInformation.UserReference.GeneratedCode
+                                                : string.Empty,
+                                        PhoneNumber = userInformation.PhoneNumber,
                                         Province = province,
                                         ProvincesList = _locationsManagement.GetAllProvinces(),
-                                        Canton = canton,
-                                        CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId),
-                                        District = userInformation.District,
-                                        DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId),
+                                        RelationshipType = relationshipType,
+                                        RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
+                                        UserRol = userInformation.UserRol,
+                                        RolesList = GetRolesList(SecurityContext),
                                     };
             return View(editViewModel);
         }
+
 
         [HttpPost]
         public ActionResult Save(EditViewModel editViewModel)
@@ -173,6 +198,7 @@ namespace SolucionesARWebsite.Controllers
             editViewModel.RolesList = GetRolesList(SecurityContext);
             editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
             editViewModel.IdentificationTypesList = GetIdentificationTypesList();
+            editViewModel.RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList();
 
             return View("Edit", editViewModel);
         }

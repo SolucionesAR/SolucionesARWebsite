@@ -19,6 +19,7 @@ namespace SolucionesARWebsite.Controllers
         public ActionResult Index()
         {
             var relationships = db.Relationships.Include(r => r.User1).Include(r => r.User2).Include(r => r.RelationshipType);
+            var a =relationships.ToList();
             return View(relationships.ToList());
         }
 

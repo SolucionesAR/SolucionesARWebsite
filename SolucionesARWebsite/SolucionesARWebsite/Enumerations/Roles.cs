@@ -32,9 +32,9 @@ namespace SolucionesARWebsite.Enumerations
             switch (role)
             {
                 case UserRole.Customer:
-                    return "Cliente";
-                case UserRole.Salesman:
                     return "Vendedor";
+                case UserRole.Salesman:
+                    return "Dependiente";
                 case UserRole.Manager:
                     return "Gerente";
                 case UserRole.SuperUser:

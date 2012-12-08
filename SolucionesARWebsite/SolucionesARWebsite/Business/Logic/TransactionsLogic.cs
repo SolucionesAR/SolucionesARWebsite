@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.DataAccess.Repositories;
 using SolucionesARWebsite.Models;
 
@@ -36,24 +37,26 @@ namespace SolucionesARWebsite.Business.Logic
 
         #region Private Members
 
+        private readonly IRelationshipsRepository _relationshipsRepository;
+        private readonly IRelationshipTypesRepository _relationshipTypesAccess;
+
         private readonly TransactionsAccess _transactionsAccess;
         private readonly CompaniesRepository _companiesRepository;
         private readonly UsersRepository _usersRepository;
-        private readonly RelationshipTypesAccess _relationshipTypesAccess;
-        private readonly RelationshipsAccess _relationshipsAccess;
         private readonly StoresAccess _storesAccess;
 
         #endregion
 
         #region Constructors
 
-        public TransactionsLogic()
+        public TransactionsLogic(IRelationshipsRepository relationshipsRepository, IRelationshipTypesRepository relationshipTypesRepository)
         {
+            _relationshipsRepository = relationshipsRepository;
+            _relationshipTypesAccess = relationshipTypesRepository;
+
             _transactionsAccess = new TransactionsAccess();
             _companiesRepository = new CompaniesRepository();
             _usersRepository = new UsersRepository();
-            _relationshipTypesAccess = new RelationshipTypesAccess();
-            _relationshipsAccess = new RelationshipsAccess();
             _storesAccess = new StoresAccess();
         }
 
@@ -83,13 +86,13 @@ namespace SolucionesARWebsite.Business.Logic
 
                 // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
                 var customer = _usersRepository.GetUser(transaction.CustomerId);
-                var masterUser = AssingMoneyToUser(customer, RelationshipTypesAccess.MASTER_RELATION,
+                var masterUser = AssingMoneyToUser(customer, RelationshipTypesRepository.MASTER_RELATION,
                                                    forUsersAmount, MASTER_USER_PERCENTAJE);
                 _usersRepository.UpdateUser(masterUser);
 
 
                 // Calculo del cashback para el usuario senior, si no existe se le pasa a soluciones AR.
-                var seniorUser = AssingMoneyToUser(customer, RelationshipTypesAccess.SENIOR_RELATION,
+                var seniorUser = AssingMoneyToUser(customer, RelationshipTypesRepository.SENIOR_RELATION,
                                                    forUsersAmount, SENIOR_USER_PERCENTAJE);
                 _usersRepository.UpdateUser(seniorUser);
 
@@ -203,18 +206,16 @@ namespace SolucionesARWebsite.Business.Logic
         private User AssingMoneyToUser(User user, string relationType, double forUsersAmount, double userPecentaje)
         {
             var relationshipType = _relationshipTypesAccess.GetRelationShipType(relationType);
-            var updatedUser = _relationshipsAccess.GetRelatedUser(user, relationshipType);
+            var updatedUser = _relationshipsRepository.GetRelatedUser(user, relationshipType);
             var moneyForUser = forUsersAmount*userPecentaje;
             if (updatedUser != null)
             {
                 updatedUser.Cashback += moneyForUser;
                 return updatedUser;
             }
-            else
-            {
-                var solucionesArUser = UpdateSolucionesArUser(moneyForUser);
-                return solucionesArUser;
-            }
+
+            var solucionesArUser = UpdateSolucionesArUser(moneyForUser);
+            return solucionesArUser;
         }
 
         /// <summary>

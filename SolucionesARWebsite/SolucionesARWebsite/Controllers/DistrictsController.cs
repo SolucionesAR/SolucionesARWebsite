@@ -21,7 +21,8 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public DistrictsController(DistrictsManagement districtsManagement)
+        public DistrictsController(DistrictsManagement districtsManagement, UsersManagement usersManagement)
+            : base(usersManagement)
         {
             _districtsManagement = districtsManagement;
         }
@@ -34,7 +35,7 @@ namespace SolucionesARWebsite.Controllers
         {
             var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
             //missing filtering
-            var results = _districtsManagement.GetCompanies();
+            var results = _districtsManagement.GetDistricts();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
             
             return View(indexViewModel);

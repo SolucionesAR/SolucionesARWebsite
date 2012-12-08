@@ -38,12 +38,12 @@ namespace SolucionesARWebsite.Business.Management
             return _districtsRepository.GetDistrict(districtId);
         }
 
-        public List<District> GetCompanies()
+        public List<District> GetDistricts()
         {
             return _districtsRepository.GetDistricts();
         }
 
-        public List<District> GetCompanies(SecurityContext securityContext)
+        public List<District> GetDistricts(SecurityContext securityContext)
         {
             var companiesList = new List<District>();
 

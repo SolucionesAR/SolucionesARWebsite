@@ -28,9 +28,9 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public  BaseController()
+        public  BaseController(UsersManagement usersManagement)
         {
-            UsersManagement = new UsersManagement(new UsersRepository());
+            UsersManagement = usersManagement;
             CreateSecurityContext();
         }
 

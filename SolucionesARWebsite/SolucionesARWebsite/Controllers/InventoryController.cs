@@ -25,7 +25,8 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public InventoryController()
+        public InventoryController(UsersManagement usersManagement)
+            : base(usersManagement)
         {
             _inventoryManagement = new InventoryManagement();
         }

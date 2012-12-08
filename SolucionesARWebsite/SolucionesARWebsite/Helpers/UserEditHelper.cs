@@ -16,6 +16,14 @@ namespace SolucionesARWebsite.Helpers
                                                              htmlHelper.ViewData.Model.UserRol.RolId));
         }
 
+        public static MvcHtmlString DropDownListForRelationshipTypeslList(this HtmlHelper<EditViewModel> htmlHelper,
+            Expression<Func<EditViewModel, int>> expression)
+        {
+            return htmlHelper.DropDownListFor(expression,
+                                              new SelectList(htmlHelper.ViewData.Model.RelationshipTypeList, "RelationshipTypeId", "Description",
+                                                             htmlHelper.ViewData.Model.RelationshipType.RelationshipTypeId));
+        }
+
         public static MvcHtmlString DropDownListForCompanieslList(this HtmlHelper<EditViewModel> htmlHelper,
             Expression<Func<EditViewModel, int>> expression)
         {

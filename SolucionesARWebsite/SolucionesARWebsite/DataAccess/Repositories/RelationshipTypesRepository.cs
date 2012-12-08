@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.DataAccess
+namespace SolucionesARWebsite.DataAccess.Repositories
 {
-    public class RelationshipTypesAccess
+    public class RelationshipTypesRepository : IRelationshipTypesRepository
     {
         #region Constants
 
@@ -27,7 +26,7 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Contructors
 
-        public RelationshipTypesAccess()
+        public RelationshipTypesRepository()
         {
             _databaseModel = new DbModel();
         }
@@ -41,6 +40,13 @@ namespace SolucionesARWebsite.DataAccess
             var relationshipType = _databaseModel.RelationshipTypes
                                     .FirstOrDefault(r => r.Description.ToLower().Equals(relationDescription.ToLower()));
             return relationshipType;
+        }
+        
+
+        public List<RelationshipType> GetRelationshipTypesList()
+        {
+            var relationshipsList = _databaseModel.RelationshipTypes.ToList();
+            return relationshipsList;
         }
 
         #endregion

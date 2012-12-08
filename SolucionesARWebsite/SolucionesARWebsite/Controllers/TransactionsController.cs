@@ -34,9 +34,9 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public TransactionsController(UsersManagement usersManagement)
+        public TransactionsController(UsersManagement usersManagement, TransactionsManagement transactionsManagement)
         {
-            _transactionsManagement = new TransactionsManagement();
+            _transactionsManagement = transactionsManagement;
             _usersManagement = usersManagement;
             _storesManagement = new StoresManagement();
         }

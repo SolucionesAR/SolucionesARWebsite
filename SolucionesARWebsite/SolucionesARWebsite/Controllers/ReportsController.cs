@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SolucionesARWebsite.Business.Management;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -17,7 +18,8 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public ReportsController() : base()
+        public ReportsController(UsersManagement usersManagement)
+            : base(usersManagement)
         {
         }
 

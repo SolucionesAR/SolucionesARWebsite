@@ -82,7 +82,7 @@ namespace SolucionesARWebsite.ViewModels.Users
         /// </summary>
         [Required]
         [Display(Name = "Fecha Nacimiento*", Prompt = "Fecha Nacimiento")]
-        public DateTime Dob { get; set; }
+        public DateTime? Dob { get; set; }
 
         /// <summary>
         /// The address 1
@@ -142,20 +142,19 @@ namespace SolucionesARWebsite.ViewModels.Users
         /// <summary>
         /// The cell phone number
         /// </summary>
-        [DisplayName("Célular")]
         [Display(Name = "Célular", Prompt = "8888-8888")]
         public string Cellphone { get; set; }
 
         /// <summary>
         /// The email
         /// </summary>
-        [DisplayName("Email")]
         [Display(Name = "Email", Prompt = "usuario@dominio.com")]
         public string Email { get; set; }
 
         /// <summary>
         /// To check if the user is enabled
         /// </summary>
+        [DisplayName("Habilitado")]
         public bool Enabled { get; set; }
 
         /// <summary>
@@ -177,7 +176,7 @@ namespace SolucionesARWebsite.ViewModels.Users
         public List<Rol> RolesList { get; set; }
 
         /// <summary>
-        /// The Company id
+        /// The Company
         /// </summary>
         [Required]
         [Display(Name = "Compañia*")]
@@ -187,6 +186,18 @@ namespace SolucionesARWebsite.ViewModels.Users
         /// The Companies List
         /// </summary>
         public List<Company> CompaniesList { get; set; }
+
+        /// <summary>
+        /// The Relationship Type
+        /// </summary>
+        [Required]
+        [Display(Name = "Nivel")]
+        public RelationshipType RelationshipType { get; set; }
+
+        /// <summary>
+        /// The Relationship List
+        /// </summary>
+        public List<RelationshipType> RelationshipTypeList { get; set; }
         
         #endregion
 

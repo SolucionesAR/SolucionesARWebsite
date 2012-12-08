@@ -16,7 +16,7 @@
 @section EditionContent {
     @if (Model.UserId > 0)
     {
-        <h1>EDITAR USUARIO: @Model.GeneratedCode</h1>
+        <h1>EDITAR USUARIO "@Model.GeneratedCode"</h1>
         <div class="entry" style="overflow: hidden; padding: 0px; width: 410px;  height: 40px;">
             <div class="jspContainer" style="width: 410px;  height: 40px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px; width: 200px;">
@@ -38,6 +38,7 @@
                 @using (Html.BeginForm("Save", "Users"))
                 {
                     @Html.HiddenFor(model => model.UserId)
+                    @Html.HiddenFor(model => model.Cashback)
                     <fieldset>
                         <span>
                             @Html.LabelFor(model => model.IdentificationType) <br/>
@@ -51,6 +52,7 @@
                         @Html.EditorFor(model => model.LastName1)
                         @Html.EditorFor(model => model.LastName2)
                         @Html.EditorFor(model => model.FirstName)
+                        @Html.EditorFor(model => model.Enabled)
                     </fieldset>
                     <fieldset>
                         @Html.EditorFor(model => model.Dob)
@@ -75,7 +77,10 @@
                     </fieldset>
                     <fieldset>
                         @Html.EditorFor(model => model.ParentUser)
-                            
+                        <span>
+                            @Html.LabelFor(model => model.RelationshipType) <br/>
+                            @Html.DropDownListForRelationshipTypeslList(model => model.RelationshipType.RelationshipTypeId)
+                        </span>
                         <span>
                             @Html.LabelFor(model => model.UserRol) <br/>
                             @Html.DropDownListForRolesList(model => model.UserRol.RolId)

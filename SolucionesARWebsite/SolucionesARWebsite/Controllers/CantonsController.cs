@@ -22,7 +22,8 @@ namespace SolucionesARWebsite.Controllers
 
         #region Constructors
 
-        public CantonsController(CantonsManagement cantonsManagement)
+        public CantonsController(CantonsManagement cantonsManagement, UsersManagement usersManagement)
+            : base(usersManagement)
         {
             _cantonsManagement = cantonsManagement;
         }

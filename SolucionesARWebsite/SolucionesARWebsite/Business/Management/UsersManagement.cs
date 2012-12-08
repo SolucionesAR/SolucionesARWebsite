@@ -19,14 +19,16 @@ namespace SolucionesARWebsite.Business.Management
 
         #region Private Members
 
+        private readonly IRelationshipsRepository _relationshipsRepository;
         private readonly IUsersRepository _usersRepository;
 
         #endregion
 
         #region Constructors
 
-        public UsersManagement(IUsersRepository usersRepository)
+        public UsersManagement(IRelationshipsRepository relationshipsRepository, IUsersRepository usersRepository)
         {
+            _relationshipsRepository = relationshipsRepository;
             _usersRepository = usersRepository;
         }
 
@@ -82,8 +84,18 @@ namespace SolucionesARWebsite.Business.Management
             {
                 AddUser(user);
             }
-            EditUser(user);
+            else
+            {
+                EditUser(user);
+            }
+
+            if (user.UserReferenceId != null)
+            {
+                UpdateRelationship(user.UserId, (int) user.UserReferenceId,
+                                   editViewModel.RelationshipType.RelationshipTypeId);
+            }
         }
+
         #endregion
 
         #region Private Methods
@@ -102,6 +114,11 @@ namespace SolucionesARWebsite.Business.Management
             _usersRepository.EditUser(user);
         }
 
+        private void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)
+        {
+            _usersRepository.UpdateRelationship(userId, userReferenceId, relationshipTypeId);
+        }
+
         private User Map(EditViewModel editViewMode)
         {
             var user = new User
@@ -109,6 +126,7 @@ namespace SolucionesARWebsite.Business.Management
                                Address1 = editViewMode.Address1,
                                Address2 = editViewMode.Address2,
                                IdentificationTypeId = editViewMode.IdentificationType.IdentificationTypeId,
+                               Cashback = Convert.ToDouble(editViewMode.Cashback),
                                CompanyId = editViewMode.Company.CompanyId,
                                Dob = editViewMode.Dob,
                                Email = editViewMode.Email,
