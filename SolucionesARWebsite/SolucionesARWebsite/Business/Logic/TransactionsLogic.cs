@@ -20,14 +20,11 @@ namespace SolucionesARWebsite.Business.Logic
         private const string EXCEL_2007_EXTENSION = ".xlsx";
         private const string SELECT_ALL_QUERY = "SELECT * FROM [{0}$]";
         private const string DATA_TABLE_NAME = "datatable";
-        private const string SOLUCIONES_AR_USER_NAME = "SolucionesARUser";
         private const string EXCEL_2007_CONNECTION_STRING =
             "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=0\"";
 
         private const string EXCEL_2005_CONNECTION_STRING =
             "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=0\"";
-
-
 
         #endregion
 
@@ -39,24 +36,24 @@ namespace SolucionesARWebsite.Business.Logic
 
         private readonly IRelationshipsRepository _relationshipsRepository;
         private readonly IRelationshipTypesRepository _relationshipTypesAccess;
+        private readonly IUsersRepository _usersRepository;
 
         private readonly TransactionsAccess _transactionsAccess;
         private readonly CompaniesRepository _companiesRepository;
-        private readonly UsersRepository _usersRepository;
         private readonly StoresAccess _storesAccess;
 
         #endregion
 
         #region Constructors
 
-        public TransactionsLogic(IRelationshipsRepository relationshipsRepository, IRelationshipTypesRepository relationshipTypesRepository)
+        public TransactionsLogic(IRelationshipsRepository relationshipsRepository, IRelationshipTypesRepository relationshipTypesRepository, IUsersRepository usersRepository)
         {
             _relationshipsRepository = relationshipsRepository;
             _relationshipTypesAccess = relationshipTypesRepository;
+            _usersRepository = usersRepository;
 
             _transactionsAccess = new TransactionsAccess();
             _companiesRepository = new CompaniesRepository();
-            _usersRepository = new UsersRepository();
             _storesAccess = new StoresAccess();
         }
 
@@ -85,7 +82,7 @@ namespace SolucionesARWebsite.Business.Logic
                 var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
 
                 // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
-                var customer = _usersRepository.GetUser(transaction.CustomerId);
+                var customer = _usersRepository.GetUserById(transaction.CustomerId);
                 var masterUser = AssingMoneyToUser(customer, RelationshipTypesRepository.MASTER_RELATION,
                                                    forUsersAmount, MASTER_USER_PERCENTAJE);
                 _usersRepository.UpdateUser(masterUser);
@@ -158,7 +155,7 @@ namespace SolucionesARWebsite.Business.Logic
                         ToList(); //o por nombre de columna.
                 foreach (var individualTransaction in transactionsList)
                 {
-                    var customer = _usersRepository.GetUserByCode(individualTransaction.vendedor);
+                    var customer = _usersRepository.GetUserByGeneratedCode(individualTransaction.vendedor);
                     var store = _storesAccess.GetStore(individualTransaction.tienda);
                     var transaction = new Transaction
                     {
@@ -225,7 +222,7 @@ namespace SolucionesARWebsite.Business.Logic
         /// <returns></returns>
         private User UpdateSolucionesArUser(double money)
         {
-            var solucionesArUser = _usersRepository.GetUserByName(SOLUCIONES_AR_USER_NAME);//TODO: ver si lo agarramos asi o de la tabla de GlobalParameters?? no la hemos usado en ningun lado
+            var solucionesArUser = _usersRepository.GetSolucionesArUser();//TODO: ver si lo agarramos asi o de la tabla de GlobalParameters?? no la hemos usado en ningun lado
             solucionesArUser.Cashback += money;
             return solucionesArUser;
         }

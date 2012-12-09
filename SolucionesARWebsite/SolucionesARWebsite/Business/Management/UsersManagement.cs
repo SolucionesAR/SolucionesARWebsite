@@ -19,22 +19,25 @@ namespace SolucionesARWebsite.Business.Management
 
         #region Private Members
 
-        private readonly IRelationshipsRepository _relationshipsRepository;
         private readonly IUsersRepository _usersRepository;
 
         #endregion
 
         #region Constructors
 
-        public UsersManagement(IRelationshipsRepository relationshipsRepository, IUsersRepository usersRepository)
+        public UsersManagement(IUsersRepository usersRepository)
         {
-            _relationshipsRepository = relationshipsRepository;
             _usersRepository = usersRepository;
         }
 
         #endregion
 
         #region Public Methods
+
+        public List<User> GetOrderedUsersList()
+        {
+            return _usersRepository.GetOrderedUsersList();
+        }
 
         public List<User> GetUsersList()
         {
@@ -43,27 +46,18 @@ namespace SolucionesARWebsite.Business.Management
 
         public User GetUser(int userId)
         {
-            return _usersRepository.GetUser(userId);
+            return _usersRepository.GetUserById(userId);
         }
 
         public User GetUser(string username)
         {
-            return _usersRepository.GetUserByCode(username);
+            return _usersRepository.GetUserByGeneratedCode(username);
         }
 
         public virtual UserInformation GetUserInformation(string username)
         {
-            //var user = _usersRepository.GetUserByCode(username);
-            var user = new User
-                       {
-                           UserId = 10,
-                           RolId = (int) UserRole.SuperUser,
-                           FName = "Cesar",
-                           LName1 = "BArboza",
-                           LName2 = "Gonzalez"
-
-                       };
-            var userRole = (UserRole) user.RolId;
+            var user = _usersRepository.GetUserByGeneratedCode(username);
+            var userRole = (UserRoles)user.RolId;
             var roleName = userRole.ToStringValue();
             var userInformation = new UserInformation
                            {
@@ -104,13 +98,12 @@ namespace SolucionesARWebsite.Business.Management
         {
             user.CreatetedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
-            user.Dob = DateTime.UtcNow;
             _usersRepository.AddUser(user);
         }
 
         private void EditUser(User user)
         {
-            user.UpdatedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.UtcNow;
             _usersRepository.EditUser(user);
         }
 
@@ -147,8 +140,11 @@ namespace SolucionesARWebsite.Business.Management
 
             if (!string.IsNullOrEmpty(editViewMode.ParentUser))
             {
-                var parentUser = _usersRepository.GetUserByCode(editViewMode.ParentUser);
-                user.UserReferenceId = parentUser.UserId;
+                var parentUser = _usersRepository.GetUserByGeneratedCode(editViewMode.ParentUser);
+                if(parentUser != null)
+                {
+                    user.UserReferenceId = parentUser.UserId;
+                }
             }
 
             return user;

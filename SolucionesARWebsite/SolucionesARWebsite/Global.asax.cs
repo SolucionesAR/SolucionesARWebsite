@@ -6,7 +6,6 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using SolucionesARWebsite.Business.Logic;
 using SolucionesARWebsite.Business.Management;
-using SolucionesARWebsite.DataAccess;
 using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.DataAccess.Repositories;
 
@@ -38,7 +37,12 @@ namespace SolucionesARWebsite
             builder.RegisterType<DistrictsRepository>().As<IDistrictsRepository>().InstancePerHttpRequest();
             builder.RegisterType<RelationshipsRepository>().As<IRelationshipsRepository>().InstancePerHttpRequest();
             builder.RegisterType<RelationshipTypesRepository>().As<IRelationshipTypesRepository>().InstancePerHttpRequest();
+            builder.RegisterType<RolesRepository>().As<IRolesRepository>().InstancePerHttpRequest();
             builder.RegisterType<UsersRepository>().As<IUsersRepository>().InstancePerHttpRequest();
+
+            //Logic
+            builder.RegisterType<AccountLogic>().InstancePerHttpRequest();
+            builder.RegisterType<TransactionsLogic>().InstancePerHttpRequest();
 
             //Management
             builder.RegisterType<CantonsManagement>().InstancePerHttpRequest();
@@ -46,13 +50,11 @@ namespace SolucionesARWebsite
             builder.RegisterType<DistrictsManagement>().InstancePerHttpRequest();
             builder.RegisterType<RelationshipsManagement>().InstancePerHttpRequest();
             builder.RegisterType<RelationshipTypesManagement>().InstancePerHttpRequest();
+            builder.RegisterType<RolesManagement>().InstancePerHttpRequest();
             builder.RegisterType<TransactionsManagement>().InstancePerHttpRequest();
             builder.RegisterType<UsersManagement>().InstancePerHttpRequest();
 
-            //Logic
-            builder.RegisterType<TransactionsLogic>().InstancePerHttpRequest();
-
-            IContainer container = builder.Build();
+            var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }

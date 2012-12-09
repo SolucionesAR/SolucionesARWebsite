@@ -38,20 +38,25 @@ namespace SolucionesARWebsite.Business.Management
             return _companiesRepository.GetCompany(companyId);
         }
 
-        public List<Company> GetCompanies()
+        public List<Company> GetOrderedCompaniesList()
+        {
+            return _companiesRepository.GetOrderedCompaniesList();
+        }
+
+        public List<Company> GetCompaniesList()
         {
             return _companiesRepository.GetCompanies();
         }
 
-        public List<Company> GetCompanies(SecurityContext securityContext)
+        public List<Company> GetCompaniesList(SecurityContext securityContext)
         {
             var companiesList = new List<Company>();
 
-            switch ((UserRole) securityContext.User.RoleId)
+            switch ((UserRoles)securityContext.User.RoleId)
             {
-                case UserRole.Customer:
-                case UserRole.Manager:
-                case UserRole.Salesman:
+                case UserRoles.Customer:
+                case UserRoles.Manager:
+                case UserRoles.Salesman:
                     companiesList = new List<Company>
                                         {
                                             new Company
@@ -61,8 +66,8 @@ namespace SolucionesARWebsite.Business.Management
                                                 }
                                         };
                     break;
-                case UserRole.SuperUser:
-                case UserRole.Administrator:
+                case UserRoles.SuperUser:
+                case UserRoles.Administrator:
                     companiesList = _companiesRepository.GetAllCompanies();
                     break;
             }
@@ -73,12 +78,15 @@ namespace SolucionesARWebsite.Business.Management
         public void Save(EditViewModel editViewModel)
         {
             var company = Map(editViewModel);
-
+            
             if (editViewModel.CompanyId == 0)
             {
                 AddCompany(company);
             }
-            EditCompany(company);
+            else
+            {
+                EditCompany(company);
+            }
         }
 
         #endregion
@@ -87,18 +95,21 @@ namespace SolucionesARWebsite.Business.Management
 
         private void AddCompany(Company company)
         {
-            company.CreatetedAt = DateTime.Now;
-            company.UpdatedAt = DateTime.Now;
+            company.CreatetedAt = DateTime.UtcNow;
+            company.UpdatedAt = DateTime.UtcNow;
             _companiesRepository.AddCompany(company);
         }
 
         private void EditCompany(Company company)
         {
-            company.UpdatedAt = DateTime.Now;
+            //TODO: Check porqué esta dando problemas
+            company.CreatetedAt = DateTime.UtcNow;
+
+            company.UpdatedAt = DateTime.UtcNow;
             _companiesRepository.EditCompany(company);
         }
 
-        private Company Map(EditViewModel editViewMode)
+        private static Company Map(EditViewModel editViewMode)
         {
             return new Company
                        {

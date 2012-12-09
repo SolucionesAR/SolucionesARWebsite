@@ -49,6 +49,12 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return companies;
         }
 
+        public List<Company> GetOrderedCompaniesList()
+        {
+            var companies = _databaseModel.Companies.OrderBy(c => c.CompanyName).ToList();
+            return companies;
+        }
+
         public List<Company> GetCompanies()
         {
             var companies = _databaseModel.Companies.ToList();

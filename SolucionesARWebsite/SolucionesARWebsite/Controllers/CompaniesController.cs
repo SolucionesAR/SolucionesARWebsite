@@ -7,12 +7,6 @@ namespace SolucionesARWebsite.Controllers
 {
     public class CompaniesController : BaseController
     {
-        #region Constants
-        #endregion
-
-        #region Properties
-        #endregion
-
         #region Private Members
 
         private readonly CompaniesManagement _companiesManagement;
@@ -35,7 +29,7 @@ namespace SolucionesARWebsite.Controllers
         {
             var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
             //missing filtering
-            var results = _companiesManagement.GetCompanies();
+            var results = _companiesManagement.GetCompaniesList();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
 
             return View(indexViewModel);

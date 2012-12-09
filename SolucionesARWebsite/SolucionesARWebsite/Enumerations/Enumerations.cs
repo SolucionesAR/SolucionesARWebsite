@@ -1,4 +1,7 @@
-﻿using SolucionesARWebsite.Utils;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SolucionesARWebsite.Utils;
 
 namespace SolucionesARWebsite.Enumerations
 {
@@ -27,9 +30,36 @@ namespace SolucionesARWebsite.Enumerations
         Other = 4,
     }
 
+    public enum UserRoles
+    {
+        [Value("customer")]
+        Customer = 2,
+        [Value("salesman")]
+        Salesman = 3,
+        [Value("manager")]
+        Manager = 4,
+        [Value("administrator")]
+        Administrator = 5,
+        [Value("super_user")]
+        SuperUser = 6,
+    }
+
     public enum Constants
     {
-        SolucionesArId = 1
+        [Value("UsuarioSolucionesAr")]
+        SolucionesArUser = 22
+    }
+
+    public enum ApplicationReports
+    {
+        [Value("Ventas para SolucionesAR")]
+        SolucionesAr = 1,
+        [Value("Ventas por Compañia")]
+        Company = 2,
+        [Value("Ventas por Vendedor")]
+        Customer = 3,
+        [Value("Comportamiento de la Aplicación")]
+        Application = 4,
     }
 
     #endregion
@@ -43,5 +73,13 @@ namespace SolucionesARWebsite.Enumerations
             return idType.ToStringValue();
         }
         #endregion
+    }
+
+    public static class EnumUtil
+    {
+        public static IEnumerable<T> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
+        }
     }
 }

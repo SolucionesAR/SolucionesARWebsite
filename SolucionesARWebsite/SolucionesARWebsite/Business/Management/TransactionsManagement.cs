@@ -75,7 +75,6 @@ namespace SolucionesARWebsite.Business.Management
             return _transactionsAccess.GetTransaction(id);
         }
 
-
         public bool SaveTransactions(string filename, string sheetName)
         {
             return _transactionsLogic.SaveTransactionsFromFile(filename, sheetName);
@@ -88,8 +87,6 @@ namespace SolucionesARWebsite.Business.Management
         #endregion
 
         #region Private Methods
-        #endregion
-
-        
+        #endregion    
     }
 }

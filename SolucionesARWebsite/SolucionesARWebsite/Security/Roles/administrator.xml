@@ -6,6 +6,7 @@
         <action controller="Home" action="*" enabled="true" />
         <action controller="Inventory" action="*" enabled="true" />
         <action controller="Reports" action="*" enabled="true" />
+        <action controller="Roles" action="*" enabled="true" />
         <action controller="Stores" action="*" enabled="true" />
         <action controller="Transactions" action="*" enabled="true" />
         <action controller="Users" action="*" enabled="true" />
@@ -15,6 +16,7 @@
         <item text="Home" />
         <item text="Inventory" />
         <item text="Reports" />
+        <item text="Roles" />
         <item text="Stores" />
         <item text="Transactions" />
         <item text="Users" />

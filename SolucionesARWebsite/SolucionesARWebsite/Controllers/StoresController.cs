@@ -10,13 +10,6 @@ namespace SolucionesARWebsite.Controllers
 {
     public class StoresController : BaseController
     {
-        #region Constants
-        #endregion
-
-        #region Properties
-
-        #endregion
-
         #region Private Members
 
         private readonly StoresManagement _storesManagement;
@@ -59,7 +52,7 @@ namespace SolucionesARWebsite.Controllers
         // GET: /Users/Create/
         public ActionResult Create()
         {
-            var companies = _companiesManagement.GetCompanies();
+            var companies = _companiesManagement.GetCompaniesList();
             var editViewModel = new EditViewModel
             {
                 StoreId = 0,
@@ -87,7 +80,7 @@ namespace SolucionesARWebsite.Controllers
         public ActionResult Edit(int id)
         {
             var store = _storesManagement.GetStore(id);
-            var companies = _companiesManagement.GetCompanies();
+            var companies = _companiesManagement.GetCompaniesList();
             var canton = _locationsManagement.GetCantonByDistrict(store.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             var editViewModel = new EditViewModel
@@ -156,7 +149,7 @@ namespace SolucionesARWebsite.Controllers
             editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
             editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId);
             editViewModel.DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId);
-            editViewModel.CompaniesList = _companiesManagement.GetCompanies();
+            editViewModel.CompaniesList = _companiesManagement.GetCompaniesList();
             return View("Edit", editViewModel);
         }
 

@@ -1,6 +1,9 @@
-﻿<header id="header-container">
+﻿    <header id="header-container">
     <a id="logo-shared" href="/"></a>
 </header>
-    @{
+@{
+    if(HttpContext.Current.User.Identity.IsAuthenticated)
+    {
         Html.RenderPartial("Menu");
     }
+}

@@ -73,7 +73,7 @@ namespace SolucionesARWebsite.Models
         public string Email { get; set; }
 
         /// <summary>
-        /// When the user have been created
+        /// When the user has been created
         /// </summary>
         public DateTime? CreatetedAt { get; set; }
 

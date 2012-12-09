@@ -13,6 +13,8 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
 
         List<Company> GetCompanies();
 
+        List<Company> GetOrderedCompaniesList();
+
         Company GetCompany(int companyId);
 
         Company GetCompany(Store store);

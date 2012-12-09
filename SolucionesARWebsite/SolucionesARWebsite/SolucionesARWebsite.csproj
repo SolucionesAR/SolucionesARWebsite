@@ -176,6 +176,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\Logic\AccountLogic.cs" />
     <Compile Include="Business\Logic\TransactionsLogic.cs" />
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataAccess\Interfaces\IRolesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRelationshipTypesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRelationshipsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICantonsRepository.cs" />
@@ -218,7 +220,7 @@
     <Compile Include="DataAccess\Repositories\RelationshipTypesRepository.cs" />
     <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
     <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
-    <Compile Include="DataAccess\RolesAccess.cs" />
+    <Compile Include="DataAccess\Repositories\RolesRepository.cs" />
     <Compile Include="DataAccess\StoresAccess.cs" />
     <Compile Include="DataAccess\TransactionsAccess.cs" />
     <Compile Include="DataAccess\Repositories\UsersRepository.cs" />
@@ -228,6 +230,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ReportsEditHelper.cs" />
     <Compile Include="Helpers\StoresEditHelper.cs" />
     <Compile Include="Helpers\TransactionsEditHelper.cs" />
     <Compile Include="Helpers\ListFilterValue.cs" />
@@ -279,7 +282,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
-    <Compile Include="ViewModels\Forms\Account\LoginFormModel.cs" />
+    <Compile Include="ViewModels\Roles\EditViewModel.cs" />
+    <Compile Include="ViewModels\Roles\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Reports\BaseReportViewModel.cs" />
+    <Compile Include="ViewModels\Reports\CompanyReportViewModel.cs" />
+    <Compile Include="ViewModels\Reports\CustomerReportViewModel.cs" />
+    <Compile Include="ViewModels\Reports\Report.cs" />
+    <Compile Include="ViewModels\Reports\IndexViewModel.cs" />
     <Compile Include="ViewModels\Companies\EditViewModel.cs" />
     <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ViewModels\Forms\Provinces\EditFormModel.cs" />
@@ -290,7 +299,7 @@
     <Compile Include="ViewModels\Lists\TransactionsList.cs" />
     <Compile Include="ViewModels\Lists\ProvincesList.cs" />
     <Compile Include="ViewModels\Lists\StoresList.cs" />
-    <Compile Include="ViewModels\Views\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Cantons\EditViewModel.cs" />
     <Compile Include="ViewModels\Cantons\IndexViewModel.cs" />
     <Compile Include="ViewModels\Companies\IndexViewModel.cs" />
@@ -631,6 +640,11 @@
     <Content Include="Views\Shared\PublicLayout.cshtml" />
     <Content Include="Views\Districts\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\Reports\SolucionesAr.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\Customer.cshtml" />
+    <Content Include="Views\Reports\Company.cshtml" />
+    <Content Include="Views\Reports\Application.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -648,7 +662,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>12545</DevelopmentServerPort>
+          <DevelopmentServerPort>4012</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -12,7 +12,7 @@ namespace SolucionesARWebsite.Helpers
             Expression<Func<EditViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.ListStores, "StoreId", "StoreName",
+                                              new SelectList(htmlHelper.ViewData.Model.StoresList, "StoreId", "StoreName",
                                                              htmlHelper.ViewData.Model.Store.StoreId));
         }
 
@@ -21,7 +21,7 @@ namespace SolucionesARWebsite.Helpers
            Expression<Func<EditViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.ListCustomers, "UserId", "FName",
+                                              new SelectList(htmlHelper.ViewData.Model.CustomersList, "UserId", "FName",
                                                              htmlHelper.ViewData.Model.Customer.UserId));
         }
 

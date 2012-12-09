@@ -46,11 +46,11 @@ namespace SolucionesARWebsite.Business.Management
         {
             var companiesList = new List<Canton>();
 
-            switch ((UserRole) securityContext.User.RoleId)
+            switch ((UserRoles)securityContext.User.RoleId)
             {
-                case UserRole.Customer:
-                case UserRole.Manager:
-                case UserRole.Salesman:
+                case UserRoles.Customer:
+                case UserRoles.Manager:
+                case UserRoles.Salesman:
                     companiesList = new List<Canton>
                                         {
                                             new Canton
@@ -60,8 +60,8 @@ namespace SolucionesARWebsite.Business.Management
                                                 }
                                         };
                     break;
-                case UserRole.SuperUser:
-                case UserRole.Administrator:
+                case UserRoles.SuperUser:
+                case UserRoles.Administrator:
                     companiesList = _cantonsRepository.GetAllCantons();
                     break;
             }
@@ -77,7 +77,10 @@ namespace SolucionesARWebsite.Business.Management
             {
                 AddCompany(company);
             }
-            EditCompany(company);
+            else
+            {
+                EditCompany(company);
+            }
         }
 
         #endregion

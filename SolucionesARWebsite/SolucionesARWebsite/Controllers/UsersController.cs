@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite.Business.Management;
-using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.Models;
 using SolucionesARWebsite.ViewModels.Users;
-using UserRole = SolucionesARWebsite.Enumerations.UserRole;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -22,14 +21,11 @@ namespace SolucionesARWebsite.Controllers
         #region Private Members
 
         private readonly CompaniesManagement _companiesManagement;
-        private readonly UsersManagement _usersManagement;
-        private readonly TransactionsManagement _transactionsManagement;
         private readonly LocationsManagement _locationsManagement;
         private readonly RelationshipsManagement _relationshipsManagement;
         private readonly RelationshipTypesManagement _relationshipTypesManagement;
-
-        //to delete
         private readonly RolesManagement _rolesManagement;
+        private readonly TransactionsManagement _transactionsManagement;
 
         #endregion
 
@@ -37,7 +33,8 @@ namespace SolucionesARWebsite.Controllers
 
         public UsersController(CompaniesManagement companiesManagement,
             RelationshipsManagement relationshipsManagement, 
-            RelationshipTypesManagement relationshipTypesManagement, 
+            RelationshipTypesManagement relationshipTypesManagement,
+            RolesManagement rolesManagement,
             TransactionsManagement transactionsManagement, 
             UsersManagement usersManagement)
             : base(usersManagement)
@@ -45,11 +42,10 @@ namespace SolucionesARWebsite.Controllers
             _companiesManagement = companiesManagement;
             _relationshipsManagement = relationshipsManagement;
             _relationshipTypesManagement = relationshipTypesManagement;
+            _rolesManagement = rolesManagement;
             _transactionsManagement = transactionsManagement;
-            _usersManagement = usersManagement;
 
             _locationsManagement = new LocationsManagement();
-            _rolesManagement = new RolesManagement();
         }
 
         #endregion
@@ -60,7 +56,7 @@ namespace SolucionesARWebsite.Controllers
         {
             var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
             //missing filtering
-            var results = _usersManagement.GetUsersList();
+            var results = UsersManagement.GetUsersList();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
 
             return View(indexViewModel);
@@ -68,7 +64,7 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Details(int id)
         {
-            var userInformation = _usersManagement.GetUser(id);
+            var userInformation = UsersManagement.GetUser(id);
             var detailsViewModel = new DetailsViewModel
                                        {
                                            UserId = id,
@@ -100,19 +96,20 @@ namespace SolucionesARWebsite.Controllers
                                                     IdentificationTypeId =
                                                         (int) IdentificationTypes.CedNumber
                                                 },
-                                        UserRol = new Rol(),
-                                        RolesList = GetRolesList(SecurityContext),
                                         Company = new Company(),
-                                        CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
                                         Province = _locationsManagement.GetProvince(1),
                                         ProvincesList = _locationsManagement.GetAllProvinces(),
                                         Canton = new Canton(),
                                         CantonsList = _locationsManagement.GetCantonsByProvince(1),
                                         //CantonsList = 
+                                        Dob = DateTime.UtcNow,
                                         District = new District(),
                                         DistrictsList = _locationsManagement.GetDistrictsByCanton(1),
                                         RelationshipType = new RelationshipType(),
                                         RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
+                                        UserRol = new Rol(),
+                                        RolesList = _rolesManagement.GetRoles(SecurityContext),
                                         //DistrictsList = 
                                     };
             return View("Edit", editViewModel);
@@ -120,7 +117,7 @@ namespace SolucionesARWebsite.Controllers
 
         public ActionResult Edit(int id)
         {
-            var userInformation = _usersManagement.GetUser(id);
+            var userInformation = UsersManagement.GetUser(id);
             var canton = _locationsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             var relationshipType =
@@ -148,7 +145,7 @@ namespace SolucionesARWebsite.Controllers
                                         Canton = canton,
                                         CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId),
                                         Company = userInformation.Company,
-                                        CompaniesList = _companiesManagement.GetCompanies(SecurityContext),
+                                        CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
                                         District = userInformation.District,
                                         DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId),
                                         IdentificationNumber =
@@ -167,7 +164,7 @@ namespace SolucionesARWebsite.Controllers
                                         RelationshipType = relationshipType,
                                         RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
                                         UserRol = userInformation.UserRol,
-                                        RolesList = GetRolesList(SecurityContext),
+                                        RolesList = _rolesManagement.GetRoles(SecurityContext),
                                     };
             return View(editViewModel);
         }
@@ -176,17 +173,13 @@ namespace SolucionesARWebsite.Controllers
         [HttpPost]
         public ActionResult Save(EditViewModel editViewModel)
         {
-            //var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
-                //provisional para salir del paso y no tener que hacer el manejo de roles y id types
-                //_rolesManagement.Save(GetRolesList(SecurityContext));
-                //_rolesManagement.Save(GetIdentificationTypesList());
                 editViewModel.GeneratedCode =
                     GenerateUserCode(editViewModel.LastName1, editViewModel.LastName2,
                                      editViewModel.IdentificationNumber.ToString(
                                          CultureInfo.InvariantCulture));
-                _usersManagement.Save(editViewModel, SecurityContext.User.Id);
+                UsersManagement.Save(editViewModel, SecurityContext.User.Id);
             }
 
             var canton = _locationsManagement.GetCantonByDistrict(editViewModel.District.DistrictId);
@@ -195,10 +188,10 @@ namespace SolucionesARWebsite.Controllers
             editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId);
             editViewModel.DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId);
 
-            editViewModel.RolesList = GetRolesList(SecurityContext);
-            editViewModel.CompaniesList = _companiesManagement.GetCompanies(SecurityContext);
+            editViewModel.CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext);
             editViewModel.IdentificationTypesList = GetIdentificationTypesList();
             editViewModel.RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList();
+            editViewModel.RolesList = _rolesManagement.GetRoles(SecurityContext);
 
             return View("Edit", editViewModel);
         }
@@ -225,19 +218,6 @@ namespace SolucionesARWebsite.Controllers
                                        : string.Empty;
 
             return string.Format("{0}{1}{2}", lastName1Encoded, lastName2Encoded, cedNumberEncoded);
-        }
-
-        private static List<Rol> GetRolesList(SecurityContext securityContext)
-        {
-            var rolesList = new List<Rol>();
-            foreach (var rol in EnumUtil.GetValues<UserRole>())
-            {
-                if (rol.GetHashCode() < securityContext.User.RoleId)
-                {
-                    rolesList.Add(new Rol {Name = Roles.GetRoleDescription(rol), RolId = (int) rol,});
-                }
-            }
-            return rolesList;
         }
 
         private static List<IdentificationType> GetIdentificationTypesList()

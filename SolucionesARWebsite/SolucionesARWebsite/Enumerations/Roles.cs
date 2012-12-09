@@ -1,45 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SolucionesARWebsite.Utils;
+﻿using SolucionesARWebsite.Utils;
 
 namespace SolucionesARWebsite.Enumerations
 {
     #region Enums
-
-    public enum UserRole
-    {
-        [Value("customer")]
-        Customer = 1,
-        [Value("salesman")]
-        Salesman = 2,
-        [Value("manager")]
-        Manager = 5,
-        [Value("administrator")]
-        Administrator = 10,
-        [Value("super_user")]
-        SuperUser = 11,
-    }
-
+    
     #endregion
     
     public static class Roles
     {
         #region Static Methods
 
-        public static string GetRoleDescription(UserRole role)
+        public static string GetRoleDescription(UserRoles role)
         {
             switch (role)
             {
-                case UserRole.Customer:
+                case UserRoles.Customer:
                     return "Vendedor";
-                case UserRole.Salesman:
+                case UserRoles.Salesman:
                     return "Dependiente";
-                case UserRole.Manager:
+                case UserRoles.Manager:
                     return "Gerente";
-                case UserRole.SuperUser:
+                case UserRoles.SuperUser:
                     return "Super User";
-                case UserRole.Administrator:
+                case UserRoles.Administrator:
                     return "Administrador";
                 default:
                     return role.ToStringValue();
@@ -47,13 +30,5 @@ namespace SolucionesARWebsite.Enumerations
         }
 
         #endregion
-    }
-
-    public static class EnumUtil
-    {
-        public static IEnumerable<T> GetValues<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>();
-        }
     }
 }

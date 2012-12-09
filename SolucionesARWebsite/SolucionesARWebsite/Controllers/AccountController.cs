@@ -1,47 +1,36 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using SolucionesARWebsite.DataAccess;
-using SolucionesARWebsite.DataAccess.Repositories;
-using SolucionesARWebsite.ViewModels.Views.Account;
+using SolucionesARWebsite.Business.Logic;
+using SolucionesARWebsite.ViewModels.Account;
 using WebMatrix.WebData;
-using SolucionesARWebsite.ViewModels.Forms.Account;
 
 namespace SolucionesARWebsite.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        #region Constants
-        #endregion
-
-        #region Properties
-        #endregion
-
         #region Private Members
 
-        private readonly UsersRepository _usersRepository;
+        private readonly AccountLogic _accountLogic;
 
         #endregion
 
         #region Constructors
 
-        public AccountController()
+        public AccountController(AccountLogic accountLogic)
         {
-            _usersRepository = new UsersRepository();
+            _accountLogic = accountLogic;
         }
 
         #endregion
 
         #region Public Actions
         
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             HttpContext.Response.Cookies.Remove("__RequestVerificationToken_Lw__");
             /*
-            var homePage = ThemeHelper.GetData(ThemeDataKey.HomePage);
             if (!string.IsNullOrEmpty(homePage) && (access == null || !access.Value))
                 return Redirect(homePage);
 
@@ -51,17 +40,13 @@ namespace SolucionesARWebsite.Controllers
             var loginViewModel = new LoginViewModel();
             return View(loginViewModel);
         }
-
-        //
-        // POST: /Account/Login
-
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginFormModel loginFormModel, string returnUrl)
+        public ActionResult Login(LoginViewModel loginFormModel, string returnUrl)
         {
-            //if (ModelState.IsValid && _accountLogic.IsValidLogin(loginFormModel))
-            if(true)
+            if (ModelState.IsValid && _accountLogic.IsValidLogin(loginFormModel))
             {
                 FormsAuthentication.SetAuthCookie(loginFormModel.Username, false);
                 return RedirectToLocal(returnUrl);
@@ -75,10 +60,7 @@ namespace SolucionesARWebsite.Controllers
                                      };
             return View(loginViewModel);
         }
-
-        //
-        // POST: /Account/LogOff
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()

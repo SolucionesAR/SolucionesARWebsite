@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.OleDb;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SolucionesARWebsite.Business.Management;
@@ -17,18 +12,11 @@ namespace SolucionesARWebsite.Controllers
 {
     public class TransactionsController : Controller
     {
-
-        #region Constants
-        #endregion
-
-        #region Properties
-
-        #endregion
-
         #region Private Members
-        private TransactionsManagement _transactionsManagement;
-        private UsersManagement _usersManagement;
-        private StoresManagement _storesManagement;
+
+        private readonly TransactionsManagement _transactionsManagement;
+        private readonly UsersManagement _usersManagement;
+        private readonly StoresManagement _storesManagement;
 
         #endregion
 
@@ -43,45 +31,37 @@ namespace SolucionesARWebsite.Controllers
 
         #endregion
 
-        #region public methods
-
-        //
-        // GET: /Transactions/
+        #region Public Actions
 
         public ActionResult Index()
         {
-
             var indexViewModel = new IndexViewModel
-            {
-                TransactionsList = new TransactionsList
-                {
-                    Items = _transactionsManagement.GetTransactions(),
-                }
-            };
+                                     {
+                                         TransactionsList = new TransactionsList
+                                                                {
+                                                                    Items = _transactionsManagement.GetTransactions(),
+                                                                }
+                                     };
             return View(indexViewModel);
         }
-
-
-        //
-        // GET: /Transactions/Create
 
         public ActionResult Create()
         {
             var usersList = _usersManagement.GetUsersList();
             var storsList = _storesManagement.GetStores();
             var editViewModel = new EditViewModel
-            {
-                TransactionId = 0,
-                Amount = 0.0,
-                Points = 50,
-                BillBarCode = "",
-                Store = new Store(),
-                ListStores = storsList,
-                Customer = new User(),
-                ListCustomers = usersList,
-                //SalesMan = new User(),
-                //ListSalesMan = usersList,
-            };
+                                    {
+                                        TransactionId = 0,
+                                        Amount = 0.0,
+                                        Points = 50,
+                                        BillBarCode = "",
+                                        Store = new Store(),
+                                        StoresList = storsList,
+                                        Customer = new User(),
+                                        CustomersList = usersList,
+                                        //SalesMan = new User(),
+                                        //ListSalesMan = usersList,
+                                    };
             return View("Edit", editViewModel);
         }
 
@@ -90,40 +70,34 @@ namespace SolucionesARWebsite.Controllers
             var usersList = _usersManagement.GetUsersList();
             var storsList = _storesManagement.GetStores();
             var editViewModel = new EditViewModel
-            {
-                TransactionId = 0,
-                Amount = 50.0,
-                BillBarCode = "",
-                Store = new Store(),
-                ListStores = storsList,
-                Customer = new User(),
-                ListCustomers = usersList,
-                //SalesMan = new User(),
-                //ListSalesMan = usersList,
-            };
+                                    {
+                                        TransactionId = 0,
+                                        Amount = 50.0,
+                                        BillBarCode = "",
+                                        Store = new Store(),
+                                        StoresList = storsList,
+                                        Customer = new User(),
+                                        CustomersList = usersList,
+                                        //SalesMan = new User(),
+                                        //ListSalesMan = usersList,
+                                    };
             return View("FileUpload", editViewModel);
         }
-
-
-        //
-        // GET: /Transactions/Edit/5
 
         public ActionResult Edit(int id)
         {
             var transaction = _transactionsManagement.GetTransaction(id);
-            var usersList = _usersManagement.GetUsersList();
-            var storsList = _storesManagement.GetStores();
             var editViewModel = new EditViewModel
-            {
-                TransactionId = id,
-                Amount = transaction.Amount,
-                BillBarCode = transaction.BillBarCode,
-                Store = transaction.Store,
-                ListStores = storsList,
-                Customer = transaction.Customer,
-                ListCustomers = usersList,
-                Points = transaction.Points,
-            };
+                                    {
+                                        TransactionId = id,
+                                        Amount = transaction.Amount,
+                                        BillBarCode = transaction.BillBarCode,
+                                        Store = transaction.Store,
+                                        StoresList = _storesManagement.GetStores(),
+                                        Customer = transaction.Customer,
+                                        CustomersList = _usersManagement.GetUsersList(),
+                                        Points = transaction.Points,
+                                    };
             return View("Edit", editViewModel);
         }
 
@@ -137,19 +111,17 @@ namespace SolucionesARWebsite.Controllers
                 if (editFormModel.TransactionId == 0)
                 {
                     transaction = new Transaction
-                    {
-                        TransactionId = 0,
-                        Amount = editFormModel.Amount,
-                        BillBarCode = editFormModel.BillBarCode,
-                        CreatetedAt = DateTime.UtcNow,
-                        UpdatedAt = DateTime.UtcNow,
-                        CustomerId = editFormModel.Customer.UserId,
-                        Points = editFormModel.Points,
-                        StoreId = editFormModel.Store.StoreId,
-
-                    };
+                                      {
+                                          TransactionId = 0,
+                                          Amount = editFormModel.Amount,
+                                          BillBarCode = editFormModel.BillBarCode,
+                                          CreatetedAt = DateTime.UtcNow,
+                                          UpdatedAt = DateTime.UtcNow,
+                                          CustomerId = editFormModel.Customer.UserId,
+                                          Points = editFormModel.Points,
+                                          StoreId = editFormModel.Store.StoreId,
+                                      };
                     _transactionsManagement.SaveTransaction(transaction);
-
                 }
                 else
                 {
@@ -162,13 +134,9 @@ namespace SolucionesARWebsite.Controllers
                     transaction.UpdatedAt = DateTime.UtcNow;
                     _transactionsManagement.UpdateTransaction();
                 }
-
-                
             }
-            var usersList = _usersManagement.GetUsersList();
-            var storsList = _storesManagement.GetStores();
-            editFormModel.ListCustomers = usersList;
-            editFormModel.ListStores = storsList;
+            editViewModel.CustomersList = _usersManagement.GetUsersList();
+            editViewModel.StoresList = _storesManagement.GetStores();
             return View("Edit", editViewModel);
         }
 
@@ -189,7 +157,7 @@ namespace SolucionesARWebsite.Controllers
                     Directory.CreateDirectory(Path.GetDirectoryName(filename));
                 }
 
-                bool result = _transactionsManagement.SaveTransactions(filename, sheetName);
+                var result = _transactionsManagement.SaveTransactions(filename, sheetName);
                 //TODO: aqui necesitamos devolver la misma vista pero con un error si falla...
                 return RedirectToAction(result ? "Index" : "FileUpload");
             }
@@ -202,19 +170,19 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Methods
 
-        private EditViewModel ModelViewFromForm(EditFormModel editFormModel)
+        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
         {
             return new EditViewModel
-            {
-                TransactionId = editFormModel.TransactionId,
-                Amount = editFormModel.Amount,
-                BillBarCode = editFormModel.BillBarCode,
-                Customer = editFormModel.Customer,
-                Points = editFormModel.Points,
-                Store = editFormModel.Store
-            };
-
+                       {
+                           TransactionId = editFormModel.TransactionId,
+                           Amount = editFormModel.Amount,
+                           BillBarCode = editFormModel.BillBarCode,
+                           Customer = editFormModel.Customer,
+                           Points = editFormModel.Points,
+                           Store = editFormModel.Store
+                       };
         }
+
         #endregion
     }
 }

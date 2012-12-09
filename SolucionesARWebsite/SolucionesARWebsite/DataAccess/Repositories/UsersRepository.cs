@@ -44,6 +44,12 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             _databaseModel.Entry(user).State = EntityState.Modified;
             _databaseModel.SaveChanges();
         }
+
+        public List<User> GetOrderedUsersList()
+        {
+            var users = _databaseModel.Users.OrderBy(u => u.GeneratedCode).ToList();
+            return users;
+        }
         
         public List<User> GetUsersList()
         {
@@ -51,22 +57,21 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return users;
         }
 
-        public User GetUser(int userId)
+        public User GetUserById(int userId)
         {
             var user = _databaseModel.Users.FirstOrDefault(u => u.UserId.Equals(userId));
             return user;
         }
 
-        public User GetUserByCode(string username)
+        public User GetUserByGeneratedCode(string username)
         {
-            var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username)) ??
-                       _databaseModel.Users.FirstOrDefault(u => u.UserId.Equals(Constants.SolucionesArId));
+            var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username));
             return user;
         }
 
-        public User GetUserByName(string username)
+        public User GetSolucionesArUser()
         {
-            var user = _databaseModel.Users.FirstOrDefault(u => u.FName.Equals(username));
+            var user = GetUserById((int) Constants.SolucionesArUser);
             return user;
         }
 
@@ -86,7 +91,7 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             {
                 relationship.UserId2 = userReferenceId;
                 relationship.RelationshipTypeId = relationshipTypeId;
-                relationship.UpdatedAt = DateTime.Now;
+                relationship.UpdatedAt = DateTime.UtcNow;
             }
             else
             {
@@ -95,8 +100,8 @@ namespace SolucionesARWebsite.DataAccess.Repositories
                                        UserId1 = userId,
                                        UserId2 = userReferenceId,
                                        RelationshipTypeId = relationshipTypeId,
-                                       CreatetedAt = DateTime.Now,
-                                       UpdatedAt = DateTime.Now,
+                                       CreatetedAt = DateTime.UtcNow,
+                                       UpdatedAt = DateTime.UtcNow,
                                    };
                 _databaseModel.Relationships.Add(relationship);
             }

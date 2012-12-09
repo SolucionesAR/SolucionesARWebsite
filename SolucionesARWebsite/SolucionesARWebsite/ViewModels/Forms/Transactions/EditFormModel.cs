@@ -49,11 +49,11 @@ namespace SolucionesARWebsite.ViewModels.Forms.Transactions
         [Required]
         public User Customer { get; set; }
 
-        public List<User> ListCustomers { get; set; }
+        public List<User> CustomersList { get; set; }
 
         // public List<User> ListSalesMan { get; set; }
 
-        public List<Store> ListStores { get; set; }
+        public List<Store> StoresList { get; set; }
 
         public int Points { get; set; }
 

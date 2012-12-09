@@ -52,11 +52,11 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
         [DisplayName("Vendedor")]
         public User Customer { get; set; }
 
-        public List<User> ListCustomers { get; set; }
+        public List<User> CustomersList { get; set; }
 
         // public List<User> ListSalesMan { get; set; }
 
-        public List<Store> ListStores { get; set; }
+        public List<Store> StoresList { get; set; }
 
         [Display(Name = "Puntos*", Prompt = "50")]
         public int Points { get; set; }

@@ -61,7 +61,5 @@ namespace SolucionesARWebsite.Business.Management
 
         #region Private Methods
         #endregion
-
-        
     }
 }
