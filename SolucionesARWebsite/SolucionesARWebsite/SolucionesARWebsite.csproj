@@ -206,6 +206,7 @@
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataAccess\Interfaces\ITransactionsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRolesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRelationshipTypesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRelationshipsRepository.cs" />
@@ -222,7 +223,7 @@
     <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
     <Compile Include="DataAccess\Repositories\RolesRepository.cs" />
     <Compile Include="DataAccess\StoresAccess.cs" />
-    <Compile Include="DataAccess\TransactionsAccess.cs" />
+    <Compile Include="DataAccess\Repositories\TransactionsRepository.cs" />
     <Compile Include="DataAccess\Repositories\UsersRepository.cs" />
     <Compile Include="DataObjects\UserInformation.cs" />
     <Compile Include="Enumerations\Enumerations.cs" />

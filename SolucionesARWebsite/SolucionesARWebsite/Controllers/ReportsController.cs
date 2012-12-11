@@ -7,6 +7,7 @@ using SolucionesARWebsite.Models;
 using SolucionesARWebsite.Utils;
 using SolucionesARWebsite.ViewModels.Reports;
 using IndexViewModel = SolucionesARWebsite.ViewModels.Reports.IndexViewModel;
+using Report = SolucionesARWebsite.ViewModels.Reports.Report;
 
 namespace SolucionesARWebsite.Controllers
 {
@@ -15,15 +16,17 @@ namespace SolucionesARWebsite.Controllers
         #region Private Members
 
         private readonly CompaniesManagement _companiesManagement;
+        private readonly TransactionsManagement _transactionsManagement;
         
         #endregion
 
         #region Constructors
 
-        public ReportsController(CompaniesManagement companiesManagement, UsersManagement usersManagement)
+        public ReportsController(CompaniesManagement companiesManagement, TransactionsManagement transactionsManagement, UsersManagement usersManagement)
             : base(usersManagement)
         {
             _companiesManagement = companiesManagement;
+            _transactionsManagement = transactionsManagement;
         }
 
         #endregion
@@ -47,6 +50,9 @@ namespace SolucionesARWebsite.Controllers
         [HttpPost]
         public ActionResult SolucionesAr(BaseReportViewModel reportViewModel)
         {
+            var transactionsList = _transactionsManagement.GetTransactions(reportViewModel.BeginningDate,
+                                                                           reportViewModel.EndingDate);
+
             return View();
         }
 
@@ -63,6 +69,9 @@ namespace SolucionesARWebsite.Controllers
         [HttpPost]
         public ActionResult Company(CompanyReportViewModel reportViewModel)
         {
+            var transactionsList = _transactionsManagement.GetTransactions(reportViewModel.Company,
+                                                                           reportViewModel.BeginningDate,
+                                                                           reportViewModel.EndingDate);
             return View();
         }
 
@@ -79,6 +88,9 @@ namespace SolucionesARWebsite.Controllers
         [HttpPost]
         public ActionResult Customer(CustomerReportViewModel reportViewModel)
         {
+            var transactionsList = _transactionsManagement.GetTransactions(reportViewModel.Customer,
+                                                                           reportViewModel.BeginningDate,
+                                                                           reportViewModel.EndingDate);
             return View();
         }
 

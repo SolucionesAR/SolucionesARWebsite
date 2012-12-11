@@ -4,6 +4,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using SolucionesARWebsite.App_Start;
 using SolucionesARWebsite.Business.Logic;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.DataAccess.Interfaces;
@@ -38,6 +39,7 @@ namespace SolucionesARWebsite
             builder.RegisterType<RelationshipsRepository>().As<IRelationshipsRepository>().InstancePerHttpRequest();
             builder.RegisterType<RelationshipTypesRepository>().As<IRelationshipTypesRepository>().InstancePerHttpRequest();
             builder.RegisterType<RolesRepository>().As<IRolesRepository>().InstancePerHttpRequest();
+            builder.RegisterType<TransactionsRepository>().As<ITransactionsRepository>().InstancePerHttpRequest();
             builder.RegisterType<UsersRepository>().As<IUsersRepository>().InstancePerHttpRequest();
 
             //Logic

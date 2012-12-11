@@ -34,26 +34,26 @@ namespace SolucionesARWebsite.Business.Logic
 
         #region Private Members
 
+        private readonly ICompaniesRepository _companiesRepository;
         private readonly IRelationshipsRepository _relationshipsRepository;
         private readonly IRelationshipTypesRepository _relationshipTypesAccess;
+        private readonly ITransactionsRepository _transactionsRepository;
         private readonly IUsersRepository _usersRepository;
 
-        private readonly TransactionsAccess _transactionsAccess;
-        private readonly CompaniesRepository _companiesRepository;
         private readonly StoresAccess _storesAccess;
 
         #endregion
 
         #region Constructors
 
-        public TransactionsLogic(IRelationshipsRepository relationshipsRepository, IRelationshipTypesRepository relationshipTypesRepository, IUsersRepository usersRepository)
+        public TransactionsLogic(ICompaniesRepository companiesRepository, IRelationshipsRepository relationshipsRepository, IRelationshipTypesRepository relationshipTypesRepository, ITransactionsRepository transactionsRepository, IUsersRepository usersRepository)
         {
+            _companiesRepository = companiesRepository;
             _relationshipsRepository = relationshipsRepository;
             _relationshipTypesAccess = relationshipTypesRepository;
+            _transactionsRepository = transactionsRepository;
             _usersRepository = usersRepository;
 
-            _transactionsAccess = new TransactionsAccess();
-            _companiesRepository = new CompaniesRepository();
             _storesAccess = new StoresAccess();
         }
 
@@ -167,7 +167,7 @@ namespace SolucionesARWebsite.Business.Logic
                         CreatetedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow,
                     };
-                    if (_transactionsAccess.SaveTransaction(transaction))
+                    if (_transactionsRepository.SaveTransaction(transaction))
                     {
                         DistributeTransactionCashback(transaction);
                     }

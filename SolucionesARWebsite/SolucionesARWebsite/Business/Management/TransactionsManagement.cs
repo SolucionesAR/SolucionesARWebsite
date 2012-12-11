@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SolucionesARWebsite.Business.Logic;
-using SolucionesARWebsite.DataAccess;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.Business.Management
@@ -19,49 +20,51 @@ namespace SolucionesARWebsite.Business.Management
 
         #region Private Members
 
-        private readonly TransactionsAccess _transactionsAccess;
+        private readonly ITransactionsRepository _transactionsRepository;
         private readonly TransactionsLogic _transactionsLogic;
 
         #endregion
 
         #region Constructors
 
-        public TransactionsManagement(TransactionsLogic transactionsLogic)
+        public TransactionsManagement(TransactionsLogic transactionsLogic, ITransactionsRepository transactionsRepository)
         {
             _transactionsLogic = transactionsLogic;
-
-            _transactionsAccess = new TransactionsAccess();
+            _transactionsRepository = transactionsRepository;    
         }
 
         #endregion
 
         #region Public Methods
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public List<Transaction> GetTransactions()
         {
-            return _transactionsAccess.GetTransactions();
+            return _transactionsRepository.GetTransactions();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        public List<Transaction> GetTransactions(DateTime beginningDate, DateTime endingDate)
+        {
+            return _transactionsRepository.GetTransactions(null, null, beginningDate, endingDate);
+        }
+
+        public List<Transaction> GetTransactions(Company company, DateTime beginningDate, DateTime endingDate)
+        {
+            return _transactionsRepository.GetTransactions(null, company, beginningDate, endingDate);
+        }
+
+        public List<Transaction> GetTransactions(User customer, DateTime beginningDate, DateTime endingDate)
+        {
+            return _transactionsRepository.GetTransactions(customer, null, beginningDate, endingDate);
+        }
+
         public List<Transaction> GetLastTransactions(int userId)
         {
-            return _transactionsAccess.GetLastTransactions(userId, TOP_LAST_TRANSACTIONS);
+            return _transactionsRepository.GetLastTransactions(userId, TOP_LAST_TRANSACTIONS);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="transaction"></param>
         public void SaveTransaction(Transaction transaction)
         {
-            bool saveSuccess = _transactionsAccess.SaveTransaction(transaction);
+            bool saveSuccess = _transactionsRepository.SaveTransaction(transaction);
             if (saveSuccess)
             {
                 //TODO: aca recibo un  bool de exito, ver si lo ocupo
@@ -72,7 +75,7 @@ namespace SolucionesARWebsite.Business.Management
 
         public Transaction GetTransaction(int id)
         {
-            return _transactionsAccess.GetTransaction(id);
+            return _transactionsRepository.GetTransaction(id);
         }
 
         public bool SaveTransactions(string filename, string sheetName)
@@ -82,7 +85,7 @@ namespace SolucionesARWebsite.Business.Management
 
         public void UpdateTransaction()
         {
-            _transactionsAccess.UpdateTransaction();
+            _transactionsRepository.UpdateTransaction();
         }
         #endregion
 

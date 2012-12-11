@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.DataAccess
+namespace SolucionesARWebsite.DataAccess.Repositories
 {
-    public class TransactionsAccess
+    public class TransactionsRepository : ITransactionsRepository
     {
-
-        #region Constants
-        #endregion
-
-        #region Properties
-        #endregion
-
         #region Private Members
 
         private readonly DbModel _databaseModel;
@@ -23,7 +16,7 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Contructors
 
-        public TransactionsAccess()
+        public TransactionsRepository()
         {
             _databaseModel = new DbModel();
         }
@@ -32,20 +25,33 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Public Methods
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public List<Transaction> GetTransactions()
         {
             var transactions = _databaseModel.Transactions.ToList();
             return transactions;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        public List<Transaction> GetTransactions(User customer, Company company, DateTime beginningDate, DateTime endingDate)
+        {
+            var transactions = _databaseModel.Transactions
+                .Where(t => (beginningDate <= t.CreatetedAt) && (t.CreatetedAt <= endingDate))
+                .OrderByDescending(t => t.CreatetedAt);
+
+            if (customer != null)
+            {
+                var filteredTransactions = transactions.Where(t => t.CustomerId.Equals(customer.UserId));
+                return filteredTransactions.ToList();
+            }
+            if (company != null)
+            {
+                var storesList = _databaseModel.Stores.Where(s => s.CompanyId.Equals(company.CompanyId));
+                var filteredTransactions = transactions.Join(storesList, t => t.StoreId, s => s.StoreId,
+                                                             (o, id) => o);
+                return filteredTransactions.ToList();
+            }
+            return transactions.ToList();
+        }
+
         public List<Transaction> GetLastTransactions(int userId, int top)
         {
             var transactions =
@@ -56,11 +62,6 @@ namespace SolucionesARWebsite.DataAccess
             return transactions;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
         public bool SaveTransaction(Transaction transaction)
         {
             var result = _databaseModel.Transactions.Add(transaction);
@@ -84,7 +85,5 @@ namespace SolucionesARWebsite.DataAccess
 
         #region Private Methods
         #endregion
-
-        
     }
 }
