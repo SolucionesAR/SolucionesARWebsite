@@ -1,8 +1,9 @@
-﻿using SolucionesARWebsite.ViewModels.Lists;
+﻿using PagedList;
+using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.ViewModels.Views.Provinces
+namespace SolucionesARWebsite.ViewModels.Provinces
 {
-    public class IndexViewModel : BaseViewModel
+    public class IndexViewModel : BaseListModel
     {
         #region Constants
         #endregion
@@ -12,7 +13,7 @@ namespace SolucionesARWebsite.ViewModels.Views.Provinces
         /// <summary>
         /// Displayed items
         /// </summary>
-        public ProvincesList ProvincesList { get; set; }
+        public IPagedList<Province> PagedItems { get; set; }
 
         #endregion
 

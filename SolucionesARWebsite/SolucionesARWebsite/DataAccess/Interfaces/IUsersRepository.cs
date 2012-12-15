@@ -24,6 +24,6 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
 
         bool UpdateUser(User user);
 
-        void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId);
+        void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId);    
     }
 }

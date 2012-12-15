@@ -168,8 +168,7 @@ namespace SolucionesARWebsite.Controllers
                                     };
             return View(editViewModel);
         }
-
-
+        
         [HttpPost]
         public ActionResult Save(EditViewModel editViewModel)
         {
@@ -194,6 +193,17 @@ namespace SolucionesARWebsite.Controllers
             editViewModel.RolesList = _rolesManagement.GetRoles(SecurityContext);
 
             return View("Edit", editViewModel);
+        }
+
+        public JsonResult IsValidParentUser(string parentUser)
+        {
+            var user = UsersManagement.GetUser(parentUser);
+            //TODO: missing users table modification
+            //check if the user...
+            //1. exists
+            //2. is senior or master
+            //3. has enoght space to add a new children
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

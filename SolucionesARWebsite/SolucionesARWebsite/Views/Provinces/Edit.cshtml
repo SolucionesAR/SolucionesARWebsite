@@ -1,10 +1,9 @@
-﻿
-@using SolucionesARWebsite.ViewModels.Views.Provinces
+﻿@using SolucionesARWebsite.ViewModels.Provinces
 
 @model EditViewModel
 
 @{
-    ViewBag.Title = "SolucionesAR | provincias";
+    ViewBag.Title = "SolucionesAR | Provincias";
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
@@ -14,33 +13,25 @@
 
 
 @section EditionContent {
-    <div class="edition_content content_box ">
-        
-        @if (Model.ProvinceId > 0)
-        {
-            <h1>EDITAR PROVINCIA</h1>
-        }
-        else
-        {
-            <h1>NUEVA PROVINCIA</h1>
-        }
+    @if (Model.ProvinceId > 0)
+    {
+        <h1>EDITAR PROVINCIA</h1>
+    }
+    else
+    {
+        <h1>NUEVO PROVINCIA</h1>
+    }
+    
+    <p class="note">Favor complete el siguiente formulario</p>
+    @using (Html.BeginForm("Save", "Provinces"))
+    {
+        @Html.HiddenFor(model => model.ProvinceId)
 
-        <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Provinces"))
-                    {
-                        @Html.HiddenFor(model => model.ProvinceId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.ProvinceName)
-                        </fieldset>
+        <fieldset>
+            @Html.EditorFor(model => model.ProvinceName)
+        </fieldset>
                             
-                        <input name="submit" type="submit" value="Submit">
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+        <input name="submit" type="submit" value="Submit">
+    }
 }
 

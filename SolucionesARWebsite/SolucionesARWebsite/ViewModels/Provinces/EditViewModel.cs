@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SolucionesARWebsite.ViewModels.Views.Provinces
+namespace SolucionesARWebsite.ViewModels.Provinces
 {
     public class EditViewModel : BaseViewModel
     {

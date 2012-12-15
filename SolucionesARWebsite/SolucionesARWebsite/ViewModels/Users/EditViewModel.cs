@@ -161,6 +161,7 @@ namespace SolucionesARWebsite.ViewModels.Users
         /// A code that will be generated automatically to each user
         /// </summary>
         [Display(Name = "Referente", Prompt = "Codigo del Referente")]
+        [Remote("IsValidParentUser", "Users", ErrorMessage = "El usuario no ingresado no cumple con los requisitos")]
         public string ParentUser { get; set; }
 
         /// <summary>

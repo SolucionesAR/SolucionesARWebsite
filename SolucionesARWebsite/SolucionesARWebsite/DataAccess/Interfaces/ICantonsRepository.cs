@@ -5,14 +5,14 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
 {
     public interface ICantonsRepository
     {
-        void AddCanton(Canton district);
+        void AddCanton(Canton canton);
 
-        void EditCanton(Canton district);
+        void EditCanton(Canton canton);
 
         List<Canton> GetAllCantons();
 
         List<Canton> GetCantons();
 
-        Canton GetCanton(int districtId);
+        Canton GetCanton(int cantonId);
     }
 }
