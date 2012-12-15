@@ -291,6 +291,14 @@
     <Compile Include="Migrations\201212150548176_013.Designer.cs">
       <DependentUpon>201212150548176_013.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201212151950286_014.cs" />
+    <Compile Include="Migrations\201212151950286_014.Designer.cs">
+      <DependentUpon>201212151950286_014.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201212151952185_015.cs" />
+    <Compile Include="Migrations\201212151952185_015.Designer.cs">
+      <DependentUpon>201212151952185_015.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
     <Compile Include="Models\Relationship.cs" />
@@ -557,6 +565,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201212150548176_013.resx">
       <DependentUpon>201212150548176_013.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201212151950286_014.resx">
+      <DependentUpon>201212151950286_014.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201212151952185_015.resx">
+      <DependentUpon>201212151952185_015.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

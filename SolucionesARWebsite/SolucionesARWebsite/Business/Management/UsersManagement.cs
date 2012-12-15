@@ -136,6 +136,7 @@ namespace SolucionesARWebsite.Business.Management
                                Cellphone = editViewMode.Cellphone,
                                PhoneNumber = editViewMode.PhoneNumber,
                                DistrictId = editViewMode.District.DistrictId,
+                               RelationshipTypeId = editViewMode.RelationshipType.RelationshipTypeId,
                            };
 
             if (!string.IsNullOrEmpty(editViewMode.ParentUser))

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -187,6 +188,7 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// 
         /// </summary>
+        [DefaultValue (1)]
          public int RelationshipTypeId { get; set; }//TODO: quitando relations
 
         /// <summary>
