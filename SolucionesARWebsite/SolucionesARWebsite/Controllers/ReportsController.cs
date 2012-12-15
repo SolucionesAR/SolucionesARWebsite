@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
+using OfficeOpenXml;
 using PagedList;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Enumerations;
@@ -17,7 +21,7 @@ namespace SolucionesARWebsite.Controllers
 
         private readonly CompaniesManagement _companiesManagement;
         private readonly TransactionsManagement _transactionsManagement;
-        
+
         #endregion
 
         #region Constructors
@@ -53,16 +57,41 @@ namespace SolucionesARWebsite.Controllers
             var transactionsList = _transactionsManagement.GetTransactions(reportViewModel.BeginningDate,
                                                                            reportViewModel.EndingDate);
 
-            return View();
+            using (var excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Primera Hoja");
+
+                //Here we have to select one of the following options: Manual or Auto writting
+                //With the auto option, we should create a new class to avoid the complex objects mapping problems
+                //instead of using the simple Transaction Class
+
+                //1. Manual
+                /*
+                worksheet.Cells["A1"].Value = "title 1";
+                worksheet.Cells["B1"].Value = "title 2";
+                
+                int i = 2;
+                foreach (var transaction in transactionsList)
+                {
+                    worksheet.Cells["A" + i].Value = transaction.Amount;
+                    worksheet.Cells["B" + i].Value = transaction.Amount;
+                    i++;
+                }
+                 */
+                //2. Automatic
+                worksheet.Cells["A1"].LoadFromCollection(transactionsList);
+
+                return File(excelPackage.GetAsByteArray(), "application/vnd.ms-excel", "a_cool_name.xls");
+            }
         }
 
         public ActionResult Company()
         {
             var companyReportViewModel = new CompanyReportViewModel
-                                             {
-                                                 Company = new Company(),
-                                                 CompaniesList = _companiesManagement.GetOrderedCompaniesList()
-                                             };
+            {
+                Company = new Company(),
+                CompaniesList = _companiesManagement.GetOrderedCompaniesList()
+            };
             return View(companyReportViewModel);
         }
 
@@ -78,10 +107,10 @@ namespace SolucionesARWebsite.Controllers
         public ActionResult Customer()
         {
             var customerReportViewModel = new CustomerReportViewModel
-                                              {
-                                                  Customer = new User(),
-                                                  CustomerList = UsersManagement.GetOrderedUsersList(),
-                                              };
+            {
+                Customer = new User(),
+                CustomerList = UsersManagement.GetOrderedUsersList(),
+            };
             return View(customerReportViewModel);
         }
 
@@ -108,13 +137,13 @@ namespace SolucionesARWebsite.Controllers
         #endregion
 
         #region Private Members
-        
+
         private static IEnumerable<Report> GetReportsList()
         {
             var reportsList = new List<Report>();
             foreach (var report in EnumUtil.GetValues<ApplicationReports>())
             {
-                reportsList.Add(new Report { Id = (int)report, Name = report.ToStringValue(), Action = report.ToString()});
+                reportsList.Add(new Report { Id = (int)report, Name = report.ToStringValue(), Action = report.ToString() });
             }
             return reportsList;
         }
