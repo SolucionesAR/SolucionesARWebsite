@@ -183,5 +183,15 @@ namespace SolucionesARWebsite.Models
         /// 
         /// </summary>
         public int Points { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+         public int RelationshipTypeId { get; set; }//TODO: quitando relations
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual RelationshipType RelationshipType { get; set; }
     }
 }

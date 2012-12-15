@@ -82,31 +82,31 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return true;
         }
 
-        public void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)
-        {
-            var relationship =
-                _databaseModel.Relationships.FirstOrDefault(
-                    r => r.UserId1.Equals(userId) && r.UserId2.Equals(userReferenceId));
-            if (relationship != null)
+        /*    public void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)//TODO: quitando relations
             {
-                relationship.UserId2 = userReferenceId;
-                relationship.RelationshipTypeId = relationshipTypeId;
-                relationship.UpdatedAt = DateTime.UtcNow;
-            }
-            else
-            {
-                relationship = new Relationship
-                                   {
-                                       UserId1 = userId,
-                                       UserId2 = userReferenceId,
-                                       RelationshipTypeId = relationshipTypeId,
-                                       CreatetedAt = DateTime.UtcNow,
-                                       UpdatedAt = DateTime.UtcNow,
-                                   };
-                _databaseModel.Relationships.Add(relationship);
-            }
-            _databaseModel.SaveChanges();
-        }
+                var relationship =
+                    _databaseModel.Relationships.FirstOrDefault(
+                        r => r.UserId1.Equals(userId) && r.UserId2.Equals(userReferenceId));
+                if (relationship != null)
+                {
+                    relationship.UserId2 = userReferenceId;
+                    relationship.RelationshipTypeId = relationshipTypeId;
+                    relationship.UpdatedAt = DateTime.UtcNow;
+                }
+                else
+                {
+                    relationship = new Relationship
+                                       {
+                                           UserId1 = userId,
+                                           UserId2 = userReferenceId,
+                                           RelationshipTypeId = relationshipTypeId,
+                                           CreatetedAt = DateTime.UtcNow,
+                                           UpdatedAt = DateTime.UtcNow,
+                                       };
+                    _databaseModel.Relationships.Add(relationship);
+                }
+                _databaseModel.SaveChanges();
+            }*/
 
         #endregion
 

@@ -12,7 +12,8 @@ namespace SolucionesARWebsite.Business.Logic
     public class TransactionsLogic
     {
         #region Constants
-
+        public const string MASTER = "Master";
+        public const string SENIOR = "Senior";
         private const double SOLUCIONES_AR_PERCENTAJE = 0.3;
         private const double MASTER_USER_PERCENTAJE = 0.1;
         private const double SENIOR_USER_PERCENTAJE = 0.3;
@@ -35,7 +36,7 @@ namespace SolucionesARWebsite.Business.Logic
         #region Private Members
 
         private readonly ICompaniesRepository _companiesRepository;
-        private readonly IRelationshipsRepository _relationshipsRepository;
+        //private readonly IRelationshipsRepository _relationshipsRepository;
         private readonly IRelationshipTypesRepository _relationshipTypesAccess;
         private readonly ITransactionsRepository _transactionsRepository;
         private readonly IUsersRepository _usersRepository;
@@ -46,10 +47,10 @@ namespace SolucionesARWebsite.Business.Logic
 
         #region Constructors
 
-        public TransactionsLogic(ICompaniesRepository companiesRepository, IRelationshipsRepository relationshipsRepository, IRelationshipTypesRepository relationshipTypesRepository, ITransactionsRepository transactionsRepository, IUsersRepository usersRepository)
+        public TransactionsLogic(ICompaniesRepository companiesRepository, /*IRelationshipsRepository relationshipsRepository,*/ IRelationshipTypesRepository relationshipTypesRepository, ITransactionsRepository transactionsRepository, IUsersRepository usersRepository)
         {
             _companiesRepository = companiesRepository;
-            _relationshipsRepository = relationshipsRepository;
+            //_relationshipsRepository = relationshipsRepository;//TODO: quitando relations
             _relationshipTypesAccess = relationshipTypesRepository;
             _transactionsRepository = transactionsRepository;
             _usersRepository = usersRepository;
@@ -81,8 +82,51 @@ namespace SolucionesARWebsite.Business.Logic
                 // Este seria el 70% del que los usuarios van a tomar sus %
                 var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
 
-                // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
+
+
+                // Los usuarios
                 var customer = _usersRepository.GetUserById(transaction.CustomerId);
+                var parentUser = customer.UserReference;
+                var forSeniorMoney = forUsersAmount*SENIOR_USER_PERCENTAJE;
+                if (parentUser != null)
+                {
+                    if (parentUser.RelationshipType.Description.Equals(MASTER) ||
+                        parentUser.RelationshipType.Description.Equals(SENIOR))
+                    {
+                        parentUser.Cashback += forSeniorMoney;
+                        _usersRepository.UpdateUser(parentUser);
+                    }
+                    var grandParentUser = parentUser.UserReference;
+                    var forMasterMoney = forUsersAmount*MASTER_USER_PERCENTAJE;
+                    if (grandParentUser != null)
+                    {
+                        if (grandParentUser.RelationshipType.Description.Equals(MASTER))
+                        {
+                            grandParentUser.Cashback += forMasterMoney;
+                            _usersRepository.UpdateUser(grandParentUser);
+                        }
+                    }
+                    else
+                    {
+                        _usersRepository.UpdateUser(UpdateSolucionesArUser(forMasterMoney));
+                    }
+                }
+                else
+                {
+                    _usersRepository.UpdateUser(UpdateSolucionesArUser(forUsersAmount));
+                }
+
+                // Calculo del cashback para el usuario que hizo la compra
+                var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
+                customer.Cashback += moneyForRealUser;
+                customer.Points += transaction.Points;
+                _usersRepository.UpdateUser(customer);
+                return true;
+
+
+
+                // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
+                /*
                 var masterUser = AssingMoneyToUser(customer, RelationshipTypesRepository.MASTER_RELATION,
                                                    forUsersAmount, MASTER_USER_PERCENTAJE);
                 _usersRepository.UpdateUser(masterUser);
@@ -93,15 +137,12 @@ namespace SolucionesARWebsite.Business.Logic
                                                    forUsersAmount, SENIOR_USER_PERCENTAJE);
                 _usersRepository.UpdateUser(seniorUser);
 
-                // Calculo del cashback para el usuario que hizo la compra
+                */
 
-                var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
-                customer.Cashback += moneyForRealUser;
-                customer.Points += transaction.Points;
-                _usersRepository.UpdateUser(customer);
-                return true;
+
+
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -192,7 +233,7 @@ namespace SolucionesARWebsite.Business.Logic
 
         #region Private Methods
 
-        /// <summary>
+        /*/// <summary>
         /// 
         /// </summary>
         /// <param name="user"></param>
@@ -213,7 +254,7 @@ namespace SolucionesARWebsite.Business.Logic
 
             var solucionesArUser = UpdateSolucionesArUser(moneyForUser);
             return solucionesArUser;
-        }
+        }*/
 
         /// <summary>
         /// 

@@ -84,9 +84,9 @@ namespace SolucionesARWebsite.Business.Management
             }
 
             if (user.UserReferenceId != null)
-            {
-                UpdateRelationship(user.UserId, (int) user.UserReferenceId,
-                                   editViewModel.RelationshipType.RelationshipTypeId);
+            {//TODO: quitando relations
+               // UpdateRelationship(user.UserId, (int) user.UserReferenceId,//TODO: quitando relations
+                 //                  editViewModel.RelationshipType.RelationshipTypeId);
             }
         }
 
@@ -107,10 +107,10 @@ namespace SolucionesARWebsite.Business.Management
             _usersRepository.EditUser(user);
         }
 
-        private void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)
-        {
-            _usersRepository.UpdateRelationship(userId, userReferenceId, relationshipTypeId);
-        }
+        /*  private void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)
+          {//TODO: quitando relations
+              _usersRepository.UpdateRelationship(userId, userReferenceId, relationshipTypeId);
+          }*/
 
         private User Map(EditViewModel editViewMode)
         {

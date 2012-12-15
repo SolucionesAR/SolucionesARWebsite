@@ -22,7 +22,7 @@ namespace SolucionesARWebsite.Controllers
 
         private readonly CompaniesManagement _companiesManagement;
         private readonly LocationsManagement _locationsManagement;
-        private readonly RelationshipsManagement _relationshipsManagement;
+        //private readonly RelationshipsManagement _relationshipsManagement;
         private readonly RelationshipTypesManagement _relationshipTypesManagement;
         private readonly RolesManagement _rolesManagement;
         private readonly TransactionsManagement _transactionsManagement;
@@ -32,7 +32,7 @@ namespace SolucionesARWebsite.Controllers
         #region Constructors
 
         public UsersController(CompaniesManagement companiesManagement,
-            RelationshipsManagement relationshipsManagement, 
+            //RelationshipsManagement relationshipsManagement, 
             RelationshipTypesManagement relationshipTypesManagement,
             RolesManagement rolesManagement,
             TransactionsManagement transactionsManagement, 
@@ -40,7 +40,7 @@ namespace SolucionesARWebsite.Controllers
             : base(usersManagement)
         {
             _companiesManagement = companiesManagement;
-            _relationshipsManagement = relationshipsManagement;
+           // _relationshipsManagement = relationshipsManagement;
             _relationshipTypesManagement = relationshipTypesManagement;
             _rolesManagement = rolesManagement;
             _transactionsManagement = transactionsManagement;
@@ -120,12 +120,12 @@ namespace SolucionesARWebsite.Controllers
             var userInformation = UsersManagement.GetUser(id);
             var canton = _locationsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
-            var relationshipType =
-                userInformation.UserReferenceId != null
+            var relationshipType = userInformation.RelationshipType; 
+               /* userInformation.UserReferenceId != null
                     ? _relationshipsManagement.GetRelationshipType(userInformation.UserId,
                                                                    (int) userInformation.UserReferenceId) ??
                       new RelationshipType {RelationshipTypeId = 0}
-                    : new RelationshipType {RelationshipTypeId = 0};
+                    : new RelationshipType {RelationshipTypeId = 0};*/
 
             var editViewModel = new EditViewModel
                                     {

@@ -185,7 +185,6 @@
     <Compile Include="Business\Management\DistrictsManagement.cs" />
     <Compile Include="Business\Management\LocationsManagement.cs" />
     <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
-    <Compile Include="Business\Management\RelationshipsManagement.cs" />
     <Compile Include="Business\Management\RolesManagement.cs" />
     <Compile Include="Business\Management\InventoryManagement.cs" />
     <Compile Include="Business\Management\StoresManagement.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
-    <Compile Include="Controllers\RelationshipsController.cs" />
     <Compile Include="Controllers\RelationshipTypesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -211,7 +209,6 @@
     <Compile Include="DataAccess\Interfaces\ITransactionsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRolesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRelationshipTypesRepository.cs" />
-    <Compile Include="DataAccess\Interfaces\IRelationshipsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICantonsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IDistrictsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICompaniesRepository.cs" />
@@ -220,7 +217,6 @@
     <Compile Include="DataAccess\InventoryAccess.cs" />
     <Compile Include="DataAccess\LocationsAccess.cs" />
     <Compile Include="DataAccess\Repositories\ProvincesRepository.cs" />
-    <Compile Include="DataAccess\Repositories\RelationshipsRepository.cs" />
     <Compile Include="DataAccess\Repositories\RelationshipTypesRepository.cs" />
     <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
     <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
@@ -284,8 +280,17 @@
     <Compile Include="Migrations\201211220329040_011.Designer.cs">
       <DependentUpon>201211220329040_011.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201212150547224_012.cs" />
+    <Compile Include="Migrations\201212150547224_012.Designer.cs">
+      <DependentUpon>201212150547224_012.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201212150548176_013.cs" />
+    <Compile Include="Migrations\201212150548176_013.Designer.cs">
+      <DependentUpon>201212150548176_013.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Enumerations\Roles.cs" />
+    <Compile Include="Models\Relationship.cs" />
     <Compile Include="ViewModels\Roles\EditViewModel.cs" />
     <Compile Include="ViewModels\Roles\IndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\BaseReportViewModel.cs" />
@@ -337,7 +342,6 @@
     <Compile Include="ViewModels\Users\IndexViewModel.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DbModel.cs" />
-    <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RelationshipType.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Store.cs" />
@@ -545,27 +549,18 @@
     <EmbeddedResource Include="Migrations\201211220329040_011.resx">
       <DependentUpon>201211220329040_011.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201212150547224_012.resx">
+      <DependentUpon>201212150547224_012.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201212150548176_013.resx">
+      <DependentUpon>201212150548176_013.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Companies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Companies\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Relationships\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Relationships\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Relationships\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Relationships\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Relationships\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\RelationshipTypes\Index.cshtml" />

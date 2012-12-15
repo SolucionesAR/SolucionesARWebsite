@@ -37,7 +37,7 @@ namespace SolucionesARWebsite
             builder.RegisterType<CantonsRepository>().As<ICantonsRepository>().InstancePerHttpRequest();
             builder.RegisterType<DistrictsRepository>().As<IDistrictsRepository>().InstancePerHttpRequest();
             builder.RegisterType<ProvincesRepository>().As<IProvincesRepository>().InstancePerHttpRequest();
-            builder.RegisterType<RelationshipsRepository>().As<IRelationshipsRepository>().InstancePerHttpRequest();
+            // builder.RegisterType<RelationshipsRepository>().As<IRelationshipsRepository>().InstancePerHttpRequest();//TODO: quitando relations
             builder.RegisterType<RelationshipTypesRepository>().As<IRelationshipTypesRepository>().InstancePerHttpRequest();
             builder.RegisterType<RolesRepository>().As<IRolesRepository>().InstancePerHttpRequest();
             builder.RegisterType<TransactionsRepository>().As<ITransactionsRepository>().InstancePerHttpRequest();
@@ -52,7 +52,7 @@ namespace SolucionesARWebsite
             builder.RegisterType<CompaniesManagement>().InstancePerHttpRequest();
             builder.RegisterType<DistrictsManagement>().InstancePerHttpRequest();
             builder.RegisterType<ProvincesManagement>().InstancePerHttpRequest();
-            builder.RegisterType<RelationshipsManagement>().InstancePerHttpRequest();
+            // builder.RegisterType<RelationshipsManagement>().InstancePerHttpRequest();//TODO: quitando relations
             builder.RegisterType<RelationshipTypesManagement>().InstancePerHttpRequest();
             builder.RegisterType<RolesManagement>().InstancePerHttpRequest();
             builder.RegisterType<TransactionsManagement>().InstancePerHttpRequest();

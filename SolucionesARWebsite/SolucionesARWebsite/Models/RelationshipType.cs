@@ -30,6 +30,12 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// The list of relationships associated
         /// </summary>
-        public virtual ICollection<Relationship> Relationships { get; set; }
+        //public virtual ICollection<Relationship> Relationships { get; set; }//TODO: quitando relations
+
+
+        /// <summary>
+        /// The list of relationships associated
+        /// </summary>
+        public virtual ICollection<User> Users { get; set; }//TODO: quitando relations
     }
 }

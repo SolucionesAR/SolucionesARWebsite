@@ -54,7 +54,7 @@ namespace SolucionesARWebsite.Models
         /// <summary>
         /// The Relationship Type 
         /// </summary>
-        public virtual RelationshipType RelationshipType { get; set; }
+       // public virtual RelationshipType RelationshipType { get; set; }
 
         /// <summary>
         /// The RelationshipType Id
