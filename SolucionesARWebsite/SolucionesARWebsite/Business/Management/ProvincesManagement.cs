@@ -83,6 +83,12 @@ namespace SolucionesARWebsite.Business.Management
             }
         }
 
+        public Province GetProvinceByCanton(int cantonId)
+        {
+            var province = _provincesRepository.GetProvinceByCanton(cantonId);
+            return province;
+        }
+
         #endregion
 
         #region Private Methods

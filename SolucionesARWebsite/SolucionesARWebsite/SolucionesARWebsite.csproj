@@ -314,7 +314,6 @@
     <Compile Include="ViewModels\Companies\EditViewModel.cs" />
     <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ViewModels\Forms\Stores\EditFormModel.cs" />
-    <Compile Include="ViewModels\Forms\Transactions\EditFormModel.cs" />
     <Compile Include="ViewModels\Lists\RelationshipTypeList.cs" />
     <Compile Include="ViewModels\Users\EditViewModel.cs" />
     <Compile Include="ViewModels\Lists\TransactionsList.cs" />
@@ -335,9 +334,9 @@
     <Compile Include="ViewModels\Views\RelationshipTypes\IndexViewModel.cs" />
     <Compile Include="ViewModels\Views\Stores\EditViewModel.cs" />
     <Compile Include="ViewModels\Views\Stores\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Views\Transactions\DetailsViewModel.cs" />
-    <Compile Include="ViewModels\Views\Transactions\EditViewModel.cs" />
-    <Compile Include="ViewModels\Views\Transactions\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Transactions\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Transactions\EditViewModel.cs" />
+    <Compile Include="ViewModels\Transactions\IndexViewModel.cs" />
     <Compile Include="Models\Canton.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\GlobalParameter.cs" />
@@ -678,7 +677,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4012</DevelopmentServerPort>
+          <DevelopmentServerPort>3503</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

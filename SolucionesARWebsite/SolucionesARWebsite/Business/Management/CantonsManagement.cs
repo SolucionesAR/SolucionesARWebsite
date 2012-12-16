@@ -89,6 +89,11 @@ namespace SolucionesARWebsite.Business.Management
             }
         }
 
+        public Canton GetCantonByDistrict(int districtId)
+        {
+            var canton = _cantonsRepository.GetCantonByDistrict(districtId);
+            return canton;
+        }
         #endregion
 
         #region Private Methods

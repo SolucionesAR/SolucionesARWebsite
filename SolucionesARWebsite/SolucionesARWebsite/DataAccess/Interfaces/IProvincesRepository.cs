@@ -14,5 +14,7 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
         List<Province> GetProvinces();
 
         Province GetProvince(int provinceId);
+
+        Province GetProvinceByCanton(int cantonId);
     }
 }

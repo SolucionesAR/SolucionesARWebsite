@@ -147,7 +147,7 @@ namespace SolucionesARWebsite.ViewModels.Users
         /// </summary>
         [Display(Name = "Referente", Prompt = "Codigo del Referente")]
         [Remote("IsValidParentUser", "Users", ErrorMessage = "El usuario no ingresado no cumple con los requisitos")]
-        public string ParentUser { get; set; }
+        public string UserReference { get; set; }
 
         /// <summary>
         /// The Rol id

@@ -57,7 +57,7 @@ namespace SolucionesARWebsite.DataAccess.Repositories
 
         public List<District> GetDistricts(int cantonId)
         {
-            var districts = _databaseModel.Districts.Where(d => d.CantonId.Equals(cantonId)).ToList();
+            var districts = _databaseModel.Districts.Where(d => d.CantonId.Equals(cantonId  )).ToList();
             return districts;
         }
 

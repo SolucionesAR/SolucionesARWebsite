@@ -1,7 +1,7 @@
-﻿@using SolucionesARWebsite.ViewModels.Views.Transactions
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite.ViewModels.Transactions
 
 @model IndexViewModel
-
 
 @{
     ViewBag.Title = "SolucionesAR | Ventas";
@@ -13,6 +13,18 @@
 
 @section ListTitle {
     VENTAS
+}
+
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
 }
 
 @section ListActions {
@@ -52,7 +64,7 @@
                     <th></th>
                 </tr>
            
-                @foreach (var item in Model.TransactionsList.Items)
+                @foreach (var item in Model.PagedItems)
                 {
                     <tr>
                         <td>
@@ -85,15 +97,4 @@
         </div>
     </div>
      
-}
-
-@section ListPaging {
-    @{
-        /*
-        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
-        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
-        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
-        @ListHelper.Paging(Url, Model.UsersList)
-        */
-    }
 }

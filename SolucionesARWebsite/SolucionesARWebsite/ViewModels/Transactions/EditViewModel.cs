@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.ViewModels.Views.Transactions
+namespace SolucionesARWebsite.ViewModels.Transactions
 {
     public class EditViewModel : BaseViewModel
     {
@@ -28,7 +27,6 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
         /// </summary>
         [Display(Name = "Monto*", Prompt = "000.00")]
         public double Amount { get; set; }
-
 
         /// <summary>
         /// 
@@ -60,8 +58,7 @@ namespace SolucionesARWebsite.ViewModels.Views.Transactions
 
         [Display(Name = "Puntos*", Prompt = "50")]
         public int Points { get; set; }
-
-
+        
         #endregion
 
         #region Private Members

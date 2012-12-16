@@ -1,18 +1,16 @@
-﻿using SolucionesARWebsite.ViewModels.Lists;
+﻿using PagedList;
+using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.ViewModels.Views.Transactions
+namespace SolucionesARWebsite.ViewModels.Transactions
 {
-    public class IndexViewModel : BaseViewModel
+    public class IndexViewModel : BaseListModel
     {
         #region Constants
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Displayed items
-        /// </summary>
-        public TransactionsList TransactionsList { get; set; }
+        public IPagedList<Transaction> PagedItems { get; set; }
 
         #endregion
 

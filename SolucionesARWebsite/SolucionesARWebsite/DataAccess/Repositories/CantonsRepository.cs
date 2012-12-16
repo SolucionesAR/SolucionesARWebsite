@@ -67,6 +67,17 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return cantons;
         }
 
+        public Canton GetCantonByDistrict(int districtId)
+        {
+            var district = _databaseModel.Districts.FirstOrDefault(c => c.DistrictId.Equals(districtId));
+            if (district != null)
+            {
+                var canton = district.Canton;
+                return canton;
+            }
+            return null;
+        }
+
         #endregion
 
         #region Private Methods

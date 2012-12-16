@@ -82,12 +82,6 @@ namespace SolucionesARWebsite.Business.Management
             {
                 EditUser(user);
             }
-
-            if (user.UserReferenceId != null)
-            {//TODO: quitando relations
-               // UpdateRelationship(user.UserId, (int) user.UserReferenceId,//TODO: quitando relations
-                 //                  editViewModel.RelationshipType.RelationshipTypeId);
-            }
         }
 
         #endregion
@@ -106,48 +100,40 @@ namespace SolucionesARWebsite.Business.Management
             user.UpdatedAt = DateTime.UtcNow;
             _usersRepository.EditUser(user);
         }
-
-        /*  private void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)
-          {//TODO: quitando relations
-              _usersRepository.UpdateRelationship(userId, userReferenceId, relationshipTypeId);
-          }*/
-
+        
         private User Map(EditViewModel editViewMode)
         {
             var user = new User
                            {
                                Address1 = editViewMode.Address1,
                                Address2 = editViewMode.Address2,
-                               IdentificationTypeId = editViewMode.IdentificationType.IdentificationTypeId,
                                Cashback = Convert.ToDouble(editViewMode.Cashback),
+                               CedNumber = Convert.ToInt32(editViewMode.IdentificationNumber),
+                               Cellphone = editViewMode.Cellphone,
                                CompanyId = editViewMode.Company.CompanyId,
+                               DistrictId = editViewMode.DistrictId,
                                Dob = editViewMode.Dob,
                                Email = editViewMode.Email,
                                Enabled = editViewMode.Enabled,
                                FName = editViewMode.FirstName,
+                               GeneratedCode = editViewMode.GeneratedCode,
                                LName1 = editViewMode.LastName1,
                                LName2 = editViewMode.LastName2,
-                               GeneratedCode = editViewMode.GeneratedCode,
                                Nationality = editViewMode.Nationality,
+                               IdentificationTypeId = editViewMode.IdentificationType.IdentificationTypeId,
                                RolId = editViewMode.UserRol.RolId,
-                               UserId = editViewMode.UserId,
                                //tenemos que eliminar los guiones
-                               CedNumber = Convert.ToInt32(editViewMode.IdentificationNumber),
-                               Cellphone = editViewMode.Cellphone,
                                PhoneNumber = editViewMode.PhoneNumber,
-                               DistrictId = editViewMode.DistrictId,
                                RelationshipTypeId = editViewMode.RelationshipType.RelationshipTypeId,
+                               UserId = editViewMode.UserId,
+                               UserReferenceId = editViewMode.UserId,
                            };
 
-            if (!string.IsNullOrEmpty(editViewMode.ParentUser))
+            if (!string.IsNullOrEmpty(editViewMode.UserReference))
             {
-                var parentUser = _usersRepository.GetUserByGeneratedCode(editViewMode.ParentUser);
-                if(parentUser != null)
-                {
-                    user.UserReferenceId = parentUser.UserId;
-                }
+                var parentUser = _usersRepository.GetUserByGeneratedCode(editViewMode.UserReference);
+                user.UserReferenceId = parentUser != null ? parentUser.UserId : 0;
             }
-
             return user;
         }
 

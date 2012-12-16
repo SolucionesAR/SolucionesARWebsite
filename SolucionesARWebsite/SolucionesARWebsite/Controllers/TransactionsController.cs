@@ -2,15 +2,14 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
-using SolucionesARWebsite.ViewModels.Forms.Transactions;
-using SolucionesARWebsite.ViewModels.Lists;
-using SolucionesARWebsite.ViewModels.Views.Transactions;
+using SolucionesARWebsite.ViewModels.Transactions;
 
 namespace SolucionesARWebsite.Controllers
 {
-    public class TransactionsController : Controller
+    public class TransactionsController : BaseController
     {
         #region Private Members
 
@@ -23,6 +22,7 @@ namespace SolucionesARWebsite.Controllers
         #region Constructors
 
         public TransactionsController(UsersManagement usersManagement, TransactionsManagement transactionsManagement)
+            : base(usersManagement)
         {
             _transactionsManagement = transactionsManagement;
             _usersManagement = usersManagement;
@@ -33,15 +33,13 @@ namespace SolucionesARWebsite.Controllers
 
         #region Public Actions
 
-        public ActionResult Index()
+        public ActionResult Index(IndexViewModel indexViewModel)
         {
-            var indexViewModel = new IndexViewModel
-                                     {
-                                         TransactionsList = new TransactionsList
-                                                                {
-                                                                    Items = _transactionsManagement.GetTransactions(),
-                                                                }
-                                     };
+            var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
+            //missing filtering
+            var results = _transactionsManagement.GetTransactions();
+            indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
+           
             return View(indexViewModel);
         }
 
@@ -102,9 +100,8 @@ namespace SolucionesARWebsite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(EditFormModel editFormModel)
+        public ActionResult Save(EditViewModel editFormModel)
         {
-            var editViewModel = ModelViewFromForm(editFormModel);
             if (ModelState.IsValid)
             {
                 Transaction transaction;
@@ -135,12 +132,11 @@ namespace SolucionesARWebsite.Controllers
                     _transactionsManagement.UpdateTransaction();
                 }
             }
-            editViewModel.CustomersList = _usersManagement.GetUsersList();
-            editViewModel.StoresList = _storesManagement.GetStores();
-            return View("Edit", editViewModel);
+            editFormModel.CustomersList = _usersManagement.GetUsersList();
+            editFormModel.StoresList = _storesManagement.GetStores();
+            return View("Edit", editFormModel);
         }
-
-
+        
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file, string sheetName)
         {
@@ -162,27 +158,12 @@ namespace SolucionesARWebsite.Controllers
                 return RedirectToAction(result ? "Index" : "FileUpload");
             }
             //TODO: aqui necesitamos devolver la misma vista pero con un error...
-
             return RedirectToAction("FileUpload");
         }
 
         #endregion
 
         #region Private Methods
-
-        private static EditViewModel ModelViewFromForm(EditFormModel editFormModel)
-        {
-            return new EditViewModel
-                       {
-                           TransactionId = editFormModel.TransactionId,
-                           Amount = editFormModel.Amount,
-                           BillBarCode = editFormModel.BillBarCode,
-                           Customer = editFormModel.Customer,
-                           Points = editFormModel.Points,
-                           Store = editFormModel.Store
-                       };
-        }
-
         #endregion
     }
 }

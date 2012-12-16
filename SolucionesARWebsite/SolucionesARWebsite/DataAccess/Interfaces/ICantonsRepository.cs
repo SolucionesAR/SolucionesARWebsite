@@ -17,5 +17,7 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
         List<Canton> GetCantons(int provinceId);
 
         Canton GetCanton(int cantonId);
+        
+        Canton GetCantonByDistrict(int districtId);
     }
 }

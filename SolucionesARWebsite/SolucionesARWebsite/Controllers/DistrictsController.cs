@@ -87,7 +87,7 @@ namespace SolucionesARWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [HttpGet]
         public JsonResult GetDistrictsByCanton(string cantonId)
         {
             var districtsList = _districtsManagement.GetDistricts(Convert.ToInt32(cantonId));

@@ -81,7 +81,7 @@ namespace SolucionesARWebsite.Controllers
             return RedirectToAction("Index");
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [HttpGet]
         public JsonResult GetCantonsByProvice(string provinceId)
         {
             var cantonsList = _cantonsManagement.GetCantons(Convert.ToInt32(provinceId));

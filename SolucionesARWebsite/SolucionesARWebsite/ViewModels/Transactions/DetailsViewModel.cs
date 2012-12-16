@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using SolucionesARWebsite.Models;
+﻿using SolucionesARWebsite.Models;
 
-namespace SolucionesARWebsite.ViewModels.Forms.Transactions
+namespace SolucionesARWebsite.ViewModels.Transactions
 {
-    public class EditFormModel
+    public class DetailsViewModel : BaseViewModel
     {
         #region Constants
         #endregion
 
         #region Properties
+
         /// <summary>
         /// 
         /// </summary>
@@ -28,35 +24,21 @@ namespace SolucionesARWebsite.ViewModels.Forms.Transactions
         /// </summary>
         public double Amount { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>
-        [Required]
         public Store Store { get; set; }
 
 
         /// <summary>
         /// The one who sales in the store
         /// </summary>
-        // [Required]
-        // [DisplayName("Dependiente")]
-        // public User SalesMan { get; set; }
+        //public User SalesMan { get; set; }
 
         /// <summary>
         /// The one that makes the purchase
         /// </summary>
-        [Required]
         public User Customer { get; set; }
-
-        public List<User> CustomersList { get; set; }
-
-        // public List<User> ListSalesMan { get; set; }
-
-        public List<Store> StoresList { get; set; }
-
-        public int Points { get; set; }
-
 
         #endregion
 

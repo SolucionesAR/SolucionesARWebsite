@@ -61,6 +61,17 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return provinces;
         }
 
+        public Province GetProvinceByCanton(int cantonId)
+        {
+            var canton = _databaseModel.Cantons.FirstOrDefault(c => c.CantonId.Equals(cantonId));
+            if (canton != null)
+            {
+                var province = canton.Province;
+                return province;
+            }
+            return null;
+        }
+
         #endregion
 
         #region Private Methods

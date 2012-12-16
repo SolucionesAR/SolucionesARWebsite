@@ -8,7 +8,6 @@ namespace SolucionesARWebsite.Business.Management
 {
     public class TransactionsManagement
     {
-
         #region Constants
 
         private const int TOP_LAST_TRANSACTIONS = 10;

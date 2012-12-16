@@ -23,7 +23,6 @@ namespace SolucionesARWebsite.Controllers
         private readonly CantonsManagement _cantonsManagement;
         private readonly CompaniesManagement _companiesManagement;
         private readonly DistrictsManagement _districtsManagement;
-        private readonly LocationsManagement _locationsManagement;
         private readonly ProvincesManagement _provincesManagement;
         private readonly RelationshipTypesManagement _relationshipTypesManagement;
         private readonly RolesManagement _rolesManagement;
@@ -47,8 +46,6 @@ namespace SolucionesARWebsite.Controllers
             _relationshipTypesManagement = relationshipTypesManagement;
             _rolesManagement = rolesManagement;
             _transactionsManagement = transactionsManagement;
-
-            _locationsManagement = new LocationsManagement();
         }
 
         #endregion
@@ -109,6 +106,7 @@ namespace SolucionesARWebsite.Controllers
                                         RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
                                         RolesList = _rolesManagement.GetRoles(SecurityContext),
                                         UserRol = new Rol(),
+                                        UserReference = string.Empty,
                                     };
 
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
@@ -121,9 +119,8 @@ namespace SolucionesARWebsite.Controllers
         public ActionResult Edit(int id)
         {
             var userInformation = UsersManagement.GetUser(id);
-            var canton = _locationsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
-            var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
-            var relationshipType = userInformation.RelationshipType;
+            var canton = _cantonsManagement.GetCantonByDistrict(userInformation.District.DistrictId);
+            var province = _provincesManagement.GetProvinceByCanton(canton.CantonId);
 
             var editViewModel = new EditViewModel
                                     {
@@ -148,17 +145,17 @@ namespace SolucionesARWebsite.Controllers
                                         LastName1 = userInformation.LName1,
                                         LastName2 = userInformation.LName2,
                                         Nationality = userInformation.Nationality,
-                                        ParentUser =
-                                            userInformation.UserReference != null
-                                                ? userInformation.UserReference.GeneratedCode
-                                                : string.Empty,
                                         PhoneNumber = userInformation.PhoneNumber,
                                         ProvinceId = province.ProvinceId,
-                                        RelationshipType = relationshipType,
+                                        RelationshipType = userInformation.RelationshipType,
                                         RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
                                         RolesList = _rolesManagement.GetRoles(SecurityContext),
                                         UserId = userInformation.UserId,
                                         UserRol = userInformation.UserRol,
+                                        UserReference =
+                                            userInformation.UserReference != null
+                                                ? userInformation.UserReference.GeneratedCode
+                                                : string.Empty,
                                     };
 
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
