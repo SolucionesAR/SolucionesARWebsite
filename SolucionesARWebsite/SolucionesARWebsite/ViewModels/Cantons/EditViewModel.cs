@@ -13,7 +13,7 @@ namespace SolucionesARWebsite.ViewModels.Cantons
         public int CantonId { get; set; }
 
         [Required]
-        [Display(Name = "Id de la Provincia*")]
+        [Display(Name = "Provincia*")]
         public int ProvinceId { get; set; }
 
         [Required]

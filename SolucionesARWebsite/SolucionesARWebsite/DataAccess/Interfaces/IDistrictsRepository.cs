@@ -13,6 +13,8 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
 
         List<District> GetDistricts();
 
+        List<District> GetDistricts(int cantonId);
+
         District GetDistrict(int districtId);
     }
 }

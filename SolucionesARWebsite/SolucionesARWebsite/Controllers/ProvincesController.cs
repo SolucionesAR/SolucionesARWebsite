@@ -69,7 +69,7 @@ namespace SolucionesARWebsite.Controllers
             {
                 _cantonsManagement.Save(editFormModel);
             }
-            return View("Edit", editFormModel);
+            return RedirectToAction("Index");
         }
 
         #endregion

@@ -135,7 +135,7 @@ namespace SolucionesARWebsite.Business.Management
                                CedNumber = Convert.ToInt32(editViewMode.IdentificationNumber),
                                Cellphone = editViewMode.Cellphone,
                                PhoneNumber = editViewMode.PhoneNumber,
-                               DistrictId = editViewMode.District.DistrictId,
+                               DistrictId = editViewMode.DistrictId,
                                RelationshipTypeId = editViewMode.RelationshipType.RelationshipTypeId,
                            };
 

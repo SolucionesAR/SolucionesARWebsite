@@ -43,6 +43,11 @@ namespace SolucionesARWebsite.Business.Management
             return _districtsRepository.GetDistricts();
         }
 
+        public List<District> GetDistricts(int cantonId)
+        {
+            return _districtsRepository.GetDistricts(cantonId);
+        }
+
         public List<District> GetDistricts(SecurityContext securityContext)
         {
             var companiesList = new List<District>();

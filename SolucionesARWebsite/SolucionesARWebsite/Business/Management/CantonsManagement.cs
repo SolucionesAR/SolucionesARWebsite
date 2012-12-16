@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SolucionesARWebsite.DataAccess.Interfaces;
 using SolucionesARWebsite.DataObjects;
 using SolucionesARWebsite.Models;
@@ -40,6 +41,11 @@ namespace SolucionesARWebsite.Business.Management
         public List<Canton> GetCantons()
         {
             return _cantonsRepository.GetCantons();
+        }
+
+        public List<Canton> GetCantons(int provinceId)
+        {
+            return _cantonsRepository.GetCantons(provinceId);
         }
 
         public List<Canton> GetCantons(SecurityContext securityContext)

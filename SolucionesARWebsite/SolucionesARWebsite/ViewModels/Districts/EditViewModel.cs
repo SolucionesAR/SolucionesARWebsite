@@ -25,7 +25,13 @@ namespace SolucionesARWebsite.ViewModels.Districts
         /// The canton id
         /// </summary>
         [Required]
-        [Display(Name = "Id del Canton*", Prompt = "Canton")]
+        [Display(Name = "Provincia*", Prompt = "Provincia")]
+        public int ProvinceId { get; set; }
+        /// <summary>
+        /// The canton id
+        /// </summary>
+        [Required]
+        [Display(Name = "Canton*", Prompt = "Canton")]
         public int CantonId { get; set; }
         
         #endregion

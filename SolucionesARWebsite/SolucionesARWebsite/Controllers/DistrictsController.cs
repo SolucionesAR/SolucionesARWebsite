@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite.Business.Management;
+using SolucionesARWebsite.Enumerations;
 using SolucionesARWebsite.ViewModels.Districts;
 
 namespace SolucionesARWebsite.Controllers
@@ -15,16 +18,20 @@ namespace SolucionesARWebsite.Controllers
 
         #region Private Members
 
+        private readonly CantonsManagement _cantonsManagement;
         private readonly DistrictsManagement _districtsManagement;
+        private readonly ProvincesManagement _provincesManagement;
 
         #endregion
 
         #region Constructors
 
-        public DistrictsController(DistrictsManagement districtsManagement, UsersManagement usersManagement)
+        public DistrictsController(CantonsManagement cantonsManagement, DistrictsManagement districtsManagement, ProvincesManagement provincesManagement, UsersManagement usersManagement)
             : base(usersManagement)
         {
+            _cantonsManagement = cantonsManagement;
             _districtsManagement = districtsManagement;
+            _provincesManagement = provincesManagement;
         }
 
         #endregion
@@ -48,7 +55,10 @@ namespace SolucionesARWebsite.Controllers
                                         DistrictId = 0,
                                         DistrictName = string.Empty,
                                         CantonId = 0,
+                                        ProvinceId = 1,
                                     };
+            ViewBag.ProvincesList = _provincesManagement.GetProvinces();
+            ViewBag.CantonsList = _cantonsManagement.GetCantons((int)Constants.DefaultProvince);
             return View("Edit", editViewModel);
         }
 
@@ -57,10 +67,13 @@ namespace SolucionesARWebsite.Controllers
             var districtInformation = _districtsManagement.GetDistrict(id);
             var editViewModel = new EditViewModel
                                     {
-                                        DistrictId = districtInformation.DistrictId,
                                         CantonId = districtInformation.CantonId,
+                                        DistrictId = districtInformation.DistrictId,
                                         DistrictName = districtInformation.Name,
+                                        ProvinceId = districtInformation.Canton.ProvinceId
                                     };
+            ViewBag.ProvincesList = _provincesManagement.GetProvinces();
+            ViewBag.CantonsList = _cantonsManagement.GetCantons(editViewModel.ProvinceId);
             return View(editViewModel);
         }
 
@@ -71,7 +84,21 @@ namespace SolucionesARWebsite.Controllers
             {
                 _districtsManagement.Save(editFormModel);
             }
-            return View("Edit", editFormModel);
+            return RedirectToAction("Index");
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult GetDistrictsByCanton(string cantonId)
+        {
+            var districtsList = _districtsManagement.GetDistricts(Convert.ToInt32(cantonId));
+
+            var modelData = districtsList.Select(c => new SelectListItem
+                                                      {
+                                                          Text = c.Name,
+                                                          Value = Convert.ToString(c.CantonId),
+                                                      });
+
+            return Json(modelData, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

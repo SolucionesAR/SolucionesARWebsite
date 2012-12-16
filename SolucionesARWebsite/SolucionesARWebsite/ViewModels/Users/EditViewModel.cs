@@ -102,36 +102,21 @@ namespace SolucionesARWebsite.ViewModels.Users
         /// </summary>
         [Required]
         [Display(Name = "Distrito", Prompt = "Distrito")]
-        public District District { get; set; }
+        public int DistrictId { get; set; }
 
         /// <summary>
         /// The canton
         /// </summary>
         [Required]
         [Display(Name = "Cantón", Prompt = "Cantón")]
-        public Canton Canton { get; set; }
+        public int CantonId { get; set; }
 
         /// <summary>
         /// The province
         /// </summary>
         [Required]
         [Display(Name = "Provincia", Prompt = "Provincia")]
-        public Province Province { get; set; }
-
-        /// <summary>
-        /// The districts list
-        /// </summary>
-        public List<District> DistrictsList { get; set; }
-
-        /// <summary>
-        /// The cities list
-        /// </summary>
-        public List<Canton> CantonsList { get; set; }
-
-        /// <summary>
-        /// The state
-        /// </summary>
-        public List<Province> ProvincesList { get; set; }
+        public int ProvinceId { get; set; }
 
         /// <summary>
         /// The users phone number

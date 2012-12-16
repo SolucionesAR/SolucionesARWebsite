@@ -30,71 +30,109 @@
         <h1>NUEVO USUARIO</h1>
     }
 
-    <div class="entry jspScrollable">
-        @Html.ValidationSummary()
-        <p class="note">Favor complete el siguiente formulario</p>
-        <div class="jspContainer">
-            <div class="jspPane">
-                @using (Html.BeginForm("Save", "Users"))
-                {
-                    @Html.HiddenFor(model => model.UserId)
-                    @Html.HiddenFor(model => model.Cashback)
-                    <fieldset>
-                        <span>
-                            @Html.LabelFor(model => model.IdentificationType) <br/>
-                            @Html.DropDownListForIdenficationlList(model => model.IdentificationType.IdentificationTypeId)
-                        </span>
-                        @Html.ValidationMessageFor(model => model.IdentificationNumber)
-                        @Html.EditorFor(model => model.IdentificationNumber)
-                        @Html.EditorFor(model => model.Nationality)
-                    </fieldset>
-                    <fieldset>
-                        @Html.EditorFor(model => model.LastName1)
-                        @Html.EditorFor(model => model.LastName2)
-                        @Html.EditorFor(model => model.FirstName)
-                        @Html.EditorFor(model => model.Enabled)
-                    </fieldset>
-                    <fieldset>
-                        @Html.EditorFor(model => model.Dob)
-                        @Html.EditorFor(model => model.PhoneNumber)
-                        @Html.EditorFor(model => model.Cellphone)
-                        @Html.EditorFor(model => model.Email)
-                    </fieldset>
-                    <fieldset>
-                        <span>
-                            @Html.LabelFor(model => model.Province) <br/>
-                            @Html.DropDownListForProviceslList(model => model.Province.ProvinceId)
-                        </span>
-                        <span>
-                            @Html.LabelFor(model => model.Canton) <br/>
-                            @Html.DropDownListForCantonslList(model => model.Canton.CantonId)
-                        </span>
-                        <span>
-                            @Html.LabelFor(model => model.District) <br/>
-                            @Html.DropDownListForDistrictslList(model => model.District.DistrictId)
-                        </span>
-                        @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
-                    </fieldset>
-                    <fieldset>
-                        @Html.EditorFor(model => model.ParentUser)
-                        <span>
-                            @Html.LabelFor(model => model.RelationshipType) <br/>
-                            @Html.DropDownListForRelationshipTypeslList(model => model.RelationshipType.RelationshipTypeId)
-                        </span>
-                        <span>
-                            @Html.LabelFor(model => model.UserRol) <br/>
-                            @Html.DropDownListForRolesList(model => model.UserRol.RolId)
-                        </span>
-                        <span>
-                            @Html.LabelFor(model => model.Company) <br/>
-                            @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
-                        </span>
+<div class="entry jspScrollable">
+    @Html.ValidationSummary()
+    <p class="note">Favor complete el siguiente formulario</p>
+    <div class="jspContainer">
+        <div class="jspPane">
+            @using (Html.BeginForm("Save", "Users"))
+            {
+                @Html.HiddenFor(model => model.UserId)
+                @Html.HiddenFor(model => model.Cashback)
+                <fieldset>
+                    <span>
+                        @Html.LabelFor(model => model.IdentificationType) <br/>
+                        @Html.DropDownListForIdenficationlList(model => model.IdentificationType.IdentificationTypeId)
+                    </span>
+                    @Html.ValidationMessageFor(model => model.IdentificationNumber)
+                    @Html.EditorFor(model => model.IdentificationNumber)
+                    @Html.EditorFor(model => model.Nationality)
+                </fieldset>
+                <fieldset>
+                    @Html.EditorFor(model => model.LastName1)
+                    @Html.EditorFor(model => model.LastName2)
+                    @Html.EditorFor(model => model.FirstName)
+                    @Html.EditorFor(model => model.Enabled)
+                </fieldset>
+                <fieldset>
+                    @Html.EditorFor(model => model.Dob)
+                    @Html.EditorFor(model => model.PhoneNumber)
+                    @Html.EditorFor(model => model.Cellphone)
+                    @Html.EditorFor(model => model.Email)
+                </fieldset>
+                <fieldset>
+                    <span>
+                        @Html.LabelFor(model => model.ProvinceId) <br/>
+                        @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
+                    </span>
+                    <span>
+                        @Html.LabelFor(model => model.CantonId) <br/>
+                        @Html.DropDownListForCantonslList(ViewBag.CantonsList as System.Collections.IEnumerable, model => model.CantonId)
+                    </span>
+                    <span>
+                        @Html.LabelFor(model => model.DistrictId) <br/>
+                        @Html.DropDownListForCantonslList(ViewBag.DistrictsList as System.Collections.IEnumerable, model => model.DistrictId)
+                    </span>
+                    @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
+                </fieldset>
+                <fieldset>
+                    @Html.EditorFor(model => model.ParentUser)
+                    <span>
+                        @Html.LabelFor(model => model.RelationshipType) <br/>
+                        @Html.DropDownListForRelationshipTypeslList(model => model.RelationshipType.RelationshipTypeId)
+                    </span>
+                    <span>
+                        @Html.LabelFor(model => model.UserRol) <br/>
+                        @Html.DropDownListForRolesList(model => model.UserRol.RolId)
+                    </span>
+                    <span>
+                        @Html.LabelFor(model => model.Company) <br/>
+                        @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
+                    </span>
 
-                    </fieldset>
+                </fieldset>
                             
-                    <input name="submit" type="submit" value="Guardar">
-                }
-            </div>
+                <input name="submit" type="submit" value="Guardar">
+            }
         </div>
     </div>
+</div>
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ProvinceId").change(function () {
+            var provinceId = $(this).val();
+            $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
+                function (result) {
+                    var select = $("#CantonId");
+                    select.empty();
+                    $.each(result, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                    updateDistricts(result[0].Value);
+                });
+        });
+        $("#CantonId").change(function () {
+            var cantonId = $(this).val();
+            updateDistricts(cantonId);
+        });
+    });
+    function updateDistricts(cantonId) {
+        $.getJSON("/Districts/GetDistrictsByCanton", { cantonId: cantonId },
+            function(result) {
+                var select = $("#DistrictId");
+                select.empty();
+                $.each(result, function(index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.Value,
+                        text: itemData.Text
+                    }));
+                });
+            });
+    }
+</script>
 }
+

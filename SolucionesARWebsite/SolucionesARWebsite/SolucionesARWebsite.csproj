@@ -233,6 +233,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CantonsEditHelper.cs" />
+    <Compile Include="Helpers\DistrictsEditHelper.cs" />
     <Compile Include="Helpers\ReportsEditHelper.cs" />
     <Compile Include="Helpers\StoresEditHelper.cs" />
     <Compile Include="Helpers\TransactionsEditHelper.cs" />

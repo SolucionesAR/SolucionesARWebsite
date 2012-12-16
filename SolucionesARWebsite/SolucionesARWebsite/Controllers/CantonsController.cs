@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite.Business.Management;
 using SolucionesARWebsite.Models;
@@ -17,15 +19,17 @@ namespace SolucionesARWebsite.Controllers
         #region Private Members
 
         private readonly CantonsManagement _cantonsManagement;
+        private readonly ProvincesManagement _provincesManagement;
 
         #endregion
 
         #region Constructors
 
-        public CantonsController(CantonsManagement cantonsManagement, UsersManagement usersManagement)
+        public CantonsController(CantonsManagement cantonsManagement, ProvincesManagement provincesManagement, UsersManagement usersManagement)
             : base(usersManagement)
         {
             _cantonsManagement = cantonsManagement;
+            _provincesManagement = provincesManagement;
         }
 
         #endregion
@@ -48,8 +52,9 @@ namespace SolucionesARWebsite.Controllers
                                     {
                                         CantonId = 0,
                                         CantonName = string.Empty,
-                                        ProvinceId = 0,
+                                        ProvinceId = 1,
                                     };
+            ViewBag.ProvincesList = _provincesManagement.GetProvinces();
             return View("Edit", editViewModel);
         }
 
@@ -60,8 +65,9 @@ namespace SolucionesARWebsite.Controllers
                                     {
                                         CantonId = cantonInformation.CantonId,
                                         CantonName = cantonInformation.Name,
-                                        ProvinceId = cantonInformation.ProvinceId,
+                                        ProvinceId = cantonInformation.Province.ProvinceId,
                                     };
+            ViewBag.ProvincesList = _provincesManagement.GetProvinces();
             return View(editViewModel);
         }
 
@@ -72,7 +78,21 @@ namespace SolucionesARWebsite.Controllers
             {
                 _cantonsManagement.Save(editFormModel);
             }
-            return View("Edit", editFormModel);
+            return RedirectToAction("Index");
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult GetCantonsByProvice(string provinceId)
+        {
+            var cantonsList = _cantonsManagement.GetCantons(Convert.ToInt32(provinceId));
+
+            var modelData = cantonsList.Select(c => new SelectListItem
+                                                        {
+                                                            Text = c.Name,
+                                                            Value = Convert.ToString(c.CantonId),
+                                                        });
+
+            return Json(modelData, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

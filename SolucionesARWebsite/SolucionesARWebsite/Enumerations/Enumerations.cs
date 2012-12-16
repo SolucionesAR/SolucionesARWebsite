@@ -46,6 +46,12 @@ namespace SolucionesARWebsite.Enumerations
 
     public enum Constants
     {
+        [Value("DefaultProvince")]
+        DefaultProvince = 1,
+        [Value("DefaultCanton")]
+        DefaultCanton = 1,
+        [Value("DefaultDistricts")]
+        DefaultDistrict = 1,
         [Value("UsuarioSolucionesAr")]
         SolucionesArUser = 22
     }

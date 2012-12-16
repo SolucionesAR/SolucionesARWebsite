@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SolucionesARWebsite.Models;
 
 namespace SolucionesARWebsite.DataAccess.Interfaces
@@ -12,6 +13,8 @@ namespace SolucionesARWebsite.DataAccess.Interfaces
         List<Canton> GetAllCantons();
 
         List<Canton> GetCantons();
+
+        List<Canton> GetCantons(int provinceId);
 
         Canton GetCanton(int cantonId);
     }

@@ -55,6 +55,12 @@ namespace SolucionesARWebsite.DataAccess.Repositories
             return cantons;
         }
 
+        public List<Canton> GetCantons(int provinceId)
+        {
+            var cantons = _databaseModel.Cantons.Where(c => c.ProvinceId.Equals(provinceId)).ToList();
+            return cantons;
+        }
+
         public Canton GetCanton(int cantonId)
         {
             var cantons = _databaseModel.Cantons.First(d => d.CantonId.Equals(cantonId));
