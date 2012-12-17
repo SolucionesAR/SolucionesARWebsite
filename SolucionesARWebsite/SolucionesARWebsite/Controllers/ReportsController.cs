@@ -258,7 +258,7 @@ namespace SolucionesARWebsite.Controllers
                                 Points = x.Points,
                                 CustomerCode = x.Customer.GeneratedCode,
                                 CustomerName = x.Customer.FName + " " + x.Customer.LName1 + " " + x.Customer.LName2,
-                                CreatetedAt = x.CreatetedAt,
+                                CreatetedAt = x.CreatetedAt.ToString("dd/MM/yyyy"),
                                 StoreName = x.Store.StoreName,
                                 CompanyName = x.Store.Company.CompanyName,
 
@@ -298,7 +298,7 @@ namespace SolucionesARWebsite.Controllers
         /// <summary>
         /// 
         /// </summary>
-        public DateTime CreatetedAt { get; set; }
+        public string CreatetedAt { get; set; }
 
 
         /// <summary>
