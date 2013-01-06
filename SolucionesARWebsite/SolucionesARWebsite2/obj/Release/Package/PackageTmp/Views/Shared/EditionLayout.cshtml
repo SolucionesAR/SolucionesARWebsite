@@ -1,0 +1,17 @@
+﻿@using SolucionesARWebsite2.ViewModels
+
+@model BaseViewModel
+           
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section PageContent {
+    <div class="edition_content">
+    @{
+        @RenderSection("Messages", true)
+
+        @RenderSection("EditionContent", true)
+    }
+    </div>
+}

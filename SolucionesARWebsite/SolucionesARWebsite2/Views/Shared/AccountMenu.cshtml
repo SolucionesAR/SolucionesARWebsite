@@ -1,0 +1,109 @@
+﻿@using SolucionesARWebsite2.DataObjects
+
+<div class="top-menu">
+<ul>
+    @{
+         FormsAuthentication.)
+    var isLoggedIn = SecurityContext. !=
+    null && !string.IsNullOrEmpty(context.User.Username);
+
+    var contactItem = new TagBuilder("li")
+                          {
+                              InnerHtml = Html
+                                  .ActionLink("Contact us", "Contact", "Public", null, new {@class = "action"})
+                                  .ToHtmlString()
+                          };
+    var survey = new TagBuilder("li")
+                     {
+                         InnerHtml = Html
+                             .ActionLink("Survey", "Survey", "Public", null, new {@class = "action"})
+                             .ToHtmlString()
+                     };
+
+    var helpItem = new TagBuilder("li")
+                       {
+                           InnerHtml = string.Format("<a class=\"action\" href=\"#\" onclick=\"javascript:window.location = '{0}'\">Help</a>", ThemeHelper.GetData(ThemeDataKey.HelpLink))
+                       };
+
+    var logoutItem = new TagBuilder("li")
+                         {
+                             InnerHtml =
+                                 Html.ActionLink("Logout", AccessController.LOGOUT_ACTION, AccessController.NAME, null,
+                                                 new {@class = "action"}).ToHtmlString()
+                         };
+
+    if (isLoggedIn)
+    {
+
+        var userRole = (UserRole) context.User.RoleId;
+
+        var faqsItem = new TagBuilder("li")
+                           {
+                               InnerHtml = Html
+                                   .ActionLink("FAQ's", "Faqs", "Messages", null, new {@class = "action"})
+                                   .ToHtmlString()
+                           };
+
+        var changePasswordItem = new TagBuilder("li")
+                                     {
+                                         InnerHtml = Html
+                                             .ActionLink("Change password", "ChangePassword", "Access",
+                                                         new
+                                                             {
+                                                                 userId = context.User.Id,
+                                                                 username = context.User.Username,
+                                                                 role = userRole.ToStringValue()
+                                                             }, new {@class = "action"})
+                                             .ToHtmlString()
+                                     };
+
+        var notifications = MessagesController.GetMessagesQuantity();
+        var notificationsItem = new TagBuilder("li")
+                                    {
+                                        InnerHtml = string.Format("<a class=\"action\" href=\"javascript:showActiveMessages()\">Notifications (" + notifications + ")</a>")
+                                    };
+
+        var userItem = new TagBuilder("li")
+                           {
+                               InnerHtml = "<strong>" + context.User.Name + "</strong> <span class=\"color-2\">(" + Enums.GetRoleDescription(userRole) + ")</span>"
+                           };
+
+        userItem.MergeAttribute("class", "first");
+        notificationsItem.MergeAttribute("class", "action");
+
+        Response.Write(userItem);
+        if (notifications > 0)
+        {
+            Response.Write(notificationsItem);
+        }
+
+        Response.Write(changePasswordItem);
+        Response.Write(contactItem);
+        Response.Write(helpItem);
+        if (ThemeHelper.GetThemeName().Equals("Inferenda"))
+            Response.Write(faqsItem);
+
+        if (!string.IsNullOrEmpty(WebSettingKey.SurveyUrl.GetString()))
+            Response.Write(survey);
+        Response.Write(logoutItem);
+
+    }
+    else
+    {
+        var loginItem = new TagBuilder("li")
+                            {
+                                InnerHtml =
+                                    Html.ActionLink("Login", AccessController.LOGIN_ACTION, AccessController.NAME, null,
+                                                    new {@class = "action"}).ToHtmlString()
+                            };
+        loginItem.MergeAttribute("class", "first");
+        Response.Write(loginItem);
+        Response.Write(contactItem);
+        if (!string.IsNullOrEmpty(WebSettingKey.SurveyUrl.GetString()))
+            Response.Write(survey);
+        Response.Write(helpItem);
+
+    }
+}
+</ul>
+</div>

@@ -1,0 +1,73 @@
+﻿@using SolucionesARWebsite2.Helpers
+@using SolucionesARWebsite2.ViewModels.Districts
+
+@model EditViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Distritos";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
+}
+
+@section Messages {
+
+}
+
+@section EditionContent {
+<div class="edition_content content_box ">
+        
+    @if (Model.DistrictId > 0)
+    {
+        <h1>EDITAR DISTRITO</h1>
+    }
+    else
+    {
+        <h1>NUEVO DISTRITO</h1>
+    }
+
+    <div class="entry jspScrollable">
+        <p class="note">Favor complete el siguiente formulario</p>
+        <div class="jspContainer" style="width: 960px; height: 400px;">
+            <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+                @using (Html.BeginForm("Save", "Districts"))
+                {
+                    @Html.HiddenFor(model => model.DistrictId)
+                    <fieldset>
+                        @Html.EditorFor(model => model.DistrictName)
+                    </fieldset>
+                    <fieldset>
+                        <span>
+                            @Html.LabelFor(model => model.ProvinceId)
+                            @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.CantonId)
+                            @Html.DropDownListForCantonslList(ViewBag.CantonsList as System.Collections.IEnumerable, model => model.CantonId)
+                        </span>
+                    </fieldset>
+                        
+                    <input name="submit" type="submit" value="Submit">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ProvinceId").change(function () {
+            var provinceId = $(this).val();
+            $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
+                    function (result) {
+                        var select = $("#CantonId");
+                        select.empty();
+                        $.each(result, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                    });
+        });
+    });
+</script>
+}

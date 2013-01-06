@@ -1,0 +1,42 @@
+﻿@using SolucionesARWebsite2.Helpers
+@using SolucionesARWebsite2.ViewModels.Cantons
+
+@model EditViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Cantones";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
+}
+
+@section Messages {
+
+}
+
+
+@section EditionContent {
+    @if (Model.CantonId > 0)
+    {
+        <h1>EDITAR CANTON</h1>
+    }
+    else
+    {
+        <h1>NUEVO CANTON</h1>
+    }
+    
+    <p class="note">Favor complete el siguiente formulario</p>
+    @using (Html.BeginForm("Save", "Cantons"))
+    {
+        @Html.HiddenFor(model => model.CantonId)
+        <fieldset>
+            @Html.EditorFor(model => model.CantonName)
+        </fieldset>
+        <fieldset>
+            <span>
+                @Html.LabelFor(model => model.ProvinceId) <br/>
+                @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
+                </span>
+        </fieldset>
+                            
+        <input name="submit" type="submit" value="Submit">
+    }
+}

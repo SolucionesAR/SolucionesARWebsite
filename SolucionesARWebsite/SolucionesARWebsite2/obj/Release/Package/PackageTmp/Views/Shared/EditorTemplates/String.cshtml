@@ -1,0 +1,26 @@
+﻿<span>
+    @Html.Label(ViewData.ModelMetadata.DisplayName)
+    @{
+        if (ViewData.ModelMetadata.IsRequired)
+        {
+            @Html.TextBox(
+                string.Empty,
+                ViewData.TemplateInfo.FormattedModelValue, new
+                                                               {
+                                                                   placeholder = ViewData.ModelMetadata.Watermark,
+                                                                   required = ViewData.ModelMetadata.IsRequired.ToString().ToLower(),
+                                                                   type = ViewData.ModelMetadata.DataTypeName,
+                                                               })
+        }
+        else
+        {
+            @Html.TextBox(
+                string.Empty,
+                ViewData.TemplateInfo.FormattedModelValue, new
+                                                               {
+                                                                   placeholder = ViewData.ModelMetadata.Watermark,
+                                                                   type = ViewData.ModelMetadata.DataTypeName,
+                                                               })
+        }
+    }
+</span>

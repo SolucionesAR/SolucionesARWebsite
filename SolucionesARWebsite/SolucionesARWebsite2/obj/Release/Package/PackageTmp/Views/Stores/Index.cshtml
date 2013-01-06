@@ -1,0 +1,74 @@
+﻿@using SolucionesARWebsite2.ViewModels.Stores
+
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Tiendas";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
+}
+
+@section Messages {
+}
+
+@section ListTitle {
+    TIENDAS
+}
+
+@section ListActions {
+   @* @if (Model.StoresList.HasFilters())
+    {
+        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
+    }*@
+        @Html.ActionLink("Nueva Tienda", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Compañia
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.StoresList.Items) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CompanyId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@section ListPaging {
+    @{
+        /*
+        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
+        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
+        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
+        @ListHelper.Paging(Url, Model.UsersList)
+        */
+    }
+}

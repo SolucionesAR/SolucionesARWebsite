@@ -1,0 +1,67 @@
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite2.ViewModels.Provinces
+
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Provincias";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
+}
+
+@section Messages {
+}
+
+@section ListTitle {
+    PROVINCIAS
+}
+
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
+}
+
+@section ListActions {
+        @Html.ActionLink("Nueva Provincia", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.PagedItems) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProvinceId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.ProvinceId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}

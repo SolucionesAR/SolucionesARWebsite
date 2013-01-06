@@ -1,0 +1,35 @@
+﻿@using SolucionesARWebsite2.ViewModels.Views
+
+@model SolucionesARWebsite2.ViewModels.BaseViewModel
+           
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section PageContent {
+    <div class="main-content">
+             
+        @using (@Html.BeginForm(Model.RouteValues))
+        {
+            @RenderSection("Messages", true);
+
+            <div class="title">
+                <h1>
+                    @RenderSection("ListTitle", true)
+                </h1>
+            </div> 
+            
+            <div class="table-content">   
+            
+                <div class="pagination_nav">
+                    @RenderSection("ListPaging", true)
+                </div>      
+                <div class="main-actions">
+                    @RenderSection("ListActions", true)
+                </div>
+
+                @RenderSection("ListContent", true)
+            </div>
+        }
+    </div>
+}

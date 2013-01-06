@@ -1,0 +1,35 @@
+﻿@using SolucionesARWebsite2.ViewModels.Account
+
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Login";
+    Layout = "~/Views/Shared/PublicLayout.cshtml";
+}
+
+@section Messages {
+
+}
+
+@section PublicContent {
+    <div class="edition_content content_box ">
+        <div class="entry jspScrollable">
+            <div class="jspContainer" style="width: 960px; height: 400px;">
+                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+                    @using (Html.BeginForm("Login", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <fieldset>
+                            @Html.EditorFor(model => model.Username)
+                        </fieldset>
+                        <fieldset>
+                            @Html.LabelFor(model => model.Password)
+                            @Html.PasswordFor(model => model.Password)
+                        </fieldset>
+                        <input name="submit" type="submit" value="Submit">
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

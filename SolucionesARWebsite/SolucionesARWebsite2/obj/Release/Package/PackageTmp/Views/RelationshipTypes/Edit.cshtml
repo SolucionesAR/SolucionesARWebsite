@@ -1,0 +1,37 @@
+﻿@using SolucionesARWebsite2.ViewModels.RelationshipTypes
+
+@model EditViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Relaciones";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
+}
+
+@section Messages {
+
+}
+
+
+@section EditionContent {
+    @if (Model.RelationshipTypesId > 0)
+    {
+        <h1>EDITAR RELACION</h1>
+    }
+    else
+    {
+        <h1>NUEVA RELACION</h1>
+    }
+    
+    <p class="note">Favor complete el siguiente formulario</p>
+    @using (Html.BeginForm("Save", "RelationshipTypes"))
+    {
+        @Html.HiddenFor(model => model.RelationshipTypesId)
+
+        <fieldset>
+            @Html.EditorFor(model => model.Description)
+        </fieldset>
+                            
+        <input name="submit" type="submit" value="Submit">
+    }
+}
+
