@@ -1,6 +1,8 @@
 SolucionesAR
 ===================
 
-Puto para lo loguearse use su codigo SAR
-o si no le da la gana use soluAR1234 como username y pass
-y sino vaya joda a otro lado
+1. create base structure -> login as UsuarioSolucionesArCreator
+2. login with admin permission -> 
+	username: UsuarioSolucionesAr
+	password: UsuarioSolucionesAr
+
