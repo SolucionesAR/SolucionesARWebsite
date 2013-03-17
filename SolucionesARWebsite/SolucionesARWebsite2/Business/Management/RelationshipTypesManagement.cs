@@ -70,7 +70,7 @@ namespace SolucionesARWebsite2.Business.Management
             return new RelationshipType
                        {
                            RelationshipTypeId = editViewMode.RelationshipTypesId,
-                           Description = editViewMode.Description,
+                           Description = editViewMode.Description.ToUpper(),
                        };
         }
 

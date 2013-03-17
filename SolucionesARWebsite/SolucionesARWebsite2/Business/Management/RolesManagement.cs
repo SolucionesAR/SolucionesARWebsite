@@ -106,7 +106,7 @@ namespace SolucionesARWebsite2.Business.Management
             return new Rol
                        {
                            RolId = editViewMode.RolId,
-                           Name = editViewMode.RolName,
+                           Name = editViewMode.RolName.ToUpper(),
                        };
         }
 

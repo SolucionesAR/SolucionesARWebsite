@@ -9,6 +9,8 @@
 @section PageContent {
     <div class="edition_content">
     @{
+        @RenderSection("Header", true)
+
         @RenderSection("Messages", true)
 
         @RenderSection("EditionContent", true)

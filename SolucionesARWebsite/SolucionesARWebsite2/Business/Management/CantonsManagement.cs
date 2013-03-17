@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
@@ -77,15 +76,15 @@ namespace SolucionesARWebsite2.Business.Management
         
         public void Save(EditViewModel editViewModel)
         {
-            var company = Map(editViewModel);
+            var canton = Map(editViewModel);
 
             if (editViewModel.CantonId.Equals(0))
             {
-                AddCompany(company);
+                AddCanton(canton);
             }
             else
             {
-                EditCompany(company);
+                EditCanton(canton);
             }
         }
 
@@ -98,12 +97,12 @@ namespace SolucionesARWebsite2.Business.Management
 
         #region Private Methods
 
-        private void AddCompany(Canton canton)
+        private void AddCanton(Canton canton)
         {
             _cantonsRepository.AddCanton(canton);
         }
 
-        private void EditCompany(Canton canton)
+        private void EditCanton(Canton canton)
         {
             _cantonsRepository.EditCanton(canton);
         }
@@ -113,7 +112,7 @@ namespace SolucionesARWebsite2.Business.Management
             return new Canton
                        {
                            CantonId = editViewMode.CantonId,
-                           Name = editViewMode.CantonName,
+                           Name = editViewMode.CantonName.ToUpper(),
                            ProvinceId = editViewMode.ProvinceId,
                        };
         }

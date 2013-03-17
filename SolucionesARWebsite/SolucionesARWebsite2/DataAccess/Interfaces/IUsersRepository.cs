@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using SolucionesARWebsite2.Models;
 
 namespace SolucionesARWebsite2.DataAccess.Interfaces
@@ -15,15 +12,19 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
         void AddUser(User user);
 
         void EditUser(User user);
-        
+
         User GetUserById(int userId);
 
         User GetUserByGeneratedCode(string username);
+
+        User GetUserByIdentificationNumber(int identificationNumber);
 
         User GetSolucionesArUser();
 
         bool UpdateUser(User user);
 
-        // void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId);   //TODO: quitando relations 
+        bool HasValidIdentificationNumber(int userId, int identificationNumber);
+
+        void Delete(int userId);
     }
 }

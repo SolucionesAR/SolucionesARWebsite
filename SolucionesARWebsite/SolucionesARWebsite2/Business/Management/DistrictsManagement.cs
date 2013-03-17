@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SolucionesARWebsite2.DataAccess.Interfaces;
-using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
-using SolucionesARWebsite2.Enumerations;
 using SolucionesARWebsite2.ViewModels.Districts;
 
 namespace SolucionesARWebsite2.Business.Management
@@ -81,7 +78,7 @@ namespace SolucionesARWebsite2.Business.Management
             return new District
                        {
                            DistrictId = editViewMode.DistrictId,
-                           Name = editViewMode.DistrictName,
+                           Name = editViewMode.DistrictName.ToUpper(),
                            CantonId = editViewMode.CantonId,
                        };
         }

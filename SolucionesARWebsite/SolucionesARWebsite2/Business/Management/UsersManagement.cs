@@ -5,7 +5,6 @@ using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Enumerations;
 using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.Utils;
-using SolucionesARWebsite2.ViewModels.Users;
 
 namespace SolucionesARWebsite2.Business.Management
 {
@@ -49,21 +48,26 @@ namespace SolucionesARWebsite2.Business.Management
             return _usersRepository.GetUserById(userId);
         }
 
-        public User GetUser(string username)
+        public User GetUserByIdentificationNumber(int identificationNumber)
+        {
+            return _usersRepository.GetUserByIdentificationNumber(identificationNumber);
+        }
+
+        public User GetUserByGeneratedCode(string username)
         {
             return _usersRepository.GetUserByGeneratedCode(username);
         }
 
-        public virtual UserInformation GetUserInformation(string username)
+        public virtual UserInformation GetUserInformation(string identificationNumber)
         {
-            var user = _usersRepository.GetUserByGeneratedCode(username);
+            var user = _usersRepository.GetUserByIdentificationNumber(Convert.ToInt32(identificationNumber));
             var userRole = (UserRoles)user.RolId;
             var roleName = userRole.ToStringValue();
             var userInformation = new UserInformation
                            {
                                Id = user.UserId,
                                Name = string.Format("{0} {1} {2}", user.FName, user.LName1, user.LName2),
-                               Username = username,
+                               Username = identificationNumber,
                                Role = roleName,
                                RoleId = user.RolId,
                            };
@@ -71,10 +75,9 @@ namespace SolucionesARWebsite2.Business.Management
             return userInformation;
         }
 
-        public void Save(EditViewModel editViewModel, int updatedBy)
+        public void Save(User user, int updatedBy)
         {
-            var user = Map(editViewModel);
-            if (editViewModel.UserId == 0)
+            if (user.UserId == 0)
             {
                 AddUser(user);
             }
@@ -82,6 +85,11 @@ namespace SolucionesARWebsite2.Business.Management
             {
                 EditUser(user);
             }
+        }
+
+        public bool HasValidIdentificationNumber(int userId, string identificationNumber)
+        {
+            return _usersRepository.HasValidIdentificationNumber(userId, Convert.ToInt32(identificationNumber.Replace("-", string.Empty)));
         }
 
         #endregion
@@ -92,7 +100,8 @@ namespace SolucionesARWebsite2.Business.Management
         {
             user.CreatetedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.GeneratedCode, BCrypt.Net.BCrypt.GenerateSalt((int)Constants.WorkFactor));
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.GeneratedCode,
+                                                           BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
             _usersRepository.AddUser(user);
         }
 
@@ -101,43 +110,12 @@ namespace SolucionesARWebsite2.Business.Management
             user.UpdatedAt = DateTime.UtcNow;
             _usersRepository.EditUser(user);
         }
-        
-        private User Map(EditViewModel editViewMode)
-        {
-            var user = new User
-                           {
-                               Address1 = editViewMode.Address1,
-                               Address2 = editViewMode.Address2,
-                               Cashback = Convert.ToDouble(editViewMode.Cashback),
-                               CedNumber = Convert.ToInt32(editViewMode.IdentificationNumber),
-                               Cellphone = editViewMode.Cellphone,
-                               CompanyId = editViewMode.Company.CompanyId,
-                               DistrictId = editViewMode.DistrictId,
-                               Dob = editViewMode.Dob,
-                               Email = editViewMode.Email,
-                               Enabled = editViewMode.Enabled,
-                               FName = editViewMode.FirstName,
-                               GeneratedCode = editViewMode.GeneratedCode,
-                               LName1 = editViewMode.LastName1,
-                               LName2 = editViewMode.LastName2,
-                               Nationality = editViewMode.Nationality,
-                               IdentificationTypeId = editViewMode.IdentificationType.IdentificationTypeId,
-                               RolId = editViewMode.UserRol.RolId,
-                               //tenemos que eliminar los guiones
-                               PhoneNumber = editViewMode.PhoneNumber,
-                               RelationshipTypeId = editViewMode.RelationshipType.RelationshipTypeId,
-                               UserId = editViewMode.UserId,
-                               UserReferenceId = editViewMode.UserId,
-                           };
 
-            if (!string.IsNullOrEmpty(editViewMode.UserReference))
-            {
-                var parentUser = _usersRepository.GetUserByGeneratedCode(editViewMode.UserReference);
-                user.UserReferenceId = parentUser != null ? parentUser.UserId : 0;
-            }
-            return user;
+        public void Delete(int userId)
+        {
+            _usersRepository.Delete(userId);
         }
 
-        #endregion    
+        #endregion
     }
 }

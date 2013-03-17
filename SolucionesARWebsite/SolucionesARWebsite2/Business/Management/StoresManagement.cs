@@ -92,7 +92,7 @@ namespace SolucionesARWebsite2.Business.Management
                            FaxNumber = editViewModel.FaxNumber,
                            PhoneNumber1 = editViewModel.PhoneNumber1,
                            PhoneNumber2 = editViewModel.PhoneNumber2,
-                           StoreName = editViewModel.StoreName,
+                           StoreName = editViewModel.StoreName.ToUpper(),
                        };
         }
 

@@ -678,11 +678,11 @@ h2 strong {
 }
 .edition_content .entry form span {
 	float:left;
-	color:#000;
+	color:white;
 }
 .edition_content .entry span {
 	float:right;
-	color:#000;
+	color:white;
 }
 .edition_content p.note {
 	padding:0 0 10px;
@@ -788,10 +788,12 @@ form .main-actions .button {
 	cursor:pointer;
 	margin:0;
 	height:30px;
+    width: 130px;
 	padding:0 10px;
 	color:rgba(0, 0, 0, 0.7);
 	font-size:15px;
 	line-height:30px;
+    text-align: center;
 }
 form .main-actions .button :hover {
 	background-color:rgba(0, 0, 0, 0.5);

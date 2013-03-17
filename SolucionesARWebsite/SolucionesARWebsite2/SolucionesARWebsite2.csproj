@@ -273,6 +273,7 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\libs\jquery.maskedinput.min.js" />
     <Compile Include="Security\AllowedAction.cs" />
     <Compile Include="Security\RolesProvider.cs" />
     <Compile Include="Security\SecurityRol.cs" />

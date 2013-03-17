@@ -8,13 +8,7 @@
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-@section Messages {
-
-}
-
-@section EditionContent {
-<div class="edition_content content_box ">
-        
+@section Header {
     @if (Model.DistrictId > 0)
     {
         <h1>EDITAR DISTRITO</h1>
@@ -23,9 +17,14 @@
     {
         <h1>NUEVO DISTRITO</h1>
     }
+}
 
-    <div class="entry jspScrollable">
-        <p class="note">Favor complete el siguiente formulario</p>
+@section Messages {
+    @Html.ValidationSummary()
+}
+
+@section EditionContent {
+    <div class="edition_content content_box "><div class="entry jspScrollable">
         <div class="jspContainer" style="width: 960px; height: 400px;">
             <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                 @using (Html.BeginForm("Save", "Districts"))
@@ -50,24 +49,23 @@
             </div>
         </div>
     </div>
-</div>
     
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ProvinceId").change(function () {
-            var provinceId = $(this).val();
-            $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
-                    function (result) {
-                        var select = $("#CantonId");
-                        select.empty();
-                        $.each(result, function (index, itemData) {
-                            select.append($('<option/>', {
-                                value: itemData.Value,
-                                text: itemData.Text
-                            }));
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ProvinceId").change(function () {
+                var provinceId = $(this).val();
+                $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
+                        function (result) {
+                            var select = $("#CantonId");
+                            select.empty();
+                            $.each(result, function (index, itemData) {
+                                select.append($('<option/>', {
+                                    value: itemData.Value,
+                                    text: itemData.Text
+                                }));
+                            });
                         });
-                    });
+            });
         });
-    });
-</script>
+    </script>
 }

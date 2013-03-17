@@ -108,7 +108,7 @@ namespace SolucionesARWebsite2.Business.Management
             return new Province
                        {
                            ProvinceId = editViewMode.ProvinceId,
-                           Name = editViewMode.ProvinceName,
+                           Name = editViewMode.ProvinceName.ToUpper(),
                        };
         }
 

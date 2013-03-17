@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
-using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.ViewModels.Cantons;
 
 namespace SolucionesARWebsite2.Controllers

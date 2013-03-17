@@ -115,9 +115,9 @@ namespace SolucionesARWebsite2.Business.Management
                        {
                            CashBackPercentaje = editViewMode.CashBackPercentaje,
                            CompanyId = editViewMode.CompanyId,
-                           CompanyName = editViewMode.CompanyName,
-                           CompanyNickName = editViewMode.CompanyNickname,
-                           CorporateId = editViewMode.CorporateId,
+                           CompanyName = editViewMode.CompanyName.ToUpper(),
+                           CompanyNickName = editViewMode.CompanyNickname.ToUpper(),
+                           CorporateId = editViewMode.CorporateId.ToUpper(),
                            Enabled = editViewMode.Enabled,
                        };
         }

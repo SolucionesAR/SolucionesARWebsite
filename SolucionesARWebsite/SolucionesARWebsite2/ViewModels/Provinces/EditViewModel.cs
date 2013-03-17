@@ -17,6 +17,7 @@ namespace SolucionesARWebsite2.ViewModels.Provinces
         /// <summary>
         /// The Identification number
         /// </summary>
+        [Required]
         [Display(Name = "Nombre*", Prompt = "Nombre")]
         public string ProvinceName { get; set; }
 

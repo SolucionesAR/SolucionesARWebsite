@@ -188,7 +188,7 @@ namespace SolucionesARWebsite2.App_Start
                                              Address1 = string.Empty,
                                              Address2 = string.Empty,
                                              Cashback = 0,
-                                             CedNumber = 0,
+                                             CedNumber = (int) Constants.SolucionesArUser,
                                              Cellphone = string.Empty,
                                              CompanyId = 1,
                                              CreatetedAt = DateTime.UtcNow,
@@ -206,7 +206,7 @@ namespace SolucionesARWebsite2.App_Start
                                              OtherProducts = null,
                                              Password =
                                                  BCrypt.Net.BCrypt.HashPassword(
-                                                     Constants.SolucionesArUser.ToStringValue(),
+                                                     Constants.SolucionesArPassword.ToStringValue(),
                                                      BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor)),
                                              PasswordKey = string.Empty,
                                              PhoneNumber = string.Empty,

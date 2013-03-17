@@ -2,7 +2,7 @@
 
 namespace SolucionesARWebsite2.ViewModels
 {
-    public class BaseViewModel: SubmitResults
+    public class BaseViewModel : SubmitResults
     {
         #region Constants
         #endregion

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using OfficeOpenXml;
 using PagedList;
@@ -241,7 +238,12 @@ namespace SolucionesARWebsite2.Controllers
             var reportsList = new List<Report>();
             foreach (var report in EnumUtil.GetValues<ApplicationReports>())
             {
-                reportsList.Add(new Report { Id = (int)report, Name = report.ToStringValue(), Action = report.ToString() });
+                reportsList.Add(new Report
+                                    {
+                                        Id = (int) report,
+                                        Name = report.ToStringValue(),
+                                        Action = report.ToString()
+                                    });
             }
             return reportsList;
         }

@@ -8,25 +8,25 @@
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-@section Messages {
 
+@section Header {
+    @if (Model.StoreId > 0)
+    {
+        <h1>EDITAR TIENDA</h1>
+    }
+    else
+    {
+        <h1>NUEVA TIENDA</h1>
+    }
 }
 
+@section Messages {
+    @Html.ValidationSummary()
+}
 
 @section EditionContent {
     <div class="edition_content content_box ">
-        
-        @if (Model.StoreId > 0)
-        {
-            <h1>EDITAR TIENDA</h1>
-        }
-        else
-        {
-            <h1>NUEVA TIENDA</h1>
-        }
-
         <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
             <div class="jspContainer" style="width: 960px; height: 400px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     @using (Html.BeginForm("Save", "Stores"))

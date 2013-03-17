@@ -29,17 +29,28 @@ namespace SolucionesARWebsite2.Business.Logic
 
         public bool IsValidLogin(LoginViewModel loginFormModel)
         {
-            if (loginFormModel.Username.ToLower().Equals(Constants.SolucionesArUserCreator.ToStringValue().ToLower()))
-            {
-                _beginningConfig.CreateDefaultConfiguration();
-            }
-            var temp = BCrypt.Net.BCrypt.HashPassword(
-                Constants.SolucionesArUser.ToStringValue(),
-                BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
-            var userInformation = _usersRepository.GetUserByGeneratedCode(loginFormModel.Username);
-            return userInformation != null && BCrypt.Net.BCrypt.Verify(loginFormModel.Password, userInformation.Password);
+            int identificationNumber;
+            int.TryParse(loginFormModel.Username, out identificationNumber);
+
+            var userInformation = _usersRepository.GetUserByIdentificationNumber(identificationNumber);
+            var hashPassword =
+                BCrypt.Net.BCrypt.HashPassword(
+                    userInformation.Password,
+                    BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
+            return BCrypt.Net.BCrypt.Verify(loginFormModel.Password, hashPassword);
         }
 
+        public bool CreateDefaultConfiguration(LoginViewModel loginFormModel)
+        {
+            if (loginFormModel.Username.ToLower().Equals(Constants.SolucionesArUserCreator.ToStringValue().ToLower()) &&
+                loginFormModel.Password.Equals(Constants.SolucionesArPassword.ToStringValue()))
+            {
+                _beginningConfig.CreateDefaultConfiguration();
+                loginFormModel.Username = Constants.SolucionesArUser.ToString();
+            }
+
+            return IsValidLogin(loginFormModel);
+        }
         #endregion
 
         #region Private Methods

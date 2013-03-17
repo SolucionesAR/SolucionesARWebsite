@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
@@ -95,7 +94,7 @@ namespace SolucionesARWebsite2.Business.Management
             return new IdentificationType
                        {
                            IdentificationTypeId = editViewMode.IdentificationTypeId,
-                           IdentificationDescription = editViewMode.Description,
+                           IdentificationDescription = editViewMode.Description.ToUpper(),
                        };
         }
 

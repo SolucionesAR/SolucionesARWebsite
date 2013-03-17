@@ -40,28 +40,28 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// <summary>
         /// The Identification number
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor completar la nacionalidad")]
         [Display(Name = "Nacionalidad*", Prompt = "Nacionalidad")]
         public string Nationality { get; set; }
 
         /// <summary>
         /// The First Name
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor completar el nombre del usuario")]
         [Display(Name = "Nombre*", Prompt = "Nombre")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// The first Last Name
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor completar el primer apellido")]
         [Display(Name = "Primer Apellido*", Prompt = "Primer Apellido")]
         public string LastName1 { get; set; }
 
         /// <summary>
         /// The second Last Name
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor completar el segundo apellido")]
         [Display(Name = "Segundo Apellido*", Prompt = "Segundo Apellido")]
         public string LastName2 { get; set; }
 
@@ -80,41 +80,35 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// <summary>
         /// The date of birth
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor completar la fecha de nacimiento")]
         [Display(Name = "Fecha Nacimiento*", Prompt = "Fecha Nacimiento")]
-        public DateTime? Dob { get; set; }
+        public DateTime Dob { get; set; }
 
         /// <summary>
         /// The address 1
         /// </summary>
-        [Required]
-        [Display(Name = "Otras Señas", Prompt = "Dirección")]
+        [Required(ErrorMessage = "Favor completar la dirección")]
+        [Display(Name = "Otras Señas*", Prompt = "Dirección")]
         public string Address1 { get; set; }
-
-        /// <summary>
-        /// The address 2
-        /// </summary>
-        [Display(Name = "Otras Señas", Prompt = "Dirección Complementaria")]
-        public string Address2 { get; set; }
 
         /// <summary>
         /// The district
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor seleccionar un distrito ")]
         [Display(Name = "Distrito", Prompt = "Distrito")]
         public int DistrictId { get; set; }
 
         /// <summary>
         /// The canton
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor seleccionar un cantón")]
         [Display(Name = "Cantón", Prompt = "Cantón")]
         public int CantonId { get; set; }
 
         /// <summary>
         /// The province
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor seleccionar una provincia")]
         [Display(Name = "Provincia", Prompt = "Provincia")]
         public int ProvinceId { get; set; }
 
@@ -145,14 +139,14 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// <summary>
         /// A code that will be generated automatically to each user
         /// </summary>
-        [Display(Name = "Referente", Prompt = "Codigo del Referente")]
+        [Display(Name = "Referente", Prompt = "Cédula del Referente")]
         [Remote("IsValidParentUser", "Users", ErrorMessage = "El usuario no ingresado no cumple con los requisitos")]
-        public string UserReference { get; set; }
+        public string ParentIdentificationNumber { get; set; }
 
         /// <summary>
         /// The Rol id
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor seleccionar el rol del usuario")]
         [Display(Name = "Rol*")]
         public Rol UserRol { get; set; }
 
@@ -164,7 +158,7 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// <summary>
         /// The Company
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor seleccionar una compañia")]
         [Display(Name = "Compañia*")]
         public Company Company { get; set; }
 
@@ -176,7 +170,7 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// <summary>
         /// The Relationship Type
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Favor seleccionar el nivel del usuario")]
         [Display(Name = "Nivel")]
         public RelationshipType RelationshipType { get; set; }
 
@@ -186,32 +180,12 @@ namespace SolucionesARWebsite2.ViewModels.Users
         public List<RelationshipType> RelationshipTypeList { get; set; }
         
         #endregion
-
-        #region Private Members
-
-        private int CedNumberInt { get; set; }
-
-        #endregion
-
+        
         #region Contructors
         #endregion
 
         #region Public Methods
-
-        public void ValidateModel(ModelStateDictionary modelState)
-        {
-            int cedNumber;
-            var isValidCedNumber = Int32.TryParse(IdentificationNumber, out cedNumber);
-            if (isValidCedNumber)
-            {
-                CedNumberInt = cedNumber;
-            }
-            else
-            {
-                modelState.AddModelError("IdentificationNumber", "El número de cédula debe ser numérico.");
-            }
-        }
-
+        
         #endregion
 
         #region Private Methods

@@ -47,13 +47,13 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public List<User> GetOrderedUsersList()
         {
-            var users = _databaseModel.Users.OrderBy(u => u.GeneratedCode).ToList();
+            var users = _databaseModel.Users.OrderBy(u => u.CedNumber).ToList();
             return users;
         }
         
         public List<User> GetUsersList()
         {
-            var users = _databaseModel.Users.ToList();
+            var users = _databaseModel.Users.Where(u => u.Enabled).ToList();
             return users;
         }
 
@@ -66,6 +66,12 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         public User GetUserByGeneratedCode(string username)
         {
             var user = _databaseModel.Users.FirstOrDefault(u => u.GeneratedCode.Equals(username));
+            return user;
+        }
+
+        public User GetUserByIdentificationNumber(int identificationNumber)
+        {
+            var user = _databaseModel.Users.FirstOrDefault(u => u.CedNumber.Equals(identificationNumber));
             return user;
         }
 
@@ -82,31 +88,27 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             return true;
         }
 
-        /*    public void UpdateRelationship(int userId, int userReferenceId, int relationshipTypeId)//TODO: quitando relations
+        public bool HasValidIdentificationNumber(int userId, int identificationNumber)
+        {
+            // validate if the current user has the same identification number saved in the data base
+            var currentUser = _databaseModel.Users.FirstOrDefault(u => u.UserId.Equals(userId));
+            if(currentUser != null && currentUser.CedNumber.Equals(identificationNumber))
             {
-                var relationship =
-                    _databaseModel.Relationships.FirstOrDefault(
-                        r => r.UserId1.Equals(userId) && r.UserId2.Equals(userReferenceId));
-                if (relationship != null)
-                {
-                    relationship.UserId2 = userReferenceId;
-                    relationship.RelationshipTypeId = relationshipTypeId;
-                    relationship.UpdatedAt = DateTime.UtcNow;
-                }
-                else
-                {
-                    relationship = new Relationship
-                                       {
-                                           UserId1 = userId,
-                                           UserId2 = userReferenceId,
-                                           RelationshipTypeId = relationshipTypeId,
-                                           CreatetedAt = DateTime.UtcNow,
-                                           UpdatedAt = DateTime.UtcNow,
-                                       };
-                    _databaseModel.Relationships.Add(relationship);
-                }
-                _databaseModel.SaveChanges();
-            }*/
+                return true;
+            }
+
+            // validate the new identification number is not in the data base
+            return _databaseModel.Users.FirstOrDefault(u => u.CedNumber.Equals(identificationNumber)) != null;
+        }
+
+        public void Delete(int userId)
+        {
+            var user = GetUserById(userId);
+            user.Enabled = false;
+            _databaseModel.Entry(user).State = EntityState.Modified;
+            _databaseModel.SaveChanges();
+
+        }
 
         #endregion
 
