@@ -74,10 +74,7 @@ namespace SolucionesARWebsite2.Models
         /// </summary>
         public int CompanyId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual ICollection<Transaction> Transactions { get; set; }
+        
 
     }
 }

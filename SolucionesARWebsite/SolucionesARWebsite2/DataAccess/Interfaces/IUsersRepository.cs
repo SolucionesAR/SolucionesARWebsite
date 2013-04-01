@@ -26,5 +26,10 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
         bool HasValidIdentificationNumber(int userId, int identificationNumber);
 
         void Delete(int userId);
+
+        int SaveChangesMade();
+
+        void RejectChanges();
+
     }
 }

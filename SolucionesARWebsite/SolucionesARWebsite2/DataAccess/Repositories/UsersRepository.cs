@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.Objects;
 using System.Linq;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.Enumerations;
 using SolucionesARWebsite2.Models;
+using DbModel = SolucionesARWebsite2.Models.DbModel;
 
 namespace SolucionesARWebsite2.DataAccess.Repositories
 {
@@ -84,7 +87,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         public bool UpdateUser(User user)
         {
             _databaseModel.Entry(user).State = EntityState.Modified;
-            _databaseModel.SaveChanges();
+            //_databaseModel.SaveChanges();
             return true;
         }
 
@@ -108,6 +111,27 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             _databaseModel.Entry(user).State = EntityState.Modified;
             _databaseModel.SaveChanges();
 
+        }
+
+        public int SaveChangesMade()
+        {
+            return _databaseModel.SaveChanges();
+        }
+
+        public void RejectChanges()
+        {
+            var context = ((IObjectContextAdapter)_databaseModel).ObjectContext;
+            foreach (var change in _databaseModel.ChangeTracker.Entries())
+            {
+                if (change.State == EntityState.Modified)
+                {
+                    context.Refresh(RefreshMode.StoreWins, change.Entity);
+                }
+                if (change.State == EntityState.Added)
+                {
+                    context.Detach(change.Entity);
+                }
+            }
         }
 
         #endregion

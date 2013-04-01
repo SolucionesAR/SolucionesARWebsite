@@ -261,8 +261,8 @@ namespace SolucionesARWebsite2.Controllers
                                 CustomerCode = x.Customer.GeneratedCode,
                                 CustomerName = x.Customer.FName + " " + x.Customer.LName1 + " " + x.Customer.LName2,
                                 CreatetedAt = x.CreatetedAt.ToString("dd/MM/yyyy"),
-                                StoreName = x.Store.StoreName,
-                                CompanyName = x.Store.Company.CompanyName,
+                                //StoreName = x.Store.StoreName,
+                                CompanyName = x.Company.CompanyNickName,
 
                             }).
                         ToList();
@@ -306,7 +306,7 @@ namespace SolucionesARWebsite2.Controllers
         /// <summary>
         /// 
         /// </summary>
-        public string StoreName { get; set; }
+        //public string StoreName { get; set; }
 
 
         /// <summary>

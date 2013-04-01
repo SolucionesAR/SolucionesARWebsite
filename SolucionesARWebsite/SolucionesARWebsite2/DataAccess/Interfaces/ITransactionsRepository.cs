@@ -15,9 +15,13 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
 
         bool SaveTransaction(Transaction transaction);
 
+        int SaveChangesMade();
+
         void UpdateTransaction();
 
         Transaction GetTransaction(int id);
-        
+
+        void RejectChanges();
+
     }
 }

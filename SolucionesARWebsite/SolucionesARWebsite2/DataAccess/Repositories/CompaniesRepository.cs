@@ -74,6 +74,13 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             return companies.First();
         }
 
+        public Company GetCompany(string storeNickName)
+        {
+            var companies = _databaseModel.Companies.
+                Where(c => c.CompanyNickName.ToUpper().Equals(storeNickName.ToUpper()));
+            return companies.First();
+        }
+
         #endregion
 
         #region Private Methods

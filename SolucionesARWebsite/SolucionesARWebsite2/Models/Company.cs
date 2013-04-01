@@ -48,6 +48,11 @@ namespace SolucionesARWebsite2.Models
         public virtual ICollection<Store> Stores { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
+        /// <summary>
         /// To check if the company is enabled
         /// </summary>
         public bool Enabled { get; set; }

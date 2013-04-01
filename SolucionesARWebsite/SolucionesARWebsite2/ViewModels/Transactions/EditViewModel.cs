@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using SolucionesARWebsite2.Models;
@@ -32,16 +33,9 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         /// 
         /// </summary>
         [Required]
-        [DisplayName("Tienda")]
-        public Store Store { get; set; }
+        [DisplayName("Compania")]
+        public Company Company { get; set; }
 
-
-        /// <summary>
-        /// The one who sales in the store
-        /// </summary>
-        // [Required]
-        // [DisplayName("Dependiente")]
-        // public User SalesMan { get; set; }
 
         /// <summary>
         /// The one that makes the purchase
@@ -54,10 +48,20 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
 
         // public List<User> ListSalesMan { get; set; }
 
-        public List<Store> StoresList { get; set; }
+        public List<Company> CompaniesList { get; set; }
 
         [Display(Name = "Puntos*", Prompt = "50")]
         public int Points { get; set; }
+
+        [Display(Name = "Fecha", Prompt = "01/01/1970")]
+        public string TransactionDate { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Display(Name = "Comision*", Prompt = "000.00")]
+        public double Comision { get; set; }
         
         #endregion
 

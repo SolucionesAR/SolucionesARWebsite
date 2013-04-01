@@ -26,6 +26,11 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// 
         /// </summary>
+        public DateTime TransactionDate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime CreatetedAt { get; set; }
 
         /// <summary>
@@ -36,12 +41,16 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// 
         /// </summary>
-        public int StoreId { get; set; }
+        //public int StoreId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual Store Store { get; set; }
+        //public virtual Store Store { get; set; }
+
+        public int CompanyId { get; set; }
+
+        public virtual Company Company { get; set; }
 
         /// <summary>
         /// The one who sales in the store
@@ -70,6 +79,13 @@ namespace SolucionesARWebsite2.Models
         /// The amount of points earned for the transaction
         /// </summary>
         public int Points { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Comision { get; set; }
+
+
 
     }
 

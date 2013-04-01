@@ -16,17 +16,19 @@ namespace SolucionesARWebsite2.Controllers
         private readonly TransactionsManagement _transactionsManagement;
         private readonly UsersManagement _usersManagement;
         private readonly StoresManagement _storesManagement;
+        private readonly CompaniesManagement _companiesManagement;
 
         #endregion
 
         #region Constructors
 
-        public TransactionsController(UsersManagement usersManagement, StoresManagement storesManagement, TransactionsManagement transactionsManagement)
+        public TransactionsController(UsersManagement usersManagement, StoresManagement storesManagement, TransactionsManagement transactionsManagement, CompaniesManagement companiesManagement)
             : base(usersManagement)
         {
             _transactionsManagement = transactionsManagement;
             _usersManagement = usersManagement;
             _storesManagement = storesManagement;
+            _companiesManagement = companiesManagement;
         }
 
         #endregion
@@ -46,17 +48,19 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Create()
         {
             var usersList = _usersManagement.GetUsersList();
-            var storsList = _storesManagement.GetStores();
+            var companiesList = _companiesManagement.GetCompaniesList();
             var editViewModel = new EditViewModel
                                     {
                                         TransactionId = 0,
                                         Amount = 0.0,
                                         Points = 50,
                                         BillBarCode = "",
-                                        Store = new Store(),
-                                        StoresList = storsList,
+                                        Company = new Company(),
+                                        CompaniesList = companiesList,
                                         Customer = new User(),
                                         CustomersList = usersList,
+                                        TransactionDate = "01/01/1970",
+                                        Comision = 0.0,
                                         //SalesMan = new User(),
                                         //ListSalesMan = usersList,
                                     };
@@ -66,16 +70,18 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult FileUpload()
         {
             var usersList = _usersManagement.GetUsersList();
-            var storsList = _storesManagement.GetStores();
+            var companiesList = _companiesManagement.GetCompaniesList();
             var editViewModel = new EditViewModel
                                     {
                                         TransactionId = 0,
                                         Amount = 50.0,
                                         BillBarCode = "",
-                                        Store = new Store(),
-                                        StoresList = storsList,
+                                        Company = new Company(),
+                                        CompaniesList = companiesList,
                                         Customer = new User(),
                                         CustomersList = usersList,
+                                        TransactionDate = "01/01/1970",
+                                        Comision = 0.0,
                                         //SalesMan = new User(),
                                         //ListSalesMan = usersList,
                                     };
@@ -90,11 +96,13 @@ namespace SolucionesARWebsite2.Controllers
                                         TransactionId = id,
                                         Amount = transaction.Amount,
                                         BillBarCode = transaction.BillBarCode,
-                                        Store = transaction.Store,
-                                        StoresList = _storesManagement.GetStores(),
+                                        Company = transaction.Company,
+                                        CompaniesList = _companiesManagement.GetCompaniesList(),
                                         Customer = transaction.Customer,
                                         CustomersList = _usersManagement.GetUsersList(),
                                         Points = transaction.Points,
+                                        TransactionDate = transaction.TransactionDate.ToString("dd/MM/yyyy"),
+                                        Comision = transaction.Comision,
                                     };
             return View("Edit", editViewModel);
         }
@@ -107,6 +115,9 @@ namespace SolucionesARWebsite2.Controllers
                 Transaction transaction;
                 if (editFormModel.TransactionId == 0)
                 {
+                    var comision = editFormModel.Comision == 0.0
+                                   ? editFormModel.Amount*editFormModel.Company.CashBackPercentaje/100
+                                   : editFormModel.Comision;
                     transaction = new Transaction
                                       {
                                           TransactionId = 0,
@@ -114,9 +125,11 @@ namespace SolucionesARWebsite2.Controllers
                                           BillBarCode = editFormModel.BillBarCode,
                                           CreatetedAt = DateTime.UtcNow,
                                           UpdatedAt = DateTime.UtcNow,
+                                          TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate),
                                           CustomerId = editFormModel.Customer.UserId,
                                           Points = editFormModel.Points,
-                                          StoreId = editFormModel.Store.StoreId,
+                                          CompanyId = editFormModel.Company.CompanyId,
+                                          Comision = comision,
                                       };
                     _transactionsManagement.SaveTransaction(transaction);
                 }
@@ -127,13 +140,15 @@ namespace SolucionesARWebsite2.Controllers
                     transaction.Amount = editFormModel.Amount;
                     transaction.CustomerId = editFormModel.Customer.UserId;
                     transaction.Points = editFormModel.Points;
-                    transaction.StoreId = editFormModel.Store.StoreId;
+                    transaction.CompanyId = editFormModel.Company.CompanyId;
+                    transaction.TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate);
                     transaction.UpdatedAt = DateTime.UtcNow;
+                    transaction.Comision = editFormModel.Comision;
                     _transactionsManagement.UpdateTransaction();
                 }
             }
             editFormModel.CustomersList = _usersManagement.GetUsersList();
-            editFormModel.StoresList = _storesManagement.GetStores();
+            editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
             return View("Edit", editFormModel);
         }
         

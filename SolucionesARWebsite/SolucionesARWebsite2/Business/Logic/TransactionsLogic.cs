@@ -2,9 +2,7 @@
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
-using SolucionesARWebsite2.DataAccess;
 using SolucionesARWebsite2.DataAccess.Interfaces;
-using SolucionesARWebsite2.DataAccess.Repositories;
 using SolucionesARWebsite2.Models;
 
 namespace SolucionesARWebsite2.Business.Logic
@@ -69,11 +67,8 @@ namespace SolucionesARWebsite2.Business.Logic
         {
             try
             {
-                var store = _storesRepository.GetStore(transaction.StoreId);
-                var company = _companiesRepository.GetCompany(store);
-
                 // del 100% esto es la comision total
-                var cashBackPercentajeAssignable = transaction.Amount*company.CashBackPercentaje/100;
+                var cashBackPercentajeAssignable = transaction.Comision;//transaction.Amount*transaction.Company.CashBackPercentaje/100;
                 // Este seria el 30% para soluciones AR
                 var solucionesArAmount = cashBackPercentajeAssignable*SOLUCIONES_AR_PERCENTAJE;
                 UpdateSolucionesArUser(solucionesArAmount);
@@ -86,17 +81,18 @@ namespace SolucionesARWebsite2.Business.Logic
                 var customer = _usersRepository.GetUserById(transaction.CustomerId);
                 var parentUser = customer.UserReference;
                 var forSeniorMoney = forUsersAmount*SENIOR_USER_PERCENTAJE;
-                if (parentUser != null)
+                if (parentUser != null && parentUser.Enabled)
                 {
                     if (parentUser.RelationshipType.Description.Equals(MASTER) ||
                         parentUser.RelationshipType.Description.Equals(SENIOR))
                     {
+                        
                         parentUser.Cashback += forSeniorMoney;
                         _usersRepository.UpdateUser(parentUser);
                     }
                     var grandParentUser = parentUser.UserReference;
                     var forMasterMoney = forUsersAmount*MASTER_USER_PERCENTAJE;
-                    if (grandParentUser != null)
+                    if (grandParentUser != null && grandParentUser.Enabled)
                     {
                         if (grandParentUser.RelationshipType.Description.Equals(MASTER))
                         {
@@ -120,28 +116,10 @@ namespace SolucionesARWebsite2.Business.Logic
                 customer.Points += transaction.Points;
                 _usersRepository.UpdateUser(customer);
                 return true;
-
-
-
-                // Calculo del cashback para el usuario master, si no existe se le pasa a soluciones AR.
-                /*
-                var masterUser = AssingMoneyToUser(customer, RelationshipTypesRepository.MASTER_RELATION,
-                                                   forUsersAmount, MASTER_USER_PERCENTAJE);
-                _usersRepository.UpdateUser(masterUser);
-
-
-                // Calculo del cashback para el usuario senior, si no existe se le pasa a soluciones AR.
-                var seniorUser = AssingMoneyToUser(customer, RelationshipTypesRepository.SENIOR_RELATION,
-                                                   forUsersAmount, SENIOR_USER_PERCENTAJE);
-                _usersRepository.UpdateUser(seniorUser);
-
-                */
-
-
-
             }
             catch (Exception)
             {
+                _usersRepository.RejectChanges();
                 return false;
             }
 
@@ -172,11 +150,6 @@ namespace SolucionesARWebsite2.Business.Logic
 
                 var reportData = dataSet.Tables[DATA_TABLE_NAME].AsEnumerable();
 
-                //TODO: agregar la logica con el formato del file correspondiente
-                /*var query = data.Where(x => x.Field<double?>(4) != 0.0) //x indice de columna.
-                    .Select(x => new{campana = x.Field<string>("Campaña"), factura = x.Field<string>("No. Factura") }).ToList(); //o por nombre de columna.
-                */
-
                 var transactionsList =
                     reportData.Where(y => y.Field<string>("Campaña") != null)
                         .Select(
@@ -187,24 +160,28 @@ namespace SolucionesARWebsite2.Business.Logic
                                 fecha = x.Field<string>("Fecha"),
                                 monto = x.Field<double>("Monto"),
                                 puntos = x.Field<double>("Puntos"),
-                                comision = x.Field<double?>("Comisión"),
+                                comision = x.Field<double>("Comision"),
                                 vendedor = x.Field<string>("Vendedor"),
-                                tienda = x.Field<string>("Tienda"),
                             }).
                         ToList(); //o por nombre de columna.
                 foreach (var individualTransaction in transactionsList)
                 {
-                    var customer = _usersRepository.GetUserByGeneratedCode(individualTransaction.vendedor);
-                    var store = _storesRepository.GetStore(individualTransaction.tienda);
+                    int cedNumber = GetCedNumberFromString(individualTransaction.vendedor);
+                    var customer = _usersRepository.GetUserByIdentificationNumber(cedNumber);
+
+                    var company = _companiesRepository.GetCompany(individualTransaction.campana);
+
                     var transaction = new Transaction
                     {
                         Amount = individualTransaction.monto,
                         BillBarCode = individualTransaction.factura,
                         CustomerId = customer.UserId,
                         Points = (int)individualTransaction.puntos,
-                        StoreId = store.StoreId,
+                        TransactionDate = Convert.ToDateTime(individualTransaction.fecha),
+                        CompanyId = company.CompanyId,
                         CreatetedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow,
+                        Comision = individualTransaction.comision,
                     };
                     if (_transactionsRepository.SaveTransaction(transaction))
                     {
@@ -213,15 +190,21 @@ namespace SolucionesARWebsite2.Business.Logic
                     else
                     {
                         //send error
+                        _usersRepository.RejectChanges();
+                        _transactionsRepository.RejectChanges();
                         return false;
+                        
                     }
 
                 }
-
+                _transactionsRepository.SaveChangesMade();
+                _usersRepository.SaveChangesMade();
                 return true;
             }
             catch (Exception ex)
             {
+                _usersRepository.RejectChanges();
+                _transactionsRepository.RejectChanges();
                 Console.WriteLine(ex.Message);
                 return false;
             }
@@ -230,29 +213,6 @@ namespace SolucionesARWebsite2.Business.Logic
         #endregion
 
         #region Private Methods
-
-        /*/// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="relationType"></param>
-        /// <param name="forUsersAmount"></param>
-        /// <param name="userPecentaje"></param>
-        /// <returns></returns>
-        private User AssingMoneyToUser(User user, string relationType, double forUsersAmount, double userPecentaje)
-        {
-            var relationshipType = _relationshipTypesAccess.GetRelationShipType(relationType);
-            var updatedUser = _relationshipsRepository.GetRelatedUser(user, relationshipType);
-            var moneyForUser = forUsersAmount*userPecentaje;
-            if (updatedUser != null)
-            {
-                updatedUser.Cashback += moneyForUser;
-                return updatedUser;
-            }
-
-            var solucionesArUser = UpdateSolucionesArUser(moneyForUser);
-            return solucionesArUser;
-        }*/
 
         /// <summary>
         /// 
@@ -266,7 +226,13 @@ namespace SolucionesARWebsite2.Business.Logic
             return solucionesArUser;
         }
 
-
+        private static int GetCedNumberFromString(string vendedor)
+        {
+            string value = vendedor.Replace("-", string.Empty);
+            value = value.Replace(" ", string.Empty);
+            value = value.Replace("\n", string.Empty);
+            return Convert.ToInt32(value);
+        }
 
         #endregion
 

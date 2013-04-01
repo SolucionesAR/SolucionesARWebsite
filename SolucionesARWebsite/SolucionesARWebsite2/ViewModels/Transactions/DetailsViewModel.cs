@@ -1,4 +1,5 @@
-﻿using SolucionesARWebsite2.Models;
+﻿using System;
+using SolucionesARWebsite2.Models;
 
 namespace SolucionesARWebsite2.ViewModels.Transactions
 {
@@ -27,7 +28,15 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         /// <summary>
         /// 
         /// </summary>
-        public Store Store { get; set; }
+        public double Comision { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Company Company { get; set; }
+
+
+        public DateTime TransactionDate { get; set; }
 
 
         /// <summary>

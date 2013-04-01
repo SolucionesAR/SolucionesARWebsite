@@ -8,12 +8,12 @@ namespace SolucionesARWebsite2.Helpers
 {
     public static class TransactionsEditHelper
     {
-        public static MvcHtmlString DropDownListForStoresList(this HtmlHelper<EditViewModel> htmlHelper,
+        public static MvcHtmlString DropDownListForCompaniesList(this HtmlHelper<EditViewModel> htmlHelper,
             Expression<Func<EditViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.StoresList, "StoreId", "StoreName",
-                                                             htmlHelper.ViewData.Model.Store.StoreId));
+                                              new SelectList(htmlHelper.ViewData.Model.CompaniesList, "CompanyId", "CompanyNickName",
+                                                             htmlHelper.ViewData.Model.Company.CompanyId));
         }
 
 
@@ -21,7 +21,7 @@ namespace SolucionesARWebsite2.Helpers
            Expression<Func<EditViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.CustomersList, "UserId", "FName",
+                                              new SelectList(htmlHelper.ViewData.Model.CustomersList, "UserId", "FName" + "LName", //TODO: ver si esto se vale...
                                                              htmlHelper.ViewData.Model.Customer.UserId));
         }
 

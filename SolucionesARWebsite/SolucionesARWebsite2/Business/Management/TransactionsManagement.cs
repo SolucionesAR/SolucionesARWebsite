@@ -63,11 +63,22 @@ namespace SolucionesARWebsite2.Business.Management
 
         public void SaveTransaction(Transaction transaction)
         {
-            bool saveSuccess = _transactionsRepository.SaveTransaction(transaction);
+            var saveSuccess = _transactionsRepository.SaveTransaction(transaction);
             if (saveSuccess)
             {
-                //TODO: aca recibo un  bool de exito, ver si lo ocupo
-                _transactionsLogic.DistributeTransactionCashback(transaction);
+                var distributionSuccess= _transactionsLogic.DistributeTransactionCashback(transaction);
+                if (distributionSuccess)
+                {
+                    _transactionsRepository.SaveChangesMade();
+                }
+                else
+                {
+                    _transactionsRepository.RejectChanges();
+                }
+            }
+            else
+            {
+                _transactionsRepository.RejectChanges();
             }
 
         }

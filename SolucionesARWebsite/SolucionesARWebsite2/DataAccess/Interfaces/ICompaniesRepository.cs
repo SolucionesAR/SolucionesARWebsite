@@ -18,5 +18,7 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
         Company GetCompany(int companyId);
 
         Company GetCompany(Store store);
+
+        Company GetCompany(string storeNickName);
     }
 }

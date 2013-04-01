@@ -37,24 +37,31 @@
                         <fieldset>
                             @Html.EditorFor(model => model.BillBarCode)
                             @Html.EditorFor(model => model.Amount)
+                            @Html.EditorFor(model => model.Comision)
                             <span>
                                 @Html.LabelFor(model => model.Points) <br/>
                                 @Html.EditorFor(model => model.Points)
                             </span>
                         </fieldset>
                         <fieldset>
-                           @* <span>
+                            @* <span>
                                 @Html.LabelFor(model => model.SalesMan) <br/>
                                 @Html.DropDownListForSalesManList(model => model.SalesMan.UserId)
                             </span>*@
+                            <span>
+                                @Html.LabelFor(model => model.TransactionDate) <br/>
+                                @Html.EditorFor(model => model.TransactionDate)
+                            </span>
                             <span>
                                 @Html.LabelFor(model => model.Customer) <br/>
                                 @Html.DropDownListForCustomersList(model => model.Customer.UserId)
                             </span>
                             <span>
-                                @Html.LabelFor(model => model.Store) <br/>
-                                @Html.DropDownListForStoresList(model => model.Store.StoreId)
+                                @Html.LabelFor(model => model.Company) <br/>
+                                @Html.DropDownListForCompaniesList(model => model.Company.CompanyId)
                             </span>
+                            
+
                         </fieldset>
                             
                         <input name="submit" type="submit" value="Guardar">
