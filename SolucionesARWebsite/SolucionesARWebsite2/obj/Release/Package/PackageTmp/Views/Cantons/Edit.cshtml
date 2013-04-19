@@ -8,12 +8,7 @@
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-@section Messages {
-
-}
-
-
-@section EditionContent {
+@section Header {
     @if (Model.CantonId > 0)
     {
         <h1>EDITAR CANTON</h1>
@@ -22,8 +17,14 @@
     {
         <h1>NUEVO CANTON</h1>
     }
-    
-    <p class="note">Favor complete el siguiente formulario</p>
+}
+
+@section Messages {
+    @Html.ValidationSummary()
+}
+
+
+@section EditionContent {
     @using (Html.BeginForm("Save", "Cantons"))
     {
         @Html.HiddenFor(model => model.CantonId)

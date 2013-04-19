@@ -9,25 +9,26 @@
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-@section Messages {
 
+@section Header {
+    @if (Model.TransactionId > 0)
+    {
+        <h1>EDITAR VENTA</h1>
+    }
+    else
+    {
+        <h1>NUEVA VENTA</h1>
+    }
+}
+
+@section Messages {
+    @Html.ValidationSummary()
 }
 
 
 @section EditionContent {
     <div class="edition_content content_box ">
-        
-        @if (Model.TransactionId > 0)
-        {
-            <h1>EDITAR VENTA</h1>
-        }
-        else
-        {
-            <h1>NUEVA VENTA</h1>
-        }
-
         <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
             <div class="jspContainer" style="width: 960px; height: 400px;">
                 <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
                     @using (Html.BeginForm("Save", "Transactions"))
@@ -36,24 +37,31 @@
                         <fieldset>
                             @Html.EditorFor(model => model.BillBarCode)
                             @Html.EditorFor(model => model.Amount)
+                            @Html.EditorFor(model => model.Comision)
                             <span>
                                 @Html.LabelFor(model => model.Points) <br/>
                                 @Html.EditorFor(model => model.Points)
                             </span>
                         </fieldset>
                         <fieldset>
-                           @* <span>
+                            @* <span>
                                 @Html.LabelFor(model => model.SalesMan) <br/>
                                 @Html.DropDownListForSalesManList(model => model.SalesMan.UserId)
                             </span>*@
+                            <span>
+                                @Html.LabelFor(model => model.TransactionDate) <br/>
+                                @Html.EditorFor(model => model.TransactionDate)
+                            </span>
                             <span>
                                 @Html.LabelFor(model => model.Customer) <br/>
                                 @Html.DropDownListForCustomersList(model => model.Customer.UserId)
                             </span>
                             <span>
-                                @Html.LabelFor(model => model.Store) <br/>
-                                @Html.DropDownListForStoresList(model => model.Store.StoreId)
+                                @Html.LabelFor(model => model.Company) <br/>
+                                @Html.DropDownListForCompaniesList(model => model.Company.CompanyId)
                             </span>
+                            
+
                         </fieldset>
                             
                         <input name="submit" type="submit" value="Guardar">
@@ -63,4 +71,3 @@
         </div>
     </div>
 }
-

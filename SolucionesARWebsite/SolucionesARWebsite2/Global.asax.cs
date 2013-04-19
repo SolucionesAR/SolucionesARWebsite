@@ -58,6 +58,7 @@ namespace SolucionesARWebsite2
             builder.RegisterType<RolesManagement>().InstancePerHttpRequest();
             builder.RegisterType<TransactionsManagement>().InstancePerHttpRequest();
             builder.RegisterType<UsersManagement>().InstancePerHttpRequest();
+            builder.RegisterType<StoresManagement>().InstancePerHttpRequest();
              
             builder.RegisterType<BeginningConfig>().InstancePerHttpRequest();
 

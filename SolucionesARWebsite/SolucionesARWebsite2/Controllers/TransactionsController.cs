@@ -15,19 +15,17 @@ namespace SolucionesARWebsite2.Controllers
 
         private readonly TransactionsManagement _transactionsManagement;
         private readonly UsersManagement _usersManagement;
-        private readonly StoresManagement _storesManagement;
         private readonly CompaniesManagement _companiesManagement;
 
         #endregion
 
         #region Constructors
 
-        public TransactionsController(UsersManagement usersManagement, StoresManagement storesManagement, TransactionsManagement transactionsManagement, CompaniesManagement companiesManagement)
+        public TransactionsController(UsersManagement usersManagement,  TransactionsManagement transactionsManagement, CompaniesManagement companiesManagement)
             : base(usersManagement)
         {
             _transactionsManagement = transactionsManagement;
             _usersManagement = usersManagement;
-            _storesManagement = storesManagement;
             _companiesManagement = companiesManagement;
         }
 

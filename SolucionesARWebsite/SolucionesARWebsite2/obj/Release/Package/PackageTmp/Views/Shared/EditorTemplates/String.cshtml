@@ -1,4 +1,5 @@
-﻿<span>
+﻿@using System.Globalization
+<span>
     @Html.Label(ViewData.ModelMetadata.DisplayName)
     @{
         if (ViewData.ModelMetadata.IsRequired)
@@ -8,7 +9,7 @@
                 ViewData.TemplateInfo.FormattedModelValue, new
                                                                {
                                                                    placeholder = ViewData.ModelMetadata.Watermark,
-                                                                   required = ViewData.ModelMetadata.IsRequired.ToString().ToLower(),
+                                                                   required = ViewData.ModelMetadata.IsRequired.ToString(CultureInfo.InvariantCulture).ToLower(),
                                                                    type = ViewData.ModelMetadata.DataTypeName,
                                                                })
         }

@@ -33,12 +33,10 @@ namespace SolucionesARWebsite2.Business.Logic
             int.TryParse(loginFormModel.Username, out identificationNumber);
 
             var userInformation = _usersRepository.GetUserByIdentificationNumber(identificationNumber);
-            var hashPassword =
-                BCrypt.Net.BCrypt.HashPassword(
-                    userInformation.Password,
-                    BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
-            return BCrypt.Net.BCrypt.Verify(loginFormModel.Password, hashPassword);
+
+            return BCrypt.Net.BCrypt.Verify(loginFormModel.Password, userInformation.Password);
         }
+
 
         public bool CreateDefaultConfiguration(LoginViewModel loginFormModel)
         {
@@ -46,7 +44,7 @@ namespace SolucionesARWebsite2.Business.Logic
                 loginFormModel.Password.Equals(Constants.SolucionesArPassword.ToStringValue()))
             {
                 _beginningConfig.CreateDefaultConfiguration();
-                loginFormModel.Username = Constants.SolucionesArUser.ToString();
+                loginFormModel.Username = "1";
             }
 
             return IsValidLogin(loginFormModel);

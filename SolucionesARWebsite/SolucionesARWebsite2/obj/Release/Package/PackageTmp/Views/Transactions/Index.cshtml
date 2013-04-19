@@ -52,7 +52,7 @@
                         Fecha
                     </th>
                     <th>
-                        Tienda
+                        Compania
                     </th>
                     @*<th>
                         Dependiente
@@ -74,10 +74,10 @@
                             @Html.DisplayFor(modelItem => item.Amount)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CreatetedAt)
+                            @Html.DisplayFor(modelItem => item.TransactionDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Store.DistrictId)
+                            @Html.DisplayFor(modelItem => item.Company.CompanyNickName)
                         </td>
                        @* <td>
                             @Html.DisplayFor(modelItem => item.SalesMan.FName) 

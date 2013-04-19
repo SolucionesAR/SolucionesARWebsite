@@ -38,9 +38,6 @@
             <table>
                 <tr>
                     <th>
-                        Código
-                    </th>
-                    <th>
                         Cédula
                     </th>
                     <th>
@@ -66,9 +63,6 @@
                 @foreach (var item in Model.PagedItems)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GeneratedCode)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CedNumber)
                         </td>

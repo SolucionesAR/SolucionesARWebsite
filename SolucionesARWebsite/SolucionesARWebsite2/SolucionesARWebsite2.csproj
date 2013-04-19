@@ -492,10 +492,6 @@
     <None Include="Content\themes\GReptem\fonts\websymbols-regular-webfont.ttf" />
     <None Include="Content\themes\GReptem\fonts\websymbols-regular-webfont.woff" />
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\solar2 - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\solar2 - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\testingsolar - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\testingsolar - Web Deploy.pubxml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Cantons\Edit.cshtml" />
     <Content Include="Views\Cantons\Index.cshtml" />
@@ -549,6 +545,8 @@
     <Content Include="Views\IdentificationTypes\Edit.cshtml" />
     <Content Include="Views\IdentificationTypes\Index.cshtml" />
     <Content Include="Views\Shared\AccountMenu.cshtml" />
+    <None Include="Properties\PublishProfiles\testparasolucionesar - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\testparasolucionesar - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

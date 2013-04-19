@@ -7,12 +7,8 @@
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-@section Messages {
 
-}
-
-
-@section EditionContent {
+@section Header {
     @if (Model.RelationshipTypesId > 0)
     {
         <h1>EDITAR RELACION</h1>
@@ -22,7 +18,14 @@
         <h1>NUEVA RELACION</h1>
     }
     
-    <p class="note">Favor complete el siguiente formulario</p>
+}
+
+@section Messages {
+    @Html.ValidationSummary()
+}
+
+
+@section EditionContent {
     @using (Html.BeginForm("Save", "RelationshipTypes"))
     {
         @Html.HiddenFor(model => model.RelationshipTypesId)
@@ -34,4 +37,3 @@
         <input name="submit" type="submit" value="Submit">
     }
 }
-

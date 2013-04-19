@@ -65,9 +65,9 @@ namespace SolucionesARWebsite2.Enumerations
         [Value("DefaultDistricts")]
         DefaultDistrict = 1,
         [Value("UsuarioSolucionesAr")]
-        SolucionesArUser = 1,
+        SolucionesArUser,
         [Value("UsuarioSolucionesArCreator")]
-        SolucionesArUserCreator = 1,
+        SolucionesArUserCreator,
         [Value("$@R|SOLuc10n3s")]
         SolucionesArPassword,
         [Value("RoleBasedMenu")]

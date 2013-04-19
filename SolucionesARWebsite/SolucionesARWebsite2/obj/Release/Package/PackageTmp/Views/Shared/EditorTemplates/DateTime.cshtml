@@ -1,12 +1,15 @@
 ﻿<span>
+    @{
+       var a = ((DateTime)ViewData.TemplateInfo.FormattedModelValue);
+    }
     @Html.Label(ViewData.ModelMetadata.DisplayName)
-    @Html.TextBox(
-        string.Empty,
-        ((DateTime)ViewData.TemplateInfo.FormattedModelValue).ToString("dd/MM/yyyy"),
-        new
-            {
-                placeholder = ViewData.ModelMetadata.Watermark, 
-                required = ViewData.ModelMetadata.IsRequired, 
-                type = "date"
-            })
+    @Html.TextBox(ViewData.ModelMetadata.PropertyName,
+                  ((DateTime)ViewData.TemplateInfo.FormattedModelValue),
+                  new
+                      {
+                          placeholder = ViewData.ModelMetadata.Watermark, 
+                          required = ViewData.ModelMetadata.IsRequired, 
+                          type = "date",
+                          format = "dd/MM/yyyy"
+                      })
 </span>

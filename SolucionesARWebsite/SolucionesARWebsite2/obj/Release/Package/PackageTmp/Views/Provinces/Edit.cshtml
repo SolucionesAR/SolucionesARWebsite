@@ -7,12 +7,8 @@
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
 
-@section Messages {
 
-}
-
-
-@section EditionContent {
+@section Header {
     @if (Model.ProvinceId > 0)
     {
         <h1>EDITAR PROVINCIA</h1>
@@ -21,8 +17,14 @@
     {
         <h1>NUEVA PROVINCIA</h1>
     }
-    
-    <p class="note">Favor complete el siguiente formulario</p>
+}
+
+@section Messages {
+    @Html.ValidationSummary()
+}
+
+
+@section EditionContent {
     @using (Html.BeginForm("Save", "Provinces"))
     {
         @Html.HiddenFor(model => model.ProvinceId)
@@ -34,4 +36,3 @@
         <input name="submit" type="submit" value="Submit">
     }
 }
-
