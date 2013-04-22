@@ -62,20 +62,18 @@ namespace SolucionesARWebsite2.Controllers
             return View(indexViewModel);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Pay(int id)
         {
             var userInformation = UsersManagement.GetUser(id);
-            var detailsViewModel = new DetailsViewModel
+            var detailsViewModel = new PayViewModel
                                        {
                                            UserId = id,
                                            IdentificationNumber = userInformation.CedNumber,
                                            FName = userInformation.FName,
                                            LName1 = userInformation.LName1,
                                            LName2 = userInformation.LName2,
-                                           Cashback = string.Format("{0} colones", userInformation.Cashback),
-                                           Enabled = userInformation.Enabled,
-                                           GeneratedCode = userInformation.GeneratedCode,
-                                           LastTransactions = _transactionsManagement.GetLastTransactions(id),
+                                           LastCashback = userInformation.Cashback,
+                                           Cashback = 0,
                                        };
 
             return View(detailsViewModel);
@@ -114,6 +112,7 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid && IsValidUser(editViewModel))
             {
                 UsersManagement.Save(Map(editViewModel), SecurityContext.User.Id);
+                return RedirectToAction("Index");
             }
             
             editViewModel.CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext);
@@ -126,6 +125,19 @@ namespace SolucionesARWebsite2.Controllers
             ViewBag.DistrictsList = _districtsManagement.GetDistricts(editViewModel.CantonId);
 
             return View("Edit", editViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SavePayment(PayViewModel payViewModel)
+        {
+            if (ModelState.IsValid && IsValidPayment(payViewModel))
+            {
+                var newCashback = payViewModel.LastCashback - payViewModel.Cashback;
+                UsersManagement.SavePayment(payViewModel.UserId, newCashback, SecurityContext.User.Id);
+                return RedirectToAction("Index");
+            }
+
+            return View("Pay", payViewModel);
         }
 
         public JsonResult IsValidParentUser(string identificationNumber)
@@ -164,6 +176,11 @@ namespace SolucionesARWebsite2.Controllers
                 return false;
             }
             return true;
+        }
+
+        private bool IsValidPayment(PayViewModel payViewModel)
+        {
+            return (payViewModel.Cashback >= 0) && (payViewModel.Cashback <= payViewModel.LastCashback);
         }
         
         private static List<IdentificationType> GetIdentificationTypesList()
@@ -236,8 +253,8 @@ namespace SolucionesARWebsite2.Controllers
                                Cellphone = editViewModel.Cellphone,
                                CompanyId = editViewModel.Company.CompanyId,
                                DistrictId = editViewModel.DistrictId,
-                               Dob = editViewModel.Dob,
-                               Email = editViewModel.Cashback != null ? editViewModel.Email.ToUpper() : string.Empty,
+                               Dob = Convert.ToDateTime(editViewModel.Dob),
+                               Email = editViewModel.Email != null ? editViewModel.Email.ToUpper() : string.Empty,
                                Enabled = editViewModel.Enabled,
                                FName = editViewModel.FirstName.ToUpper(),
                                GeneratedCode =
@@ -249,7 +266,7 @@ namespace SolucionesARWebsite2.Controllers
                                Nationality = editViewModel.Nationality.ToUpper(),
                                IdentificationTypeId = editViewModel.IdentificationType.IdentificationTypeId,
                                RolId = editViewModel.UserRol.RolId,
-                               PhoneNumber = editViewModel.PhoneNumber.ToUpper(),
+                               PhoneNumber = editViewModel.PhoneNumber,
                                RelationshipTypeId = editViewModel.RelationshipType.RelationshipTypeId,
                                UserId = editViewModel.UserId,
                                UserReferenceId = !string.IsNullOrEmpty(editViewModel.ParentIdentificationNumber)
@@ -261,7 +278,7 @@ namespace SolucionesARWebsite2.Controllers
                            };
 
             //update the user password with the SAR generated code
-            BCrypt.Net.BCrypt.HashPassword(
+            user.Password = BCrypt.Net.BCrypt.HashPassword(
                 user.GeneratedCode,
                 BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
             return user;
@@ -277,7 +294,7 @@ namespace SolucionesARWebsite2.Controllers
                                         CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
                                         Company = user.Company,
                                         DistrictId = user.District.DistrictId,
-                                        Dob = (DateTime) user.Dob,
+                                        Dob = user.Dob != null ? (DateTime) user.Dob : DateTime.UtcNow,
                                         Email = user.Email,
                                         Enabled = user.Enabled,
                                         FirstName = user.FName,

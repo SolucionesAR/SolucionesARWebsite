@@ -9,7 +9,7 @@
 @section PageContent {
     <div class="main-content">
              
-        @using (@Html.BeginForm(Model.RouteValues))
+        @using (@Html.BeginForm())
         {
             @RenderSection("Messages", true);
 

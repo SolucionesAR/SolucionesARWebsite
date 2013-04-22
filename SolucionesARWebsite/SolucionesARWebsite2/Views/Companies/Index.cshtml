@@ -19,9 +19,9 @@
     @{      
         @Html.PagedListPager(Model.PagedItems,
             page => Url.Action("Index", new RouteValueDictionary {
-               { "Page", page },
-               { "EmailAddress", Model.EmailAddress },
-               { "LastName", Model.LastName }
+                   { "Page", page },
+                   { "EmailAddress", Model.EmailAddress },
+                   { "LastName", Model.LastName }
             }),
             PagedListRenderOptions.OnlyShowFivePagesAtATime)
     }   

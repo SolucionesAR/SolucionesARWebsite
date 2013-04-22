@@ -55,7 +55,10 @@
                         @Html.EditorFor(model => model.Enabled)
                     </fieldset>
                     <fieldset>
-                        @Html.EditorFor(model => model.Dob)
+                        <span>
+                            @Html.LabelFor(model => model.Dob)
+                            @Html.TextBox("Dob", string.Format("{0:dd/MM/yyyy}", Model.Dob), new { @class = "datepicker" })
+                        </span>
                         @Html.EditorFor(model => model.PhoneNumber)
                         @Html.EditorFor(model => model.Cellphone)
                         @Html.EditorFor(model => model.Email)
@@ -65,7 +68,7 @@
                             @Html.LabelFor(model => model.ProvinceId) <br/>
                             @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
                         </span>
-                        <span><a href="../../Controllers/CompaniesController.cs">../../Controllers/CompaniesController.cs</a>
+                        <span>
                             @Html.LabelFor(model => model.CantonId) <br/>
                             @Html.DropDownListForCantonslList(ViewBag.CantonsList as System.Collections.IEnumerable, model => model.CantonId)
                         </span>
@@ -99,9 +102,14 @@
             </div>
         </div>
     </div>
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+
             //display the required masks
             $("#IdentificationNumber").mask("9-9999-9999");
             $("#PhoneNumber").mask("9999-9999");

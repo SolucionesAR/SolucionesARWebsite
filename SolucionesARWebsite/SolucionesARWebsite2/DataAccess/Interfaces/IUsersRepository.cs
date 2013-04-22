@@ -31,5 +31,6 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
 
         void RejectChanges();
 
+        void SavePayment(int userId, double cashback, int updatedBy);
     }
 }

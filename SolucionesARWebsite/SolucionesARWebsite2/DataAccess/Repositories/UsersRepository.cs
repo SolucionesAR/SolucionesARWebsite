@@ -44,6 +44,32 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public void EditUser(User user)
         {
+            var entry = _databaseModel.Entry(user);
+            if (entry.State == EntityState.Detached)
+            {
+                var set = _databaseModel.Set<User>();
+                var attachedEntity = set.Find(user.UserId);  // You need to have access to key
+
+                if (attachedEntity != null)
+                {
+                    var attachedEntry = _databaseModel.Entry(attachedEntity);
+                    attachedEntry.CurrentValues.SetValues(user);
+                }
+                else
+                {
+                    entry.State = EntityState.Modified; // This should attach entity
+                }
+            }
+
+            _databaseModel.SaveChanges();
+        }
+
+        public void SavePayment(int userId, double cashback, int updatedBy)
+        {
+            var user = GetUserById(userId);
+            user.Cashback = cashback;
+            user.UpdatedAt = DateTime.UtcNow;
+            
             _databaseModel.Entry(user).State = EntityState.Modified;
             _databaseModel.SaveChanges();
         }
@@ -74,6 +100,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public User GetUserByIdentificationNumber(int identificationNumber)
         {
+            var a = _databaseModel.Users.ToList();
             var user = _databaseModel.Users.FirstOrDefault(u => u.CedNumber.Equals(identificationNumber));
             return user;
         }
@@ -133,7 +160,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
                 }
             }
         }
-
+        
         #endregion
 
         #region Private Methods

@@ -1,15 +1,16 @@
 ﻿<span>
     @{
        var a = ((DateTime)ViewData.TemplateInfo.FormattedModelValue);
+       var b = string.Format("{0:dd/MM/yyyy}", ViewData.TemplateInfo.FormattedModelValue);
     }
     @Html.Label(ViewData.ModelMetadata.DisplayName)
+
     @Html.TextBox(ViewData.ModelMetadata.PropertyName,
-                  ((DateTime)ViewData.TemplateInfo.FormattedModelValue),
-                  new
-                      {
-                          placeholder = ViewData.ModelMetadata.Watermark, 
-                          required = ViewData.ModelMetadata.IsRequired, 
-                          type = "date",
-                          format = "dd/MM/yyyy"
-                      })
+                        string.Format("{0:dd/MM/yyyy}", ViewData.TemplateInfo.FormattedModelValue),
+                        new
+                        {
+                            required = ViewData.ModelMetadata.IsRequired,
+                            placeholder = ViewData.ModelMetadata.Watermark,
+                            @class = "datePicker",
+                        })
 </span>

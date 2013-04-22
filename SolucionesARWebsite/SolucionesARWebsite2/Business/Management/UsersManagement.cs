@@ -87,6 +87,11 @@ namespace SolucionesARWebsite2.Business.Management
             }
         }
 
+        public void SavePayment(int userId, double cashback, int updatedBy)
+        {
+            _usersRepository.SavePayment(userId, cashback, updatedBy);
+        }
+
         public bool HasValidIdentificationNumber(int userId, string identificationNumber)
         {
             return _usersRepository.HasValidIdentificationNumber(userId, Convert.ToInt32(identificationNumber.Replace("-", string.Empty)));

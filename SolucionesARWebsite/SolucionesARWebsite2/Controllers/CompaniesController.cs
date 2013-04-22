@@ -66,6 +66,7 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 _companiesManagement.Save(editViewModel);
+                return RedirectToAction("Index");
             }
             return View("Edit", editViewModel);
         }

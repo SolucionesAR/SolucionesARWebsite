@@ -33,15 +33,15 @@ namespace SolucionesARWebsite2.Enumerations
     public enum UserRoles
     {
         [Value("customer")]
-        Customer = 2,
+        Customer = 1,
         [Value("salesman")]
-        Salesman = 3,
+        Salesman = 2,
         [Value("manager")]
-        Manager = 4,
+        Manager = 3,
         [Value("administrator")]
-        Administrator = 5,
+        Administrator = 4,
         [Value("super_user")]
-        SuperUser = 6,
+        SuperUser = 5,
     }
 
     public enum RelationshipTypes
@@ -65,7 +65,7 @@ namespace SolucionesARWebsite2.Enumerations
         [Value("DefaultDistricts")]
         DefaultDistrict = 1,
         [Value("UsuarioSolucionesAr")]
-        SolucionesArUser,
+        SolucionesArUser = 1,
         [Value("UsuarioSolucionesArCreator")]
         SolucionesArUserCreator,
         [Value("$@R|SOLuc10n3s")]

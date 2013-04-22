@@ -82,6 +82,9 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// </summary>
         [Required(ErrorMessage = "Favor completar la fecha de nacimiento")]
         [Display(Name = "Fecha Nacimiento*", Prompt = "Fecha Nacimiento")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        //TODO : Esta picha no esta sirviendo. localmente el comportamiento es q los formatos estan dd/mm pero pone al revez la vara en el cuadrigo mm/dd, si lo cambio a mano sirve y salva. Arriba en el server no funciona aun asi.
+        [DataType (DataType.Date)]
         public DateTime Dob { get; set; }
 
         /// <summary>

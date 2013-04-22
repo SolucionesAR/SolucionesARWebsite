@@ -109,6 +109,7 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 _storesManagement.SaveStore(editViewModel);
+                return RedirectToAction("Index");
             }
             var canton = _locationsManagement.GetCantonByDistrict(editViewModel.District.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);

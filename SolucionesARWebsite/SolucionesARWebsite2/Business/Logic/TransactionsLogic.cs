@@ -74,7 +74,7 @@ namespace SolucionesARWebsite2.Business.Logic
                 UpdateSolucionesArUser(solucionesArAmount);
                 // Este seria el 70% del que los usuarios van a tomar sus %
                 var forUsersAmount = cashBackPercentajeAssignable - solucionesArAmount;
-
+                var moneyForRealUser = forUsersAmount * REAL_USER_PERCENTAJE;
 
 
                 // Los usuarios
@@ -90,6 +90,10 @@ namespace SolucionesARWebsite2.Business.Logic
                         parentUser.Cashback += forSeniorMoney;
                         _usersRepository.UpdateUser(parentUser);
                     }
+                    else
+                    {
+                        _usersRepository.UpdateUser(UpdateSolucionesArUser(forSeniorMoney));
+                    }
                     var grandParentUser = parentUser.UserReference;
                     var forMasterMoney = forUsersAmount*MASTER_USER_PERCENTAJE;
                     if (grandParentUser != null && grandParentUser.Enabled)
@@ -99,6 +103,10 @@ namespace SolucionesARWebsite2.Business.Logic
                             grandParentUser.Cashback += forMasterMoney;
                             _usersRepository.UpdateUser(grandParentUser);
                         }
+                        else
+                        {
+                            _usersRepository.UpdateUser(UpdateSolucionesArUser(forMasterMoney));
+                        }
                     }
                     else
                     {
@@ -107,19 +115,21 @@ namespace SolucionesARWebsite2.Business.Logic
                 }
                 else
                 {
-                    _usersRepository.UpdateUser(UpdateSolucionesArUser(forUsersAmount));
+                    _usersRepository.UpdateUser(UpdateSolucionesArUser(forUsersAmount - moneyForRealUser));
                 }
 
                 // Calculo del cashback para el usuario que hizo la compra
-                var moneyForRealUser = forUsersAmount*REAL_USER_PERCENTAJE;
+                
                 customer.Cashback += moneyForRealUser;
                 customer.Points += transaction.Points;
                 _usersRepository.UpdateUser(customer);
+                _usersRepository.SaveChangesMade();
                 return true;
             }
             catch (Exception)
             {
                 _usersRepository.RejectChanges();
+                _transactionsRepository.RejectChanges();
                 return false;
             }
 
@@ -157,7 +167,7 @@ namespace SolucionesARWebsite2.Business.Logic
                             {
                                 campana = x.Field<string>("Campaña"),
                                 factura = x.Field<string>("Factura"),
-                                fecha = x.Field<string>("Fecha"),
+                                fecha = x.Field<DateTime>("Fecha"),
                                 monto = x.Field<double>("Monto"),
                                 puntos = x.Field<double>("Puntos"),
                                 comision = x.Field<double>("Comision"),
@@ -185,7 +195,10 @@ namespace SolucionesARWebsite2.Business.Logic
                     };
                     if (_transactionsRepository.SaveTransaction(transaction))
                     {
-                        DistributeTransactionCashback(transaction);
+                        if(!DistributeTransactionCashback(transaction))
+                        {
+                            _transactionsRepository.RejectChanges();
+                        }
                     }
                     else
                     {
@@ -203,6 +216,7 @@ namespace SolucionesARWebsite2.Business.Logic
             }
             catch (Exception ex)
             {
+                //TODO: enviar algun error
                 _usersRepository.RejectChanges();
                 _transactionsRepository.RejectChanges();
                 Console.WriteLine(ex.Message);

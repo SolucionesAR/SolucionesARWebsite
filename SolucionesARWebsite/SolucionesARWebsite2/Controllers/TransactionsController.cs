@@ -130,20 +130,19 @@ namespace SolucionesARWebsite2.Controllers
                                           Comision = comision,
                                       };
                     _transactionsManagement.SaveTransaction(transaction);
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    transaction = _transactionsManagement.GetTransaction(editFormModel.TransactionId);
-                    transaction.BillBarCode = editFormModel.BillBarCode;
-                    transaction.Amount = editFormModel.Amount;
-                    transaction.CustomerId = editFormModel.Customer.UserId;
-                    transaction.Points = editFormModel.Points;
-                    transaction.CompanyId = editFormModel.Company.CompanyId;
-                    transaction.TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate);
-                    transaction.UpdatedAt = DateTime.UtcNow;
-                    transaction.Comision = editFormModel.Comision;
-                    _transactionsManagement.UpdateTransaction();
-                }
+
+                transaction = _transactionsManagement.GetTransaction(editFormModel.TransactionId);
+                transaction.BillBarCode = editFormModel.BillBarCode;
+                transaction.Amount = editFormModel.Amount;
+                transaction.CustomerId = editFormModel.Customer.UserId;
+                transaction.Points = editFormModel.Points;
+                transaction.CompanyId = editFormModel.Company.CompanyId;
+                transaction.TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate);
+                transaction.UpdatedAt = DateTime.UtcNow;
+                transaction.Comision = editFormModel.Comision;
+                _transactionsManagement.UpdateTransaction();
             }
             editFormModel.CustomersList = _usersManagement.GetUsersList();
             editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
