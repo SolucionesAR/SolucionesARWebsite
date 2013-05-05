@@ -221,7 +221,9 @@ namespace SolucionesARWebsite2.Controllers
                 CantonId = (int)Constants.DefaultCanton,
                 Company = new Company(),
                 CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
-                Dob = DateTime.UtcNow,
+                Day = DateTime.UtcNow.Day,
+                Month = DateTime.UtcNow.Month,
+                Year = DateTime.UtcNow.Year,
                 DistrictId = (int)Constants.DefaultDistrict,
                 Enabled = true,
                 IdentificationType =
@@ -253,7 +255,8 @@ namespace SolucionesARWebsite2.Controllers
                                Cellphone = editViewModel.Cellphone,
                                CompanyId = editViewModel.Company.CompanyId,
                                DistrictId = editViewModel.DistrictId,
-                               Dob = Convert.ToDateTime(editViewModel.Dob),
+
+                               Dob = new DateTime(editViewModel.Year, editViewModel.Month, editViewModel.Day),
                                Email = editViewModel.Email != null ? editViewModel.Email.ToUpper() : string.Empty,
                                Enabled = editViewModel.Enabled,
                                FName = editViewModel.FirstName.ToUpper(),
@@ -294,7 +297,11 @@ namespace SolucionesARWebsite2.Controllers
                                         CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
                                         Company = user.Company,
                                         DistrictId = user.District.DistrictId,
-                                        Dob = user.Dob != null ? (DateTime) user.Dob : DateTime.UtcNow,
+                                        Day = user.Dob != null ? user.Dob.Value.Day:1,
+                                        Month = user.Dob != null ? user.Dob.Value.Month:1,
+                                        Year = user.Dob != null ? user.Dob.Value.Year:1970,
+                                        //Dob = (DateTime) user.Dob,
+                                        
                                         Email = user.Email,
                                         Enabled = user.Enabled,
                                         FirstName = user.FName,

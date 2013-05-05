@@ -47,21 +47,32 @@
                         @Html.ValidationMessageFor(model => model.IdentificationNumber)
                         @Html.EditorFor(model => model.IdentificationNumber)
                         @Html.EditorFor(model => model.Nationality)
+                        @Html.EditorFor(model => model.Enabled)
                     </fieldset>
                     <fieldset>
                         @Html.EditorFor(model => model.LastName1)
                         @Html.EditorFor(model => model.LastName2)
                         @Html.EditorFor(model => model.FirstName)
-                        @Html.EditorFor(model => model.Enabled)
+                        @Html.EditorFor(model => model.Email)
                     </fieldset>
                     <fieldset>
                         <span>
-                            @Html.LabelFor(model => model.Dob)
-                            @Html.TextBox("Dob", string.Format("{0:dd/MM/yyyy}", Model.Dob), new { @class = "datepicker" })
+                            @Html.LabelFor(model => model.Day)
+                            <br />
+                            @Html.DropDownListFor(model => model.Day, Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Day --")
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.Month)
+                            <br />
+                            @Html.DropDownListFor(model=> model.Month, Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }), "-- Month --")
+                        </span>
+                        <span>
+                        @Html.LabelFor(model => model.Year)
+                        <br />
+                        @Html.DropDownListFor(model => model.Year, Enumerable.Range(1920, DateTime.Now.Year).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Year --")
                         </span>
                         @Html.EditorFor(model => model.PhoneNumber)
                         @Html.EditorFor(model => model.Cellphone)
-                        @Html.EditorFor(model => model.Email)
                     </fieldset>
                     <fieldset>
                         <span>

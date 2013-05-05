@@ -951,6 +951,7 @@ form .main-actions .button :hover {
 	position:absolute;
 	overflow:hidden;
 	outline:none;
+    width: 1020px;
 }
 .jspScrollable {
 	outline:none;
