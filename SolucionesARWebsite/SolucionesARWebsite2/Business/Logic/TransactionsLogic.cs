@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+
 using System.Linq;
+using System.IO;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.Models;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace SolucionesARWebsite2.Business.Logic
 {
@@ -146,34 +152,78 @@ namespace SolucionesARWebsite2.Business.Logic
         {
             try
             {
-                string connectionString =
-                    string.Format(
-                        filename.Substring(filename.LastIndexOf('.')).ToLower() == EXCEL_2007_EXTENSION
-                            ? EXCEL_2007_CONNECTION_STRING
-                            : EXCEL_2005_CONNECTION_STRING, filename);
+                //Using Npoi instead of the office components
+                ISheet sheet;
+                if (filename.Substring(filename.LastIndexOf('.')).ToLower() == EXCEL_2007_EXTENSION)
+                {
+                    XSSFWorkbook workbook;
+                    using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read))
+                    {
+                        workbook = new XSSFWorkbook(file);
+                    }
+                    sheet = workbook.GetSheet(sheetName);
+                }
+                else
+                {
+                    HSSFWorkbook workbook;
+                    using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read))
+                    {
+                        workbook = new HSSFWorkbook(file);
+                    }
+                    sheet = workbook.GetSheet(sheetName);
+                }
 
 
-                var adapter = new OleDbDataAdapter(string.Format(SELECT_ALL_QUERY, sheetName), connectionString);
-                var dataSet = new DataSet();
 
-                adapter.Fill(dataSet, DATA_TABLE_NAME);
 
-                var reportData = dataSet.Tables[DATA_TABLE_NAME].AsEnumerable();
+                var transactionsList = new List<dynamic>();
+                for (int row = 1; row <= sheet.LastRowNum; row++)
+                {
+                    if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+                    {
+                        var theRow = sheet.GetRow(row);
+                        var transaction = new
+                                              {
+                                                  campana = theRow.GetCell(0).StringCellValue,
+                                                  factura = theRow.GetCell(1).StringCellValue,
+                                                  fecha = theRow.GetCell(2).DateCellValue,
+                                                  monto = theRow.GetCell(3).NumericCellValue,
+                                                  puntos = theRow.GetCell(4).NumericCellValue,
+                                                  comision = theRow.GetCell(5).NumericCellValue,
+                                                  vendedor = theRow.GetCell(6).StringCellValue,
+                                              };
+                        transactionsList.Add(transaction);
 
-                var transactionsList =
-                    reportData.Where(y => y.Field<string>("Campaña") != null)
-                        .Select(
-                            x => new
-                            {
-                                campana = x.Field<string>("Campaña"),
-                                factura = x.Field<string>("Factura"),
-                                fecha = x.Field<DateTime>("Fecha"),
-                                monto = x.Field<double>("Monto"),
-                                puntos = x.Field<double>("Puntos"),
-                                comision = x.Field<double>("Comision"),
-                                vendedor = x.Field<string>("Vendedor"),
-                            }).
-                        ToList(); //o por nombre de columna.
+                    }
+                }
+                //string connectionString =
+                //    string.Format(
+                //        filename.Substring(filename.LastIndexOf('.')).ToLower() == EXCEL_2007_EXTENSION
+                //            ? EXCEL_2007_CONNECTION_STRING
+                //            : EXCEL_2005_CONNECTION_STRING, filename);
+
+
+                //var adapter = new OleDbDataAdapter(string.Format(SELECT_ALL_QUERY, sheetName), connectionString);
+                //var dataSet = new DataSet();
+
+                //adapter.Fill(dataSet, DATA_TABLE_NAME);
+
+                //var reportData = dataSet.Tables[DATA_TABLE_NAME].AsEnumerable();
+
+                //var transactionsList =
+                //    reportData.Where(y => y.Field<string>("Campaña") != null)
+                //        .Select(
+                //            x => new
+                //            {
+                //                campana = x.Field<string>("Campaña"),
+                //                factura = x.Field<string>("Factura"),
+                //                fecha = x.Field<DateTime>("Fecha"),
+                //                monto = x.Field<double>("Monto"),
+                //                puntos = x.Field<double>("Puntos"),
+                //                comision = x.Field<double>("Comision"),
+                //                vendedor = x.Field<string>("Vendedor"),
+                //            }).
+                //        ToList(); //o por nombre de columna.
                 foreach (var individualTransaction in transactionsList)
                 {
                     int cedNumber = GetCedNumberFromString(individualTransaction.vendedor);
@@ -182,20 +232,20 @@ namespace SolucionesARWebsite2.Business.Logic
                     var company = _companiesRepository.GetCompany(individualTransaction.campana);
 
                     var transaction = new Transaction
-                    {
-                        Amount = individualTransaction.monto,
-                        BillBarCode = individualTransaction.factura,
-                        CustomerId = customer.UserId,
-                        Points = (int)individualTransaction.puntos,
-                        TransactionDate = Convert.ToDateTime(individualTransaction.fecha),
-                        CompanyId = company.CompanyId,
-                        CreatetedAt = DateTime.UtcNow,
-                        UpdatedAt = DateTime.UtcNow,
-                        Comision = individualTransaction.comision,
-                    };
+                                          {
+                                              Amount = individualTransaction.monto,
+                                              BillBarCode = individualTransaction.factura,
+                                              CustomerId = customer.UserId,
+                                              Points = (int) individualTransaction.puntos,
+                                              TransactionDate = Convert.ToDateTime(individualTransaction.fecha),
+                                              CompanyId = company.CompanyId,
+                                              CreatetedAt = DateTime.UtcNow,
+                                              UpdatedAt = DateTime.UtcNow,
+                                              Comision = individualTransaction.comision,
+                                          };
                     if (_transactionsRepository.SaveTransaction(transaction))
                     {
-                        if(!DistributeTransactionCashback(transaction))
+                        if (!DistributeTransactionCashback(transaction))
                         {
                             _transactionsRepository.RejectChanges();
                         }
@@ -206,7 +256,7 @@ namespace SolucionesARWebsite2.Business.Logic
                         _usersRepository.RejectChanges();
                         _transactionsRepository.RejectChanges();
                         return false;
-                        
+
                     }
 
                 }
