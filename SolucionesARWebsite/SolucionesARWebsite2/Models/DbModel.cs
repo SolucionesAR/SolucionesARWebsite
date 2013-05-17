@@ -28,5 +28,13 @@ namespace SolucionesARWebsite2.Models
 
         public DbSet<CommissionLog> CommissionsLogs { get; set; }
 
+        public DbSet<CreditProcess> CreditProcesss { get; set; }
+
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<CreditStatus> CreditStatuss { get; set; }
+
+        public DbSet<CreditProcessLog> CreditProcessLogs { get; set; }
+
     }
 }

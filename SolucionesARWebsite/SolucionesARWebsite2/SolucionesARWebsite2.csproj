@@ -280,6 +280,10 @@
     <Compile Include="Models\Canton.cs" />
     <Compile Include="Models\CommissionLog.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CreditProcess.cs" />
+    <Compile Include="Models\CreditProcessLog.cs" />
+    <Compile Include="Models\CreditStatus.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DbModel.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\GlobalParameter.cs" />

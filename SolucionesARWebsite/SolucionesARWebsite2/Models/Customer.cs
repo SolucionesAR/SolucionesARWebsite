@@ -1,69 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace SolucionesARWebsite2.Models
 {
-    public class Company
+    public class Customer
     {
-        #region Properties
-
         /// <summary>
         /// 
         /// </summary>
-        public int CompanyId { get; set; }
-
+        public int CustomerId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string CompanyName { get; set; }
-
+        public string FName { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string CompanyNickName { get; set; }
-        
+        public string LName1 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public double CashBackPercentaje { get; set; }
-
-        /// <summary>
-        /// Could be the "cedula juridica"
-        /// </summary>
-        public string CorporateId { get; set; }
-
+        public string LName2 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public DateTime CreatetedAt { get; set; }
-
+        public string CedNumber { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string PhoneNumber { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Boss { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Possition { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Salary { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public DateTime UpdatedAt { get; set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual ICollection<Store> Stores { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual ICollection<Transaction> Transactions { get; set; }
-
-        /// <summary>
-        /// To check if the company is enabled
-        /// </summary>
-        public bool Enabled { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         public virtual ICollection<CreditProcess> CreditProcesses { get; set; }
-
-
-        #endregion
     }
-
 }

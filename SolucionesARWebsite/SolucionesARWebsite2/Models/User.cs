@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -210,5 +211,10 @@ namespace SolucionesARWebsite2.Models
         /// 
         /// </summary>
         public virtual RelationshipType RelationshipType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<CreditProcess> CreditProcesses { get; set; }
     }
 }
