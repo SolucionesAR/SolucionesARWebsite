@@ -202,6 +202,7 @@
     <Compile Include="Business\Logic\UsersLogic.cs" />
     <Compile Include="Business\Management\CantonsManagement.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
+    <Compile Include="Business\Management\CreditStatusManagement.cs" />
     <Compile Include="Business\Management\DistrictsManagement.cs" />
     <Compile Include="Business\Management\IdentificationTypesManagement.cs" />
     <Compile Include="Business\Management\InventoryManagement.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CantonsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\CreditStatusController.cs" />
     <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentificationTypesController.cs" />
@@ -228,6 +230,7 @@
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataAccess\Interfaces\ICreditStatusRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICantonsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICompaniesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IDistrictsRepository.cs" />
@@ -242,6 +245,7 @@
     <Compile Include="DataAccess\LocationsAccess.cs" />
     <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
     <Compile Include="DataAccess\Repositories\CompaniesRepository.cs" />
+    <Compile Include="DataAccess\Repositories\CreditStatusRepository.cs" />
     <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
     <Compile Include="DataAccess\Repositories\IdentificationTypesRepository.cs" />
     <Compile Include="DataAccess\Repositories\ProvincesRepository.cs" />
@@ -274,6 +278,10 @@
     <Compile Include="Migrations\201304010206390_002.cs" />
     <Compile Include="Migrations\201304010206390_002.Designer.cs">
       <DependentUpon>201304010206390_002.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305230507259_003.cs" />
+    <Compile Include="Migrations\201305230507259_003.Designer.cs">
+      <DependentUpon>201305230507259_003.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -373,6 +381,8 @@
     <Compile Include="ViewModels\Cantons\IndexViewModel.cs" />
     <Compile Include="ViewModels\Companies\EditViewModel.cs" />
     <Compile Include="ViewModels\Companies\IndexViewModel.cs" />
+    <Compile Include="ViewModels\CreditStatus\EditViewModel.cs" />
+    <Compile Include="ViewModels\CreditStatus\IndexViewModel.cs" />
     <Compile Include="ViewModels\Districts\EditViewModel.cs" />
     <Compile Include="ViewModels\Districts\IndexViewModel.cs" />
     <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
@@ -509,6 +519,9 @@
     <EmbeddedResource Include="Migrations\201304010206390_002.resx">
       <DependentUpon>201304010206390_002.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305230507259_003.resx">
+      <DependentUpon>201305230507259_003.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.eot" />
@@ -572,6 +585,8 @@
     <Content Include="Views\Shared\AccountMenu.cshtml" />
     <None Include="Properties\PublishProfiles\testingsolucionesar - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testingsolucionesar - Web Deploy.pubxml" />
+    <Content Include="Views\CreditStatus\Edit.cshtml" />
+    <Content Include="Views\CreditStatus\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

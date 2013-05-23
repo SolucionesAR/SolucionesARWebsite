@@ -32,7 +32,7 @@ namespace SolucionesARWebsite2.Models
 
         public DbSet<Customer> Customers { get; set; }
 
-        public DbSet<CreditStatus> CreditStatuss { get; set; }
+        public DbSet<CreditStatus> CreditStatus { get; set; }
 
         public DbSet<CreditProcessLog> CreditProcessLogs { get; set; }
 

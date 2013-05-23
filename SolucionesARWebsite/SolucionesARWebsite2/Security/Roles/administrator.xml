@@ -14,6 +14,7 @@
         <action controller="Users" action="*" enabled="true" />
       <action controller="RelationshipsTypes" action="*" enabled="true" />
       <action controller="IdentificationTypes" action="*" enabled="true" />
+      <action controller="CreditStatus" action="*" enabled="true" />
     </actions>
     <menu>
         <item text="Companies" />
