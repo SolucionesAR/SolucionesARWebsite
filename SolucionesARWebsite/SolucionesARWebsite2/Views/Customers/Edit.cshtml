@@ -1,0 +1,49 @@
+﻿@using SolucionesARWebsite2.ViewModels.Customers
+@model EditViewModel
+@{
+    ViewBag.Title = "SolucionesAR | Clientes";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
+}
+@section Header {
+    @if (Model.CustomerId > 0)
+    {
+        <h1>
+            EDITAR CLIENTE</h1>
+    }
+    else
+    {
+        <h1>
+            NUEVO CLIENTE</h1>
+    }
+}
+@section Messages {
+    @Html.ValidationSummary()
+}
+@section EditionContent {
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Customers"))
+                {
+                    @Html.HiddenFor(model => model.CustomerId)
+                    @Html.HiddenFor(model => model.CreatedAt)
+                    <fieldset>
+                        @Html.EditorFor(model => model.FName)
+                        @Html.EditorFor(model => model.LName)
+                        @Html.EditorFor(model => model.CedNumber)
+                    </fieldset>
+                    <fieldset>
+                        @Html.EditorFor(model => model.PhoneNumber)
+                        @Html.EditorFor(model => model.Boss)
+                        @Html.EditorFor(model => model.Possition)
+                        @Html.EditorFor(model => model.Salary)
+                    </fieldset>
+
+                    <div class="main-actions">
+                        <input name="submit" type="submit" value="Guardar">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

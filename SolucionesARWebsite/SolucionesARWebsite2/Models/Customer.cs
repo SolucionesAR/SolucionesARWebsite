@@ -18,11 +18,7 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// 
         /// </summary>
-        public string LName1 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string LName2 { get; set; }
+        public string LName { get; set; }
         /// <summary>
         /// 
         /// </summary>

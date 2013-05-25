@@ -1,0 +1,90 @@
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite2.ViewModels.Customers
+
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Clientes";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
+}
+
+@section Messages {
+}
+
+@section ListTitle {
+    CLIENTES
+}
+
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
+}
+
+@section ListActions {
+    @Html.ActionLink("Nuevo Cliente", "Create", null, new { @class = "button" })
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Cedula
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Apellidos
+                    </th>
+                    <th>
+                        Telefono
+                    </th>
+                    <th>
+                        Empleador
+                    </th>
+                    <th>
+                        Salario
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.PagedItems) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CedNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LName)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Boss)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Salary)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CustomerId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
