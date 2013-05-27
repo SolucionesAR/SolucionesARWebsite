@@ -128,7 +128,8 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             }
 
             // validate the new identification number is not in the data base
-            return _databaseModel.Users.FirstOrDefault(u => u.CedNumber.Equals(identificationNumber)) != null;
+            var ced = _databaseModel.Users.FirstOrDefault(u => u.CedNumber.Equals(identificationNumber));
+            return ced == null;
         }
 
         public void Delete(int userId)

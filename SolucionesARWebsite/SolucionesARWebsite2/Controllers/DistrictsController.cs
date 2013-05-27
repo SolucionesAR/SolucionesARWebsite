@@ -84,7 +84,10 @@ namespace SolucionesARWebsite2.Controllers
             {
                 _districtsManagement.Save(editFormModel);
             }
-            return RedirectToAction("Index");
+            ViewBag.ProvincesList = _provincesManagement.GetProvinces();
+            ViewBag.CantonsList = _cantonsManagement.GetCantons(editFormModel.ProvinceId);
+            return View("Edit", editFormModel);
+            //return RedirectToAction("Index");
         }
 
         [HttpGet]

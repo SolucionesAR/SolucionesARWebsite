@@ -1,33 +1,33 @@
 ﻿@using SolucionesARWebsite2.ViewModels.Reports
-
 @model BaseReportViewModel
-
 @{
     ViewBag.Title = "SolucionesAR | Reportes";
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
-
-@section Messages {
-
+@section Header {
+    <h1>
+        Aplicacion</h1>
 }
-
+@section Messages {
+}
 @section EditionContent {
     <div class="edition_content content_box ">
-        <h1>Reporte Comportamiento de la Aplicación</h1>
-        <div class="entry jspScrollable">
-            <p class="note">Favor complete el siguiente formulario</p>
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("SolucionesAr", "Reports"))
-                    {
-                        <fieldset>
-                            @Html.EditorFor(model => model.BeginningDate)
-                            @Html.EditorFor(model => model.EndingDate)
-                        </fieldset>
-                        <input name="submit" type="submit" value="Generar Reporte">
-                    }
-                </div>
-            </div>
-        </div>
+        <h1>
+            Reporte Comportamiento de la Aplicación</h1>
+        @using (Html.BeginForm("SolucionesAr", "Reports"))
+        {
+            <fieldset>
+                <span>
+                    @Html.LabelFor(model => model.BeginningDate)
+                    <br />
+                    @Html.EditorFor(model => model.BeginningDate)
+                </span><span>
+                    @Html.LabelFor(model => model.BeginningDate)
+                    <br />
+                    @Html.EditorFor(model => model.EndingDate)
+                </span>
+            </fieldset>
+            <input name="submit" type="submit" value="Generar Reporte">
+        }
     </div>
 }

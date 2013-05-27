@@ -12,6 +12,7 @@ namespace SolucionesARWebsite2.ViewModels.Reports
         /// </summary>
         [Required]
         [Display(Name = "Fecha Inicial*", Prompt = "Fecha Inicial")]
+        [DataType(DataType.Date)]
         public DateTime BeginningDate { get; set; }
 
         /// <summary>
@@ -19,6 +20,7 @@ namespace SolucionesARWebsite2.ViewModels.Reports
         /// </summary>
         [Required]
         [Display(Name = "Fecha Final*", Prompt = "Fecha Final")]
+        [DataType(DataType.Date)]
         public DateTime EndingDate { get; set; }
 
         #endregion

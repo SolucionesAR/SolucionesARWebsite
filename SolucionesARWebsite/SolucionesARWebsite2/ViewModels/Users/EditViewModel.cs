@@ -87,13 +87,13 @@ namespace SolucionesARWebsite2.ViewModels.Users
         //[DataType (DataType.Date)]
         //public DateTime Dob { get; set; }
 
-        [DisplayName("Dia")]
+        [DisplayName("Día")]
         public int Day { get; set; }
 
         [DisplayName("Mes")]
         public int Month { get; set; }
 
-        [DisplayName("Ano")]
+        [DisplayName("Año")]
         public int Year { get; set; }
 
         /// <summary>

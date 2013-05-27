@@ -86,8 +86,8 @@ namespace SolucionesARWebsite2.Controllers
                 worksheet.Cells["D1"].Value = CODIGO_SAR;
                 worksheet.Cells["E1"].Value = NOMBRE_VENDEDOR;
                 worksheet.Cells["F1"].Value = FECHA;
-                worksheet.Cells["G1"].Value = TIENDA;
-                worksheet.Cells["H1"].Value = COMPANIA;
+                //worksheet.Cells["G1"].Value = TIENDA;
+                worksheet.Cells["G1"].Value = COMPANIA;
                 /*
                 int i = 2;
                 foreach (var transaction in transactionsList)
@@ -142,8 +142,8 @@ namespace SolucionesARWebsite2.Controllers
                 worksheet.Cells["D1"].Value = CODIGO_SAR;
                 worksheet.Cells["E1"].Value = NOMBRE_VENDEDOR;
                 worksheet.Cells["F1"].Value = FECHA;
-                worksheet.Cells["G1"].Value = TIENDA;
-                worksheet.Cells["H1"].Value = COMPANIA;
+                //worksheet.Cells["G1"].Value = TIENDA;
+                worksheet.Cells["G1"].Value = COMPANIA;
                 /*
                 int i = 2;
                 foreach (var transaction in transactionsList)
@@ -197,8 +197,8 @@ namespace SolucionesARWebsite2.Controllers
                 worksheet.Cells["D1"].Value = CODIGO_SAR;
                 worksheet.Cells["E1"].Value = NOMBRE_VENDEDOR;
                 worksheet.Cells["F1"].Value = FECHA;
-                worksheet.Cells["G1"].Value = TIENDA;
-                worksheet.Cells["H1"].Value = COMPANIA;
+                //worksheet.Cells["G1"].Value = TIENDA;
+                worksheet.Cells["G1"].Value = COMPANIA;
                 /*
                 int i = 2;
                 foreach (var transaction in transactionsList)
