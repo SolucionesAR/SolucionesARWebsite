@@ -20,8 +20,8 @@ namespace SolucionesARWebsite2.Business.Logic
         public const string SENIOR = "Senior";
         private const double SOLUCIONES_AR_PERCENTAJE = 0.3;
         private const double MASTER_USER_PERCENTAJE = 0.1;
-        private const double SENIOR_USER_PERCENTAJE = 0.3;
-        private const double REAL_USER_PERCENTAJE = 0.6;
+        private const double SENIOR_USER_PERCENTAJE = 0.2;
+        private const double REAL_USER_PERCENTAJE = 0.7;
         private const string EXCEL_2007_EXTENSION = ".xlsx";
         private const string SELECT_ALL_QUERY = "SELECT * FROM [{0}$]";
         private const string DATA_TABLE_NAME = "datatable";
