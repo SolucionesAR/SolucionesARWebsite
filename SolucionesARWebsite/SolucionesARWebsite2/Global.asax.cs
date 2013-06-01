@@ -35,6 +35,9 @@ namespace SolucionesARWebsite2
             //Repositories
             builder.RegisterType<CantonsRepository>().As<ICantonsRepository>().InstancePerHttpRequest();
             builder.RegisterType<CompaniesRepository>().As<ICompaniesRepository>().InstancePerHttpRequest();
+            builder.RegisterType<CreditStatusesRepository>().As<ICreditStatusesRepository>().InstancePerHttpRequest();
+            builder.RegisterType<CreditProcessesRepository>().As<ICreditProcessesRepository>().InstancePerHttpRequest();
+            builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().InstancePerHttpRequest();
             builder.RegisterType<DistrictsRepository>().As<IDistrictsRepository>().InstancePerHttpRequest();
             builder.RegisterType<IdentificationTypesRepository>().As<IIdentificationTypesRepository>().InstancePerHttpRequest();
             builder.RegisterType<ProvincesRepository>().As<IProvincesRepository>().InstancePerHttpRequest();
@@ -44,9 +47,6 @@ namespace SolucionesARWebsite2
             builder.RegisterType<TransactionsRepository>().As<ITransactionsRepository>().InstancePerHttpRequest();
             builder.RegisterType<UsersRepository>().As<IUsersRepository>().InstancePerHttpRequest();
 
-            builder.RegisterType<CreditStatusRepository>().As<ICreditStatusRepository>().InstancePerHttpRequest();
-            builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().InstancePerHttpRequest();
-
             //Logic
             builder.RegisterType<AccountLogic>().InstancePerHttpRequest();
             builder.RegisterType<TransactionsLogic>().InstancePerHttpRequest();
@@ -54,6 +54,9 @@ namespace SolucionesARWebsite2
             //Management
             builder.RegisterType<CantonsManagement>().InstancePerHttpRequest();
             builder.RegisterType<CompaniesManagement>().InstancePerHttpRequest();
+            builder.RegisterType<CreditProcessesManagement>().InstancePerHttpRequest();
+            builder.RegisterType<CreditStatusesManagement>().InstancePerHttpRequest();
+            builder.RegisterType<CustomersManagement>().InstancePerHttpRequest();
             builder.RegisterType<DistrictsManagement>().InstancePerHttpRequest();
             builder.RegisterType<IdentificationTypesManagement>().InstancePerHttpRequest();
             builder.RegisterType<ProvincesManagement>().InstancePerHttpRequest();
@@ -62,8 +65,6 @@ namespace SolucionesARWebsite2
             builder.RegisterType<TransactionsManagement>().InstancePerHttpRequest();
             builder.RegisterType<UsersManagement>().InstancePerHttpRequest();
             builder.RegisterType<StoresManagement>().InstancePerHttpRequest();
-            builder.RegisterType<CreditStatusManagement>().InstancePerHttpRequest();
-            builder.RegisterType<CustomersManagement>().InstancePerHttpRequest();
              
             builder.RegisterType<BeginningConfig>().InstancePerHttpRequest();
 

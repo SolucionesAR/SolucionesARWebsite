@@ -1,0 +1,38 @@
+﻿@using SolucionesARWebsite2.ViewModels.CreditStatus
+
+@model EditViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Estados de credito";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
+}
+
+
+@section Header {
+    @if (Model.CreditStatusId > 0)
+    {
+        <h1>EDITAR PROCESO DE CREDITO</h1>
+    }
+    else
+    {
+        <h1>NUEVA PROCESO DE CREDITO</h1>
+    }
+}
+
+@section Messages {
+    @Html.ValidationSummary()
+}
+
+
+@section EditionContent {
+    @using (Html.BeginForm("Save", "CreditStatus"))
+    {
+        @Html.HiddenFor(model => model.CreditStatusId)
+
+        <fieldset>
+            @Html.EditorFor(model => model.CreditStatusDescription)
+        </fieldset>
+                            
+        <input name="submit" type="submit" value="Submit">
+    }
+}

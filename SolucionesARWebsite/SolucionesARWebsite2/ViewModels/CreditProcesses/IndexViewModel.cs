@@ -1,7 +1,7 @@
 ﻿using PagedList;
 using SolucionesARWebsite2.Models;
 
-namespace SolucionesARWebsite2.ViewModels.CreditStatus
+namespace SolucionesARWebsite2.ViewModels.CreditProcesses
 {
     public class IndexViewModel : BaseListModel
     {
@@ -10,7 +10,10 @@ namespace SolucionesARWebsite2.ViewModels.CreditStatus
 
         #region Properties
 
-        public IPagedList<Models.CreditStatus> PagedItems { get; set; } //TODO: ver por que este no lo agarra con el using
+        /// <summary>
+        /// Displayed items
+        /// </summary>
+        public IPagedList<CreditProcess> PagedItems { get; set; }
 
         #endregion
 

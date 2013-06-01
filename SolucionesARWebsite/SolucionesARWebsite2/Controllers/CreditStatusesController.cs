@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
-using SolucionesARWebsite2.ViewModels.CreditStatus;
+using SolucionesARWebsite2.ViewModels.CreditStatuses;
 
 namespace SolucionesARWebsite2.Controllers
 {
-    public class CreditStatusController : BaseController
+    public class CreditStatusesController : BaseController
     {
         
         #region Constants
@@ -16,13 +16,13 @@ namespace SolucionesARWebsite2.Controllers
 
         #region Private Members
 
-        private readonly CreditStatusManagement _creditStatusManagement;
+        private readonly CreditStatusesManagement _creditStatusManagement;
 
         #endregion
 
         #region Constructors
 
-        public CreditStatusController(CreditStatusManagement creditStatusManagement, UsersManagement usersManagement)
+        public CreditStatusesController(CreditStatusesManagement creditStatusManagement, UsersManagement usersManagement)
             : base(usersManagement)
         {
             _creditStatusManagement = creditStatusManagement;

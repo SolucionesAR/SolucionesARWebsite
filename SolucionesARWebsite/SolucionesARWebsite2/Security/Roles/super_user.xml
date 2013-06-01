@@ -4,6 +4,9 @@
       <action controller="Account" action="*" enabled="true" />
       <action controller="Cantons" action="*" enabled="true" />
       <action controller="Companies" action="*" enabled="true" />
+      <action controller="CreditStatuses" action="*" enabled="true" />
+      <action controller="CreditProcesses" action="*" enabled="true" />
+      <action controller="Customers" action="*" enabled="true" />
       <action controller="Districts" action="*" enabled="true" />
       <action controller="Home" action="*" enabled="true" />
       <action controller="Inventory" action="*" enabled="true" />
@@ -14,8 +17,6 @@
       <action controller="Stores" action="*" enabled="true" />
       <action controller="Transactions" action="*" enabled="true" />
       <action controller="Users" action="*" enabled="true" />
-      <action controller="CreditStatus" action="*" enabled="true" />
-      <action controller="Customers" action="*" enabled="true" />
     </actions>
     <menu>
       <item text="Companies" />

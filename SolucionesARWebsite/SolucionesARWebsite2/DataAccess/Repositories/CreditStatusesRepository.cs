@@ -6,7 +6,7 @@ using SolucionesARWebsite2.Models;
 
 namespace SolucionesARWebsite2.DataAccess.Repositories
 {
-    public class CreditStatusRepository: ICreditStatusRepository
+    public class CreditStatusesRepository: ICreditStatusesRepository
     {
         #region Constants
         #endregion
@@ -22,7 +22,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         #region Contructors
 
-        public CreditStatusRepository()
+        public CreditStatusesRepository()
         {
             _databaseModel = new DbModel();
         }
@@ -45,14 +45,14 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         
         public List<CreditStatus> GetAllCreditStatus()
         {
-            var creditStatus = _databaseModel.CreditStatus.ToList();
-            return creditStatus;
+            var creditStatusesList = _databaseModel.CreditStatus.ToList();
+            return creditStatusesList;
         }
 
         public List<CreditStatus> GetCreditStatus()
         {
-            var creditStatus = _databaseModel.CreditStatus.ToList();
-            return creditStatus;
+            var creditStatusesList = _databaseModel.CreditStatus.ToList();
+            return creditStatusesList;
         }
 
         public CreditStatus GetCreditStatus(int creditStatusId)

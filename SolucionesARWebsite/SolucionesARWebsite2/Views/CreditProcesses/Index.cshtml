@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite2.ViewModels.CreditProcesses
+
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Procesos de Credito";
+    Layout = "~/Views/Shared/TableLayout.cshtml";
+}
+
+@section Messages {
+}
+
+@section ListTitle {
+    PROCESOS DE CREDITO
+}
+
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+               { "Page", page },
+               { "EmailAddress", Model.EmailAddress },
+               { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
+}
+
+@section ListActions {
+        @Html.ActionLink("Nuevo Proceso", "Create", null, new { @class = "button" })
+    }
+}
+
+@section ListContent {
+    <div class="entry jspScrollable">
+        <div class="table_style">
+            <table>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nombre Cliente
+                    </th>
+                    <th>
+                        Nombre Vendedor
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.PagedItems) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreditProcessId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.FName) 
+                            @Html.DisplayFor(modelItem => item.Customer.LName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FName) 
+                            @Html.DisplayFor(modelItem => item.User.LName1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreditStatus.CreditStatusDescription)
+                        </td>                        
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.CreditStatusId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.Models;
-using SolucionesARWebsite2.ViewModels.CreditStatus;
+using SolucionesARWebsite2.ViewModels.CreditStatuses;
 
 namespace SolucionesARWebsite2.Business.Management
 {
-    public class CreditStatusManagement
+    public class CreditStatusesManagement
     {
         #region Constants
         #endregion
@@ -18,24 +18,24 @@ namespace SolucionesARWebsite2.Business.Management
 
         #region Private Members
 
-        private readonly ICreditStatusRepository _creditStatusRepository;
+        private readonly ICreditStatusesRepository _creditStatusesRepository;
 
         #endregion
 
         #region Public Methods
-        public CreditStatusManagement(ICreditStatusRepository creditStatusRepository)
+        public CreditStatusesManagement(ICreditStatusesRepository creditStatusesRepository)
         {
-            _creditStatusRepository = creditStatusRepository;
+            _creditStatusesRepository = creditStatusesRepository;
         }
 
         public List<CreditStatus> GetCreditStatuses()
         {
-            return _creditStatusRepository.GetAllCreditStatus();
+            return _creditStatusesRepository.GetAllCreditStatus();
         }
 
         public CreditStatus GetCreditStatus(int creditStatusId)
         {
-            return _creditStatusRepository.GetCreditStatus(creditStatusId);
+            return _creditStatusesRepository.GetCreditStatus(creditStatusId);
         }
 
         public void Save(EditViewModel editViewModel)
@@ -70,12 +70,12 @@ namespace SolucionesARWebsite2.Business.Management
 
         private void AddCreditStatus (CreditStatus creditStatus)
         {
-            _creditStatusRepository.AddCreditStatus(creditStatus);
+            _creditStatusesRepository.AddCreditStatus(creditStatus);
         }
 
         private void EditCreditStatus(CreditStatus creditStatus)
         {
-            _creditStatusRepository.EditCreditStatus(creditStatus);
+            _creditStatusesRepository.EditCreditStatus(creditStatus);
         }
         #endregion
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SolucionesARWebsite2.ViewModels.CreditStatus
+namespace SolucionesARWebsite2.ViewModels.CreditStatuses
 {
     public class EditViewModel : BaseViewModel
     {

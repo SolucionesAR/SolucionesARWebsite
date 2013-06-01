@@ -3,7 +3,7 @@ using SolucionesARWebsite2.Models;
 
 namespace SolucionesARWebsite2.DataAccess.Interfaces
 {
-    public interface ICreditStatusRepository
+    public interface ICreditStatusesRepository
     {
         void AddCreditStatus(CreditStatus creditStatus);
 
