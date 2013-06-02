@@ -1,38 +1,50 @@
-﻿@using SolucionesARWebsite2.ViewModels.CreditStatus
-
+﻿@using SolucionesARWebsite2.Helpers
+@using SolucionesARWebsite2.ViewModels.CreditProcesses
 @model EditViewModel
-
 @{
     ViewBag.Title = "SolucionesAR | Estados de credito";
     Layout = "~/Views/Shared/EditionLayout.cshtml";
 }
-
-
 @section Header {
-    @if (Model.CreditStatusId > 0)
+    @if (Model.CreditProcessId > 0)
     {
-        <h1>EDITAR PROCESO DE CREDITO</h1>
+        <h1>
+            EDITAR PROCESO DE CREDITO</h1>
     }
     else
     {
-        <h1>NUEVA PROCESO DE CREDITO</h1>
+        <h1>
+            NUEVA PROCESO DE CREDITO</h1>
     }
 }
-
 @section Messages {
     @Html.ValidationSummary()
 }
-
-
 @section EditionContent {
-    @using (Html.BeginForm("Save", "CreditStatus"))
+    @using (Html.BeginForm("Save", "CreditProcesses"))
     {
-        @Html.HiddenFor(model => model.CreditStatusId)
-
+        @Html.HiddenFor(model => model.CreditProcessId)
         <fieldset>
-            @Html.EditorFor(model => model.CreditStatusDescription)
-        </fieldset>
-                            
+            <span>
+                @Html.LabelFor(model => model.Customer)
+                <br />
+                @Html.DropDownListForCustomersList(model => model.Customer.CustomerId)
+            </span><span>
+            <br />
+                @Html.LabelFor(model => model.Salesman)
+                <br />
+                @Html.DropDownListForUsersList(model => model.Salesman.UserId)
+            </span>
+            
+            <span>
+            <br />
+                @Html.LabelFor(model => model.CreditStatus)
+                <br />
+                @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId)
+            </span>
+            <br />
+            @Html.EditorFor(model => model.Product)
+        </fieldset>              
         <input name="submit" type="submit" value="Submit">
     }
 }

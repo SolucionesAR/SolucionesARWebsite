@@ -18,15 +18,22 @@ namespace SolucionesARWebsite2.Controllers
         #region Private Members
 
         private readonly CreditProcessesManagement _creditProcessesManagement;
+        private readonly UsersManagement _UsersManagement;
+        private readonly CreditStatusesManagement _CreditStatusesManagement;
+        private readonly CustomersManagement _CustomersManagement;
+
 
         #endregion
 
         #region Constructors
 
-        public CreditProcessesController(CreditProcessesManagement creditProcessesManagement, UsersManagement usersManagement)
+        public CreditProcessesController(CreditProcessesManagement creditProcessesManagement, UsersManagement usersManagement, CreditStatusesManagement creditStatusesManagement, CustomersManagement customersManagement)
             : base(usersManagement)
         {
             _creditProcessesManagement = creditProcessesManagement;
+            _UsersManagement = usersManagement;
+            _CreditStatusesManagement = creditStatusesManagement;
+            _CustomersManagement = customersManagement;
         }
 
         #endregion
@@ -49,11 +56,11 @@ namespace SolucionesARWebsite2.Controllers
                                     {
                                         CreditProcessId = 0,
                                         Customer = new Customer(),
-                                        //CustomersList = _customerMana
+                                        CustomersList = _CustomersManagement.GetCustomers(),
                                         Salesman = new User(),
-                                        //SalesmenList = _users,
+                                        SalesmenList = _UsersManagement.GetUsersList(),
                                         CreditStatus = new CreditStatus(),
-                                        //CreditStatusesList = 
+                                        CreditStatusesList = _CreditStatusesManagement.GetCreditStatuses(), 
                                     };
             return View("Edit", editViewModel);
         }
@@ -65,11 +72,11 @@ namespace SolucionesARWebsite2.Controllers
             {
                 CreditProcessId = creditProcess.CreditStatusId,
                 Customer = creditProcess.Customer,
-                //CustomersList = _customerMana
+                CustomersList = _CustomersManagement.GetCustomers(),
                 Salesman = creditProcess.User,
-                //SalesmenList = _users,
+                SalesmenList = _UsersManagement.GetUsersList(),
                 CreditStatus = creditProcess.CreditStatus,
-                //CreditStatusesList = 
+                CreditStatusesList = _CreditStatusesManagement.GetCreditStatuses(),
             };
             return View(editViewModel);
         }

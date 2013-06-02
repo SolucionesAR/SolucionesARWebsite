@@ -67,13 +67,13 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// The one that makes the purchase
         /// </summary>
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// The one that makes the purchase
         /// </summary>
-        [ForeignKey("CustomerId")]
-        public virtual User Customer { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
 
         /// <summary>
         /// The amount of points earned for the transaction

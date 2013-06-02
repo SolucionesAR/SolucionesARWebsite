@@ -43,7 +43,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
             if (customer != null)
             {
-                var filteredTransactions = transactions.Where(t => t.CustomerId.Equals(customer.UserId));
+                var filteredTransactions = transactions.Where(t => t.UserId.Equals(customer.UserId));
                 return filteredTransactions.ToList();
             }
             if (company != null)
@@ -61,7 +61,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         {
             var transactions =
                 _databaseModel.Transactions
-                    .Where(t => t.CustomerId.Equals(userId))
+                    .Where(t => t.UserId.Equals(userId))
                     .OrderByDescending(t => t.CreatetedAt)
                     .Take(top).ToList();
             return transactions;

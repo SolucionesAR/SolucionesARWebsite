@@ -84,7 +84,7 @@ namespace SolucionesARWebsite2.Business.Logic
 
 
                 // Los usuarios
-                var customer = _usersRepository.GetUserById(transaction.CustomerId);
+                var customer = _usersRepository.GetUserById(transaction.UserId);
                 var parentUser = customer.UserReference;
                 var forSeniorMoney = forUsersAmount*SENIOR_USER_PERCENTAJE;
                 if (parentUser != null && parentUser.Enabled)
@@ -235,7 +235,7 @@ namespace SolucionesARWebsite2.Business.Logic
                                           {
                                               Amount = individualTransaction.monto,
                                               BillBarCode = individualTransaction.factura,
-                                              CustomerId = customer.UserId,
+                                              UserId = customer.UserId,
                                               Points = (int) individualTransaction.puntos,
                                               TransactionDate = Convert.ToDateTime(individualTransaction.fecha),
                                               CompanyId = company.CompanyId,

@@ -58,6 +58,11 @@ namespace SolucionesARWebsite2.Models
         public bool Enabled { get; set; }
 
         /// <summary>
+        /// To check if the company is a finantial company
+        /// </summary>
+        public bool IsFinantial { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public virtual ICollection<CreditProcess> CreditProcesses { get; set; }

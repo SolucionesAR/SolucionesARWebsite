@@ -16,6 +16,12 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// 
         /// </summary>
         public int CreditProcessId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DisplayName("Producto del credito")]
+        public string Product { get; set; }
         
         /// <summary>
         /// The one that makes the purchase
@@ -23,20 +29,39 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         [Required]
         [DisplayName("Cliente")]
         public Customer Customer { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public List<Customer> CustomersList { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         [DisplayName("Vendedor")]
         public User Salesman { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public List<User> SalesmenList { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        [DisplayName("Financiera")]
+        public Company Company { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public List<Company> CompaniesList { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         [DisplayName("Estado")]
         public CreditStatus CreditStatus { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public List<CreditStatus> CreditStatusesList { get; set; }
 
         #endregion

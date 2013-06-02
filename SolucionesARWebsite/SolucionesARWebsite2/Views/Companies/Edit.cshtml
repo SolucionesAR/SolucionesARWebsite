@@ -38,6 +38,8 @@
                         </fieldset>
                         <fieldset>
                             @Html.EditorFor(model => model.CashBackPercentaje)
+                            @Html.EditorFor(model => model.Enabled)
+                            @Html.EditorFor(model => model.IsFinantial)
                         </fieldset>
                         <input name="submit" type="submit" value="Guardar">
                     }

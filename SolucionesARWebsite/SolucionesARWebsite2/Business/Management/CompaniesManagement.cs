@@ -119,6 +119,7 @@ namespace SolucionesARWebsite2.Business.Management
                            CompanyNickName = editViewMode.CompanyNickname.ToUpper(),
                            CorporateId = editViewMode.CorporateId.ToUpper(),
                            Enabled = editViewMode.Enabled,
+                           IsFinantial = editViewMode.IsFinantial,
                        };
         }
 

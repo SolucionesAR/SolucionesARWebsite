@@ -1,4 +1,4 @@
-﻿@using SolucionesARWebsite2.ViewModels.CreditStatus
+﻿@using SolucionesARWebsite2.ViewModels.CreditStatuses
 
 @model EditViewModel
 
@@ -25,7 +25,7 @@
 
 
 @section EditionContent {
-    @using (Html.BeginForm("Save", "CreditStatus"))
+    @using (Html.BeginForm("Save", "CreditStatuses"))
     {
         @Html.HiddenFor(model => model.CreditStatusId)
 

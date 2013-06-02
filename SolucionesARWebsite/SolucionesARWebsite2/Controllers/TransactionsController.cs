@@ -96,7 +96,7 @@ namespace SolucionesARWebsite2.Controllers
                                         BillBarCode = transaction.BillBarCode,
                                         Company = transaction.Company,
                                         CompaniesList = _companiesManagement.GetCompaniesList(),
-                                        Customer = transaction.Customer,
+                                        Customer = transaction.User,
                                         CustomersList = _usersManagement.GetUsersList(),
                                         Points = transaction.Points,
                                         TransactionDate = transaction.TransactionDate.ToString("dd/MM/yyyy"),
@@ -124,7 +124,7 @@ namespace SolucionesARWebsite2.Controllers
                                           CreatetedAt = DateTime.UtcNow,
                                           UpdatedAt = DateTime.UtcNow,
                                           TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate),
-                                          CustomerId = editFormModel.Customer.UserId,
+                                          UserId = editFormModel.Customer.UserId,
                                           Points = editFormModel.Points,
                                           CompanyId = editFormModel.Company.CompanyId,
                                           Comision = comision,
@@ -136,7 +136,7 @@ namespace SolucionesARWebsite2.Controllers
                 transaction = _transactionsManagement.GetTransaction(editFormModel.TransactionId);
                 transaction.BillBarCode = editFormModel.BillBarCode;
                 transaction.Amount = editFormModel.Amount;
-                transaction.CustomerId = editFormModel.Customer.UserId;
+                transaction.UserId = editFormModel.Customer.UserId;
                 transaction.Points = editFormModel.Points;
                 transaction.CompanyId = editFormModel.Company.CompanyId;
                 transaction.TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate);

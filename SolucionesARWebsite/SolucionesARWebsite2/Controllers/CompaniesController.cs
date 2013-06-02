@@ -41,6 +41,7 @@ namespace SolucionesARWebsite2.Controllers
                                     {
                                         CompanyId = 0,
                                         CompanyName = string.Empty,
+                                        
                                     };
             return View("Edit", editViewModel);
         }
@@ -56,6 +57,7 @@ namespace SolucionesARWebsite2.Controllers
                                         CorporateId = companyInformation.CorporateId,
                                         CompanyNickname = companyInformation.CompanyNickName,
                                         Enabled = companyInformation.Enabled,
+                                        IsFinantial = companyInformation.IsFinantial,
                                     };
             return View(editViewModel);
         }

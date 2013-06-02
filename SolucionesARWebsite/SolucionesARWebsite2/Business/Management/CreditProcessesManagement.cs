@@ -40,15 +40,16 @@ namespace SolucionesARWebsite2.Business.Management
 
         public void Save(EditViewModel editViewModel)
         {
-            var CreditProcess = Map(editViewModel);
-            
+            var creditProcess = Map(editViewModel);
+            creditProcess.UpdatedAt = DateTime.UtcNow;
             if (editViewModel.CreditProcessId.Equals(0))
             {
-                AddCreditProcess(CreditProcess);
+                creditProcess.CreatedAt = DateTime.UtcNow;
+                AddCreditProcess(creditProcess);
             }
             else
             {
-                EditCreditProcess(CreditProcess);
+                EditCreditProcess(creditProcess);
             }
         }  
 

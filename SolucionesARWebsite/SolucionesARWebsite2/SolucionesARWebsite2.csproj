@@ -272,6 +272,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CantonsEditHelper.cs" />
+    <Compile Include="Helpers\CreditProcessesEditHelper.cs" />
     <Compile Include="Helpers\DistrictsEditHelper.cs" />
     <Compile Include="Helpers\ListFilterValue.cs" />
     <Compile Include="Helpers\ReportsEditHelper.cs" />
@@ -295,12 +296,22 @@
     <Compile Include="Migrations\201305250335069_004.Designer.cs">
       <DependentUpon>201305250335069_004.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306020413546_005.cs" />
+    <Compile Include="Migrations\201306020413546_005.Designer.cs">
+      <DependentUpon>201306020413546_005.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306020551156_006.cs" />
+    <Compile Include="Migrations\201306020551156_006.Designer.cs">
+      <DependentUpon>201306020551156_006.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Canton.cs" />
     <Compile Include="Models\CommissionLog.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CreditComment.cs" />
     <Compile Include="Models\CreditProcess.cs" />
+    <Compile Include="Models\CreditProcessXCompany.cs" />
     <Compile Include="Models\CreditProcessLog.cs" />
     <Compile Include="Models\CreditStatus.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -571,6 +582,12 @@
     <EmbeddedResource Include="Migrations\201305250335069_004.resx">
       <DependentUpon>201305250335069_004.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306020413546_005.resx">
+      <DependentUpon>201306020413546_005.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306020551156_006.resx">
+      <DependentUpon>201306020551156_006.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.eot" />
@@ -640,8 +657,8 @@
     <Content Include="Views\CreditProcesses\Index.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\CreditStatus\Edit.cshtml" />
-    <Content Include="Views\CreditStatus\Index.cshtml" />
+    <Content Include="Views\CreditStatuses\Edit.cshtml" />
+    <Content Include="Views\CreditStatuses\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

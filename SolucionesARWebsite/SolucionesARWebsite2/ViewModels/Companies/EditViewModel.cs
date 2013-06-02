@@ -50,6 +50,13 @@ namespace SolucionesARWebsite2.ViewModels.Companies
         [Display(Name = "Habilitada*")]
         public bool Enabled { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        [Display(Name = "Financiera?*")]
+        public bool IsFinantial { get; set; }
+
         #endregion
 
         #region Private Members

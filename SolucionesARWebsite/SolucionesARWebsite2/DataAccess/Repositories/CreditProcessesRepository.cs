@@ -33,7 +33,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         
         public void AddCreditProcess(CreditProcess CreditProcess)
         {
-            _databaseModel.CreditProcesss.Add(CreditProcess);
+            _databaseModel.CreditProcesses.Add(CreditProcess);
             _databaseModel.SaveChanges();
         }
 
@@ -45,19 +45,19 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         
         public List<CreditProcess> GetAllCreditProcesses()
         {
-            var creditProcessesList = _databaseModel.CreditProcesss.ToList();
+            var creditProcessesList = _databaseModel.CreditProcesses.ToList();
             return creditProcessesList;
         }
 
         public List<CreditProcess> GetCreditProcesses()
         {
-            var creditProcessesList = _databaseModel.CreditProcesss.ToList();
+            var creditProcessesList = _databaseModel.CreditProcesses.ToList();
             return creditProcessesList;
         }
 
         public CreditProcess GetCreditProcess(int CreditProcessId)
         {
-            var creditProcess = _databaseModel.CreditProcesss.First(d => d.CreditProcessId.Equals(CreditProcessId));
+            var creditProcess = _databaseModel.CreditProcesses.First(d => d.CreditProcessId.Equals(CreditProcessId));
             return creditProcess;
         }
 
