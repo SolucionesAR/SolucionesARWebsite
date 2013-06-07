@@ -19,9 +19,9 @@
     {
         <fieldset>
             <span>
-                @Html.LabelFor(model => model.CustomerList)
+                @Html.LabelFor(model => model.UsersToShowList)
                 <br />
-                @Html.DropDownListForCustomersList(model => model.Customer.UserId)
+                @Html.DropDownListForCustomersListToShow(model => model.Customer.UserId)
             </span>
         </fieldset>
         <fieldset>

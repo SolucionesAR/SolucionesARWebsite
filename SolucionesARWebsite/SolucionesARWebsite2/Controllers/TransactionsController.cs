@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
@@ -46,6 +48,7 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Create()
         {
             var usersList = _usersManagement.GetUsersList();
+            var usersToShow = GenerateUsersToShow(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
             var editViewModel = new EditViewModel
                                     {
@@ -56,18 +59,28 @@ namespace SolucionesARWebsite2.Controllers
                                         Company = new Company(),
                                         CompaniesList = companiesList,
                                         Customer = new User(),
-                                        CustomersList = usersList,
+                                        //CustomersList = usersList,
                                         TransactionDate = "01/01/1970",
                                         Comision = 0.0,
+                                        UsersToShowList = usersToShow
                                         //SalesMan = new User(),
                                         //ListSalesMan = usersList,
                                     };
             return View("Edit", editViewModel);
         }
 
+        private List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
+        {
+            return usersList.Select(user => new UserToShow
+                                                {
+                                                    UserToShowId = user.UserId, CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
+                                                }).ToList();
+        }
+
         public ActionResult FileUpload()
         {
             var usersList = _usersManagement.GetUsersList();
+            var usersToShow = GenerateUsersToShow(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
             var editViewModel = new EditViewModel
                                     {
@@ -77,9 +90,10 @@ namespace SolucionesARWebsite2.Controllers
                                         Company = new Company(),
                                         CompaniesList = companiesList,
                                         Customer = new User(),
-                                        CustomersList = usersList,
+                                        //CustomersList = usersList,
                                         TransactionDate = "01/01/1970",
                                         Comision = 0.0,
+                                        UsersToShowList = usersToShow
                                         //SalesMan = new User(),
                                         //ListSalesMan = usersList,
                                     };
@@ -89,6 +103,8 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Edit(int id)
         {
             var transaction = _transactionsManagement.GetTransaction(id);
+            var usersList = _usersManagement.GetUsersList();
+            var usersToShow = GenerateUsersToShow(usersList);
             var editViewModel = new EditViewModel
                                     {
                                         TransactionId = id,
@@ -97,10 +113,11 @@ namespace SolucionesARWebsite2.Controllers
                                         Company = transaction.Company,
                                         CompaniesList = _companiesManagement.GetCompaniesList(),
                                         Customer = transaction.User,
-                                        CustomersList = _usersManagement.GetUsersList(),
+                                        //CustomersList = _usersManagement.GetUsersList(),
                                         Points = transaction.Points,
                                         TransactionDate = transaction.TransactionDate.ToString("dd/MM/yyyy"),
                                         Comision = transaction.Comision,
+                                        UsersToShowList = usersToShow
                                     };
             return View("Edit", editViewModel);
         }
@@ -144,8 +161,11 @@ namespace SolucionesARWebsite2.Controllers
                 transaction.Comision = editFormModel.Comision;
                 _transactionsManagement.UpdateTransaction();
             }
-            editFormModel.CustomersList = _usersManagement.GetUsersList();
+            //editFormModel.CustomersList = _usersManagement.GetUsersList();
+            var usersList = _usersManagement.GetUsersList();
+            var usersToShow = GenerateUsersToShow(usersList);
             editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
+            editFormModel.UsersToShowList = usersToShow;
             return View("Edit", editFormModel);
         }
         

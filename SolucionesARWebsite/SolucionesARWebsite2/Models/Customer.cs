@@ -42,6 +42,10 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// 
         /// </summary>
+        public string LaboralTime { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime CreatedAt { get; set; }
         /// <summary>
         /// 

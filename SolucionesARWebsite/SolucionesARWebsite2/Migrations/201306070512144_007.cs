@@ -3,16 +3,11 @@ namespace SolucionesARWebsite2.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _005 : DbMigration
+    public partial class _007 : DbMigration
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Transactions", "CustomerId", "dbo.Users");
-            DropIndex("dbo.Transactions", new[] { "CustomerId" });
-            DropColumn("dbo.Transactions", "CustomerId");
-            DropColumn("dbo.CreditProcesses", "ExtraDetails");
-
-            /*AddColumn("dbo.Transactions", "UserId", c => c.Int(nullable: false));
+            AddColumn("dbo.Transactions", "UserId", c => c.Int(nullable: false, defaultValue: 1));
             AddColumn("dbo.Companies", "IsFinantial", c => c.Boolean(nullable: false));
             AddColumn("dbo.CreditProcesses", "Product", c => c.String());
 
@@ -50,18 +45,12 @@ namespace SolucionesARWebsite2.Migrations
                 .ForeignKey("dbo.Companies", t => t.CompanyId, cascadeDelete: false)
                 .Index(t => t.CreditProcessId)
                 .Index(t => t.CompanyId);
-            */
-            
-            
             
         }
         
         public override void Down()
         {
-            AddColumn("dbo.CreditProcesses", "ExtraDetails", c => c.String());
-            AddColumn("dbo.Transactions", "CustomerId", c => c.Int(nullable: false));
-            
-            /*DropIndex("dbo.CreditProcessXCompanies", new[] { "CompanyId" });
+            DropIndex("dbo.CreditProcessXCompanies", new[] { "CompanyId" });
             DropIndex("dbo.CreditProcessXCompanies", new[] { "CreditProcessId" });
             DropIndex("dbo.CreditComments", new[] { "CreditProcessId" });
             DropIndex("dbo.Transactions", new[] { "UserId" });
@@ -75,7 +64,7 @@ namespace SolucionesARWebsite2.Migrations
             DropTable("dbo.CreditProcessXCompanies");
             DropTable("dbo.CreditComments");
             CreateIndex("dbo.Transactions", "CustomerId");
-            AddForeignKey("dbo.Transactions", "CustomerId", "dbo.Users", "UserId", cascadeDelete: true);*/
+            AddForeignKey("dbo.Transactions", "CustomerId", "dbo.Users", "UserId", cascadeDelete: true);
         }
     }
 }

@@ -16,11 +16,12 @@ namespace SolucionesARWebsite2.Helpers
                                                              htmlHelper.ViewData.Model.Company.CompanyId));
         }
 
-        public static MvcHtmlString DropDownListForCustomersList(this HtmlHelper<CustomerReportViewModel> htmlHelper,
+
+        public static MvcHtmlString DropDownListForCustomersListToShow(this HtmlHelper<CustomerReportViewModel> htmlHelper,
            Expression<Func<CustomerReportViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.CustomerList, "UserId", "GeneratedCode",
+                                              new SelectList(htmlHelper.ViewData.Model.UsersToShowList, "UserToShowId", "CustomerName", 
                                                              htmlHelper.ViewData.Model.Customer.UserId));
         }
 

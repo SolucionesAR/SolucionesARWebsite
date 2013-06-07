@@ -14,7 +14,9 @@ namespace SolucionesARWebsite2.ViewModels.Reports
 
         [Required]
         [Display(Name = "Vendedor*", Prompt = "Seleccione un Usuario")]
-        public List<User> CustomerList { get; set; }
+        public List<UserToShow> UsersToShowList { get; set; }
+
+
 
         #endregion
     }

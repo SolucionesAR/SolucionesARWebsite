@@ -44,7 +44,6 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         [DisplayName("Vendedor")]
         public User Customer { get; set; }
 
-        public List<User> CustomersList { get; set; }
 
         // public List<User> ListSalesMan { get; set; }
 
@@ -62,6 +61,12 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         /// </summary>
         [Display(Name = "Comision*", Prompt = "000.00")]
         public double Comision { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<UserToShow> UsersToShowList { get; set; }
         
         #endregion
 
@@ -76,5 +81,7 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
 
         #region Private Methods
         #endregion
+
+        
     }
 }
