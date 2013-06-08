@@ -33,9 +33,14 @@ namespace SolucionesARWebsite2.Business.Management
             return _creditProcessesRepository.GetAllCreditProcesses();
         }
 
-        public CreditProcess GetCreditProcess(int CreditProcessId)
+        public CreditProcess GetCreditProcess(int creditProcessId)
         {
-            return _creditProcessesRepository.GetCreditProcess(CreditProcessId);
+            return _creditProcessesRepository.GetCreditProcess(creditProcessId);
+        }
+
+        public List<CreditProcessXCompany> GetFlowsPerCreditProcess(int creditProcessId)
+        {
+            return _creditProcessesRepository.GetFlowsPerCreditProcess(creditProcessId);
         }
 
         public void Save(EditViewModel editViewModel)

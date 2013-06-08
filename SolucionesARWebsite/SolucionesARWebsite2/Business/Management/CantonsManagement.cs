@@ -49,14 +49,14 @@ namespace SolucionesARWebsite2.Business.Management
 
         public List<Canton> GetCantons(SecurityContext securityContext)
         {
-            var companiesList = new List<Canton>();
+            var cantonsList = new List<Canton>();
 
             switch ((UserRoles)securityContext.User.RoleId)
             {
                 case UserRoles.Customer:
                 case UserRoles.Manager:
                 case UserRoles.Salesman:
-                    companiesList = new List<Canton>
+                    cantonsList = new List<Canton>
                                         {
                                             new Canton
                                                 {
@@ -67,11 +67,11 @@ namespace SolucionesARWebsite2.Business.Management
                     break;
                 case UserRoles.SuperUser:
                 case UserRoles.Administrator:
-                    companiesList = _cantonsRepository.GetAllCantons();
+                    cantonsList = _cantonsRepository.GetAllCantons();
                     break;
             }
 
-            return companiesList;
+            return cantonsList;
         }
         
         public void Save(EditViewModel editViewModel)

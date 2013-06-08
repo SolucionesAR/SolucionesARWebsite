@@ -61,6 +61,11 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             return creditProcess;
         }
 
+        public List<CreditProcessXCompany> GetFlowsPerCreditProcess(int creditProcessId)
+        {
+            var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Where(cpc => cpc.CreditProcessId.Equals(creditProcessId)).ToList();
+            return flowsPerCreditProcessList;
+        }
         #endregion
 
         #region Private Methods

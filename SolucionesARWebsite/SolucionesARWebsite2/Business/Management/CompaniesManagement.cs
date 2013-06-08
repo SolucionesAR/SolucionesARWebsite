@@ -48,6 +48,11 @@ namespace SolucionesARWebsite2.Business.Management
             return _companiesRepository.GetCompanies();
         }
 
+        public List<Company> GetFinantialCompaniesList()
+        {
+            return _companiesRepository.GetFinantialCompanies();
+        }
+
         public List<Company> GetCompaniesList(SecurityContext securityContext)
         {
             var companiesList = new List<Company>();

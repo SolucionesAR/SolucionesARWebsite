@@ -44,14 +44,14 @@ namespace SolucionesARWebsite2.Business.Management
 
         public List<Province> GetProvinces(SecurityContext securityContext)
         {
-            var companiesList = new List<Province>();
+            var provincesList = new List<Province>();
 
             switch ((UserRoles)securityContext.User.RoleId)
             {
                 case UserRoles.Customer:
                 case UserRoles.Manager:
                 case UserRoles.Salesman:
-                    companiesList = new List<Province>
+                    provincesList = new List<Province>
                                         {
                                             new Province
                                                 {
@@ -62,11 +62,11 @@ namespace SolucionesARWebsite2.Business.Management
                     break;
                 case UserRoles.SuperUser:
                 case UserRoles.Administrator:
-                    companiesList = _provincesRepository.GetAllProvinces();
+                    provincesList = _provincesRepository.GetAllProvinces();
                     break;
             }
 
-            return companiesList;
+            return provincesList;
         }
         
         public void Save(EditViewModel editViewModel)

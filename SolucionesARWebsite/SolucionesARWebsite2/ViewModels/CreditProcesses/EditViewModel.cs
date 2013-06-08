@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         [DisplayName("Producto del credito")]
         public string Product { get; set; }
         
@@ -46,13 +48,11 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// <summary>
         /// 
         /// </summary>
-        [Required]
-        [DisplayName("Financiera")]
-        public Company Company { get; set; }
+        public Company FinantialCompany { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public List<Company> CompaniesList { get; set; }
+        public List<Company> FinantialCompaniesList { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +63,10 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// 
         /// </summary>
         public List<CreditStatus> CreditStatusesList { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IPagedList<CreditProcessXCompany> PagedItems { get; set; }
 
         #endregion
         

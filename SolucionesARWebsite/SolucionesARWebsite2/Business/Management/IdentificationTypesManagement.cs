@@ -44,7 +44,7 @@ namespace SolucionesARWebsite2.Business.Management
 
         public List<IdentificationType> GetIdentificationTypes(SecurityContext securityContext)
         {
-            var companiesList = new List<IdentificationType>();
+            var identificationTypesList = new List<IdentificationType>();
 
             switch ((UserRoles)securityContext.User.RoleId)
             {
@@ -54,11 +54,11 @@ namespace SolucionesARWebsite2.Business.Management
                     break;
                 case UserRoles.SuperUser:
                 case UserRoles.Administrator:
-                    companiesList = _identificationTypesRepository.GetAllIdentificationTypes();
+                    identificationTypesList = _identificationTypesRepository.GetAllIdentificationTypes();
                     break;
             }
 
-            return companiesList;
+            return identificationTypesList;
         }
         
         public void Save(EditViewModel editViewModel)

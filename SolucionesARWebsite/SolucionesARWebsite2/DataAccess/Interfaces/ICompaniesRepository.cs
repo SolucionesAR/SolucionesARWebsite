@@ -13,6 +13,8 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
 
         List<Company> GetCompanies();
 
+        List<Company> GetFinantialCompanies();
+
         List<Company> GetOrderedCompaniesList();
 
         Company GetCompany(int companyId);

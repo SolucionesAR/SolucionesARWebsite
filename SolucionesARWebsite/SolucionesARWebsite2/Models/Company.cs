@@ -66,9 +66,7 @@ namespace SolucionesARWebsite2.Models
         /// 
         /// </summary>
         public virtual ICollection<CreditProcess> CreditProcesses { get; set; }
-
-
+        
         #endregion
     }
-
 }

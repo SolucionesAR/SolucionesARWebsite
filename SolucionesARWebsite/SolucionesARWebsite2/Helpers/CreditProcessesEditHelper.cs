@@ -32,15 +32,13 @@ namespace SolucionesARWebsite2.Helpers
                                               new SelectList(htmlHelper.ViewData.Model.SalesmenList, "UserId", "FName",
                                                              htmlHelper.ViewData.Model.Salesman.UserId));
         }
-
+        
         public static MvcHtmlString DropDownListForCompaniesList(this HtmlHelper<EditViewModel> htmlHelper,
             Expression<Func<EditViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.CompaniesList, "CompanyId", "CompanyNickName",
-                                                             htmlHelper.ViewData.Model.Company.CompanyId));
-        }
-
-       
+                                              new SelectList(htmlHelper.ViewData.Model.FinantialCompaniesList, "CompanyId", "CompanyName",
+                                                             htmlHelper.ViewData.Model.FinantialCompany.CompanyId));
+        }     
     }
 }

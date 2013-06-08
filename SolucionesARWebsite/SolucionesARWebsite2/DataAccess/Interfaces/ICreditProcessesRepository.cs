@@ -14,5 +14,7 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
         List<CreditProcess> GetCreditProcesses();
 
         CreditProcess GetCreditProcess(int CreditProcessId);
+
+        List<CreditProcessXCompany> GetFlowsPerCreditProcess(int creditProcessId);
     }
 }

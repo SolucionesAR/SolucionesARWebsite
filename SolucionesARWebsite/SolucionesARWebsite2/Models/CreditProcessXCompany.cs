@@ -27,5 +27,13 @@ namespace SolucionesARWebsite2.Models
         /// 
         /// </summary>
         public int CompanyId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual CreditStatus CreditStatus { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CreditStatusId { get; set; }
     }
 }

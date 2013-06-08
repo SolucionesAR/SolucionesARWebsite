@@ -312,6 +312,10 @@
     <Compile Include="Migrations\201306070551538_008.Designer.cs">
       <DependentUpon>201306070551538_008.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306082114126_009.cs" />
+    <Compile Include="Migrations\201306082114126_009.Designer.cs">
+      <DependentUpon>201306082114126_009.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Canton.cs" />
@@ -444,6 +448,7 @@
     <Compile Include="ViewModels\Companies\IndexViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\IndexViewModel.cs" />
+    <Compile Include="ViewModels\CreditProcesses\ProcessFlowViewModel.cs" />
     <Compile Include="ViewModels\CreditStatuses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditStatuses\IndexViewModel.cs" />
     <Compile Include="ViewModels\Customers\EditViewModel.cs" />
@@ -604,6 +609,9 @@
     <EmbeddedResource Include="Migrations\201306070551538_008.resx">
       <DependentUpon>201306070551538_008.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306082114126_009.resx">
+      <DependentUpon>201306082114126_009.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\themes\GReptem\fonts\cicle_semi-webfont.eot" />
@@ -675,6 +683,7 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\CreditStatuses\Edit.cshtml" />
     <Content Include="Views\CreditStatuses\Index.cshtml" />
+    <Content Include="Scripts\solucionesar.credit-processes.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

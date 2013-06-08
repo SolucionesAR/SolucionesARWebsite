@@ -1,10 +1,15 @@
-﻿@using SolucionesARWebsite2.Helpers
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite2.Helpers
 @using SolucionesARWebsite2.ViewModels.CreditProcesses
+
 @model EditViewModel
+
 @{
-    ViewBag.Title = "SolucionesAR | Estados de credito";
+    ViewBag.Title = "SolucionesAR | Procesos de Credito";
     Layout = "~/Views/Shared/EditionLayout.cshtml";
+
 }
+
 @section Header {
     @if (Model.CreditProcessId > 0)
     {
@@ -17,34 +22,95 @@
             NUEVA PROCESO DE CREDITO</h1>
     }
 }
+
 @section Messages {
     @Html.ValidationSummary()
 }
+
 @section EditionContent {
     @using (Html.BeginForm("Save", "CreditProcesses"))
     {
         @Html.HiddenFor(model => model.CreditProcessId)
         <fieldset>
-            <span>
+            <section class="edit-inline">
                 @Html.LabelFor(model => model.Customer)
                 <br />
                 @Html.DropDownListForCustomersList(model => model.Customer.CustomerId)
-            </span><span>
-            <br />
+            </section>
+            <section class="edit-inline">
                 @Html.LabelFor(model => model.Salesman)
                 <br />
                 @Html.DropDownListForUsersList(model => model.Salesman.UserId)
-            </span>
-            
-            <span>
-            <br />
+            </section>            
+            <section class="edit-inline">
                 @Html.LabelFor(model => model.CreditStatus)
                 <br />
                 @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId)
-            </span>
-            <br />
-            @Html.EditorFor(model => model.Product)
-        </fieldset>              
+            </section>         
+            <section class="edit-inline">
+                @Html.LabelFor(model => model.Product)
+                <br />
+                @Html.TextBoxFor(model => model.Product)
+            </section>
+        </fieldset> 
+        
+        <div class="table-content">   
+            <div class="main-actions">
+                @Html.ActionLink("Nuevo Flujo", "Create", null, new { @class = "button", @id = "create-new-flow" })
+            </div>
+            <div class="entry jspScrollable">
+                <div class="table_style">
+                    <table>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Financiera
+                            </th>
+                            <th>
+                                Estado
+                            </th>
+                            <th>
+                                Acciones
+                            </th>
+                        </tr>                        
+                        <tr id="editable-row">
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                @Html.DropDownListForCompaniesList(model => model.FinantialCompany.CompanyId)
+                            </td>
+                            <td>
+                                @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId)
+                            </td>                        
+                            <td>
+                                @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-new-flow" })
+                                @Html.ActionLink("Cancel", "CancelProcessFlow", null, new { @class = "button", @id = "cancel-new-flow" })
+                            </td>
+                        </tr>
+                        @foreach (var item in Model.PagedItems)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreditProcessXCompanyId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                                </td>
+                                <td>
+                                </td>                        
+                                <td>
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.CreditProcessXCompanyId })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+              
         <input name="submit" type="submit" value="Submit">
     }
 }
