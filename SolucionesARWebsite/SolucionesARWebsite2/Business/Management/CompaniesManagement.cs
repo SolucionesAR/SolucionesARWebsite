@@ -43,6 +43,11 @@ namespace SolucionesARWebsite2.Business.Management
             return _companiesRepository.GetOrderedCompaniesList();
         }
 
+        public List<Company> GetAllCompaniesList()
+        {
+            return _companiesRepository.GetAllCompanies();
+        }
+
         public List<Company> GetCompaniesList()
         {
             return _companiesRepository.GetCompanies();
@@ -129,5 +134,7 @@ namespace SolucionesARWebsite2.Business.Management
         }
 
         #endregion
+
+        
     }
 }

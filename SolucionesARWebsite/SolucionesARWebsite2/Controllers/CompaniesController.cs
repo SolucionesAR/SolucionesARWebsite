@@ -29,7 +29,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
             //missing filtering
-            var results = _companiesManagement.GetCompaniesList();
+            var results = _companiesManagement.GetAllCompaniesList();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
 
             return View(indexViewModel);

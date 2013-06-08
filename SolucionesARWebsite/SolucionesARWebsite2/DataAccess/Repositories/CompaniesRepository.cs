@@ -57,7 +57,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public List<Company> GetCompanies()
         {
-            var companies = _databaseModel.Companies.ToList();
+            var companies = _databaseModel.Companies.Where(c => !c.IsFinantial ).ToList();
             return companies;
         }
 

@@ -566,6 +566,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\solucionesar.transactions.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Security\Roles\administrator.xml" />
     <Content Include="Security\Roles\customer.xml" />
@@ -701,7 +702,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4598</DevelopmentServerPort>
+          <DevelopmentServerPort>7216</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
