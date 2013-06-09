@@ -69,7 +69,7 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         /// 
         /// </summary>
         public List<UserToShow> UsersToShowList { get; set; }
-
+        
         #endregion
 
         #region Private Members
@@ -84,6 +84,6 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         #region Private Methods
         #endregion
 
-
+        
     }
 }

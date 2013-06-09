@@ -449,6 +449,7 @@
     <Compile Include="ViewModels\CreditProcesses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\IndexViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\ProcessFlowViewModel.cs" />
+    <Compile Include="ViewModels\CreditProcesses\UserToShow.cs" />
     <Compile Include="ViewModels\CreditStatuses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditStatuses\IndexViewModel.cs" />
     <Compile Include="ViewModels\Customers\EditViewModel.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
@@ -54,13 +55,15 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Create()
         {
+            var usersToShow = GenerateUsersToShow(_usersManagement.GetUsersList());
+            var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
                                         CreditProcessId = 0,
                                         Customer = new Customer(),
-                                        CustomersList = _customersManagement.GetCustomers(),
+                                        CustomersList = customersToShow,
                                         Salesman = new User(),
-                                        SalesmenList = _usersManagement.GetUsersList(),
+                                        SalesmenList = usersToShow,
                                         CreditStatus = new CreditStatus(),
                                         CreditStatusesList = _creditStatusesManagement.GetCreditStatuses(),
                                         FinantialCompany = new Company(),
@@ -70,17 +73,21 @@ namespace SolucionesARWebsite2.Controllers
             return View("Edit", editViewModel);
         }
 
+        
+
         public ActionResult Edit(int id)
         {
             var creditProcess = _creditProcessesManagement.GetCreditProcess(id);
             var flowsPerCreditProcessList = _creditProcessesManagement.GetFlowsPerCreditProcess(id);
+            var usersToShow = GenerateUsersToShow(_usersManagement.GetUsersList());
+            var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
                                         CreditProcessId = creditProcess.CreditStatusId,
                                         Customer = creditProcess.Customer,
-                                        CustomersList = _customersManagement.GetCustomers(),
+                                        CustomersList = customersToShow,
                                         Salesman = creditProcess.User,
-                                        SalesmenList = _usersManagement.GetUsersList(),
+                                        SalesmenList = usersToShow,
                                         CreditStatus = creditProcess.CreditStatus,
                                         CreditStatusesList = _creditStatusesManagement.GetCreditStatuses(),
                                         FinantialCompany = new Company(),
@@ -115,6 +122,24 @@ namespace SolucionesARWebsite2.Controllers
         #endregion
 
         #region Private Members
+
+        private List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
+        {
+            return usersList.Select(user => new UserToShow
+                {
+                    UserToShowId = user.UserId,
+                    CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
+                }).ToList();
+        }
+
+        private List<UserToShow> GenerateUsersToShow(IEnumerable<Customer> customersList)
+        {
+            return customersList.Select(customer => new UserToShow
+                {
+                    UserToShowId = customer.CustomerId,
+                    CustomerName = customer.FName + " " + customer.LName + " - " + customer.CedNumber
+                }).ToList();
+        }
         #endregion
     }
 }

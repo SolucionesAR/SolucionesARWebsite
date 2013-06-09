@@ -34,7 +34,7 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// <summary>
         /// 
         /// </summary>
-        public List<Customer> CustomersList { get; set; }
+        public List<UserToShow> CustomersList { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -44,7 +44,7 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// <summary>
         /// 
         /// </summary>
-        public List<User> SalesmenList { get; set; }
+        public List<UserToShow> SalesmenList { get; set; }
         /// <summary>
         /// 
         /// </summary>
