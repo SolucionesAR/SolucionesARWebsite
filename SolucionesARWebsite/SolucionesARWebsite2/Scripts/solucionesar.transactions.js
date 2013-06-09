@@ -1,7 +1,22 @@
 ﻿$(document).ready(function () {
 
+    if ($('#Amount').val() != '0') {
+        $("#ComisionPercentage").val($('#Comision').val() / $('#Amount').val() * 100);
+    } else {
+        $("#ComisionPercentage").val(0);
+    }
+
+
     $("#Amount").change(function () {
+        //calculate or update the points
         $("#Points").val(Math.round($('#Amount').val() / 7000));
+        //calculate or update the comision amount
+        $("#Comision").val($('#Amount').val() * $('#ComisionPercentage').val() / 100);
+    });
+
+
+    $("#ComisionPercentage").change(function () {
+        $("#Comision").val($('#Amount').val() * $('#ComisionPercentage').val() / 100);
     });
 
 

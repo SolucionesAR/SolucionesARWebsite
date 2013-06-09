@@ -37,6 +37,8 @@
                         <fieldset>
                             @Html.EditorFor(model => model.BillBarCode)
                             @Html.EditorFor(model => model.Amount)
+                            Porcentaje de comision %<br/>
+                            <input type="text" id="ComisionPercentage"/>
                             @Html.EditorFor(model => model.Comision)
                             <span>
                                 @Html.LabelFor(model => model.Points) <br/>

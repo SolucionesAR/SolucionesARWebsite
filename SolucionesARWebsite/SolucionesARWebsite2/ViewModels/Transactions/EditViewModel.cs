@@ -20,12 +20,14 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         [Display(Name = "Codigo Fractura*", Prompt = "Codigo Fractura")]
         public string BillBarCode { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         [Display(Name = "Monto*", Prompt = "000.00")]
         public double Amount { get; set; }
 
@@ -67,7 +69,7 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         /// 
         /// </summary>
         public List<UserToShow> UsersToShowList { get; set; }
-        
+
         #endregion
 
         #region Private Members
@@ -82,6 +84,6 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         #region Private Methods
         #endregion
 
-        
+
     }
 }
