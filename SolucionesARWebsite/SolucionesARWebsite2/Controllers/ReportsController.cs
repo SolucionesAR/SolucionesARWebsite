@@ -166,7 +166,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Customer()
         {
-            var orderedUsers = UsersManagement.GetOrderedUsersList();
+            var orderedUsers = _usersManagement.GetOrderedUsersList();
             var usersToShow = GenerateUsersToShow(orderedUsers);
             var customerReportViewModel = new CustomerReportViewModel
             {

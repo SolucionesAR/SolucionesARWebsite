@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.Models;
+using SolucionesARWebsite2.Enumerations;
+using SolucionesARWebsite2.Utils;
 using SolucionesARWebsite2.ViewModels.CreditProcesses;
 
 namespace SolucionesARWebsite2.Controllers
@@ -55,7 +57,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Create()
         {
-            var usersToShow = GenerateUsersToShow(_usersManagement.GetUsersList());
+            var usersToShow = GenerateUsersToShow(GetAvailableUsersList());
             var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
@@ -72,14 +74,12 @@ namespace SolucionesARWebsite2.Controllers
                                     };
             return View("Edit", editViewModel);
         }
-
-        
-
+                
         public ActionResult Edit(int id)
         {
             var creditProcess = _creditProcessesManagement.GetCreditProcess(id);
             var flowsPerCreditProcessList = _creditProcessesManagement.GetFlowsPerCreditProcess(id);
-            var usersToShow = GenerateUsersToShow(_usersManagement.GetUsersList());
+            var usersToShow = GenerateUsersToShow(GetAvailableUsersList());
             var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
@@ -90,10 +90,17 @@ namespace SolucionesARWebsite2.Controllers
                                         SalesmenList = usersToShow,
                                         CreditStatus = creditProcess.CreditStatus,
                                         CreditStatusesList = _creditStatusesManagement.GetCreditStatuses(),
+                                        Product = creditProcess.Product,
                                         FinantialCompany = new Company(),
                                         FinantialCompaniesList = _companiesManagement.GetFinantialCompaniesList(),
                                         PagedItems = flowsPerCreditProcessList.ToPagedList(1, PageSize),
                                     };
+            var processFlowsList = new List<ProcessFlowViewModel>();
+            foreach (var flowsPerCreditProcess in flowsPerCreditProcessList)
+            {
+                processFlowsList.Add(Map(flowsPerCreditProcess));
+            }
+            UpdateCurrentProcessFlows(creditProcess.CreditProcessId, processFlowsList);
             return View(editViewModel);
         }
 
@@ -103,7 +110,8 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 //this call includes the credit flows as extra parameter 
-                _creditProcessesManagement.Save(editFormModel);
+                var processFlowsList = GetCurrentProcessFlows(editFormModel.CreditProcessId);
+                _creditProcessesManagement.Save(editFormModel, processFlowsList);
             }
             return RedirectToAction("Index");
         }
@@ -114,9 +122,18 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 //store the processFlowViewModel in the Session and submit when the user saves all the form changes 
-                //the application doesn't know if there is a credit process created before the user saves the process flow
+                //the application doesn't know if here is a credit process created before the user saves the process flow
+                var processFlowsList = GetCurrentProcessFlows(processFlowViewModel.CreditProcessId);
 
+                if (!processFlowViewModel.IsNew)
+                {
+                    processFlowsList.RemoveAll(pf => pf.CreditProcessXCompanyId.Equals(processFlowViewModel.CreditProcessXCompanyId));   
+                }
+
+                processFlowsList.Add(processFlowViewModel);
+                UpdateCurrentProcessFlows(processFlowViewModel.CreditProcessId, processFlowsList);
             }
+
             return this.Json(new { success = "true" });
         }
         #endregion
@@ -139,6 +156,34 @@ namespace SolucionesARWebsite2.Controllers
                     UserToShowId = customer.CustomerId,
                     CustomerName = customer.FName + " " + customer.LName + " - " + customer.CedNumber
                 }).ToList();
+        }
+
+        private List<ProcessFlowViewModel> GetCurrentProcessFlows(int creditProcessId)
+        {
+            var processFlowsCacheKey = string.Format("{0}|{1}", Constants.ProcessFlows.ToStringValue(), creditProcessId);
+            var processFlowsList = Session[processFlowsCacheKey] as List<ProcessFlowViewModel>
+                                ?? new List<ProcessFlowViewModel>();
+
+            return processFlowsList;
+        }
+
+        private void UpdateCurrentProcessFlows(int creditProcessId, List<ProcessFlowViewModel> processFlowsList)
+        {
+            var processFlowsCacheKey = string.Format("{0}|{1}", Constants.ProcessFlows.ToStringValue(), creditProcessId);
+            Session[processFlowsCacheKey] = processFlowsList;
+        }
+
+        private ProcessFlowViewModel Map(CreditProcessXCompany creditProcessXCompany)
+        {
+            var viewModel = new ProcessFlowViewModel
+                            {
+                                CompanyId = creditProcessXCompany.CompanyId,
+                                CreditProcessId = creditProcessXCompany.CreditProcessId,
+                                CreditProcessXCompanyId = creditProcessXCompany.CreditProcessXCompanyId,
+                                CreditStatusId = creditProcessXCompany.CreditStatusId,
+                                IsNew = false,
+                            };
+            return viewModel;
         }
         #endregion
     }

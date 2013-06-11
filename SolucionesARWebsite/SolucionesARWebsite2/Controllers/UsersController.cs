@@ -56,7 +56,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
             //missing filtering
-            var results = UsersManagement.GetUsersList();
+            var results = GetAvailableUsersList();
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
 
             return View(indexViewModel);
@@ -64,7 +64,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Pay(int id)
         {
-            var userInformation = UsersManagement.GetUser(id);
+            var userInformation = _usersManagement.GetUser(id);
             var detailsViewModel = new PayViewModel
                                        {
                                            UserId = id,
@@ -91,7 +91,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Edit(int id)
         {
-            var user = UsersManagement.GetUser(id);
+            var user = _usersManagement.GetUser(id);
             var canton = _cantonsManagement.GetCantonByDistrict(user.District.DistrictId);
             var province = _provincesManagement.GetProvinceByCanton(canton.CantonId);
 
@@ -111,7 +111,8 @@ namespace SolucionesARWebsite2.Controllers
         {
             if (ModelState.IsValid && IsValidUser(editViewModel))
             {
-                UsersManagement.Save(Map(editViewModel), SecurityContext.User.Id);
+                _usersManagement.Save(Map(editViewModel), SecurityContext.User.Id);
+                UpdateAvailableUsersList();
                 return RedirectToAction("Index");
             }
             
@@ -133,7 +134,7 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid && IsValidPayment(payViewModel))
             {
                 var newCashback = payViewModel.LastCashback - payViewModel.Cashback;
-                UsersManagement.SavePayment(payViewModel.UserId, newCashback, SecurityContext.User.Id);
+                _usersManagement.SavePayment(payViewModel.UserId, newCashback, SecurityContext.User.Id);
                 return RedirectToAction("Index");
             }
 
@@ -143,7 +144,7 @@ namespace SolucionesARWebsite2.Controllers
         public JsonResult IsValidParentUser(string identificationNumber)
         {
             var user =
-                UsersManagement.GetUserByIdentificationNumber(
+                _usersManagement.GetUserByIdentificationNumber(
                     Convert.ToInt32(identificationNumber.Replace("-", string.Empty)));
             //TODO: missing users table modification
             //check if the user...
@@ -169,7 +170,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             //if it's a new user doesn't required the identification number validation
             if (editViewModel.UserId != 0 &&
-                !UsersManagement.HasValidIdentificationNumber(editViewModel.UserId, editViewModel.IdentificationNumber))
+                !_usersManagement.HasValidIdentificationNumber(editViewModel.UserId, editViewModel.IdentificationNumber))
             {
                 ModelState.AddModelError("IdentificationNumber",
                                          "El número de idetificación ya está registrado en el sistema.");
@@ -273,7 +274,7 @@ namespace SolucionesARWebsite2.Controllers
                                RelationshipTypeId = editViewModel.RelationshipType.RelationshipTypeId,
                                UserId = editViewModel.UserId,
                                UserReferenceId = !string.IsNullOrEmpty(editViewModel.ParentIdentificationNumber)
-                                                     ? UsersManagement.GetUserByIdentificationNumber(
+                                                     ? _usersManagement.GetUserByIdentificationNumber(
                                                          Convert.ToInt32(
                                                              editViewModel.ParentIdentificationNumber.Replace("-", string.Empty)))
                                                            .UserId

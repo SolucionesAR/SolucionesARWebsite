@@ -5,9 +5,9 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
 {
     public interface ICreditProcessesRepository
     {
-        void AddCreditProcess(CreditProcess CreditProcess);
+        int AddCreditProcess(CreditProcess creditProcess);
 
-        void EditCreditProcess(CreditProcess CreditProcess);
+        void UpdateCreditProcess(CreditProcess creditProcess);
 
         List<CreditProcess> GetAllCreditProcesses();
 
@@ -16,5 +16,11 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
         CreditProcess GetCreditProcess(int CreditProcessId);
 
         List<CreditProcessXCompany> GetFlowsPerCreditProcess(int creditProcessId);
+
+        void AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
+
+        void UpdateCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
+
+        void DeleteCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
     }
 }

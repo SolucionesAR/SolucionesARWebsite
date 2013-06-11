@@ -20,6 +20,6 @@ section.edit-inline {
 .clearBoth {
     clear:both; 
 }
-tr#editable-row {
+tr#editable-credit-flow-row {
     display:none;
 }

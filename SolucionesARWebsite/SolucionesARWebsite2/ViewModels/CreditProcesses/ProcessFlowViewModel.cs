@@ -14,5 +14,13 @@
         /// 
         /// </summary>
         public int CreditStatusId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CreditProcessId { get; set; }
+
+        public bool IsNew { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

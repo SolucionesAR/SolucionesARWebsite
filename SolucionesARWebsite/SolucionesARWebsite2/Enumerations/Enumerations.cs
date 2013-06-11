@@ -73,6 +73,10 @@ namespace SolucionesARWebsite2.Enumerations
         [Value("RoleBasedMenu")]
         RoleBasedMenu = 6,
         WorkFactor = 13,
+        [Value("AvailableUsers")]
+        AvailableUsers,
+        [Value("ProcessFlows")]
+        ProcessFlows,
     }
 
     public enum ApplicationReports

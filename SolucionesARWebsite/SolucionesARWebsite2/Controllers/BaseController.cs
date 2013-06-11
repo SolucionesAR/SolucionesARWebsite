@@ -1,7 +1,13 @@
-﻿using System.Web.Security;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Web.Security;
 using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
+using SolucionesARWebsite2.Enumerations;
+using SolucionesARWebsite2.Utils;
 
 namespace SolucionesARWebsite2.Controllers
 {
@@ -15,13 +21,13 @@ namespace SolucionesARWebsite2.Controllers
 
         #endregion
 
-        #region Properties  
+        #region Properties
         #endregion
 
         #region Private Members
 
         private readonly DbModel _entityModel = new DbModel();
-        protected readonly UsersManagement UsersManagement;
+        protected readonly UsersManagement _usersManagement;
 
         #endregion
 
@@ -29,7 +35,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public  BaseController(UsersManagement usersManagement)
         {
-            UsersManagement = usersManagement;
+            _usersManagement = usersManagement;
             CreateSecurityContext();
         }
 
@@ -46,6 +52,24 @@ namespace SolucionesARWebsite2.Controllers
         #endregion
 
         #region Public Actions
+        
+        public List<User> GetAvailableUsersList()
+        {
+            var availableUsersList = Session[Constants.AvailableUsers.ToStringValue()] as List<User>;
+            
+            if (availableUsersList == null)
+            {
+                UpdateAvailableUsersList();
+                availableUsersList = Session[Constants.AvailableUsers.ToStringValue()] as List<User>;
+            }
+            return availableUsersList;
+        }
+
+        public void UpdateAvailableUsersList()
+        {
+            var availableUsersList = _usersManagement.GetUsersList();
+            Session[Constants.AvailableUsers.ToStringValue()] = availableUsersList;
+        }
 
         #endregion
 
@@ -63,7 +87,7 @@ namespace SolucionesARWebsite2.Controllers
                 {
                     SecurityContext = new SecurityContext
                                           {
-                                              User = UsersManagement.GetUserInformation(identity.Name),
+                                              User = _usersManagement.GetUserInformation(identity.Name),
                                           };
                 }
                 else

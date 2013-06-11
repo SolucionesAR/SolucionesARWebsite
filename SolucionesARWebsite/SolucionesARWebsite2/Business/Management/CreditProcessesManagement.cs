@@ -43,18 +43,18 @@ namespace SolucionesARWebsite2.Business.Management
             return _creditProcessesRepository.GetFlowsPerCreditProcess(creditProcessId);
         }
 
-        public void Save(EditViewModel editViewModel)
+        public void Save(EditViewModel editViewModel, List<ProcessFlowViewModel> creditProcessFlowsList)
         {
             var creditProcess = Map(editViewModel);
             creditProcess.UpdatedAt = DateTime.UtcNow;
             if (editViewModel.CreditProcessId.Equals(0))
             {
                 creditProcess.CreatedAt = DateTime.UtcNow;
-                AddCreditProcess(creditProcess);
+                AddCreditProcess(creditProcess, creditProcessFlowsList);
             }
             else
             {
-                EditCreditProcess(creditProcess);
+                UpdateCreditProcess(creditProcess, creditProcessFlowsList);
             }
         }  
 
@@ -63,26 +63,63 @@ namespace SolucionesARWebsite2.Business.Management
         #region Private Methods
         private static CreditProcess Map(EditViewModel editViewModel)
         {
-            var CreditProcess = new CreditProcess
+            var creditProcess = new CreditProcess
                                    {
                                        CreditProcessId = editViewModel.CreditProcessId,
                                        CustomerId = editViewModel.Customer.CustomerId,
                                        UserId = editViewModel.Salesman.UserId,
                                        CreditStatusId = editViewModel.CreditStatus.CreditStatusId,
+                                       Product = editViewModel.Product,
                                        //TODO: missing list of current flows with the different companies
                                    };
 
-            return CreditProcess;
+            return creditProcess;
         }
 
-        private void AddCreditProcess (CreditProcess CreditProcess)
+        private CreditProcessXCompany Map(ProcessFlowViewModel viewModel)
         {
-            _creditProcessesRepository.AddCreditProcess(CreditProcess);
+            var creditProcessXCompany = new CreditProcessXCompany
+                                        {
+                                            CompanyId = viewModel.CompanyId,
+                                            CreditProcessId = viewModel.CreditProcessId,
+                                            CreditProcessXCompanyId = viewModel.CreditProcessXCompanyId,
+                                            CreditStatusId = viewModel.CreditStatusId,
+                                        };
+            return creditProcessXCompany;
         }
 
-        private void EditCreditProcess(CreditProcess CreditProcess)
+        private void AddCreditProcess(CreditProcess creditProcess, List<ProcessFlowViewModel> creditProcessFlowsList)
         {
-            _creditProcessesRepository.EditCreditProcess(CreditProcess);
+            var creditProcessId = _creditProcessesRepository.AddCreditProcess(creditProcess);
+            foreach(var creditProcessFlow in creditProcessFlowsList)
+            {
+                creditProcessFlow.CreditProcessId = creditProcessId;
+                _creditProcessesRepository.AddCreditProcessFlow(Map(creditProcessFlow));
+            }
+        }
+
+        private void UpdateCreditProcess(CreditProcess creditProcess, List<ProcessFlowViewModel> creditProcessFlowsList)
+        {
+            _creditProcessesRepository.UpdateCreditProcess(creditProcess);
+
+            foreach (var creditProcessFlow in creditProcessFlowsList)
+            {
+                if (creditProcessFlow.IsNew)
+                {
+                    _creditProcessesRepository.AddCreditProcessFlow(Map(creditProcessFlow));
+                }
+                else
+                {
+                    if (creditProcessFlow.IsDeleted)
+                    {
+                        _creditProcessesRepository.DeleteCreditProcessFlow(Map(creditProcessFlow));
+                    }
+                    else
+                    {
+                        _creditProcessesRepository.UpdateCreditProcessFlow(Map(creditProcessFlow));
+                    }
+                }
+            }
         }
         #endregion        
     }

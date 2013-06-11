@@ -31,15 +31,32 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         #region Public Methods
         
-        public void AddCreditProcess(CreditProcess CreditProcess)
+        public int AddCreditProcess(CreditProcess creditProcess)
         {
-            _databaseModel.CreditProcesses.Add(CreditProcess);
+            _databaseModel.CreditProcesses.Add(creditProcess);
             _databaseModel.SaveChanges();
+            return creditProcess.CreditProcessId;
         }
 
-        public void EditCreditProcess(CreditProcess CreditProcess)
+        public void UpdateCreditProcess(CreditProcess creditProcess)
         {
-            _databaseModel.Entry(CreditProcess).State = EntityState.Modified;
+            var entry = _databaseModel.Entry(creditProcess);
+            if (entry.State == EntityState.Detached)
+            {
+                var set = _databaseModel.Set<CreditProcess>();
+                var attachedEntity = set.Find(creditProcess.CreditProcessId);  // You need to have access to key
+
+                if (attachedEntity != null)
+                {
+                    var attachedEntry = _databaseModel.Entry(attachedEntity);
+                    attachedEntry.CurrentValues.SetValues(creditProcess);
+                }
+                else
+                {
+                    entry.State = EntityState.Modified; // This should attach entity
+                }
+            }
+
             _databaseModel.SaveChanges();
         }
         
@@ -66,6 +83,25 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Where(cpc => cpc.CreditProcessId.Equals(creditProcessId)).ToList();
             return flowsPerCreditProcessList;
         }
+
+        public void AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
+        {
+            var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Add(creditProcessFlow);
+            _databaseModel.SaveChanges();
+        }
+
+        public void UpdateCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
+        {
+            _databaseModel.Entry(creditProcessFlow).State = EntityState.Modified;
+            _databaseModel.SaveChanges();
+        }
+
+        public void DeleteCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
+        {
+            _databaseModel.CreditProcessesXCompanies.Remove(creditProcessFlow);
+            _databaseModel.SaveChanges();
+        }
+
         #endregion
 
         #region Private Methods

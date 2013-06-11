@@ -43,11 +43,11 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// 
         /// </summary>
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         /// <summary>
         /// 

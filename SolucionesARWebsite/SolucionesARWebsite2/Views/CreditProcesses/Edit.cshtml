@@ -31,6 +31,8 @@
     @using (Html.BeginForm("Save", "CreditProcesses"))
     {
         @Html.HiddenFor(model => model.CreditProcessId)
+        @Html.HiddenFor(model => model.FinantialCompaniesList)
+        @Html.HiddenFor(model => model.CreditStatusesList)
         <fieldset>
             <section class="edit-inline">
                 @Html.LabelFor(model => model.Customer)
@@ -56,9 +58,9 @@
         
         <div class="table-content">   
             <div class="main-actions">
-                @Html.ActionLink("Nuevo Flujo", "Create", null, new { @class = "button", @id = "create-new-flow" })
+                @Html.ActionLink("Nuevo Flujo", "Create", null, new { @class = "button", @id = "create-credit-flow" })
             </div>
-            <div class="entry jspScrollable">
+            <div class="entry jspScrollable" style="width: 100%;">
                 <div class="table_style">
                     <table>
                         <tr>
@@ -71,13 +73,15 @@
                             <th>
                                 Estado
                             </th>
-                            <th>
+                            <th colspan="2">
                                 Acciones
                             </th>
                         </tr>                        
-                        <tr id="editable-row">
+                        <tr id="editable-credit-flow-row">
                             <td>
-                                -
+                                <label id="credit-process-x-company-id-label"></label>
+                                <input id="credit-process-x-company-id" type="hidden" value="" />
+                                <input id="is-new" type="hidden" value="" />
                             </td>
                             <td>
                                 @Html.DropDownListForCompaniesList(model => model.FinantialCompany.CompanyId)
@@ -86,8 +90,10 @@
                                 @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId)
                             </td>                        
                             <td>
-                                @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-new-flow" })
-                                @Html.ActionLink("Cancel", "CancelProcessFlow", null, new { @class = "button", @id = "cancel-new-flow" })
+                                @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-credit-flow" })
+                            </td>                        
+                            <td>
+                                @Html.ActionLink("Cancel", "CancelProcessFlow", null, new { @class = "button", @id = "cancel-credit-flow" })
                             </td>
                         </tr>
                         @foreach (var item in Model.PagedItems)
@@ -97,12 +103,20 @@
                                     @Html.DisplayFor(modelItem => item.CreditProcessXCompanyId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                                    @Html.HiddenFor(modelItem => item.CompanyId)
+                                    @{ var companyName = Model.FinantialCompaniesList.FirstOrDefault(c => c.CompanyId.Equals(item.CompanyId)).CompanyName; }
+                                    @companyName
                                 </td>
                                 <td>
+                                    @Html.HiddenFor(modelItem => item.CreditStatusId)
+                                    @Html.DisplayFor(modelItem => item.CreditStatus.CreditStatusDescription)
                                 </td>                        
                                 <td>
-                                    @Html.ActionLink("Detalles", "Details", new { id = item.CreditProcessXCompanyId })
+                                    @Html.ActionLink("Detalles", "Details", new { id = item.CreditProcessXCompanyId }, new { @class = "button" })
+                                </td>                        
+                                <td>
+                                    @Html.ActionLink("Editar", "EditProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "button", @id = "edit-credit-flow" }) |
+                                    @Html.ActionLink("Eliminar", "DeleteProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "button", @id = "delete-credit-flow" })
                                 </td>
                             </tr>
                         }
@@ -110,7 +124,8 @@
                 </div>
             </div>
         </div>
-              
+        
+        <br/><br/> 
         <input name="submit" type="submit" value="Submit">
     }
 }

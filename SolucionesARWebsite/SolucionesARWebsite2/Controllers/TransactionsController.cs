@@ -47,7 +47,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Create()
         {
-            var usersList = _usersManagement.GetUsersList();
+            var usersList = GetAvailableUsersList();
             var usersToShow = GenerateUsersToShow(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
             var now = DateTime.Now;
@@ -81,7 +81,7 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult FileUpload()
         {
-            var usersList = _usersManagement.GetUsersList();
+            var usersList = GetAvailableUsersList();
             var usersToShow = GenerateUsersToShow(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
             DateTime now = DateTime.Now;
@@ -106,7 +106,7 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Edit(int id)
         {
             var transaction = _transactionsManagement.GetTransaction(id);
-            var usersList = _usersManagement.GetUsersList();
+            var usersList = GetAvailableUsersList();
             var usersToShow = GenerateUsersToShow(usersList);
             var editViewModel = new EditViewModel
             {
@@ -116,7 +116,7 @@ namespace SolucionesARWebsite2.Controllers
                 Company = transaction.Company,
                 CompaniesList = _companiesManagement.GetCompaniesList(),
                 Customer = transaction.User,
-                //CustomersList = _usersManagement.GetUsersList(),
+                //CustomersList = GetAvailableUsersList(),
                 Points = transaction.Points,
                 TransactionDate = transaction.TransactionDate.ToString("dd/MM/yyyy"),
                 Comision = transaction.Comision,
@@ -170,8 +170,8 @@ namespace SolucionesARWebsite2.Controllers
             else
             {
 
-                //editFormModel.CustomersList = _usersManagement.GetUsersList();
-                var usersList = _usersManagement.GetUsersList();
+                //editFormModel.CustomersList = GetAvailableUsersList();
+                var usersList = GetAvailableUsersList();
                 var usersToShow = GenerateUsersToShow(usersList);
                 editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
                 editFormModel.UsersToShowList = usersToShow;
