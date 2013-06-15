@@ -751,7 +751,7 @@ h2 strong {
 	width:166px;
 	position:relative;
 	z-index:9;
-	margin:0 0 15px;
+	margin:0 0;
 	padding:8px;
 	color:rgba(225, 225, 225, 0.7);
 	font-size:12px;

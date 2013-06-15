@@ -10,11 +10,11 @@ namespace SolucionesARWebsite2.Helpers
     public static class CreditProcessesEditHelper
     {
         public static MvcHtmlString DropDownListForCreditStatuses(this HtmlHelper<EditViewModel> htmlHelper,
-            Expression<Func<EditViewModel, int>> expression)
+            Expression<Func<EditViewModel, int>> expression, object htmlAttributes)
         {
             return htmlHelper.DropDownListFor(expression,
                                               new SelectList(htmlHelper.ViewData.Model.CreditStatusesList, "CreditStatusId", "CreditStatusDescription",
-                                                             htmlHelper.ViewData.Model.CreditStatus.CreditStatusId));
+                                                             htmlHelper.ViewData.Model.CreditStatus.CreditStatusId), htmlAttributes);
         }
 
         public static MvcHtmlString DropDownListForCustomersList(this HtmlHelper<EditViewModel> htmlHelper,
@@ -34,11 +34,11 @@ namespace SolucionesARWebsite2.Helpers
         }
         
         public static MvcHtmlString DropDownListForCompaniesList(this HtmlHelper<EditViewModel> htmlHelper,
-            Expression<Func<EditViewModel, int>> expression)
+            Expression<Func<EditViewModel, int>> expression, object htmlAttributes)
         {
             return htmlHelper.DropDownListFor(expression,
                                               new SelectList(htmlHelper.ViewData.Model.FinantialCompaniesList, "CompanyId", "CompanyName",
-                                                             htmlHelper.ViewData.Model.FinantialCompany.CompanyId));
+                                                             htmlHelper.ViewData.Model.FinantialCompany.CompanyId),htmlAttributes);
         }     
     }
 }

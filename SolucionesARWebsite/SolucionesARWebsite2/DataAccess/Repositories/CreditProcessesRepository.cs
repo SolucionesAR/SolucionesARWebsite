@@ -98,7 +98,12 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public void DeleteCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
         {
-            _databaseModel.CreditProcessesXCompanies.Remove(creditProcessFlow);
+            var entityToDelete = _databaseModel.CreditProcessesXCompanies
+                .FirstOrDefault(cpc => cpc.CreditProcessXCompanyId.Equals(creditProcessFlow.CreditProcessXCompanyId));
+            if (entityToDelete != null)
+            {
+                _databaseModel.CreditProcessesXCompanies.Remove(entityToDelete);
+            }
             _databaseModel.SaveChanges();
         }
 

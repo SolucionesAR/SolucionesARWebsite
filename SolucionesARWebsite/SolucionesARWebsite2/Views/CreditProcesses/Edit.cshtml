@@ -31,8 +31,8 @@
     @using (Html.BeginForm("Save", "CreditProcesses"))
     {
         @Html.HiddenFor(model => model.CreditProcessId)
-        @Html.HiddenFor(model => model.FinantialCompaniesList)
-        @Html.HiddenFor(model => model.CreditStatusesList)
+        <input id="is-editor-displayed" type="hidden" value="false">
+        <input id="is-new" type="hidden" value="false">
         <fieldset>
             <section class="edit-inline">
                 @Html.LabelFor(model => model.Customer)
@@ -47,7 +47,7 @@
             <section class="edit-inline">
                 @Html.LabelFor(model => model.CreditStatus)
                 <br />
-                @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId)
+                @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId, null)
             </section>         
             <section class="edit-inline">
                 @Html.LabelFor(model => model.Product)
@@ -79,20 +79,19 @@
                         </tr>                        
                         <tr id="editable-credit-flow-row">
                             <td>
-                                <label id="credit-process-x-company-id-label"></label>
-                                <input id="credit-process-x-company-id" type="hidden" value="" />
-                                <input id="is-new" type="hidden" value="" />
+                                -
+                            </td>
+                            <td class="editable-company-cell">
+                                @Html.DropDownListForCompaniesList(model => model.FinantialCompany.CompanyId, new { @id = "company-credit-flow" })
+                            </td>
+                            <td class="editable-status-cell">
+                                @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId, new { @id = "status-credit-flow" })
                             </td>
                             <td>
-                                @Html.DropDownListForCompaniesList(model => model.FinantialCompany.CompanyId)
+                                -
                             </td>
-                            <td>
-                                @Html.DropDownListForCreditStatuses(model => model.CreditStatus.CreditStatusId)
-                            </td>                        
-                            <td>
-                                @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-credit-flow" })
-                            </td>                        
-                            <td>
+                            <td class="editable-actions-cell">
+                                @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-credit-flow" }) |
                                 @Html.ActionLink("Cancel", "CancelProcessFlow", null, new { @class = "button", @id = "cancel-credit-flow" })
                             </td>
                         </tr>
@@ -100,23 +99,23 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreditProcessXCompanyId)
+                                    @Html.Label(item.CreditProcessXCompanyId.ToString(), new { @class = "credit-flow-id" })
                                 </td>
-                                <td>
-                                    @Html.HiddenFor(modelItem => item.CompanyId)
+                                <td class="editable-company-cell">
                                     @{ var companyName = Model.FinantialCompaniesList.FirstOrDefault(c => c.CompanyId.Equals(item.CompanyId)).CompanyName; }
-                                    @companyName
+                                    @Html.HiddenFor(modelItem => item.CompanyId)
+                                    @Html.Label(companyName, new { @id = string.Format("company-label-{0}", item.CreditProcessXCompanyId) })
                                 </td>
-                                <td>
+                                <td class="editable-status-cell">
                                     @Html.HiddenFor(modelItem => item.CreditStatusId)
-                                    @Html.DisplayFor(modelItem => item.CreditStatus.CreditStatusDescription)
-                                </td>                        
+                                    @Html.Label(item.CreditStatus.CreditStatusDescription, new { @id = string.Format("status-label-{0}", item.CreditProcessXCompanyId) })
+                                </td>
                                 <td>
                                     @Html.ActionLink("Detalles", "Details", new { id = item.CreditProcessXCompanyId }, new { @class = "button" })
-                                </td>                        
-                                <td>
-                                    @Html.ActionLink("Editar", "EditProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "button", @id = "edit-credit-flow" }) |
-                                    @Html.ActionLink("Eliminar", "DeleteProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "button", @id = "delete-credit-flow" })
+                                </td>
+                                <td class="editable-actions-cell">
+                                    @Html.ActionLink("Editar", "EditProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "edit-credit-flow button", @id = string.Format("edit-credit-flow-{0}", item.CreditProcessXCompanyId) }) |
+                                    @Html.ActionLink("Eliminar", "DeleteProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "delete-credit-flow button", @id = string.Format("delete-credit-flow-{0}", item.CreditProcessXCompanyId) })
                                 </td>
                             </tr>
                         }
@@ -125,7 +124,7 @@
             </div>
         </div>
         
-        <br/><br/> 
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <input name="submit" type="submit" value="Submit">
     }
 }

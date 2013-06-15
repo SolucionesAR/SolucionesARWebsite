@@ -132,6 +132,25 @@ namespace SolucionesARWebsite2.Controllers
 
                 processFlowsList.Add(processFlowViewModel);
                 UpdateCurrentProcessFlows(processFlowViewModel.CreditProcessId, processFlowsList);
+
+                return this.Json(new { success = "true" });
+            }
+            return this.Json(new { success = "false" });
+        }
+
+        [HttpPost]
+        public JsonResult DeleteProcessFlow(ProcessFlowViewModel processFlowViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //store the processFlowViewModel in the Session and submit when the user saves all the form changes 
+                //the application doesn't know if here is a credit process created before the user saves the process flow
+                var processFlowsList = GetCurrentProcessFlows(processFlowViewModel.CreditProcessId);
+
+                var processFlow = processFlowsList.FirstOrDefault(pf => pf.CreditProcessXCompanyId.Equals(processFlowViewModel.CreditProcessXCompanyId));
+                processFlow.IsDeleted = true;
+
+                UpdateCurrentProcessFlows(processFlowViewModel.CreditProcessId, processFlowsList);
             }
 
             return this.Json(new { success = "true" });
