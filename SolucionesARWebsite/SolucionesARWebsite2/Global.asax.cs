@@ -46,6 +46,8 @@ namespace SolucionesARWebsite2
             builder.RegisterType<StoresRepository>().As<IStoresRepository>().InstancePerHttpRequest();
             builder.RegisterType<TransactionsRepository>().As<ITransactionsRepository>().InstancePerHttpRequest();
             builder.RegisterType<UsersRepository>().As<IUsersRepository>().InstancePerHttpRequest();
+            builder.RegisterType<CreditProcessLogsRepository>().As<ICreditProcessLogsRepository>().InstancePerHttpRequest();
+            builder.RegisterType<CustomersRepository>().As<ICustomersRepository>().InstancePerHttpRequest();
 
             //Logic
             builder.RegisterType<AccountLogic>().InstancePerHttpRequest();
@@ -65,6 +67,8 @@ namespace SolucionesARWebsite2
             builder.RegisterType<TransactionsManagement>().InstancePerHttpRequest();
             builder.RegisterType<UsersManagement>().InstancePerHttpRequest();
             builder.RegisterType<StoresManagement>().InstancePerHttpRequest();
+            builder.RegisterType<CustomersManagement>().InstancePerHttpRequest();
+            builder.RegisterType<CreditProcessLogsManagement>().InstancePerHttpRequest();
              
             builder.RegisterType<BeginningConfig>().InstancePerHttpRequest();
 

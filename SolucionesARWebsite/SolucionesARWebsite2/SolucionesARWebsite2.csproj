@@ -203,6 +203,7 @@
     <Compile Include="Business\Management\CantonsManagement.cs" />
     <Compile Include="Business\Management\CompaniesManagement.cs" />
     <Compile Include="Business\Management\CreditProcessesManagement.cs" />
+    <Compile Include="Business\Management\CreditProcessLogsManagement.cs" />
     <Compile Include="Business\Management\CustomersManagement.cs" />
     <Compile Include="Business\Management\CreditStatusesManagement.cs" />
     <Compile Include="Business\Management\DistrictsManagement.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataAccess\Interfaces\ICreditProcessesRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\ICreditProcessLogsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICustomersRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICreditStatusesRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ICantonsRepository.cs" />
@@ -252,6 +254,7 @@
     <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
     <Compile Include="DataAccess\Repositories\CompaniesRepository.cs" />
     <Compile Include="DataAccess\Repositories\CreditProcessesRepository.cs" />
+    <Compile Include="DataAccess\Repositories\CreditProcessLogsRepository.cs" />
     <Compile Include="DataAccess\Repositories\CreditStatusesRepository.cs" />
     <Compile Include="DataAccess\Repositories\CustomersRepository.cs" />
     <Compile Include="DataAccess\Repositories\DistrictsRepository.cs" />
@@ -319,6 +322,10 @@
     <Compile Include="Migrations\201306110216508_010.cs" />
     <Compile Include="Migrations\201306110216508_010.Designer.cs">
       <DependentUpon>201306110216508_010.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306180330212_011.cs" />
+    <Compile Include="Migrations\201306180330212_011.Designer.cs">
+      <DependentUpon>201306180330212_011.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -630,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306110216508_010.resx">
       <DependentUpon>201306110216508_010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306180330212_011.resx">
+      <DependentUpon>201306180330212_011.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

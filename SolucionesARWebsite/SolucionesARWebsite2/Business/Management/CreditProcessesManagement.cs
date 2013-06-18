@@ -19,13 +19,15 @@ namespace SolucionesARWebsite2.Business.Management
         #region Private Members
 
         private readonly ICreditProcessesRepository _creditProcessesRepository;
+        private readonly CreditProcessLogsManagement _creditProcessesLogManagement;
 
         #endregion
 
         #region Public Methods
-        public CreditProcessesManagement(ICreditProcessesRepository creditProcessesRepository)
+        public CreditProcessesManagement(ICreditProcessesRepository creditProcessesRepository, CreditProcessLogsManagement creditProcessesLogManagement)
         {
             _creditProcessesRepository = creditProcessesRepository;
+            _creditProcessesLogManagement = creditProcessesLogManagement;
         }
 
         public List<CreditProcess> GetCreditProcesses()
@@ -50,10 +52,13 @@ namespace SolucionesARWebsite2.Business.Management
             if (editViewModel.CreditProcessId.Equals(0))
             {
                 creditProcess.CreatedAt = DateTime.UtcNow;
+                creditProcess.UpdatedAt = DateTime.UtcNow;
                 AddCreditProcess(creditProcess, creditProcessFlowsList);
             }
             else
             {
+
+                creditProcess.UpdatedAt = DateTime.UtcNow;
                 UpdateCreditProcess(creditProcess, creditProcessFlowsList);
             }
         }  
@@ -94,7 +99,14 @@ namespace SolucionesARWebsite2.Business.Management
             foreach(var creditProcessFlow in creditProcessFlowsList)
             {
                 creditProcessFlow.CreditProcessId = creditProcessId;
-                _creditProcessesRepository.AddCreditProcessFlow(Map(creditProcessFlow));
+                var creditProcessFlowFormed = Map(creditProcessFlow);
+                creditProcessFlowFormed.CreatedAt = DateTime.UtcNow;
+                creditProcessFlowFormed.UpdatedAt = DateTime.UtcNow;
+                
+                int flowId = _creditProcessesRepository.AddCreditProcessFlow(creditProcessFlowFormed);
+                creditProcessFlowFormed.CreditProcessXCompanyId = flowId;
+                var creditProcessLog = CreateNewCreditProcessLog(creditProcessFlowFormed);
+                _creditProcessesLogManagement.AddCreditProcessLog(creditProcessLog);
             }
         }
 
@@ -104,23 +116,74 @@ namespace SolucionesARWebsite2.Business.Management
 
             foreach (var creditProcessFlow in creditProcessFlowsList)
             {
+                var creditProcessFlowFormed = Map(creditProcessFlow);
+                creditProcessFlowFormed.UpdatedAt = DateTime.UtcNow;
                 if (creditProcessFlow.IsNew)
                 {
-                    _creditProcessesRepository.AddCreditProcessFlow(Map(creditProcessFlow));
+                    creditProcessFlowFormed.CreatedAt = DateTime.UtcNow;
+                    
+                    int flowId = _creditProcessesRepository.AddCreditProcessFlow(creditProcessFlowFormed);
+                    var creditProcessLog = CreateNewCreditProcessLog(creditProcessFlowFormed);
+                    creditProcessFlowFormed.CreditProcessXCompanyId = flowId;
+                    _creditProcessesLogManagement.AddCreditProcessLog(creditProcessLog);
                 }
                 else
                 {
                     if (creditProcessFlow.IsDeleted)
                     {
-                        _creditProcessesRepository.DeleteCreditProcessFlow(Map(creditProcessFlow));
+                        _creditProcessesRepository.DeleteCreditProcessFlow(creditProcessFlowFormed);
                     }
                     else
                     {
-                        _creditProcessesRepository.UpdateCreditProcessFlow(Map(creditProcessFlow));
+                        var creditProcessLog = UpdateCreditProcessLog(creditProcessFlowFormed);
+                        _creditProcessesLogManagement.AddCreditProcessLog(creditProcessLog);
+                        _creditProcessesRepository.UpdateCreditProcessFlow(creditProcessFlowFormed);
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// To add an update event in the credit process logs
+        /// </summary>
+        /// <param name="creditProcessFlowFormed"></param>
+        /// <returns></returns>
+        private CreditProcessLog UpdateCreditProcessLog(CreditProcessXCompany creditProcessFlowFormed)
+        {
+            var currentProcess =
+                _creditProcessesRepository.GetCreditProcessXCompanyFlow(creditProcessFlowFormed.CreditProcessXCompanyId);
+
+            var creditProcessLog = new CreditProcessLog
+                                       {
+                                           ChangeDate = DateTime.UtcNow,
+                                           CreditProcessXCompanyId =
+                                               creditProcessFlowFormed.CreditProcessXCompanyId,
+                                           LastStatusId = currentProcess.CreditStatusId,
+                                           NewStatusId = creditProcessFlowFormed.CreditStatusId,
+                                       };
+            return creditProcessLog;
+
+        }
+
+        /// <summary>
+        /// To add a new event in the credit process logs
+        /// </summary>
+        /// <param name="creditProcessFlowFormed"></param>
+        /// <returns></returns>
+        private CreditProcessLog CreateNewCreditProcessLog(CreditProcessXCompany creditProcessFlowFormed)
+        {
+            var creditProcessLog = new CreditProcessLog
+                                       {
+                                           ChangeDate = DateTime.UtcNow,
+                                           CreditProcessXCompanyId =
+                                               creditProcessFlowFormed.CreditProcessXCompanyId,
+                                           LastStatusId = creditProcessFlowFormed.CreditStatusId,
+                                           NewStatusId = creditProcessFlowFormed.CreditStatusId,
+                                       };
+            return creditProcessLog;
+
+        }
+
         #endregion        
     }
 }

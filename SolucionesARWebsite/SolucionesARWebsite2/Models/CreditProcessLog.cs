@@ -15,11 +15,11 @@ namespace SolucionesARWebsite2.Models
         /// <summary>
         /// 
         /// </summary>
-        public virtual CreditProcess CreditProcess { get; set; }
+        public virtual CreditProcessXCompany CreditProcessXCompany { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public int CreditProcessId { get; set; }
+        public int CreditProcessXCompanyId { get; set; }
         /// <summary>
         /// 
         /// </summary>

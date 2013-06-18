@@ -13,14 +13,16 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
 
         List<CreditProcess> GetCreditProcesses();
 
-        CreditProcess GetCreditProcess(int CreditProcessId);
+        CreditProcess GetCreditProcess(int creditProcessId);
 
         List<CreditProcessXCompany> GetFlowsPerCreditProcess(int creditProcessId);
 
-        void AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
+        int AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
 
         void UpdateCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
 
         void DeleteCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
+
+        CreditProcessXCompany GetCreditProcessXCompanyFlow(int creditProcessXCompanyId);
     }
 }

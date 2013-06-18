@@ -35,5 +35,14 @@ namespace SolucionesARWebsite2.Models
         /// 
         /// </summary>
         public int CreditStatusId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? CreatedAt { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? UpdatedAt { get; set; }
     }
 }

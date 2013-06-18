@@ -72,9 +72,9 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             return creditProcessesList;
         }
 
-        public CreditProcess GetCreditProcess(int CreditProcessId)
+        public CreditProcess GetCreditProcess(int creditProcessId)
         {
-            var creditProcess = _databaseModel.CreditProcesses.First(d => d.CreditProcessId.Equals(CreditProcessId));
+            var creditProcess = _databaseModel.CreditProcesses.First(d => d.CreditProcessId.Equals(creditProcessId));
             return creditProcess;
         }
 
@@ -84,15 +84,34 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             return flowsPerCreditProcessList;
         }
 
-        public void AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
+        public int AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
         {
             var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Add(creditProcessFlow);
             _databaseModel.SaveChanges();
+            return creditProcessFlow.CreditProcessXCompanyId;
         }
 
         public void UpdateCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
         {
-            _databaseModel.Entry(creditProcessFlow).State = EntityState.Modified;
+
+            var entry = _databaseModel.Entry(creditProcessFlow);
+            if (entry.State == EntityState.Detached)
+            {
+                var set = _databaseModel.Set<CreditProcessXCompany>();
+                var attachedEntity = set.Find(creditProcessFlow.CreditProcessXCompanyId);  // You need to have access to key
+
+                if (attachedEntity != null)
+                {
+                    var attachedEntry = _databaseModel.Entry(attachedEntity);
+                    attachedEntry.CurrentValues.SetValues(creditProcessFlow);
+                }
+                else
+                {
+                    entry.State = EntityState.Modified; // This should attach entity
+                }
+            }
+
+
             _databaseModel.SaveChanges();
         }
 
@@ -105,6 +124,12 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
                 _databaseModel.CreditProcessesXCompanies.Remove(entityToDelete);
             }
             _databaseModel.SaveChanges();
+        }
+
+        public CreditProcessXCompany GetCreditProcessXCompanyFlow(int creditProcessXCompanyId)
+        {
+            var creditProcessXCompanyFlow = _databaseModel.CreditProcessesXCompanies.FirstOrDefault(cpc => cpc.CreditProcessXCompanyId.Equals(creditProcessXCompanyId));
+            return creditProcessXCompanyFlow;
         }
 
         #endregion
