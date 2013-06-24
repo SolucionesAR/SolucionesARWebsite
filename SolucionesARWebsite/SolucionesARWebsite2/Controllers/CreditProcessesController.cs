@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
@@ -155,6 +156,29 @@ namespace SolucionesARWebsite2.Controllers
 
             return this.Json(new { success = "true" });
         }
+
+        public ActionResult FlowDetails(int creditProcessId, int processFlowId)
+        {
+            var commentsPerCreditProcessFlowList = _creditProcessesManagement.GetCommentsPerCreditProcessFlow(creditProcessId, processFlowId);
+
+            var detailsViewModel = new DetailsViewModel
+                                    {
+                                        CreditProcessXCompanyId = processFlowId,
+                                        CreditProcessId = creditProcessId,
+                                        PagedItems = commentsPerCreditProcessFlowList.ToPagedList(1, PageSize),
+                                    };
+            return View(detailsViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SaveFlowComment(DetailsViewModel formViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _creditProcessesManagement.SaveComment(new CommentViewModel { Comment = formViewModel.Comment, CommentDate = DateTime.UtcNow, CreditProcessId = formViewModel.CreditProcessId, }); 
+            }
+            return RedirectToAction("FlowDetails", new { creditProcessId = formViewModel.CreditProcessId, processFlowId = formViewModel.CreditProcessXCompanyId });
+        }
         #endregion
 
         #region Private Members
@@ -204,6 +228,20 @@ namespace SolucionesARWebsite2.Controllers
                             };
             return viewModel;
         }
+
+        private CommentViewModel Map(CreditComment creditComment)
+        {
+            var viewModel = new CommentViewModel
+                            {
+                                Id = creditComment.CreditCommentId,
+                                Comment = creditComment.Comment,
+                                CommentDate = creditComment.CommentDate,
+                                CreditProcessId = creditComment.CreditProcessId,
+                                IsNew = false,
+                            };
+            return viewModel;
+        }
+
         #endregion
     }
 }

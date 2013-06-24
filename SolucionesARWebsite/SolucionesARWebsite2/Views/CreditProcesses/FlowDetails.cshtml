@@ -1,0 +1,52 @@
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite2.Helpers
+@using SolucionesARWebsite2.ViewModels.CreditProcesses
+
+@model DetailsViewModel
+
+@{
+    ViewBag.Title = "SolucionesAR | Comentarios";
+    Layout = "~/Views/Shared/EditionLayout.cshtml";
+}
+
+@section Header {
+    <h1>COMENTARIOS</h1>
+}
+
+@section Messages {
+    @Html.ValidationSummary()
+}
+
+@section EditionContent {
+    @using (Html.BeginForm("SaveFlowComment", "CreditProcesses"))
+    {
+        @Html.HiddenFor(model => model.CreditProcessId)
+        @Html.HiddenFor(model => model.CreditProcessXCompanyId)
+        
+        <fieldset>
+            <section class="edit-inline" style="width: 85%;">
+                @Html.TextAreaFor(model => model.Comment, new { @style = "width: 95%; height: 15%;" })
+            </section>
+            <input class="edit-inline" name="submit" type="submit" value="Agregar Comentario">
+        </fieldset>
+        <div class="table-content">   
+            <div class="entry jspScrollable" style="width: 100%;">
+                <div class="table_style">
+                    <table>
+                        @foreach (var item in Model.PagedItems)
+                        {
+                            <tr>
+                                <td style="text-align: left">
+                                    @Html.Label(item.Comment)
+                                </td>
+                                <td>
+                                    @Html.Label(item.CommentDate.Day.ToString())/@Html.Label(item.CommentDate.Month.ToString())/@Html.Label(item.CommentDate.Year.ToString())
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+}

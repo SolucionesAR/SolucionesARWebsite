@@ -197,25 +197,25 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Business\Logic\AccountLogic.cs" />
-    <Compile Include="Business\Logic\TransactionsLogic.cs" />
-    <Compile Include="Business\Logic\UsersLogic.cs" />
-    <Compile Include="Business\Management\CantonsManagement.cs" />
-    <Compile Include="Business\Management\CompaniesManagement.cs" />
-    <Compile Include="Business\Management\CreditProcessesManagement.cs" />
-    <Compile Include="Business\Management\CreditProcessLogsManagement.cs" />
-    <Compile Include="Business\Management\CustomersManagement.cs" />
-    <Compile Include="Business\Management\CreditStatusesManagement.cs" />
-    <Compile Include="Business\Management\DistrictsManagement.cs" />
-    <Compile Include="Business\Management\IdentificationTypesManagement.cs" />
-    <Compile Include="Business\Management\InventoryManagement.cs" />
-    <Compile Include="Business\Management\LocationsManagement.cs" />
-    <Compile Include="Business\Management\ProvincesManagement.cs" />
-    <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
-    <Compile Include="Business\Management\RolesManagement.cs" />
-    <Compile Include="Business\Management\StoresManagement.cs" />
-    <Compile Include="Business\Management\TransactionsManagement.cs" />
-    <Compile Include="Business\Management\UsersManagement.cs" />
+    <Compile Include="App_Start\Business\Logic\AccountLogic.cs" />
+    <Compile Include="App_Start\Business\Logic\TransactionsLogic.cs" />
+    <Compile Include="App_Start\Business\Logic\UsersLogic.cs" />
+    <Compile Include="App_Start\Business\Management\CantonsManagement.cs" />
+    <Compile Include="App_Start\Business\Management\CompaniesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\CreditProcessesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\CreditProcessLogsManagement.cs" />
+    <Compile Include="App_Start\Business\Management\CustomersManagement.cs" />
+    <Compile Include="App_Start\Business\Management\CreditStatusesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\DistrictsManagement.cs" />
+    <Compile Include="App_Start\Business\Management\IdentificationTypesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\InventoryManagement.cs" />
+    <Compile Include="App_Start\Business\Management\LocationsManagement.cs" />
+    <Compile Include="App_Start\Business\Management\ProvincesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\RelationshipTypesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\RolesManagement.cs" />
+    <Compile Include="App_Start\Business\Management\StoresManagement.cs" />
+    <Compile Include="App_Start\Business\Management\TransactionsManagement.cs" />
+    <Compile Include="App_Start\Business\Management\UsersManagement.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CantonsController.cs" />
@@ -450,6 +450,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Scripts\Copy of solucionesar.credit-processes.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery.confirm.js" />
@@ -467,6 +468,8 @@
     <Compile Include="ViewModels\Cantons\IndexViewModel.cs" />
     <Compile Include="ViewModels\Companies\EditViewModel.cs" />
     <Compile Include="ViewModels\Companies\IndexViewModel.cs" />
+    <Compile Include="ViewModels\CreditProcesses\CommentViewModel.cs" />
+    <Compile Include="ViewModels\CreditProcesses\DetailsViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\IndexViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\ProcessFlowViewModel.cs" />
@@ -713,6 +716,7 @@
     <Content Include="Views\CreditStatuses\Edit.cshtml" />
     <Content Include="Views\CreditStatuses\Index.cshtml" />
     <Content Include="Scripts\solucionesar.credit-processes.js" />
+    <Content Include="Views\CreditProcesses\FlowDetails.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

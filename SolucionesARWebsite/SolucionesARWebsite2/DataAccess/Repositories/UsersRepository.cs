@@ -100,7 +100,6 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public User GetUserByIdentificationNumber(int identificationNumber)
         {
-            var a = _databaseModel.Users.ToList();
             var user = _databaseModel.Users.FirstOrDefault(u => u.CedNumber.Equals(identificationNumber));
             return user;
         }

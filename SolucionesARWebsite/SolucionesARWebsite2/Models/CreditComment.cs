@@ -19,7 +19,6 @@ namespace SolucionesARWebsite2.Models
         /// Comment date
         /// </summary>
         public DateTime CommentDate { get; set; }
-
         /// <summary>
         /// Credit Process object
         /// </summary>

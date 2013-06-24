@@ -24,5 +24,11 @@ namespace SolucionesARWebsite2.DataAccess.Interfaces
         void DeleteCreditProcessFlow(CreditProcessXCompany creditProcessFlow);
 
         CreditProcessXCompany GetCreditProcessXCompanyFlow(int creditProcessXCompanyId);
+
+        List<CreditComment> GetCommentsPerCreditProcessFlow(int creditProcessId, int creditProcessXCompanyId);
+
+        void AddCreditProcessFlowComment(CreditComment creditProcessFlowComment);
+
+        void UpdateCreditProcessFlowComment(CreditComment creditProcessFlowComment);
     }
 }

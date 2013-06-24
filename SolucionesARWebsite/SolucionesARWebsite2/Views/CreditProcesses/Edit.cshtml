@@ -111,7 +111,7 @@
                                     @Html.Label(item.CreditStatus.CreditStatusDescription, new { @id = string.Format("status-label-{0}", item.CreditProcessXCompanyId) })
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Detalles", "Details", new { id = item.CreditProcessXCompanyId }, new { @class = "button" })
+                                    @Html.ActionLink("Detalles", "FlowDetails", new { creditProcessId = item.CreditProcessId, processFlowId = item.CreditProcessXCompanyId }, new { @class = "button" })
                                 </td>
                                 <td class="editable-actions-cell">
                                     @Html.ActionLink("Editar", "EditProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "edit-credit-flow button", @id = string.Format("edit-credit-flow-{0}", item.CreditProcessXCompanyId) }) |
@@ -125,6 +125,6 @@
         </div>
         
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <input name="submit" type="submit" value="Submit">
+        <input name="submit" type="submit" value="Guardar">
     }
 }

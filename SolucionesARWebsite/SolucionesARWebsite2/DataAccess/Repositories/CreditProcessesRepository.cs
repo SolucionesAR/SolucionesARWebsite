@@ -83,7 +83,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Where(cpc => cpc.CreditProcessId.Equals(creditProcessId)).ToList();
             return flowsPerCreditProcessList;
         }
-
+     
         public int AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
         {
             var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Add(creditProcessFlow);
@@ -93,7 +93,6 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
 
         public void UpdateCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
         {
-
             var entry = _databaseModel.Entry(creditProcessFlow);
             if (entry.State == EntityState.Detached)
             {
@@ -130,6 +129,44 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         {
             var creditProcessXCompanyFlow = _databaseModel.CreditProcessesXCompanies.FirstOrDefault(cpc => cpc.CreditProcessXCompanyId.Equals(creditProcessXCompanyId));
             return creditProcessXCompanyFlow;
+        }
+
+
+        public List<CreditComment> GetCommentsPerCreditProcessFlow(int creditProcessId, int creditProcessXCompanyId)
+        {
+            var commentsPerCreditProcessFlowList = _databaseModel.CreditComments.Where(cpc =>
+                cpc.CreditProcessId.Equals(creditProcessId)
+                //&& cpc.CreditProcessesXCompanyId.Equals(processFlowId))
+                ).ToList();
+            return commentsPerCreditProcessFlowList;
+        }
+
+        public void AddCreditProcessFlowComment(CreditComment creditProcessFlowComment)
+        {
+            var flowsPerCreditProcessList = _databaseModel.CreditComments.Add(creditProcessFlowComment);
+            _databaseModel.SaveChanges();
+        }
+
+        public void UpdateCreditProcessFlowComment(CreditComment creditProcessFlowComment)
+        {
+            var entry = _databaseModel.Entry(creditProcessFlowComment);
+            if (entry.State == EntityState.Detached)
+            {
+                var set = _databaseModel.Set<CreditProcessXCompany>();
+                var attachedEntity = set.Find(creditProcessFlowComment.CreditCommentId);  // You need to have access to key
+
+                if (attachedEntity != null)
+                {
+                    var attachedEntry = _databaseModel.Entry(attachedEntity);
+                    attachedEntry.CurrentValues.SetValues(creditProcessFlowComment);
+                }
+                else
+                {
+                    entry.State = EntityState.Modified; // This should attach entity
+                }
+            }
+
+            _databaseModel.SaveChanges();
         }
 
         #endregion

@@ -61,7 +61,25 @@ namespace SolucionesARWebsite2.Business.Management
                 creditProcess.UpdatedAt = DateTime.UtcNow;
                 UpdateCreditProcess(creditProcess, creditProcessFlowsList);
             }
-        }  
+        }
+
+        public List<CreditComment> GetCommentsPerCreditProcessFlow(int creditProcessId, int processFlowId)
+        {
+            return _creditProcessesRepository.GetCommentsPerCreditProcessFlow(creditProcessId, processFlowId);
+        }
+
+        public void SaveComment(CommentViewModel commentViewModel)
+        {
+            var creditComment = Map(commentViewModel);
+            if (commentViewModel.Id.Equals(0))
+            {
+                AddCreditProcessFlowComment(creditComment);
+            }
+            else
+            {
+                UpdateCreditProcessFlowComment(creditComment);
+            }
+        }
 
         #endregion
 
@@ -91,6 +109,18 @@ namespace SolucionesARWebsite2.Business.Management
                                             CreditStatusId = viewModel.CreditStatusId,
                                         };
             return creditProcessXCompany;
+        }
+
+        private CreditComment Map(CommentViewModel viewModel)
+        {
+            var creditComment = new CreditComment
+                                {
+                                    CreditCommentId = viewModel.Id,
+                                    CreditProcessId = viewModel.CreditProcessId,
+                                    Comment = viewModel.Comment,
+                                    CommentDate = viewModel.CommentDate,
+                                };
+            return creditComment;
         }
 
         private void AddCreditProcess(CreditProcess creditProcess, List<ProcessFlowViewModel> creditProcessFlowsList)
@@ -141,6 +171,24 @@ namespace SolucionesARWebsite2.Business.Management
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creditComment"></param>
+        private void AddCreditProcessFlowComment(CreditComment creditComment)
+        {
+            _creditProcessesRepository.AddCreditProcessFlowComment(creditComment);            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creditComment"></param>
+        private void UpdateCreditProcessFlowComment(CreditComment creditComment)
+        {
+            _creditProcessesRepository.UpdateCreditProcessFlowComment(creditComment);
         }
 
         /// <summary>
