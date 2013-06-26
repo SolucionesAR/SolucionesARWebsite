@@ -218,8 +218,8 @@ a:hover { color:rgba(0, 0, 0, 0.7); }
 		height: 250px;
 		position: absolute;
 		top: 50%;
-		left: 50%;
-		width: 960px;
+		left: 35%;
+		width: 1350px;
 		margin: -125px 0 0 -480px;
 	}
 	nav ul {
@@ -227,13 +227,12 @@ a:hover { color:rgba(0, 0, 0, 0.7); }
 		text-align: center;
 		padding: 40px 0;
 		margin: -40px 0;
-		width: 960px;
 	}
 	nav li {
 		width: 150px;
 		opacity: 0.5;
 		filter: alpha(opacity=50);
-		height: 250px;
+		height: 210px;
 		overflow: hidden;
 		position: relative;
 		display: inline-block;
@@ -261,7 +260,6 @@ a:hover { color:rgba(0, 0, 0, 0.7); }
 		text-align: center;
 	}
 	nav li .ca-main {
-		font-size: 30px;
 		color: #000;
 		opacity: 0.8;
 		filter: alpha(opacity=80);
