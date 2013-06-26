@@ -353,6 +353,12 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\images\creditprocess.png" />
+    <Content Include="Content\images\creditprocess_menu.png" />
+    <Content Include="Content\images\creditstatus.png" />
+    <Content Include="Content\images\creditstatus_menu.png" />
+    <Content Include="Content\images\users.png" />
+    <Content Include="Content\images\users_menu.png" />
     <Content Include="Images\jquery.confirm\body_bg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -385,10 +391,10 @@
     <Content Include="Content\images\transaction_menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\images\users.png">
+    <Content Include="Content\images\customers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\images\users_menu.png">
+    <Content Include="Content\images\customers_menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\jquery.confirm.css" />
