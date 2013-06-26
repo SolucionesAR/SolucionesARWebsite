@@ -136,8 +136,8 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         {
             var commentsPerCreditProcessFlowList = _databaseModel.CreditComments.Where(cpc =>
                 cpc.CreditProcessId.Equals(creditProcessId)
-                //&& cpc.CreditProcessesXCompanyId.Equals(processFlowId))
-                ).ToList();
+                && cpc.creditProcessXCompanyId.Equals(creditProcessXCompanyId))
+                .ToList();
             return commentsPerCreditProcessFlowList;
         }
 

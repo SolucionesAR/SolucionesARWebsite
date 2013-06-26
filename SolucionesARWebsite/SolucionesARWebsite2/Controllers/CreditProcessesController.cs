@@ -176,7 +176,13 @@ namespace SolucionesARWebsite2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _creditProcessesManagement.SaveComment(new CommentViewModel { Comment = formViewModel.Comment, CommentDate = DateTime.UtcNow, CreditProcessId = formViewModel.CreditProcessId, }); 
+                _creditProcessesManagement.SaveComment(
+                    new CommentViewModel { 
+                        Comment = formViewModel.Comment, 
+                        CommentDate = DateTime.UtcNow, 
+                        CreditProcessId = formViewModel.CreditProcessId,
+                        CreditProcessXCompanyId = formViewModel.CreditProcessXCompanyId,
+                    });
             }
             return RedirectToAction("FlowDetails", new { creditProcessId = formViewModel.CreditProcessId, processFlowId = formViewModel.CreditProcessXCompanyId });
         }

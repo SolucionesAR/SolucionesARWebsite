@@ -117,6 +117,7 @@ namespace SolucionesARWebsite2.Business.Management
                                 {
                                     CreditCommentId = viewModel.Id,
                                     CreditProcessId = viewModel.CreditProcessId,
+                                    creditProcessXCompanyId = viewModel.CreditProcessXCompanyId,
                                     Comment = viewModel.Comment,
                                     CommentDate = viewModel.CommentDate,
                                 };

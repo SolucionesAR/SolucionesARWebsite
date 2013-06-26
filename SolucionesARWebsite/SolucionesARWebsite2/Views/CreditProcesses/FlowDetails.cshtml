@@ -37,7 +37,7 @@
                         {
                             <tr>
                                 <td style="text-align: left">
-                                    @Html.Label(item.Comment)
+                                    @Html.Raw(item.Comment)
                                 </td>
                                 <td>
                                     @Html.Label(item.CommentDate.Day.ToString())/@Html.Label(item.CommentDate.Month.ToString())/@Html.Label(item.CommentDate.Year.ToString())

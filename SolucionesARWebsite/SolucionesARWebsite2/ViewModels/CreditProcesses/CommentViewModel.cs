@@ -15,6 +15,8 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
 
         public int CreditProcessId { get; set; }
 
+        public int CreditProcessXCompanyId { get; set; }
+
         public bool IsNew { get; set; }
     }
 }
