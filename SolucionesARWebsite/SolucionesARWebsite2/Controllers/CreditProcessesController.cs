@@ -84,7 +84,7 @@ namespace SolucionesARWebsite2.Controllers
             var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
-                                        CreditProcessId = creditProcess.CreditStatusId,
+                                        CreditProcessId = id,
                                         Customer = creditProcess.Customer,
                                         CustomersList = customersToShow,
                                         Salesman = creditProcess.User,
@@ -113,6 +113,7 @@ namespace SolucionesARWebsite2.Controllers
                 //this call includes the credit flows as extra parameter 
                 var processFlowsList = GetCurrentProcessFlows(editFormModel.CreditProcessId);
                 _creditProcessesManagement.Save(editFormModel, processFlowsList);
+                ClearCurrentProcessFlows(editFormModel.CreditProcessId);
             }
             return RedirectToAction("Index");
         }
@@ -208,6 +209,12 @@ namespace SolucionesARWebsite2.Controllers
                                 ?? new List<ProcessFlowViewModel>();
 
             return processFlowsList;
+        }
+
+        private void ClearCurrentProcessFlows(int creditProcessId)
+        {
+            var processFlowsCacheKey = string.Format("{0}|{1}", Constants.ProcessFlows.ToStringValue(), creditProcessId);
+            Session[processFlowsCacheKey] = new List<ProcessFlowViewModel>();
         }
 
         private void UpdateCurrentProcessFlows(int creditProcessId, List<ProcessFlowViewModel> processFlowsList)

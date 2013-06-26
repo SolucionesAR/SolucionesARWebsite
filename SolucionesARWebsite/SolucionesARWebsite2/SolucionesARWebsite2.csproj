@@ -327,6 +327,10 @@
     <Compile Include="Migrations\201306180330212_011.Designer.cs">
       <DependentUpon>201306180330212_011.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306260323324_012.cs" />
+    <Compile Include="Migrations\201306260323324_012.Designer.cs">
+      <DependentUpon>201306260323324_012.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Canton.cs" />
@@ -643,6 +647,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306180330212_011.resx">
       <DependentUpon>201306180330212_011.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306260323324_012.resx">
+      <DependentUpon>201306260323324_012.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

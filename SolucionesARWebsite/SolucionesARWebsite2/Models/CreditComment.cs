@@ -27,5 +27,13 @@ namespace SolucionesARWebsite2.Models
         ///  Credit Process id
         /// </summary>
         public int CreditProcessId { get; set; }
+        /// <summary>
+        /// Credit Process Flow 
+        /// </summary>
+        public CreditProcessXCompany creditProcessXCompany { get; set; }
+        /// <summary>
+        /// Credit Process Flow id
+        /// </summary>
+        public int creditProcessXCompanyId { get; set; }
     }
 }
