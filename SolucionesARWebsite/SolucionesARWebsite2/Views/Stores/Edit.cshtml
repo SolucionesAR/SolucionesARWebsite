@@ -47,17 +47,17 @@
                         </fieldset>
                         <fieldset>
                             <span>
-                                @Html.LabelFor(model => model.Province)
+                                @Html.LabelFor(model => model.ProvinceId)
                                 <br />
-                                @Html.DropDownListForProviceslList(model => model.Province.ProvinceId)
+                                @Html.DropDownListForProviceslList(model => model.ProvinceId)
                             </span><span>
-                                @Html.LabelFor(model => model.Canton)
+                                @Html.LabelFor(model => model.CantonId)
                                 <br />
-                                @Html.DropDownListForCantonslList(model => model.Canton.CantonId)
+                                @Html.DropDownListForCantonslList(model => model.CantonId)
                             </span><span>
-                                @Html.LabelFor(model => model.District)
+                                @Html.LabelFor(model => model.DistrictId)
                                 <br />
-                                @Html.DropDownListForDistrictslList(model => model.District.DistrictId)
+                                @Html.DropDownListForDistrictslList(model => model.DistrictId)
                             </span>
                         </fieldset>
                             
@@ -67,4 +67,51 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //display the required masks
+            $("#PhoneNumber1").mask("9999-9999");
+            $("#PhoneNumber2").mask("9999-9999");
+            $("#FaxNumber").mask("9999-9999");
+
+            //handle the cantons values
+            $("#ProvinceId").change(function () {
+                var provinceId = $(this).val();
+                $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
+                    function (result) {
+                        var select = $("#CantonId");
+                        select.empty();
+                        $.each(result, function (index, itemData) {
+                            select.append($('<option/>', {
+                                value: itemData.Value,
+                                text: itemData.Text
+                            }));
+                        });
+                        updateDistricts(result[0].Value);
+                    });
+            });
+
+            //handle the districts values
+            $("#CantonId").change(function () {
+                var cantonId = $(this).val();
+                updateDistricts(cantonId);
+            });
+        });
+
+        function updateDistricts(cantonId) {
+            $.getJSON("/Districts/GetDistrictsByCanton", { cantonId: cantonId },
+                function (result) {
+                    var select = $("#DistrictId");
+                    select.empty();
+                    $.each(result, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+        }
+    </script>
+
 }

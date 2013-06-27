@@ -48,24 +48,27 @@ namespace SolucionesARWebsite2.ViewModels.Stores
         /// </summary>
         [DisplayName("Número de Fax")]
         public string FaxNumber { get; set; }
-
+        
         /// <summary>
         /// The district
         /// </summary>
+        [Required(ErrorMessage = "Favor seleccionar un distrito ")]
         [Display(Name = "Distrito", Prompt = "Distrito")]
-        public District District { get; set; }
+        public int DistrictId { get; set; }
 
         /// <summary>
-        /// The city
+        /// The canton
         /// </summary>
+        [Required(ErrorMessage = "Favor seleccionar un cantón")]
         [Display(Name = "Cantón", Prompt = "Cantón")]
-        public Canton Canton { get; set; }
+        public int CantonId { get; set; }
 
         /// <summary>
-        /// The state
+        /// The province
         /// </summary>
+        [Required(ErrorMessage = "Favor seleccionar una provincia")]
         [Display(Name = "Provincia", Prompt = "Provincia")]
-        public Province Province { get; set; }
+        public int ProvinceId { get; set; }
 
         /// <summary>
         /// The districts list

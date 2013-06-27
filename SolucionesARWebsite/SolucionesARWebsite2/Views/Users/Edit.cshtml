@@ -110,38 +110,60 @@
                 }
             </div>
         </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                });
+
+                //display the required masks
+                $("#IdentificationNumber").mask("9-9999-9999");
+                $("#PhoneNumber").mask("9999-9999");
+                $("#Cellphone").mask("9999-9999");
+                $("#ParentIdentificationNumber").mask("?9-9999-9999");
+
+                //handle the IdentificationNumber mask
+                $("#IdentificationType_IdentificationTypeId").change(function () {
+                    var identificationType = $(this).val();
+                    //cédula
+                    if (identificationType == 1) {
+                        $("#IdentificationNumber").mask("9-9999-9999");
+                    }
+                    else {
+                        $("#IdentificationNumber").unmask();
+                    }
+                });
+
+                //handle the cantons values
+                $("#ProvinceId").change(function () {
+                    var provinceId = $(this).val();
+                    $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
+                        function (result) {
+                            var select = $("#CantonId");
+                            select.empty();
+                            $.each(result, function (index, itemData) {
+                                select.append($('<option/>', {
+                                    value: itemData.Value,
+                                    text: itemData.Text
+                                }));
+                            });
+                            updateDistricts(result[0].Value);
+                        });
+                });
+
+                //handle the districts values
+                $("#CantonId").change(function () {
+                    var cantonId = $(this).val();
+                    updateDistricts(cantonId);
+                });
             });
 
-            //display the required masks
-            $("#IdentificationNumber").mask("9-9999-9999");
-            $("#PhoneNumber").mask("9999-9999");
-            $("#Cellphone").mask("9999-9999");
-            $("#ParentIdentificationNumber").mask("?9-9999-9999");
-
-            //handle the IdentificationNumber mask
-            $("#IdentificationType_IdentificationTypeId").change(function () {
-                var identificationType = $(this).val();
-                //cédula
-                if (identificationType == 1) {
-                    $("#IdentificationNumber").mask("9-9999-9999");
-                }
-                else {
-                    $("#IdentificationNumber").unmask();
-                }
-            });
-
-            //handle the cantons values
-            $("#ProvinceId").change(function () {
-                var provinceId = $(this).val();
-                $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
+            function updateDistricts(cantonId) {
+                $.getJSON("/Districts/GetDistrictsByCanton", { cantonId: cantonId },
                     function (result) {
-                        var select = $("#CantonId");
+                        var select = $("#DistrictId");
                         select.empty();
                         $.each(result, function (index, itemData) {
                             select.append($('<option/>', {
@@ -149,29 +171,7 @@
                                 text: itemData.Text
                             }));
                         });
-                        updateDistricts(result[0].Value);
                     });
-            });
-
-            //handle the districts values
-            $("#CantonId").change(function () {
-                var cantonId = $(this).val();
-                updateDistricts(cantonId);
-            });
-        });
-
-        function updateDistricts(cantonId) {
-            $.getJSON("/Districts/GetDistrictsByCanton", { cantonId: cantonId },
-                function (result) {
-                    var select = $("#DistrictId");
-                    select.empty();
-                    $.each(result, function (index, itemData) {
-                        select.append($('<option/>', {
-                            value: itemData.Value,
-                            text: itemData.Text
-                        }));
-                    });
-                });
-        }
-    </script>
+            }
+        </script>
 }

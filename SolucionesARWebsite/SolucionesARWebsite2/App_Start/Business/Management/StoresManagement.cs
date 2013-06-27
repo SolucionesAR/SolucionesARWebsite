@@ -48,7 +48,6 @@ namespace SolucionesARWebsite2.Business.Management
         public Store GetStore(int storeId)
         {
             return _storesRepository.GetStore(storeId);
-            
         }
 
         public void SaveStore(EditViewModel editViewModel)
@@ -88,7 +87,7 @@ namespace SolucionesARWebsite2.Business.Management
                            StoreId = editViewModel.StoreId,
                            //Company = _companiesManagement.GetCompany( editFormModel.Company.CompanyId),
                            CompanyId = editViewModel.Company.CompanyId,
-                           DistrictId = editViewModel.District.DistrictId,
+                           DistrictId = editViewModel.DistrictId,
                            FaxNumber = editViewModel.FaxNumber,
                            PhoneNumber1 = editViewModel.PhoneNumber1,
                            PhoneNumber2 = editViewModel.PhoneNumber2,

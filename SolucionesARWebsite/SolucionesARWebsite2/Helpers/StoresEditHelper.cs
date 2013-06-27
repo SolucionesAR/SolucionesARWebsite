@@ -21,7 +21,7 @@ namespace SolucionesARWebsite2.Helpers
         {
             return htmlHelper.DropDownListFor(expression,
                                               new SelectList(htmlHelper.ViewData.Model.ProvincesList, "ProvinceId", "Name",
-                                                             htmlHelper.ViewData.Model.Province.ProvinceId));
+                                                             htmlHelper.ViewData.Model.ProvinceId));
         }
 
         public static MvcHtmlString DropDownListForCantonslList(this HtmlHelper<EditViewModel> htmlHelper,
@@ -29,7 +29,7 @@ namespace SolucionesARWebsite2.Helpers
         {
             return htmlHelper.DropDownListFor(expression,
                                               new SelectList(htmlHelper.ViewData.Model.CantonsList, "CantonId", "Name",
-                                                             htmlHelper.ViewData.Model.Canton.CantonId));
+                                                             htmlHelper.ViewData.Model.CantonId));
         }
 
         public static MvcHtmlString DropDownListForDistrictslList(this HtmlHelper<EditViewModel> htmlHelper,
@@ -37,7 +37,7 @@ namespace SolucionesARWebsite2.Helpers
         {
             return htmlHelper.DropDownListFor(expression,
                                               new SelectList(htmlHelper.ViewData.Model.DistrictsList, "DistrictId", "Name",
-                                                             htmlHelper.ViewData.Model.District.DistrictId));
+                                                             htmlHelper.ViewData.Model.DistrictId));
         }
     }
 }

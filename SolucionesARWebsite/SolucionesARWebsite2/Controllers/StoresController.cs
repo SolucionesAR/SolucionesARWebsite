@@ -59,12 +59,12 @@ namespace SolucionesARWebsite2.Controllers
                 FaxNumber = "",
                 PhoneNumber1 = "",
                 PhoneNumber2 = "",
-                Province = _locationsManagement.GetProvince(1),
+                ProvinceId = _locationsManagement.GetProvince(1).ProvinceId,
                 ProvincesList = _locationsManagement.GetAllProvinces(),
-                Canton = new Canton(),
+                CantonId = 1,
                 CantonsList = _locationsManagement.GetCantonsByProvince(1),
                 //CantonsList = 
-                District = new District(),
+                DistrictId = 1,
                 DistrictsList = _locationsManagement.GetDistrictsByCanton(1),
                 //DistrictsList = 
             };
@@ -73,7 +73,7 @@ namespace SolucionesARWebsite2.Controllers
         }
 
         //
-        // GET: /Users/Edit/{id}
+        // GET: /Stores/Edit/{id}
         public ActionResult Edit(int id)
         {
             var store = _storesManagement.GetStore(id);
@@ -91,11 +91,11 @@ namespace SolucionesARWebsite2.Controllers
                 PhoneNumber1 = store.PhoneNumber1,
                 PhoneNumber2 = store.PhoneNumber2,
 
-                Province = province,
+                ProvinceId = province.ProvinceId,
                 ProvincesList = _locationsManagement.GetAllProvinces(),
-                Canton = canton,
+                CantonId = canton.CantonId,
                 CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId),
-                District = store.District,
+                DistrictId = store.DistrictId,
                 DistrictsList = _locationsManagement.GetDistrictsByCanton(canton.CantonId),
             };
             return View(editViewModel);
@@ -111,7 +111,7 @@ namespace SolucionesARWebsite2.Controllers
                 _storesManagement.SaveStore(editViewModel);
                 return RedirectToAction("Index");
             }
-            var canton = _locationsManagement.GetCantonByDistrict(editViewModel.District.DistrictId);
+            var canton = _locationsManagement.GetCantonByDistrict(editViewModel.DistrictId);
             var province = _locationsManagement.GetProvinceByCanton(canton.CantonId);
             editViewModel.ProvincesList = _locationsManagement.GetAllProvinces();
             editViewModel.CantonsList = _locationsManagement.GetCantonsByProvince(province.ProvinceId);
