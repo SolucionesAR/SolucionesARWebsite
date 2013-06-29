@@ -75,14 +75,14 @@ namespace SolucionesARWebsite2.Business.Management
 
         private void AddCustomer(Customer customer)
         {
-            customer.CreatedAt = DateTime.UtcNow;
-            customer.UpdatedAt = DateTime.UtcNow;
+            customer.CreatedAt = DateTime.Now;
+            customer.UpdatedAt = DateTime.Now;
             _customersRepository.AddCustomer(customer);
         }
 
         private void EditCustomer(Customer customer)
         {
-            customer.UpdatedAt = DateTime.UtcNow;
+            customer.UpdatedAt = DateTime.Now;
             _customersRepository.EditCustomer(customer);
         }
         #endregion

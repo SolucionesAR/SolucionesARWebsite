@@ -105,17 +105,17 @@ namespace SolucionesARWebsite2.Business.Management
 
         private void AddCompany(Company company)
         {
-            company.CreatetedAt = DateTime.UtcNow;
-            company.UpdatedAt = DateTime.UtcNow;
+            company.CreatetedAt = DateTime.Now;
+            company.UpdatedAt = DateTime.Now;
             _companiesRepository.AddCompany(company);
         }
 
         private void EditCompany(Company company)
         {
             //TODO: Check porqué esta dando problemas
-            company.CreatetedAt = DateTime.UtcNow;
+            company.CreatetedAt = DateTime.Now;
 
-            company.UpdatedAt = DateTime.UtcNow;
+            company.UpdatedAt = DateTime.Now;
             _companiesRepository.EditCompany(company);
         }
 

@@ -40,7 +40,7 @@
         }
     });
 
-    //handle the edit process flow in the credit process edition page
+    //handle the EDIT process flow in the credit process edition page
     $(".edit-credit-flow").click(function (e) {
         e.preventDefault();
         $("#is-new").val("false");
@@ -64,7 +64,7 @@
         showDowndowns($(this).parent().parent(), creditProcessXCompanyId);
     });
     
-    //handle the delete process flow in the credit process edition page
+    //handle the DELETE process flow in the credit process edition page
     $(".delete-credit-flow").click(function (e) {
         e.preventDefault();
         var href = $(this).attr('href');
@@ -98,7 +98,7 @@
 		
 	});
     
-    //handle the save process flow in the credit process edition mode
+    //handle the SAVE process flow in the credit process edition mode
     $("#save-credit-flow").click(function (e) {
         e.preventDefault();
         var isNew = $("#is-new").val();
@@ -130,7 +130,7 @@
                 $("table").append(newRowEntry);
             } else {
                 //....hide the dropdowns
-                hideDowndowns(creditProcessXCompanyId, finantialCompanyLabel, creditStatusLabel);
+                hideDowndowns(creditProcessXCompanyId);
             }
 
             //if the record was updated/inserted
@@ -138,8 +138,11 @@
                 //set new values and labels
                 $('label#company-label-' + creditProcessXCompanyId).text(finantialCompanyLabel);
                 $('label#status-label-' + creditProcessXCompanyId).text(creditStatusLabel);
+                $('label#updatedat-label-' + creditProcessXCompanyId).text(data.updatedAt);
                 $("#company-credit-flow").val(finantialCompanyId);
                 $("#status-credit-flow").val(creditStatusId);
+                $('input#company-hidden-' + creditProcessXCompanyId).val(finantialCompanyId);
+                $('input#status-hidden-' + creditProcessXCompanyId).val(creditStatusId);
             }
             //show the new labels in the cells and their hidden values
             $('label#company-label-' + creditProcessXCompanyId).show();
@@ -190,7 +193,7 @@ function showDowndowns(rowElement, creditProcessXCompanyId) {
     $("#is-editor-displayed").val("true");
 }
 
-function hideDowndowns(creditProcessXCompanyId, finantialCompanyLabel, creditStatusLabel) {
+function hideDowndowns(creditProcessXCompanyId) {
     //...show previous values and hide the downdowns
     $('label#company-label-' + creditProcessXCompanyId).show();
     $("#editable-credit-flow-row").find('.editable-company-cell').append($("#company-credit-flow")).hide();
@@ -215,6 +218,9 @@ function createNewRow (finantialCompanyLabel, creditStatusLabel) {
             "</td>" +
             "<td class='editable-status-cell'>" +
                 "<label style='display: inline;'>" + creditStatusLabel + "</label>" +
+            "</td>" +
+            "<td>" +
+                "<label class='credit-flow-details'>-</label>" +
             "</td>" +
             "<td>" +
                 "<label class='credit-flow-details'>-</label>" +

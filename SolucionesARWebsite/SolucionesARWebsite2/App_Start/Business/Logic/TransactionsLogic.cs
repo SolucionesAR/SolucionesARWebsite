@@ -239,8 +239,8 @@ namespace SolucionesARWebsite2.Business.Logic
                                               Points = (int) individualTransaction.puntos,
                                               TransactionDate = Convert.ToDateTime(individualTransaction.fecha),
                                               CompanyId = company.CompanyId,
-                                              CreatetedAt = DateTime.UtcNow,
-                                              UpdatedAt = DateTime.UtcNow,
+                                              CreatetedAt = DateTime.Now,
+                                              UpdatedAt = DateTime.Now,
                                               Comision = individualTransaction.comision,
                                           };
                     if (_transactionsRepository.SaveTransaction(transaction))

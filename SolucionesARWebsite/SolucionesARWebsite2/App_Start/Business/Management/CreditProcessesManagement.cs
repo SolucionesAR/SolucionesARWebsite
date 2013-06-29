@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.ViewModels.CreditProcesses;
 
-namespace SolucionesARWebsite2.Business.Management
+namespace SolucionesARWebsite2.App_Start.Business.Management
 {
     public class CreditProcessesManagement
     {
@@ -48,17 +47,14 @@ namespace SolucionesARWebsite2.Business.Management
         public void Save(EditViewModel editViewModel, List<ProcessFlowViewModel> creditProcessFlowsList)
         {
             var creditProcess = Map(editViewModel);
-            creditProcess.UpdatedAt = DateTime.UtcNow;
+            creditProcess.UpdatedAt = DateTime.Now;
             if (editViewModel.CreditProcessId.Equals(0))
             {
-                creditProcess.CreatedAt = DateTime.UtcNow;
-                creditProcess.UpdatedAt = DateTime.UtcNow;
+                creditProcess.CreatedAt = DateTime.Now;
                 AddCreditProcess(creditProcess, creditProcessFlowsList);
             }
             else
             {
-
-                creditProcess.UpdatedAt = DateTime.UtcNow;
                 UpdateCreditProcess(creditProcess, creditProcessFlowsList);
             }
         }
@@ -99,7 +95,7 @@ namespace SolucionesARWebsite2.Business.Management
             return creditProcess;
         }
 
-        private CreditProcessXCompany Map(ProcessFlowViewModel viewModel)
+        private static CreditProcessXCompany Map(ProcessFlowViewModel viewModel)
         {
             var creditProcessXCompany = new CreditProcessXCompany
                                         {
@@ -107,11 +103,14 @@ namespace SolucionesARWebsite2.Business.Management
                                             CreditProcessId = viewModel.CreditProcessId,
                                             CreditProcessXCompanyId = viewModel.CreditProcessXCompanyId,
                                             CreditStatusId = viewModel.CreditStatusId,
+                                            CreatedAt = viewModel.CreatedAt,
+                                            UpdatedAt = viewModel.UpdatedAt,
                                         };
+
             return creditProcessXCompany;
         }
 
-        private CreditComment Map(CommentViewModel viewModel)
+        private static CreditComment Map(CommentViewModel viewModel)
         {
             var creditComment = new CreditComment
                                 {
@@ -121,6 +120,7 @@ namespace SolucionesARWebsite2.Business.Management
                                     Comment = viewModel.Comment,
                                     CommentDate = viewModel.CommentDate,
                                 };
+
             return creditComment;
         }
 
@@ -131,35 +131,36 @@ namespace SolucionesARWebsite2.Business.Management
             {
                 creditProcessFlow.CreditProcessId = creditProcessId;
                 var creditProcessFlowFormed = Map(creditProcessFlow);
-                creditProcessFlowFormed.CreatedAt = DateTime.UtcNow;
-                creditProcessFlowFormed.UpdatedAt = DateTime.UtcNow;
+                creditProcessFlowFormed.CreatedAt = DateTime.Now;
+                creditProcessFlowFormed.UpdatedAt = DateTime.Now;
                 
-                int flowId = _creditProcessesRepository.AddCreditProcessFlow(creditProcessFlowFormed);
+                var flowId = _creditProcessesRepository.AddCreditProcessFlow(creditProcessFlowFormed);
                 creditProcessFlowFormed.CreditProcessXCompanyId = flowId;
                 var creditProcessLog = CreateNewCreditProcessLog(creditProcessFlowFormed);
                 _creditProcessesLogManagement.AddCreditProcessLog(creditProcessLog);
             }
         }
 
-        private void UpdateCreditProcess(CreditProcess creditProcess, List<ProcessFlowViewModel> creditProcessFlowsList)
+        private void UpdateCreditProcess(CreditProcess creditProcess, IEnumerable<ProcessFlowViewModel> creditProcessFlowsList)
         {
             _creditProcessesRepository.UpdateCreditProcess(creditProcess);
 
             foreach (var creditProcessFlow in creditProcessFlowsList)
             {
                 var creditProcessFlowFormed = Map(creditProcessFlow);
-                creditProcessFlowFormed.UpdatedAt = DateTime.UtcNow;
                 if (creditProcessFlow.IsNew)
                 {
-                    creditProcessFlowFormed.CreatedAt = DateTime.UtcNow;
+                    creditProcessFlowFormed.CreatedAt = DateTime.Now;
+                    creditProcessFlowFormed.UpdatedAt = DateTime.Now;
                     
-                    int flowId = _creditProcessesRepository.AddCreditProcessFlow(creditProcessFlowFormed);
+                    var flowId = _creditProcessesRepository.AddCreditProcessFlow(creditProcessFlowFormed);
                     var creditProcessLog = CreateNewCreditProcessLog(creditProcessFlowFormed);
                     creditProcessFlowFormed.CreditProcessXCompanyId = flowId;
                     _creditProcessesLogManagement.AddCreditProcessLog(creditProcessLog);
                 }
                 else
                 {
+                    creditProcessFlowFormed.UpdatedAt = creditProcessFlowFormed.UpdatedAt ?? DateTime.Now;
                     if (creditProcessFlow.IsDeleted)
                     {
                         _creditProcessesRepository.DeleteCreditProcessFlow(creditProcessFlowFormed);
@@ -204,12 +205,13 @@ namespace SolucionesARWebsite2.Business.Management
 
             var creditProcessLog = new CreditProcessLog
                                        {
-                                           ChangeDate = DateTime.UtcNow,
+                                           ChangeDate = DateTime.Now,
                                            CreditProcessXCompanyId =
                                                creditProcessFlowFormed.CreditProcessXCompanyId,
                                            LastStatusId = currentProcess.CreditStatusId,
                                            NewStatusId = creditProcessFlowFormed.CreditStatusId,
                                        };
+
             return creditProcessLog;
 
         }
@@ -223,14 +225,14 @@ namespace SolucionesARWebsite2.Business.Management
         {
             var creditProcessLog = new CreditProcessLog
                                        {
-                                           ChangeDate = DateTime.UtcNow,
+                                           ChangeDate = DateTime.Now,
                                            CreditProcessXCompanyId =
                                                creditProcessFlowFormed.CreditProcessXCompanyId,
                                            LastStatusId = creditProcessFlowFormed.CreditStatusId,
                                            NewStatusId = creditProcessFlowFormed.CreditStatusId,
                                        };
-            return creditProcessLog;
 
+            return creditProcessLog;
         }
 
         #endregion        

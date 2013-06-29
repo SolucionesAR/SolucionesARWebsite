@@ -61,21 +61,21 @@ namespace SolucionesARWebsite2.App_Start
                                                     CompanyName = "SolucionesAR",
                                                     CompanyNickName = "sar",
                                                     CorporateId = string.Empty,
-                                                    CreatetedAt = DateTime.UtcNow,
+                                                    CreatetedAt = DateTime.Now,
                                                     Enabled = true,
-                                                    UpdatedAt = DateTime.UtcNow,
+                                                    UpdatedAt = DateTime.Now,
                                                 });
 
             _storesRepository.AddStore(new Store
                                            {
                                                CompanyId = 1,
-                                               CreatetedAt = DateTime.UtcNow,
+                                               CreatetedAt = DateTime.Now,
                                                DistrictId = 1,
                                                FaxNumber = string.Empty,
                                                PhoneNumber1 = string.Empty,
                                                PhoneNumber2 = string.Empty,
                                                StoreName = "SolucionesAR Central",
-                                               UpdatedAt = DateTime.UtcNow,
+                                               UpdatedAt = DateTime.Now,
                                            });
         }
 
@@ -112,34 +112,34 @@ namespace SolucionesARWebsite2.App_Start
         {
             _relationshipTypesRepository.AddRelationshipType(new RelationshipType
                                                                  {
-                                                                     CreatetedAt = DateTime.UtcNow,
+                                                                     CreatetedAt = DateTime.Now,
                                                                      Description =
                                                                          RelationshipTypes.Amateur.ToStringValue(),
-                                                                     UpdatedAt = DateTime.UtcNow
+                                                                     UpdatedAt = DateTime.Now
                                                                  });
 
             _relationshipTypesRepository.AddRelationshipType(new RelationshipType
                                                                  {
-                                                                     CreatetedAt = DateTime.UtcNow,
+                                                                     CreatetedAt = DateTime.Now,
                                                                      Description =
                                                                          RelationshipTypes.Junior.ToStringValue(),
-                                                                     UpdatedAt = DateTime.UtcNow
+                                                                     UpdatedAt = DateTime.Now
                                                                  });
 
             _relationshipTypesRepository.AddRelationshipType(new RelationshipType
                                                                  {
-                                                                     CreatetedAt = DateTime.UtcNow,
+                                                                     CreatetedAt = DateTime.Now,
                                                                      Description =
                                                                          RelationshipTypes.Senior.ToStringValue(),
-                                                                     UpdatedAt = DateTime.UtcNow
+                                                                     UpdatedAt = DateTime.Now
                                                                  });
 
             _relationshipTypesRepository.AddRelationshipType(new RelationshipType
                                                                  {
-                                                                     CreatetedAt = DateTime.UtcNow,
+                                                                     CreatetedAt = DateTime.Now,
                                                                      Description =
                                                                          RelationshipTypes.Master.ToStringValue(),
-                                                                     UpdatedAt = DateTime.UtcNow
+                                                                     UpdatedAt = DateTime.Now
                                                                  });
         }
         
@@ -147,37 +147,37 @@ namespace SolucionesARWebsite2.App_Start
         {
             _rolesRepository.AddRol(new Rol
                                         {
-                                            CreatedAt = DateTime.UtcNow,
+                                            CreatedAt = DateTime.Now,
                                             Name = UserRoles.Customer.ToStringValue(),
-                                            UpdatedAt = DateTime.UtcNow,
+                                            UpdatedAt = DateTime.Now,
                                         });
 
             _rolesRepository.AddRol(new Rol
                                         {
-                                            CreatedAt = DateTime.UtcNow,
+                                            CreatedAt = DateTime.Now,
                                             Name = UserRoles.Salesman.ToStringValue(),
-                                            UpdatedAt = DateTime.UtcNow,
+                                            UpdatedAt = DateTime.Now,
                                         });
 
             _rolesRepository.AddRol(new Rol
                                         {
-                                            CreatedAt = DateTime.UtcNow,
+                                            CreatedAt = DateTime.Now,
                                             Name = UserRoles.Manager.ToStringValue(),
-                                            UpdatedAt = DateTime.UtcNow,
+                                            UpdatedAt = DateTime.Now,
                                         });
 
             _rolesRepository.AddRol(new Rol
                                         {
-                                            CreatedAt = DateTime.UtcNow,
+                                            CreatedAt = DateTime.Now,
                                             Name = UserRoles.Administrator.ToStringValue(),
-                                            UpdatedAt = DateTime.UtcNow,
+                                            UpdatedAt = DateTime.Now,
                                         });
 
             _rolesRepository.AddRol(new Rol
                                         {
-                                            CreatedAt = DateTime.UtcNow,
+                                            CreatedAt = DateTime.Now,
                                             Name = UserRoles.SuperUser.ToStringValue(),
-                                            UpdatedAt = DateTime.UtcNow,
+                                            UpdatedAt = DateTime.Now,
                                         });
         }
 
@@ -191,9 +191,9 @@ namespace SolucionesARWebsite2.App_Start
                                              CedNumber = (int) Constants.SolucionesArUser,
                                              Cellphone = string.Empty,
                                              CompanyId = 1,
-                                             CreatetedAt = DateTime.UtcNow,
+                                             CreatetedAt = DateTime.Now,
                                              DistrictId = 1,
-                                             Dob = DateTime.UtcNow,
+                                             Dob = DateTime.Now,
                                              Email = string.Empty,
                                              Enabled = true,
                                              FName = "Soluciones",
@@ -214,7 +214,7 @@ namespace SolucionesARWebsite2.App_Start
                                              Profision = "Administrador de la Aplicación",
                                              RelationshipTypeId = 1,
                                              RolId = 5,
-                                             UpdatedAt = DateTime.UtcNow,
+                                             UpdatedAt = DateTime.Now,
                                              UserId = 0,
                                          });
         }

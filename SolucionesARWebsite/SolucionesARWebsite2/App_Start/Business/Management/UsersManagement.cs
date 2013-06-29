@@ -103,8 +103,8 @@ namespace SolucionesARWebsite2.Business.Management
 
         private void AddUser(User user)
         {
-            user.CreatetedAt = DateTime.UtcNow;
-            user.UpdatedAt = DateTime.UtcNow;
+            user.CreatetedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.Now;
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.GeneratedCode,
                                                            BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
             _usersRepository.AddUser(user);
@@ -112,7 +112,7 @@ namespace SolucionesARWebsite2.Business.Management
 
         private void EditUser(User user)
         {
-            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.Now;
             _usersRepository.EditUser(user);
         }
 

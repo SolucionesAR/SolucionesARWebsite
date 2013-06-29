@@ -16,7 +16,6 @@ namespace SolucionesARWebsite2.Controllers
         #region Private Members
 
         private readonly TransactionsManagement _transactionsManagement;
-        private readonly UsersManagement _usersManagement;
         private readonly CompaniesManagement _companiesManagement;
 
         #endregion
@@ -27,7 +26,6 @@ namespace SolucionesARWebsite2.Controllers
             : base(usersManagement)
         {
             _transactionsManagement = transactionsManagement;
-            _usersManagement = usersManagement;
             _companiesManagement = companiesManagement;
         }
 
@@ -143,8 +141,8 @@ namespace SolucionesARWebsite2.Controllers
                         TransactionId = 0,
                         Amount = editFormModel.Amount,
                         BillBarCode = editFormModel.BillBarCode,
-                        CreatetedAt = DateTime.UtcNow,
-                        UpdatedAt = DateTime.UtcNow,
+                        CreatetedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
                         TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate),
                         UserId = editFormModel.Customer.UserId,
                         Points = editFormModel.Points,
@@ -162,7 +160,7 @@ namespace SolucionesARWebsite2.Controllers
                 transaction.Points = editFormModel.Points;
                 transaction.CompanyId = editFormModel.Company.CompanyId;
                 transaction.TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate);
-                transaction.UpdatedAt = DateTime.UtcNow;
+                transaction.UpdatedAt = DateTime.Now;
                 transaction.Comision = comision;
                 _transactionsManagement.UpdateTransaction();
                 return RedirectToAction("Index");
@@ -184,7 +182,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             if (file != null)
             {
-                string filename = Path.Combine(Server.MapPath("~/Files"), Path.GetFileName(file.FileName));
+                var filename = Path.Combine(Server.MapPath("~/Files"), Path.GetFileName(file.FileName));
 
                 if (Directory.Exists(Path.GetDirectoryName(filename)))
                 {

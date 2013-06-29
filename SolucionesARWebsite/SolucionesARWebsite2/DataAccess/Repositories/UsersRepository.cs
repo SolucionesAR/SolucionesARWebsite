@@ -68,7 +68,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         {
             var user = GetUserById(userId);
             user.Cashback = cashback;
-            user.UpdatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.Now;
             
             _databaseModel.Entry(user).State = EntityState.Modified;
             _databaseModel.SaveChanges();

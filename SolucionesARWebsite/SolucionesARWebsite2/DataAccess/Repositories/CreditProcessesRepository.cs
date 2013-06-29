@@ -35,6 +35,7 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         {
             _databaseModel.CreditProcesses.Add(creditProcess);
             _databaseModel.SaveChanges();
+
             return creditProcess.CreditProcessId;
         }
 
@@ -63,31 +64,38 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
         public List<CreditProcess> GetAllCreditProcesses()
         {
             var creditProcessesList = _databaseModel.CreditProcesses.ToList();
+
             return creditProcessesList;
         }
 
         public List<CreditProcess> GetCreditProcesses()
         {
             var creditProcessesList = _databaseModel.CreditProcesses.ToList();
+
             return creditProcessesList;
         }
 
         public CreditProcess GetCreditProcess(int creditProcessId)
         {
             var creditProcess = _databaseModel.CreditProcesses.First(d => d.CreditProcessId.Equals(creditProcessId));
+
             return creditProcess;
         }
 
         public List<CreditProcessXCompany> GetFlowsPerCreditProcess(int creditProcessId)
         {
-            var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Where(cpc => cpc.CreditProcessId.Equals(creditProcessId)).ToList();
+            var flowsPerCreditProcessList =
+                _databaseModel.CreditProcessesXCompanies.Where(cpc => cpc.CreditProcessId.Equals(creditProcessId))
+                              .ToList();
+
             return flowsPerCreditProcessList;
         }
-     
+
         public int AddCreditProcessFlow(CreditProcessXCompany creditProcessFlow)
         {
-            var flowsPerCreditProcessList = _databaseModel.CreditProcessesXCompanies.Add(creditProcessFlow);
+            _databaseModel.CreditProcessesXCompanies.Add(creditProcessFlow);
             _databaseModel.SaveChanges();
+
             return creditProcessFlow.CreditProcessXCompanyId;
         }
 
@@ -110,7 +118,6 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
                 }
             }
 
-
             _databaseModel.SaveChanges();
         }
 
@@ -122,15 +129,18 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             {
                 _databaseModel.CreditProcessesXCompanies.Remove(entityToDelete);
             }
+
             _databaseModel.SaveChanges();
         }
 
         public CreditProcessXCompany GetCreditProcessXCompanyFlow(int creditProcessXCompanyId)
         {
-            var creditProcessXCompanyFlow = _databaseModel.CreditProcessesXCompanies.FirstOrDefault(cpc => cpc.CreditProcessXCompanyId.Equals(creditProcessXCompanyId));
+            var creditProcessXCompanyFlow =
+                _databaseModel.CreditProcessesXCompanies.FirstOrDefault(
+                    cpc => cpc.CreditProcessXCompanyId.Equals(creditProcessXCompanyId));
+
             return creditProcessXCompanyFlow;
         }
-
 
         public List<CreditComment> GetCommentsPerCreditProcessFlow(int creditProcessId, int creditProcessXCompanyId)
         {
@@ -138,12 +148,14 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
                 cpc.CreditProcessId.Equals(creditProcessId)
                 && cpc.creditProcessXCompanyId.Equals(creditProcessXCompanyId))
                 .ToList();
+
             return commentsPerCreditProcessFlowList;
         }
 
         public void AddCreditProcessFlowComment(CreditComment creditProcessFlowComment)
         {
-            var flowsPerCreditProcessList = _databaseModel.CreditComments.Add(creditProcessFlowComment);
+            _databaseModel.CreditComments.Add(creditProcessFlowComment);
+
             _databaseModel.SaveChanges();
         }
 

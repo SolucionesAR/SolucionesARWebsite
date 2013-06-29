@@ -41,13 +41,13 @@ namespace SolucionesARWebsite2.Business.Management
 
             if (editViewModel.RelationshipTypesId.Equals(0))
             {
-                relationshipType.CreatetedAt = DateTime.UtcNow;
-                relationshipType.UpdatedAt = DateTime.UtcNow;
+                relationshipType.CreatetedAt = DateTime.Now;
+                relationshipType.UpdatedAt = DateTime.Now;
                 AddRelationshipType(relationshipType);
             }
             else
             {
-                relationshipType.UpdatedAt = DateTime.UtcNow;
+                relationshipType.UpdatedAt = DateTime.Now;
                 EditRelationshipType(relationshipType);
             }
         }

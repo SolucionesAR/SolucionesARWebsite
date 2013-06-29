@@ -1,4 +1,6 @@
-﻿namespace SolucionesARWebsite2.ViewModels.CreditProcesses
+﻿using System;
+
+namespace SolucionesARWebsite2.ViewModels.CreditProcesses
 {
     public class ProcessFlowViewModel : BaseViewModel
     {
@@ -22,5 +24,9 @@
         public bool IsNew { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+        
+        public DateTime? UpdatedAt { get; set; }
     }
 }

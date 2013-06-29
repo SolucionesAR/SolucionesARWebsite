@@ -13,13 +13,11 @@
 @section Header {
     @if (Model.CreditProcessId > 0)
     {
-        <h1>
-            EDITAR PROCESO DE CREDITO</h1>
+        <h1>EDITAR PROCESO DE CREDITO</h1>
     }
     else
     {
-        <h1>
-            NUEVA PROCESO DE CREDITO</h1>
+        <h1>NUEVA PROCESO DE CREDITO</h1>
     }
 }
 
@@ -52,7 +50,7 @@
             <section class="edit-inline">
                 @Html.LabelFor(model => model.Product)
                 <br />
-                @Html.TextBoxFor(model => model.Product)
+                @Html.TextBoxFor(model => model.Product, new { @style = "width: 465px; margin-right: 0px;" })
             </section>
         </fieldset> 
         
@@ -73,6 +71,9 @@
                             <th>
                                 Estado
                             </th>
+                            <th>
+                                Actualizado
+                            </th>
                             <th colspan="2">
                                 Acciones
                             </th>
@@ -90,6 +91,9 @@
                             <td>
                                 -
                             </td>
+                            <td>
+                                -
+                            </td>
                             <td class="editable-actions-cell">
                                 @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-credit-flow" }) |
                                 @Html.ActionLink("Cancel", "CancelProcessFlow", null, new { @class = "button", @id = "cancel-credit-flow" })
@@ -102,13 +106,23 @@
                                     @Html.Label(item.CreditProcessXCompanyId.ToString(), new { @class = "credit-flow-id" })
                                 </td>
                                 <td class="editable-company-cell">
-                                    @{ var companyName = Model.FinantialCompaniesList.FirstOrDefault(c => c.CompanyId.Equals(item.CompanyId)).CompanyName; }
-                                    @Html.HiddenFor(modelItem => item.CompanyId)
-                                    @Html.Label(companyName, new { @id = string.Format("company-label-{0}", item.CreditProcessXCompanyId) })
+                                    @{
+                                        var company = Model.FinantialCompaniesList.FirstOrDefault(c => c.CompanyId.Equals(item.CompanyId));
+                                    }
+                                    @if (company != null)
+                                    {
+                                        var companyName = company.CompanyName;
+                                        @Html.HiddenFor(modelItem => item.CompanyId, new { @id = string.Format("company-hidden-{0}", item.CreditProcessXCompanyId) })
+                                        @Html.Label(companyName, new { @id = string.Format("company-label-{0}", item.CreditProcessXCompanyId) })
+                                    }
+                            
                                 </td>
                                 <td class="editable-status-cell">
-                                    @Html.HiddenFor(modelItem => item.CreditStatusId)
+                                    @Html.HiddenFor(modelItem => item.CreditStatusId, new { @id = string.Format("status-hidden-{0}", item.CreditProcessXCompanyId) })
                                     @Html.Label(item.CreditStatus.CreditStatusDescription, new { @id = string.Format("status-label-{0}", item.CreditProcessXCompanyId) })
+                                </td>
+                                <td>
+                                    @Html.Label(item.UpdatedAt.ToString(), new { @id = string.Format("updatedat-label-{0}", item.CreditProcessXCompanyId) })
                                 </td>
                                 <td>
                                     @Html.ActionLink("Detalles", "FlowDetails", new { creditProcessId = item.CreditProcessId, processFlowId = item.CreditProcessXCompanyId }, new { @class = "button" })

@@ -222,9 +222,9 @@ namespace SolucionesARWebsite2.Controllers
                 CantonId = (int)Constants.DefaultCanton,
                 Company = new Company(),
                 CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
-                Day = DateTime.UtcNow.Day,
-                Month = DateTime.UtcNow.Month,
-                Year = DateTime.UtcNow.Year,
+                Day = DateTime.Now.Day,
+                Month = DateTime.Now.Month,
+                Year = DateTime.Now.Year,
                 DistrictId = (int)Constants.DefaultDistrict,
                 Enabled = true,
                 IdentificationType =

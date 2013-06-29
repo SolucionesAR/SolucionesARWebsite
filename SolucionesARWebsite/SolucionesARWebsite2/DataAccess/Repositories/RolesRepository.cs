@@ -69,8 +69,8 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             foreach (var rol in rolesList)
             {
                 rol.RolId = i;
-                rol.CreatedAt = DateTime.UtcNow;
-                rol.UpdatedAt = DateTime.UtcNow;
+                rol.CreatedAt = DateTime.Now;
+                rol.UpdatedAt = DateTime.Now;
                 _databaseModel.Roles.Add(rol);
                 i += 1;
                 _databaseModel.SaveChanges();

@@ -5,6 +5,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using SolucionesARWebsite2.App_Start;
+using SolucionesARWebsite2.App_Start.Business.Management;
 using SolucionesARWebsite2.Business.Logic;
 using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.DataAccess.Interfaces;

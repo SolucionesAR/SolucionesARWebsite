@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
+using SolucionesARWebsite2.App_Start.Business.Management;
 using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.Enumerations;
@@ -13,7 +14,6 @@ namespace SolucionesARWebsite2.Controllers
 {
     public class CreditProcessesController : BaseController
     {
-        
         #region Constants
         #endregion
 
@@ -23,7 +23,6 @@ namespace SolucionesARWebsite2.Controllers
         #region Private Members
 
         private readonly CreditProcessesManagement _creditProcessesManagement;
-        private readonly UsersManagement _usersManagement;
         private readonly CreditStatusesManagement _creditStatusesManagement;
         private readonly CustomersManagement _customersManagement;
         private readonly CompaniesManagement _companiesManagement;
@@ -36,7 +35,6 @@ namespace SolucionesARWebsite2.Controllers
             : base(usersManagement)
         {
             _creditProcessesManagement = creditProcessesManagement;
-            _usersManagement = usersManagement;
             _creditStatusesManagement = creditStatusesManagement;
             _customersManagement = customersManagement;
             _companiesManagement = companiesManagement;
@@ -73,6 +71,7 @@ namespace SolucionesARWebsite2.Controllers
                                         FinantialCompaniesList = _companiesManagement.GetFinantialCompaniesList(),
                                         PagedItems = new List<CreditProcessXCompany>().ToPagedList(1, PageSize),
                                     };
+
             return View("Edit", editViewModel);
         }
                 
@@ -96,12 +95,9 @@ namespace SolucionesARWebsite2.Controllers
                                         FinantialCompaniesList = _companiesManagement.GetFinantialCompaniesList(),
                                         PagedItems = flowsPerCreditProcessList.ToPagedList(1, PageSize),
                                     };
-            var processFlowsList = new List<ProcessFlowViewModel>();
-            foreach (var flowsPerCreditProcess in flowsPerCreditProcessList)
-            {
-                processFlowsList.Add(Map(flowsPerCreditProcess));
-            }
+            var processFlowsList = flowsPerCreditProcessList.Select(Map).ToList();
             UpdateCurrentProcessFlows(creditProcess.CreditProcessId, processFlowsList);
+
             return View(editViewModel);
         }
 
@@ -115,6 +111,7 @@ namespace SolucionesARWebsite2.Controllers
                 _creditProcessesManagement.Save(editFormModel, processFlowsList);
                 ClearCurrentProcessFlows(editFormModel.CreditProcessId);
             }
+
             return RedirectToAction("Index");
         }
 
@@ -129,15 +126,18 @@ namespace SolucionesARWebsite2.Controllers
 
                 if (!processFlowViewModel.IsNew)
                 {
-                    processFlowsList.RemoveAll(pf => pf.CreditProcessXCompanyId.Equals(processFlowViewModel.CreditProcessXCompanyId));   
+                    processFlowsList.RemoveAll(
+                        pf => pf.CreditProcessXCompanyId.Equals(processFlowViewModel.CreditProcessXCompanyId));
                 }
 
+                processFlowViewModel.UpdatedAt = DateTime.Now;
                 processFlowsList.Add(processFlowViewModel);
                 UpdateCurrentProcessFlows(processFlowViewModel.CreditProcessId, processFlowsList);
 
-                return this.Json(new { success = "true" });
+                return Json(new { success = "true", updatedAt = processFlowViewModel.UpdatedAt.ToString() });
             }
-            return this.Json(new { success = "false" });
+
+            return Json(new {success = "false"});
         }
 
         [HttpPost]
@@ -149,25 +149,29 @@ namespace SolucionesARWebsite2.Controllers
                 //the application doesn't know if here is a credit process created before the user saves the process flow
                 var processFlowsList = GetCurrentProcessFlows(processFlowViewModel.CreditProcessId);
 
-                var processFlow = processFlowsList.FirstOrDefault(pf => pf.CreditProcessXCompanyId.Equals(processFlowViewModel.CreditProcessXCompanyId));
-                processFlow.IsDeleted = true;
+                var processFlow =
+                    processFlowsList.FirstOrDefault(
+                        pf => pf.CreditProcessXCompanyId.Equals(processFlowViewModel.CreditProcessXCompanyId));
+                if (processFlow != null) processFlow.IsDeleted = true;
 
                 UpdateCurrentProcessFlows(processFlowViewModel.CreditProcessId, processFlowsList);
             }
 
-            return this.Json(new { success = "true" });
+            return Json(new {success = "true"});
         }
 
         public ActionResult FlowDetails(int creditProcessId, int processFlowId)
         {
-            var commentsPerCreditProcessFlowList = _creditProcessesManagement.GetCommentsPerCreditProcessFlow(creditProcessId, processFlowId);
+            var commentsPerCreditProcessFlowList =
+                _creditProcessesManagement.GetCommentsPerCreditProcessFlow(creditProcessId, processFlowId);
 
             var detailsViewModel = new DetailsViewModel
-                                    {
-                                        CreditProcessXCompanyId = processFlowId,
-                                        CreditProcessId = creditProcessId,
-                                        PagedItems = commentsPerCreditProcessFlowList.ToPagedList(1, PageSize),
-                                    };
+                {
+                    CreditProcessXCompanyId = processFlowId,
+                    CreditProcessId = creditProcessId,
+                    PagedItems = commentsPerCreditProcessFlowList.ToPagedList(1, PageSize),
+                };
+
             return View(detailsViewModel);
         }
 
@@ -177,15 +181,23 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 _creditProcessesManagement.SaveComment(
-                    new CommentViewModel { 
-                        Comment = formViewModel.Comment, 
-                        CommentDate = DateTime.UtcNow, 
-                        CreditProcessId = formViewModel.CreditProcessId,
-                        CreditProcessXCompanyId = formViewModel.CreditProcessXCompanyId,
-                    });
+                    new CommentViewModel
+                        {
+                            Comment = formViewModel.Comment,
+                            CommentDate = DateTime.Now,
+                            CreditProcessId = formViewModel.CreditProcessId,
+                            CreditProcessXCompanyId = formViewModel.CreditProcessXCompanyId,
+                        });
             }
-            return RedirectToAction("FlowDetails", new { creditProcessId = formViewModel.CreditProcessId, processFlowId = formViewModel.CreditProcessXCompanyId });
+
+            return RedirectToAction("FlowDetails",
+                                    new
+                                        {
+                                            creditProcessId = formViewModel.CreditProcessId,
+                                            processFlowId = formViewModel.CreditProcessXCompanyId
+                                        });
         }
+
         #endregion
 
         #region Private Members
@@ -229,7 +241,7 @@ namespace SolucionesARWebsite2.Controllers
             Session[processFlowsCacheKey] = processFlowsList;
         }
 
-        private ProcessFlowViewModel Map(CreditProcessXCompany creditProcessXCompany)
+        private static ProcessFlowViewModel Map(CreditProcessXCompany creditProcessXCompany)
         {
             var viewModel = new ProcessFlowViewModel
                             {
@@ -238,7 +250,10 @@ namespace SolucionesARWebsite2.Controllers
                                 CreditProcessXCompanyId = creditProcessXCompany.CreditProcessXCompanyId,
                                 CreditStatusId = creditProcessXCompany.CreditStatusId,
                                 IsNew = false,
+                                CreatedAt = creditProcessXCompany.CreatedAt,
+                                UpdatedAt = creditProcessXCompany.UpdatedAt,
                             };
+
             return viewModel;
         }
 
@@ -252,6 +267,7 @@ namespace SolucionesARWebsite2.Controllers
                                 CreditProcessId = creditComment.CreditProcessId,
                                 IsNew = false,
                             };
+
             return viewModel;
         }
 

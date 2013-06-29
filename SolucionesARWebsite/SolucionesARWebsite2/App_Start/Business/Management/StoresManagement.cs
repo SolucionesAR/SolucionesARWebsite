@@ -69,14 +69,14 @@ namespace SolucionesARWebsite2.Business.Management
 
         private void AddStore(Store store)
         {
-            store.CreatetedAt = DateTime.UtcNow;
-            store.UpdatedAt = DateTime.UtcNow;
+            store.CreatetedAt = DateTime.Now;
+            store.UpdatedAt = DateTime.Now;
             _storesRepository.AddStore(store);
         }
 
         private void EditStore(Store store)
         {
-            store.UpdatedAt = DateTime.UtcNow;
+            store.UpdatedAt = DateTime.Now;
             _storesRepository.EditStore(store);
         }
 
