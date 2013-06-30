@@ -74,7 +74,7 @@ namespace SolucionesARWebsite2.Business.Logic
             try
             {
                 // del 100% esto es la comision total
-                var cashBackPercentajeAssignable = transaction.Comision;//transaction.Amount*transaction.Company.CashBackPercentaje/100;
+                var cashBackPercentajeAssignable = transaction.Comision;//transaction.Amount*transaction.Company.CashBackPercentage/100;
                 // Este seria el 30% para soluciones AR
                 var solucionesArAmount = cashBackPercentajeAssignable*SOLUCIONES_AR_PERCENTAJE;
                 UpdateSolucionesArUser(solucionesArAmount);

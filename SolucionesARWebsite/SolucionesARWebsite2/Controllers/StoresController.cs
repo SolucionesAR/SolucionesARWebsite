@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using PagedList;
 using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.ViewModels.Lists;
@@ -32,16 +33,12 @@ namespace SolucionesARWebsite2.Controllers
 
         //
         // GET: /Users/
-        public ActionResult Index()
+        public ActionResult Index(IndexViewModel indexViewModel)
         {
-            var stores = _storesManagement.GetStores();
-            var indexViewModel = new IndexViewModel
-            {
-                StoresList = new StoresList
-                {
-                    Items = stores
-                }
-            };
+            var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
+            //missing filtering
+            var results = _storesManagement.GetStores();
+            indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
             return View(indexViewModel);
         }
 

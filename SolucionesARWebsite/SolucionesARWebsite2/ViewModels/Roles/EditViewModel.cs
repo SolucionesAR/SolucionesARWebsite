@@ -9,17 +9,11 @@ namespace SolucionesARWebsite2.ViewModels.Roles
 
         #region Properties
 
-        /// <summary>
-        /// The Unique company identifier
-        /// </summary>
         [Required]
         public int RolId { get; set; }
 
-        /// <summary>
-        /// The Company Name
-        /// </summary>
-        [Required]
         [Display(Name = "Nombre*", Prompt = "Nombre")]
+        [Required(ErrorMessage = "Nombre es requerido")]
         public string RolName { get; set; }
         
         #endregion

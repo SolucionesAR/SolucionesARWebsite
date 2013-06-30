@@ -8,10 +8,6 @@
 .jspContainer {
     width:90%;
 }
-div.validation-summary-errors ul li {
-    color: red;
-    font: 13px/18px Arial, Helvetica, sans-serif;
-}
 
 /*class required to display the credit process textboxes edition inline*/
 section.edit-inline {

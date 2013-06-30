@@ -25,49 +25,51 @@
 }
 
 @section EditionContent {
-    <div class="edition_content content_box ">
-        <div class="entry jspScrollable">
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Stores"))
-                    {
-                        @Html.HiddenFor(model => model.StoreId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.StoreName)
-                            <span>
-                                @Html.LabelFor(model => model.Company)
-                                <br />
-                                @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
-                            </span>
-                        </fieldset>
-                        <fieldset>
-                            @Html.EditorFor(model => model.PhoneNumber1)
-                            @Html.EditorFor(model => model.PhoneNumber2)
-                            @Html.EditorFor(model => model.FaxNumber)
-                        </fieldset>
-                        <fieldset>
-                            <span>
-                                @Html.LabelFor(model => model.ProvinceId)
-                                <br />
-                                @Html.DropDownListForProviceslList(model => model.ProvinceId)
-                            </span><span>
-                                @Html.LabelFor(model => model.CantonId)
-                                <br />
-                                @Html.DropDownListForCantonslList(model => model.CantonId)
-                            </span><span>
-                                @Html.LabelFor(model => model.DistrictId)
-                                <br />
-                                @Html.DropDownListForDistrictslList(model => model.DistrictId)
-                            </span>
-                        </fieldset>
-                            
-                        <input name="submit" type="submit" value="Submit">
-                    }
-                </div>
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Stores"))
+                {
+                    @Html.HiddenFor(model => model.StoreId)
+                    <fieldset>
+                        @Html.EditorFor(model => model.StoreName)
+                        <span>
+                            @Html.LabelFor(model => model.Company)
+                            <br />
+                            @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
+                        </span>
+                    </fieldset>
+                    <fieldset>
+                        @Html.EditorFor(model => model.PhoneNumber1)
+                        @Html.EditorFor(model => model.PhoneNumber2)
+                        @Html.EditorFor(model => model.FaxNumber)
+                    </fieldset>
+                    <fieldset>
+                        <span>
+                            @Html.LabelFor(model => model.ProvinceId)
+                            <br />
+                            @Html.DropDownListForProviceslList(model => model.ProvinceId)
+                        </span><span>
+                            @Html.LabelFor(model => model.CantonId)
+                            <br />
+                            @Html.DropDownListForCantonslList(model => model.CantonId)
+                        </span><span>
+                            @Html.LabelFor(model => model.DistrictId)
+                            <br />
+                            @Html.DropDownListForDistrictslList(model => model.DistrictId)
+                        </span>
+                    </fieldset>
+                        
+                    <br/><br/>
+                    <input name="submit" type="submit" value="Guardar">
+                }
             </div>
         </div>
     </div>
     
+}
+
+@section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
             //display the required masks
@@ -113,5 +115,4 @@
                 });
         }
     </script>
-
 }

@@ -45,8 +45,12 @@
                     <th>
                         Canton
                     </th>
-                    
-                    <th></th>
+                    <th>
+                        Provincia
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.PagedItems) {
@@ -58,9 +62,11 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CantonId)
+                            @Html.DisplayFor(modelItem => item.Canton.Name)
                         </td>
-                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Canton.Province.Name)
+                        </td>
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.DistrictId })
                         </td>

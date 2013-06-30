@@ -19,6 +19,7 @@ namespace SolucionesARWebsite2.ViewModels.Districts
         /// The district name
         /// </summary>
         [Display(Name = "Nombre*", Prompt = "Nombre")]
+        [Required(ErrorMessage = "Nombre de distrito es requerido")]
         public string DistrictName { get; set; }
 
         /// <summary>

@@ -4,6 +4,7 @@ using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.Enumerations;
+using SolucionesARWebsite2.Utils;
 using SolucionesARWebsite2.ViewModels.Companies;
 
 namespace SolucionesARWebsite2.Business.Management
@@ -76,8 +77,11 @@ namespace SolucionesARWebsite2.Business.Management
                                                 }
                                         };
                     break;
-                case UserRoles.SuperUser:
                 case UserRoles.Administrator:
+                    companiesList = _companiesRepository.GetAllCompanies();
+                    companiesList.RemoveAll(c => c.CompanyName.Equals(Constants.SolucionesARName.ToStringValue()));
+                    break;
+                case UserRoles.SuperUser:
                     companiesList = _companiesRepository.GetAllCompanies();
                     break;
             }
@@ -119,18 +123,22 @@ namespace SolucionesARWebsite2.Business.Management
             _companiesRepository.EditCompany(company);
         }
 
-        private static Company Map(EditViewModel editViewMode)
+        private static Company Map(EditViewModel editViewModel)
         {
             return new Company
-                       {
-                           CashBackPercentaje = editViewMode.CashBackPercentaje,
-                           CompanyId = editViewMode.CompanyId,
-                           CompanyName = editViewMode.CompanyName.ToUpper(),
-                           CompanyNickName = editViewMode.CompanyNickname.ToUpper(),
-                           CorporateId = editViewMode.CorporateId.ToUpper(),
-                           Enabled = editViewMode.Enabled,
-                           IsFinantial = editViewMode.IsFinantial,
-                       };
+                {
+                    CashBackPercentaje = Convert.ToDouble(editViewModel.CashBackPercentage),
+                    CompanyId = editViewModel.CompanyId,
+                    CompanyName = editViewModel.CompanyName.ToUpper(),
+                    CompanyNickName =
+                        editViewModel.CompanyNickname != null ? editViewModel.CompanyNickname.ToUpper() : string.Empty,
+                    CorporateId =
+                        editViewModel.CorporateId != null
+                            ? editViewModel.CorporateId.Replace("-", string.Empty)
+                            : string.Empty,
+                    Enabled = editViewModel.Enabled,
+                    IsFinantial = editViewModel.IsFinantial,
+                };
         }
 
         #endregion

@@ -1,0 +1,18 @@
+﻿div.validation-summary-errors ul li {
+    color: red;
+    font: 13px/18px Arial, Helvetica, sans-serif;
+}
+form fieldset input.input-validation-error {
+    border-radius: 1px;
+    -moz-box-shadow: 0px 0px 5px red;
+    -webkit-box-shadow: 0px 0px 5px red;
+    box-shadow: 0px 0px 5px red;
+}
+
+.edition_content form fieldset span.field-validation-error,
+.edition_content form fieldset span.field-validation-error span,
+.edition_content .entry form span.field-validation-error,
+.edition_content .entry form span.field-validation-error span {
+    margin-left: 5px;
+    color: #d12427;
+}

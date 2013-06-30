@@ -19,7 +19,7 @@ namespace SolucionesARWebsite2.ViewModels.CreditStatuses
         /// The description
         /// </summary>
         [Display(Name = "Descripcion*", Prompt = "Descripcion")]
-        [Required]
+        [Required(ErrorMessage = "Descripcion es requerida")]
         public string CreditStatusDescription { get; set; }
         
         #endregion

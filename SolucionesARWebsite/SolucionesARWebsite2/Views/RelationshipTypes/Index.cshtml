@@ -43,8 +43,9 @@
                     <th>
                         Nombre
                     </th>
-                    
-                    <th></th>
+                    <th>
+                        Acciones
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.PagedItems) {
@@ -55,7 +56,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
-                        
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.RelationshipTypeId })
                         </td>

@@ -12,42 +12,23 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         #endregion
 
         #region Properties
-        /// <summary>
-        /// 
-        /// </summary>
         public int TransactionId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
         [Display(Name = "Codigo Fractura*", Prompt = "Codigo Fractura")]
+        [Required]
         public string BillBarCode { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
         [Display(Name = "Monto*", Prompt = "000.00")]
+        [Required]
         public double Amount { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Required]
         [DisplayName("Compania")]
+        [Required]
         public Company Company { get; set; }
 
-
-        /// <summary>
-        /// The one that makes the purchase
-        /// </summary>
-        [Required]
         [DisplayName("Vendedor")]
+        [Required]
         public User Customer { get; set; }
-
-
-        // public List<User> ListSalesMan { get; set; }
 
         public List<Company> CompaniesList { get; set; }
 
@@ -57,19 +38,12 @@ namespace SolucionesARWebsite2.ViewModels.Transactions
         [Display(Name = "Fecha", Prompt = "01/01/1970")]
         public string TransactionDate { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
         [Display(Name = "Comision*", Prompt = "000.00")]
         public double Comision { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
         public List<UserToShow> UsersToShowList { get; set; }
         
+        // public List<User> ListSalesMan { get; set; }
         #endregion
 
         #region Private Members

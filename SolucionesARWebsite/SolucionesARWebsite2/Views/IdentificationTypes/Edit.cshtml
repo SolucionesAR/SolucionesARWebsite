@@ -23,15 +23,24 @@
 }
 
 @section EditionContent {
-    @using (Html.BeginForm("Save", "IdentificationTypes"))
-    {
-        @Html.HiddenFor(model => model.IdentificationTypeId)
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "IdentificationTypes"))
+                {
+                    @Html.HiddenFor(model => model.IdentificationTypeId)
 
-        <fieldset>
-            @Html.EditorFor(model => model.Description)
-        </fieldset>
-                            
-        <input name="submit" type="submit" value="Submit">
-    }
+                    <fieldset>
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextBoxFor(model => model.Description)
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </fieldset>
+                    
+                    <br/><br/> 
+                    <input name="submit" type="submit" value="Guardar">
+                }
+            </div>
+        </div>
+    </div>
 }
 

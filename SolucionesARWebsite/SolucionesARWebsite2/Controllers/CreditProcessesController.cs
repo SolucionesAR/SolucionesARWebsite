@@ -110,9 +110,10 @@ namespace SolucionesARWebsite2.Controllers
                 var processFlowsList = GetCurrentProcessFlows(editFormModel.CreditProcessId);
                 _creditProcessesManagement.Save(editFormModel, processFlowsList);
                 ClearCurrentProcessFlows(editFormModel.CreditProcessId);
+                return RedirectToAction("Index");   
             }
 
-            return RedirectToAction("Index");
+            return View("Edit", editFormModel);
         }
 
         [HttpPost]

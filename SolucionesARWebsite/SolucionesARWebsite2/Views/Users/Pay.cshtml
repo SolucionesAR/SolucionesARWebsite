@@ -1,4 +1,4 @@
-﻿@using SolucionesARWebsite2.Helpers
+﻿@using System.Globalization
 @using SolucionesARWebsite2.ViewModels.Users
 
 @model PayViewModel
@@ -10,11 +10,12 @@
 
 @section Header {
     <h1>PAGAR USUARIO</h1>
-    <div class="entry" style="overflow: hidden; padding: 0px; width: 410px; height: 80px;">
-        <div class="jspContainer" style="width: 410px; height: 80px;">
-            <div class="jspPane" style="padding: 15px 25px 0px; top: 0px; width: 200px;">
-                <h3>Usuario: <span>@Model.FName @Model.LName1 @Model.LName2 (@Model.IdentificationNumber) </span></h3>
-                <h3>Cashback: <span>@Model.LastCashback  </span></h3>
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                <h3>Usuario: @Html.Label(string.Format("{0} {1} {2}", Model.FName, Model.LName1, Model.LName2)) </h3>
+                <h3>Cedula: @Html.Label(Model.IdentificationNumber.ToString(CultureInfo.CurrentCulture)) </h3>
+                <h3>Cashback: @Html.Label(string.Format(CultureInfo.CurrentCulture, "{0} colones", Model.Cashback)) </h3>
             </div>
         </div>
     </div>
@@ -24,7 +25,6 @@
     @Html.ValidationSummary()
 }
 
-
 @section EditionContent {
     <div class="entry jspScrollable">
         <div class="jspContainer">
@@ -32,17 +32,12 @@
                 @using (Html.BeginForm("SavePayment", "Users"))
                 {
                     @Html.HiddenFor(model => model.UserId)
-                    @Html.HiddenFor(model => model.LastCashback)
-                    @Html.HiddenFor(model => model.LName1)
-                    @Html.HiddenFor(model => model.LName2)
-                    @Html.HiddenFor(model => model.FName)
                     <fieldset>
                         @Html.EditorFor(model => model.Cashback)
                     </fieldset>
                 
-                    <div class="main-actions">
-                        <input name="submit" type="submit" value="Guardar">
-                    </div>
+                    <br /><br />
+                    <input name="submit" type="submit" value="Guardar">
                 }
             </div>
         </div>

@@ -44,23 +44,21 @@ namespace SolucionesARWebsite2.Controllers
             return View(indexViewModel);
         }
 
-        
-
         public ActionResult Create()
         {
 
             var editViewModel = new EditViewModel
-            {
-                CustomerId = 0,
-                Boss = string.Empty,
-                CedNumber = string.Empty,
-                FName = string.Empty,
-                LName = string.Empty,
-                PhoneNumber = string.Empty,
-                Possition = string.Empty,
-                Salary = string.Empty
+                {
+                    CustomerId = 0,
+                    Boss = string.Empty,
+                    CedNumber = string.Empty,
+                    FName = string.Empty,
+                    LName = string.Empty,
+                    PhoneNumber = string.Empty,
+                    Possition = string.Empty,
+                    Salary = string.Empty
 
-            };
+                };
             return View("Edit", editViewModel);
         }
 

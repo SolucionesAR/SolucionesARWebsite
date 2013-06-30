@@ -25,50 +25,46 @@
     @Html.ValidationSummary()
 }
 
-
 @section EditionContent {
-    <div class="edition_content content_box ">
-        <div class="entry jspScrollable">
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Transactions"))
-                    {
-                        @Html.HiddenFor(model => model.TransactionId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.BillBarCode)
-                            @Html.EditorFor(model => model.Amount)
-                            Porcentaje de comision %<br/>
-                            <input type="text" id="ComisionPercentage"/>
-                            @Html.EditorFor(model => model.Comision)
-                            <span>
-                                @Html.LabelFor(model => model.Points) <br/>
-                                @Html.EditorFor(model => model.Points)
-                            </span>
-                        </fieldset>
-                        <fieldset>
-                            @* <span>
-                                @Html.LabelFor(model => model.SalesMan) <br/>
-                                @Html.DropDownListForSalesManList(model => model.SalesMan.UserId)
-                            </span>*@
-                            <span>
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Transactions"))
+                {
+                    @Html.HiddenFor(model => model.TransactionId)
+                    <fieldset>
+                        @Html.EditorFor(model => model.BillBarCode)
+                        @Html.EditorFor(model => model.Amount)
+                        Porcentaje de comision %<br/>
+                        <input type="text" id="ComisionPercentage"/>
+                        @Html.EditorFor(model => model.Comision)
+                        <span>
+                            @Html.LabelFor(model => model.Points) <br/>
+                            @Html.EditorFor(model => model.Points)
+                        </span>
+                    </fieldset>
+                    <fieldset>
+                        @* <span>
+                            @Html.LabelFor(model => model.SalesMan) <br/>
+                            @Html.DropDownListForSalesManList(model => model.SalesMan.UserId)
+                        </span>*@
+                        <span>
                                 
-                                @Html.EditorFor(model => model.TransactionDate)
-                            </span>
-                            <span>
-                                @Html.LabelFor(model => model.Customer) <br/>
-                                @Html.DropDownListForCustomersListToShow(model => model.Customer.UserId)
-                            </span>
-                            <span>
-                                @Html.LabelFor(model => model.Company) <br/>
-                                @Html.DropDownListForCompaniesList(model => model.Company.CompanyId)
-                            </span>
+                            @Html.EditorFor(model => model.TransactionDate)
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.Customer) <br/>
+                            @Html.DropDownListForCustomersListToShow(model => model.Customer.UserId)
+                        </span>
+                        <span>
+                            @Html.LabelFor(model => model.Company) <br/>
+                            @Html.DropDownListForCompaniesList(model => model.Company.CompanyId)
+                        </span>
+                    </fieldset>
                             
-
-                        </fieldset>
-                            
-                        <input name="submit" type="submit" value="Guardar">
-                        }
-                </div>
+                    <br/><br/>
+                    <input name="submit" type="submit" value="Guardar">
+                }
             </div>
         </div>
     </div>

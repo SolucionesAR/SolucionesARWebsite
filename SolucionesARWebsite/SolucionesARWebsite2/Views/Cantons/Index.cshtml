@@ -46,8 +46,9 @@
                     <th>
                         Provincia
                     </th>
-                    
-                    <th></th>
+                    <th>
+                        Acciones
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.PagedItems) {
@@ -59,7 +60,7 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ProvinceId)
+                            @Html.DisplayFor(modelItem => item.Province.Name)
                         </td>
                         
                         <td>

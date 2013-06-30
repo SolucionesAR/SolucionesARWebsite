@@ -46,7 +46,10 @@
                         Nombre
                     </th>
                     <th>
-                        Porcentage
+                        Porcentaje Cashback
+                    </th>
+                    <th>
+                        Financiera?
                     </th>
                     <th>
                         Acciones
@@ -66,6 +69,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CashBackPercentaje)
+                        </td>
+                        <td>
+                            @Html.Label(item.IsFinantial ? "Sí" : "No")
                         </td>
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.CompanyId })

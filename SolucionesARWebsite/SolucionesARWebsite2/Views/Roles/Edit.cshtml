@@ -24,19 +24,19 @@
 }
 
 @section EditionContent {
-    <div class="edition_content content_box ">
-        <div class="entry jspScrollable">
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Roles"))
-                    {
-                        @Html.HiddenFor(model => model.RolId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.RolName)
-                        </fieldset>
-                        <input name="submit" type="submit" value="Guardar">
-                    }
-                </div>
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Roles"))
+                {
+                    @Html.HiddenFor(model => model.RolId)
+                    <fieldset>
+                        @Html.LabelFor(model => model.RolName)
+                        @Html.TextBoxFor(model => model.RolName)
+                        @Html.ValidationMessageFor(model => model.RolName)
+                    </fieldset>
+                    <input name="submit" type="submit" value="Guardar">
+                }
             </div>
         </div>
     </div>

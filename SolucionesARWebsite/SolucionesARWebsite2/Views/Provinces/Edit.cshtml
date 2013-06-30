@@ -23,16 +23,24 @@
     @Html.ValidationSummary()
 }
 
-
 @section EditionContent {
-    @using (Html.BeginForm("Save", "Provinces"))
-    {
-        @Html.HiddenFor(model => model.ProvinceId)
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Provinces"))
+                {
+                    @Html.HiddenFor(model => model.ProvinceId)
 
-        <fieldset>
-            @Html.EditorFor(model => model.ProvinceName)
-        </fieldset>
-                            
-        <input name="submit" type="submit" value="Submit">
-    }
+                    <fieldset>
+                        @Html.LabelFor(model => model.ProvinceName)
+                        @Html.TextBoxFor(model => model.ProvinceName)
+                        @Html.ValidationMessageFor(model => model.ProvinceName)
+                    </fieldset>
+        
+                    <br/><br/>  
+                    <input name="submit" type="submit" value="Guardar">
+                }
+            </div>
+        </div>
+    </div>
 }

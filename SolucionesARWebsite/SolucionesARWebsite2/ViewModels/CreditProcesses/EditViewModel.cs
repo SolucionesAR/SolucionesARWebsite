@@ -21,48 +21,56 @@ namespace SolucionesARWebsite2.ViewModels.CreditProcesses
         /// <summary>
         /// 
         /// </summary>
-        [Required]
         [DisplayName("Producto del credito")]
+        [Required]
         public string Product { get; set; }
         
         /// <summary>
         /// The one that makes the purchase
         /// </summary>
-        [Required]
         [DisplayName("Cliente")]
+        [Required]
         public Customer Customer { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<UserToShow> CustomersList { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        [Required]
         [DisplayName("Vendedor")]
+        [Required]
         public User Salesman { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<UserToShow> SalesmenList { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public Company FinantialCompany { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<Company> FinantialCompaniesList { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        [Required]
         [DisplayName("Estado")]
+        [Required]
         public CreditStatus CreditStatus { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<CreditStatus> CreditStatusesList { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

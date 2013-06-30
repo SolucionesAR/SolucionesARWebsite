@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Globalization;
+using System.Web.Mvc;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
 using SolucionesARWebsite2.ViewModels.Companies;
@@ -29,7 +30,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             var pageIndex = indexViewModel.Page.HasValue ? (int)indexViewModel.Page : FirstPage;
             //missing filtering
-            var results = _companiesManagement.GetAllCompaniesList();
+            var results = _companiesManagement.GetCompaniesList(SecurityContext);
             indexViewModel.PagedItems = results.ToPagedList(pageIndex, PageSize);
 
             return View(indexViewModel);
@@ -52,7 +53,7 @@ namespace SolucionesARWebsite2.Controllers
             var editViewModel = new EditViewModel
                                     {
                                         CompanyId = id,
-                                        CashBackPercentaje = companyInformation.CashBackPercentaje,
+                                        CashBackPercentage = companyInformation.CashBackPercentaje.ToString(CultureInfo.CurrentCulture),
                                         CompanyName = companyInformation.CompanyName,
                                         CorporateId = companyInformation.CorporateId,
                                         CompanyNickname = companyInformation.CompanyNickName,
@@ -70,6 +71,7 @@ namespace SolucionesARWebsite2.Controllers
                 _companiesManagement.Save(editViewModel);
                 return RedirectToAction("Index");
             }
+
             return View("Edit", editViewModel);
         }
 

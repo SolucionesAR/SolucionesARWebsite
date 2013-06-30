@@ -62,23 +62,6 @@ namespace SolucionesARWebsite2.Controllers
             return View(indexViewModel);
         }
 
-        public ActionResult Pay(int id)
-        {
-            var userInformation = _usersManagement.GetUser(id);
-            var detailsViewModel = new PayViewModel
-                                       {
-                                           UserId = id,
-                                           IdentificationNumber = userInformation.CedNumber,
-                                           FName = userInformation.FName,
-                                           LName1 = userInformation.LName1,
-                                           LName2 = userInformation.LName2,
-                                           LastCashback = userInformation.Cashback,
-                                           Cashback = 0,
-                                       };
-
-            return View(detailsViewModel);
-        }
-
         public ActionResult Create()
         {
             var editViewModel = GenerateBasicEditViewModel();
@@ -128,16 +111,39 @@ namespace SolucionesARWebsite2.Controllers
             return View("Edit", editViewModel);
         }
 
+        public ActionResult Pay(int id)
+        {
+            var userInformation = _usersManagement.GetUser(id);
+            var payViewModel = new PayViewModel
+                {
+                    UserId = id,
+                    IdentificationNumber = userInformation.CedNumber,
+                    FName = userInformation.FName,
+                    LName1 = userInformation.LName1,
+                    LName2 = userInformation.LName2,
+                    Cashback = userInformation.Cashback,
+                };
+
+            return View(payViewModel);
+        }
+
         [HttpPost]
         public ActionResult SavePayment(PayViewModel payViewModel)
         {
-            if (ModelState.IsValid && IsValidPayment(payViewModel))
+            var userInformation = _usersManagement.GetUser(payViewModel.UserId);
+            if (ModelState.IsValid && IsValidPayment(payViewModel.Cashback, userInformation))
             {
-                var newCashback = payViewModel.LastCashback - payViewModel.Cashback;
+                var newCashback = userInformation.Cashback - payViewModel.Cashback;
                 _usersManagement.SavePayment(payViewModel.UserId, newCashback, SecurityContext.User.Id);
+
                 return RedirectToAction("Index");
             }
 
+            payViewModel.IdentificationNumber = userInformation.CedNumber;
+            payViewModel.FName = userInformation.FName;
+            payViewModel.LName1 = userInformation.LName1;
+            payViewModel.LName2 = userInformation.LName2;
+            payViewModel.Cashback = userInformation.Cashback;
             return View("Pay", payViewModel);
         }
 
@@ -166,6 +172,23 @@ namespace SolucionesARWebsite2.Controllers
 
         #region Private Members
 
+        private bool IsValidPayment(double cashback, User userInformation)
+        {
+            if (cashback <= 0)
+            {
+                ModelState.AddModelError("Cashback", "El cashback debe ser mayor a 0 colones.");
+                return false;
+            }
+
+            if (userInformation.Cashback <= cashback)
+            {
+                ModelState.AddModelError("Cashback", string.Format("El cashback a debitar debe ser menor al cashback actual ({0} colones).", userInformation.Cashback));
+                return false;
+            }
+
+            return true;
+        }
+
         private bool IsValidUser(EditViewModel editViewModel)
         {
             //if it's a new user doesn't required the identification number validation
@@ -178,18 +201,17 @@ namespace SolucionesARWebsite2.Controllers
             }
             return true;
         }
-
-        private bool IsValidPayment(PayViewModel payViewModel)
-        {
-            return (payViewModel.Cashback >= 0) && (payViewModel.Cashback <= payViewModel.LastCashback);
-        }
         
         private static List<IdentificationType> GetIdentificationTypesList()
         {
             var identificationsList = new List<IdentificationType>();
             foreach (var idType in EnumUtil.GetValues<IdentificationTypes>())
             {
-                identificationsList.Add(new IdentificationType { IdentificationTypeId = (int)idType, IdentificationDescription = Enumerations.Enumerations.GetDescription(idType) });
+                identificationsList.Add(new IdentificationType
+                    {
+                        IdentificationTypeId = (int) idType,
+                        IdentificationDescription = Enumerations.Enumerations.GetDescription(idType)
+                    });
             }
             return identificationsList;
         }
@@ -208,7 +230,7 @@ namespace SolucionesARWebsite2.Controllers
                                        : string.Empty;
             var cedNumberEncoded = identificationNumber != null
                                        ? identificationNumber.Replace("-", string.Empty)
-                                             .ToString(CultureInfo.InvariantCulture).Substring(0, 4)
+                                                             .ToString(CultureInfo.InvariantCulture).Substring(0, 4)
                                        : string.Empty;
 
             return string.Format("{0}{1}{2}", lastName1Encoded, lastName2Encoded, cedNumberEncoded);
@@ -217,116 +239,118 @@ namespace SolucionesARWebsite2.Controllers
         private EditViewModel GenerateBasicEditViewModel()
         {
             var editViewModel = new EditViewModel
-            {
-                UserId = 0,
-                CantonId = (int)Constants.DefaultCanton,
-                Company = new Company(),
-                CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
-                Day = DateTime.Now.Day,
-                Month = DateTime.Now.Month,
-                Year = DateTime.Now.Year,
-                DistrictId = (int)Constants.DefaultDistrict,
-                Enabled = true,
-                IdentificationType =
-                    new IdentificationType
-                    {
-                        IdentificationTypeId =
-                            (int)IdentificationTypes.CedNumber
-                    },
-                IdentificationTypesList = GetIdentificationTypesList(),
-                ProvinceId = (int)Constants.DefaultProvince,
-                RelationshipType = new RelationshipType(),
-                RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
-                RolesList = _rolesManagement.GetRoles(SecurityContext),
-                UserRol = new Rol(),
-                ParentIdentificationNumber = Constants.SolucionesArUser.ToString(),
-            };
+                {
+                    UserId = 0,
+                    CantonId = (int) Constants.DefaultCanton,
+                    Company = new Company(),
+                    CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
+                    Day = DateTime.Now.Day,
+                    Month = DateTime.Now.Month,
+                    Year = DateTime.Now.Year,
+                    DistrictId = (int) Constants.DefaultDistrict,
+                    Enabled = true,
+                    IdentificationType =
+                        new IdentificationType
+                            {
+                                IdentificationTypeId =
+                                    (int) IdentificationTypes.CedNumber
+                            },
+                    IdentificationTypesList = GetIdentificationTypesList(),
+                    ProvinceId = (int) Constants.DefaultProvince,
+                    RelationshipType = new RelationshipType(),
+                    RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
+                    RolesList = _rolesManagement.GetRoles(SecurityContext),
+                    UserRol = new Rol(),
+                    ParentIdentificationNumber = Constants.SolucionesArUser.ToString(),
+                };
+
             return editViewModel;
         }
 
         private User Map(EditViewModel editViewModel)
         {
             var user = new User
-                           {
-                               Address1 =
-                                   editViewModel.Address1 != null ? editViewModel.Address1.ToUpper() : string.Empty,
-                               Cashback = editViewModel.Cashback != null ? Convert.ToDouble(editViewModel.Cashback) : 0,
-                               CedNumber =
-                                   Convert.ToInt32(editViewModel.IdentificationNumber.Replace("-", string.Empty)),
-                               Cellphone = editViewModel.Cellphone,
-                               CompanyId = editViewModel.Company.CompanyId,
-                               DistrictId = editViewModel.DistrictId,
+                {
+                    Address1 =
+                        editViewModel.Address1 != null ? editViewModel.Address1.ToUpper() : string.Empty,
+                    Cashback = editViewModel.Cashback != null ? Convert.ToDouble(editViewModel.Cashback) : 0,
+                    CedNumber =
+                        Convert.ToInt32(editViewModel.IdentificationNumber.Replace("-", string.Empty)),
+                    Cellphone = editViewModel.Cellphone,
+                    CompanyId = editViewModel.Company.CompanyId,
+                    DistrictId = editViewModel.DistrictId,
 
-                               Dob = new DateTime(editViewModel.Year, editViewModel.Month, editViewModel.Day),
-                               Email = editViewModel.Email != null ? editViewModel.Email.ToUpper() : string.Empty,
-                               Enabled = editViewModel.Enabled,
-                               FName = editViewModel.FirstName.ToUpper(),
-                               GeneratedCode =
-                                   GenerateUserCode(editViewModel.LastName1, editViewModel.LastName2,
-                                                    editViewModel.IdentificationNumber
-                                                        .ToString(CultureInfo.InvariantCulture)).ToUpper(),
-                               LName1 = editViewModel.LastName1.ToUpper(),
-                               LName2 = editViewModel.LastName2.ToUpper(),
-                               Nationality = editViewModel.Nationality.ToUpper(),
-                               IdentificationTypeId = editViewModel.IdentificationType.IdentificationTypeId,
-                               RolId = editViewModel.UserRol.RolId,
-                               PhoneNumber = editViewModel.PhoneNumber,
-                               RelationshipTypeId = editViewModel.RelationshipType.RelationshipTypeId,
-                               UserId = editViewModel.UserId,
-                               UserReferenceId = !string.IsNullOrEmpty(editViewModel.ParentIdentificationNumber)
-                                                     ? _usersManagement.GetUserByIdentificationNumber(
-                                                         Convert.ToInt32(
-                                                             editViewModel.ParentIdentificationNumber.Replace("-", string.Empty)))
-                                                           .UserId
-                                                     : (int) Constants.SolucionesArUser,
-                           };
+                    Dob = new DateTime(editViewModel.Year, editViewModel.Month, editViewModel.Day),
+                    Email = editViewModel.Email != null ? editViewModel.Email.ToUpper() : string.Empty,
+                    Enabled = editViewModel.Enabled,
+                    FName = editViewModel.FirstName.ToUpper(),
+                    GeneratedCode =
+                        GenerateUserCode(editViewModel.LastName1, editViewModel.LastName2,
+                                         editViewModel.IdentificationNumber
+                                                      .ToString(CultureInfo.InvariantCulture)).ToUpper(),
+                    LName1 = editViewModel.LastName1.ToUpper(),
+                    LName2 = editViewModel.LastName2.ToUpper(),
+                    Nationality = editViewModel.Nationality.ToUpper(),
+                    IdentificationTypeId = editViewModel.IdentificationType.IdentificationTypeId,
+                    RolId = editViewModel.UserRol.RolId,
+                    PhoneNumber = editViewModel.PhoneNumber,
+                    RelationshipTypeId = editViewModel.RelationshipType.RelationshipTypeId,
+                    UserId = editViewModel.UserId,
+                    UserReferenceId = !string.IsNullOrEmpty(editViewModel.ParentIdentificationNumber)
+                                          ? _usersManagement.GetUserByIdentificationNumber(
+                                              Convert.ToInt32(
+                                                  editViewModel.ParentIdentificationNumber.Replace("-", string.Empty)))
+                                                            .UserId
+                                          : (int) Constants.SolucionesArUser,
+                };
 
             //update the user password with the SAR generated code
             user.Password = BCrypt.Net.BCrypt.HashPassword(
                 user.GeneratedCode,
                 BCrypt.Net.BCrypt.GenerateSalt((int) Constants.WorkFactor));
+
             return user;
         }
 
         private EditViewModel Map(User user)
         {
             var editViewModel = new EditViewModel
-                                    {
-                                        Address1 = user.Address1,
-                                        Cashback = user.Cashback.ToString(CultureInfo.InvariantCulture),
-                                        Cellphone = user.Cellphone,
-                                        CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
-                                        Company = user.Company,
-                                        DistrictId = user.District.DistrictId,
-                                        Day = user.Dob != null ? user.Dob.Value.Day:1,
-                                        Month = user.Dob != null ? user.Dob.Value.Month:1,
-                                        Year = user.Dob != null ? user.Dob.Value.Year:1970,
-                                        //Dob = (DateTime) user.Dob,
-                                        
-                                        Email = user.Email,
-                                        Enabled = user.Enabled,
-                                        FirstName = user.FName,
-                                        GeneratedCode = user.GeneratedCode,
-                                        IdentificationNumber =
-                                            user.CedNumber.ToString(CultureInfo.InvariantCulture),
-                                        IdentificationType =
-                                            new IdentificationType
-                                                {IdentificationTypeId = (int) IdentificationTypes.CedNumber},
-                                        IdentificationTypesList = GetIdentificationTypesList(),
-                                        LastName1 = user.LName1,
-                                        LastName2 = user.LName2,
-                                        Nationality = user.Nationality,
-                                        PhoneNumber = user.PhoneNumber,
-                                        RelationshipType = user.RelationshipType,
-                                        RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
-                                        RolesList = _rolesManagement.GetRoles(SecurityContext),
-                                        UserId = user.UserId,
-                                        UserRol = user.UserRol,
-                                        ParentIdentificationNumber =
-                                            user.UserReference != null
-                                                ? user.UserReference.CedNumber.ToString(CultureInfo.InvariantCulture)
-                                                : Constants.SolucionesArUser.ToString(),
-                                    };
+                {
+                    Address1 = user.Address1,
+                    Cashback = user.Cashback.ToString(CultureInfo.InvariantCulture),
+                    Cellphone = user.Cellphone,
+                    CompaniesList = _companiesManagement.GetCompaniesList(SecurityContext),
+                    Company = user.Company,
+                    DistrictId = user.District.DistrictId,
+                    Day = user.Dob != null ? user.Dob.Value.Day : 1,
+                    Month = user.Dob != null ? user.Dob.Value.Month : 1,
+                    Year = user.Dob != null ? user.Dob.Value.Year : 1970,
+                    //Dob = (DateTime) user.Dob,
+
+                    Email = user.Email,
+                    Enabled = user.Enabled,
+                    FirstName = user.FName,
+                    GeneratedCode = user.GeneratedCode,
+                    IdentificationNumber =
+                        user.CedNumber.ToString(CultureInfo.InvariantCulture),
+                    IdentificationType =
+                        new IdentificationType {IdentificationTypeId = (int) IdentificationTypes.CedNumber},
+                    IdentificationTypesList = GetIdentificationTypesList(),
+                    LastName1 = user.LName1,
+                    LastName2 = user.LName2,
+                    Nationality = user.Nationality,
+                    PhoneNumber = user.PhoneNumber,
+                    RelationshipType = user.RelationshipType,
+                    RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
+                    RolesList = _rolesManagement.GetRoles(SecurityContext),
+                    UserId = user.UserId,
+                    UserRol = user.UserRol,
+                    ParentIdentificationNumber =
+                        user.UserReference != null
+                            ? user.UserReference.CedNumber.ToString(CultureInfo.InvariantCulture)
+                            : Constants.SolucionesArUser.ToString(),
+                };
+
             return editViewModel;
         }
 

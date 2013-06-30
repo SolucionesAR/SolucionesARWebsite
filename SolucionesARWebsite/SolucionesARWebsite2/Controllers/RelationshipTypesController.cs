@@ -68,8 +68,10 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 _relationshipTypesManagement.Save(editFormModel);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+
+            return View("Edit", editFormModel);
         }
 
         #endregion

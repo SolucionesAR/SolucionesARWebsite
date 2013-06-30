@@ -24,14 +24,16 @@
 }
 
 @section EditionContent {
-    <div class="edition_content content_box "><div class="entry jspScrollable">
-        <div class="jspContainer" style="width: 960px; height: 400px;">
-            <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
                 @using (Html.BeginForm("Save", "Districts"))
                 {
                     @Html.HiddenFor(model => model.DistrictId)
                     <fieldset>
-                        @Html.EditorFor(model => model.DistrictName)
+                        @Html.LabelFor(model => model.DistrictName)
+                        @Html.TextBoxFor(model => model.DistrictName)
+                        @Html.ValidationMessageFor(model => model.DistrictName)
                     </fieldset>
                     <fieldset>
                         <span>
@@ -43,13 +45,17 @@
                             @Html.DropDownListForCantonslList(ViewBag.CantonsList as System.Collections.IEnumerable, model => model.CantonId)
                         </span>
                     </fieldset>
-                        
-                    <input name="submit" type="submit" value="Submit">
+                    
+                    <br/><br/>
+                    <input name="submit" type="submit" value="Guardar">
                 }
             </div>
         </div>
     </div>
-    
+}
+
+
+@section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
             $("#ProvinceId").change(function () {

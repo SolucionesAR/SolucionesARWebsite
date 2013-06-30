@@ -1,5 +1,4 @@
-﻿@using PagedList.Mvc
-@using SolucionesARWebsite2.Helpers
+﻿@using SolucionesARWebsite2.Helpers
 @using SolucionesARWebsite2.ViewModels.CreditProcesses
 
 @model EditViewModel
@@ -96,7 +95,7 @@
                             </td>
                             <td class="editable-actions-cell">
                                 @Html.ActionLink("Guardar", "SaveProcessFlow", null, new { @class = "button", @id = "save-credit-flow" }) |
-                                @Html.ActionLink("Cancel", "CancelProcessFlow", null, new { @class = "button", @id = "cancel-credit-flow" })
+                                @Html.ActionLink("Cancel", string.Empty, null, new { @class = "button", @id = "cancel-credit-flow" })
                             </td>
                         </tr>
                         @foreach (var item in Model.PagedItems)
@@ -128,7 +127,7 @@
                                     @Html.ActionLink("Detalles", "FlowDetails", new { creditProcessId = item.CreditProcessId, processFlowId = item.CreditProcessXCompanyId }, new { @class = "button" })
                                 </td>
                                 <td class="editable-actions-cell">
-                                    @Html.ActionLink("Editar", "EditProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "edit-credit-flow button", @id = string.Format("edit-credit-flow-{0}", item.CreditProcessXCompanyId) }) |
+                                    @Html.ActionLink("Editar", string.Empty, new { id = item.CreditProcessXCompanyId }, new { @class = "edit-credit-flow button", @id = string.Format("edit-credit-flow-{0}", item.CreditProcessXCompanyId) }) |
                                     @Html.ActionLink("Eliminar", "DeleteProcessFlow", new { id = item.CreditProcessXCompanyId }, new { @class = "delete-credit-flow button", @id = string.Format("delete-credit-flow-{0}", item.CreditProcessXCompanyId) })
                                 </td>
                             </tr>

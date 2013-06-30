@@ -9,16 +9,10 @@ namespace SolucionesARWebsite2.ViewModels.Provinces
 
         #region Properties
 
-        /// <summary>
-        /// The Unique company identifier
-        /// </summary>
         public int ProvinceId { get; set; }
 
-        /// <summary>
-        /// The Identification number
-        /// </summary>
-        [Required]
         [Display(Name = "Nombre*", Prompt = "Nombre")]
+        [Required(ErrorMessage = "Nombre de provincia es requerido")]
         public string ProvinceName { get; set; }
 
         

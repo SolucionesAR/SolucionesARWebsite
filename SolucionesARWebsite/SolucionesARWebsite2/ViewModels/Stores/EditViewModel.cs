@@ -18,12 +18,14 @@ namespace SolucionesARWebsite2.ViewModels.Stores
         /// The store name
         /// </summary>
         [Display(Name = "Nombre*", Prompt = "Nombre")]
+        [Required]
         public string StoreName { get; set; }
 
         /// <summary>
         /// The Company id
         /// </summary>
         [DisplayName("Compañia")]
+        [Required]
         public Company Company { get; set; }
 
         /// <summary>
@@ -34,19 +36,19 @@ namespace SolucionesARWebsite2.ViewModels.Stores
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("Teléfono 1")]
+        [Display(Name = "Teléfono 1", Prompt = "2222-2222")]
         public string PhoneNumber1 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("Teléfono 2")]
+        [Display(Name = "Teléfono 2", Prompt = "2222-2222")]
         public string PhoneNumber2 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DisplayName("Número de Fax")]
+        [Display(Name = "Número de Fax", Prompt = "2222-2222")]
         public string FaxNumber { get; set; }
         
         /// <summary>

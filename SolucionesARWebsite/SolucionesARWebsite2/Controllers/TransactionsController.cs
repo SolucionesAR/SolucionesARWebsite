@@ -50,31 +50,23 @@ namespace SolucionesARWebsite2.Controllers
             var companiesList = _companiesManagement.GetCompaniesList();
             var now = DateTime.Now;
             var editViewModel = new EditViewModel
-            {
-                TransactionId = 0,
-                Amount = 0.0,
-                Points = 50,
-                BillBarCode = "",
-                Company = new Company(),
-                CompaniesList = companiesList,
-                Customer = new User(),
-                //CustomersList = usersList,
-                TransactionDate = now.Day + "/" + now.Month + "/" + now.Year,
-                Comision = 0.0,
-                UsersToShowList = usersToShow
-                //SalesMan = new User(),
-                //ListSalesMan = usersList,
-            };
-            return View("Edit", editViewModel);
-        }
+                {
+                    TransactionId = 0,
+                    Amount = 0.0,
+                    Points = 50,
+                    BillBarCode = "",
+                    Company = new Company(),
+                    CompaniesList = companiesList,
+                    Customer = new User(),
+                    //CustomersList = usersList,
+                    TransactionDate = now.Day + "/" + now.Month + "/" + now.Year,
+                    Comision = 0.0,
+                    UsersToShowList = usersToShow
+                    //SalesMan = new User(),
+                    //ListSalesMan = usersList,
+                };
 
-        private List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
-        {
-            return usersList.Select(user => new UserToShow
-            {
-                UserToShowId = user.UserId,
-                CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
-            }).ToList();
+            return View("Edit", editViewModel);
         }
 
         public ActionResult FileUpload()
@@ -82,22 +74,23 @@ namespace SolucionesARWebsite2.Controllers
             var usersList = GetAvailableUsersList();
             var usersToShow = GenerateUsersToShow(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
-            DateTime now = DateTime.Now;
+            var now = DateTime.Now;
             var editViewModel = new EditViewModel
-            {
-                TransactionId = 0,
-                Amount = 50.0,
-                BillBarCode = "",
-                Company = new Company(),
-                CompaniesList = companiesList,
-                Customer = new User(),
-                //CustomersList = usersList,
-                TransactionDate = now.Day+"/"+now.Month+"/"+now.Year,
-                Comision = 0.0,
-                UsersToShowList = usersToShow
-                //SalesMan = new User(),
-                //ListSalesMan = usersList,
-            };
+                {
+                    TransactionId = 0,
+                    Amount = 50.0,
+                    BillBarCode = "",
+                    Company = new Company(),
+                    CompaniesList = companiesList,
+                    Customer = new User(),
+                    //CustomersList = usersList,
+                    TransactionDate = now.Day + "/" + now.Month + "/" + now.Year,
+                    Comision = 0.0,
+                    UsersToShowList = usersToShow
+                    //SalesMan = new User(),
+                    //ListSalesMan = usersList,
+                };
+
             return View("FileUpload", editViewModel);
         }
 
@@ -107,19 +100,20 @@ namespace SolucionesARWebsite2.Controllers
             var usersList = GetAvailableUsersList();
             var usersToShow = GenerateUsersToShow(usersList);
             var editViewModel = new EditViewModel
-            {
-                TransactionId = id,
-                Amount = transaction.Amount,
-                BillBarCode = transaction.BillBarCode,
-                Company = transaction.Company,
-                CompaniesList = _companiesManagement.GetCompaniesList(),
-                Customer = transaction.User,
-                //CustomersList = GetAvailableUsersList(),
-                Points = transaction.Points,
-                TransactionDate = transaction.TransactionDate.ToString("dd/MM/yyyy"),
-                Comision = transaction.Comision,
-                UsersToShowList = usersToShow
-            };
+                {
+                    TransactionId = id,
+                    Amount = transaction.Amount,
+                    BillBarCode = transaction.BillBarCode,
+                    Company = transaction.Company,
+                    CompaniesList = _companiesManagement.GetCompaniesList(),
+                    Customer = transaction.User,
+                    //CustomersList = GetAvailableUsersList(),
+                    Points = transaction.Points,
+                    TransactionDate = transaction.TransactionDate.ToString("dd/MM/yyyy"),
+                    Comision = transaction.Comision,
+                    UsersToShowList = usersToShow
+                };
+
             return View("Edit", editViewModel);
         }
 
@@ -131,24 +125,24 @@ namespace SolucionesARWebsite2.Controllers
                 Transaction transaction;
                 var company = _companiesManagement.GetCompany(editFormModel.Company.CompanyId);
                 var comision = editFormModel.Comision < 0.0000001
-                                       ? editFormModel.Amount * company.CashBackPercentaje / 100
-                                       : editFormModel.Comision;
+                                   ? editFormModel.Amount*company.CashBackPercentaje/100
+                                   : editFormModel.Comision;
                 if (editFormModel.TransactionId == 0)
                 {
 
                     transaction = new Transaction
-                    {
-                        TransactionId = 0,
-                        Amount = editFormModel.Amount,
-                        BillBarCode = editFormModel.BillBarCode,
-                        CreatetedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                        TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate),
-                        UserId = editFormModel.Customer.UserId,
-                        Points = editFormModel.Points,
-                        CompanyId = editFormModel.Company.CompanyId,
-                        Comision = comision,
-                    };
+                        {
+                            TransactionId = 0,
+                            Amount = editFormModel.Amount,
+                            BillBarCode = editFormModel.BillBarCode,
+                            CreatetedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now,
+                            TransactionDate = Convert.ToDateTime(editFormModel.TransactionDate),
+                            UserId = editFormModel.Customer.UserId,
+                            Points = editFormModel.Points,
+                            CompanyId = editFormModel.Company.CompanyId,
+                            Comision = comision,
+                        };
                     _transactionsManagement.SaveTransaction(transaction);
                     return RedirectToAction("Index");
                 }
@@ -165,16 +159,13 @@ namespace SolucionesARWebsite2.Controllers
                 _transactionsManagement.UpdateTransaction();
                 return RedirectToAction("Index");
             }
-            else
-            {
 
-                //editFormModel.CustomersList = GetAvailableUsersList();
-                var usersList = GetAvailableUsersList();
-                var usersToShow = GenerateUsersToShow(usersList);
-                editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
-                editFormModel.UsersToShowList = usersToShow;
-                return View("Edit", editFormModel);
-            }
+            //editFormModel.CustomersList = GetAvailableUsersList();
+            var usersList = GetAvailableUsersList();
+            var usersToShow = GenerateUsersToShow(usersList);
+            editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
+            editFormModel.UsersToShowList = usersToShow;
+            return View("Edit", editFormModel);
         }
 
         [HttpPost]
@@ -204,6 +195,16 @@ namespace SolucionesARWebsite2.Controllers
         #endregion
 
         #region Private Methods
+
+        private static List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
+        {
+            return usersList.Select(user => new UserToShow
+            {
+                UserToShowId = user.UserId,
+                CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
+            }).ToList();
+        }
+
         #endregion
     }
 }

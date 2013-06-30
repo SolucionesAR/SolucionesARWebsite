@@ -1,8 +1,9 @@
-﻿using SolucionesARWebsite2.ViewModels.Lists;
+﻿using PagedList;
+using SolucionesARWebsite2.Models;
 
 namespace SolucionesARWebsite2.ViewModels.Stores
 {
-    public class IndexViewModel : BaseViewModel
+    public class IndexViewModel : BaseListModel
     {
         #region Constants
         #endregion
@@ -12,7 +13,7 @@ namespace SolucionesARWebsite2.ViewModels.Stores
         /// <summary>
         /// Displayed items
         /// </summary>
-        public StoresList StoresList { get; set; }
+        public IPagedList<Store> PagedItems { get; set; }
 
         #endregion
 

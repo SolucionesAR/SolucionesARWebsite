@@ -77,6 +77,10 @@ namespace SolucionesARWebsite2.Enumerations
         AvailableUsers,
         [Value("ProcessFlows")]
         ProcessFlows,
+        [Value("SolucionesAR")]
+// ReSharper disable InconsistentNaming
+        SolucionesARName = 1,
+// ReSharper restore InconsistentNaming
     }
 
     public enum ApplicationReports

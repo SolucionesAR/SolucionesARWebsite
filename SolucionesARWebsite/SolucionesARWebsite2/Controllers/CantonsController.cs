@@ -76,10 +76,11 @@ namespace SolucionesARWebsite2.Controllers
             if (ModelState.IsValid)
             {
                 _cantonsManagement.Save(editFormModel);
+                return RedirectToAction("Index");
             }
+
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
             return View("Edit", editFormModel);
-            //return RedirectToAction("Index");
         }
 
         [HttpGet]

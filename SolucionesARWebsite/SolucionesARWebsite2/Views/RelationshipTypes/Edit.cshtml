@@ -11,11 +11,11 @@
 @section Header {
     @if (Model.RelationshipTypesId > 0)
     {
-        <h1>EDITAR RELACION</h1>
+        <h1>EDITAR TIPO DE RELACION</h1>
     }
     else
     {
-        <h1>NUEVA RELACION</h1>
+        <h1>NUEVO TIPO DE RELACION</h1>
     }
     
 }
@@ -24,16 +24,24 @@
     @Html.ValidationSummary()
 }
 
-
 @section EditionContent {
-    @using (Html.BeginForm("Save", "RelationshipTypes"))
-    {
-        @Html.HiddenFor(model => model.RelationshipTypesId)
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "RelationshipTypes"))
+                {
+                    @Html.HiddenFor(model => model.RelationshipTypesId)
 
-        <fieldset>
-            @Html.EditorFor(model => model.Description)
-        </fieldset>
-                            
-        <input name="submit" type="submit" value="Submit">
-    }
+                    <fieldset>
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextBoxFor(model => model.Description)
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </fieldset>
+                    
+                    <br/><br/>
+                    <input name="submit" type="submit" value="Guardar">
+                }
+            </div>
+        </div>
+    </div>
 }

@@ -23,21 +23,30 @@
     @Html.ValidationSummary()
 }
 
-
 @section EditionContent {
-    @using (Html.BeginForm("Save", "Cantons"))
-    {
-        @Html.HiddenFor(model => model.CantonId)
-        <fieldset>
-            @Html.EditorFor(model => model.CantonName)
-        </fieldset>
-        <fieldset>
-            <span>
-                @Html.LabelFor(model => model.ProvinceId) <br/>
-                @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
-                </span>
-        </fieldset>
-                            
-        <input name="submit" type="submit" value="Submit">
-    }
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Cantons"))
+                {
+                    @Html.HiddenFor(model => model.CantonId)
+                    <fieldset>
+                        @Html.LabelFor(model => model.CantonName)
+                        @Html.TextBoxFor(model => model.CantonName)
+                        @Html.ValidationMessageFor(model => model.CantonName)
+                    </fieldset>
+                    <fieldset>
+                        <span>
+                            @Html.LabelFor(model => model.ProvinceId) <br/>
+                            @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
+                            @Html.ValidationMessageFor(model => model.ProvinceId)
+                        </span>
+                    </fieldset>
+        
+                    <br /><br />     
+                    <input name="submit" type="submit" value="Guardar">
+                }
+            </div>
+        </div>
+    </div>
 }

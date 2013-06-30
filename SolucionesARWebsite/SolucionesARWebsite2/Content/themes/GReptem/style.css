@@ -83,8 +83,8 @@ button { width:auto; overflow:visible; }
 body {  color:#fff; }
 select, input, textarea { color:#333; }
 h1, h2, h3, h4, h5, h6 { font-weight:normal; line-height: normal; }
-a, a:active, a:visited { color:#000; text-decoration:none; }
-a:hover { color:rgba(0, 0, 0, 0.7); }
+td a, td a:active, td a:visited { color: #fff; text-decoration:none; }
+td a:hover { color: #fff; text-decoration: underline; }
 
 /* --------------------------- */
 /* --------- 2. MAIN --------- */
@@ -245,6 +245,7 @@ a:hover { color:rgba(0, 0, 0, 0.7); }
 		display: block;
 		color: #000;
 		position: relative;
+		text-decoration: none;
 	}
 	nav li .ca-icon {
 		font-family: 'WebSymbolsRegular', cursive;
@@ -278,16 +279,22 @@ a:hover { color:rgba(0, 0, 0, 0.7); }
 		-ms-transform:scale(1.1);
 		-o-transform:scale(1.1);
 		transform:scale(1.1);
+		color: #fff;
 	}
 	nav li:hover .ca-icon {
 		color:#fff;
 		font-size:80px;
 		filter:alpha(opacity=80);
 		opacity:0.8;
+		color: #fff;
 	}
 	nav li:hover .ca-main {
 		color:#fff;
 		top: 152px;
+	}
+	nav li a:hover,
+	nav li a span:hover {
+		color:#fff;
 	}
 	div#top-menu {
 	    margin-top: -5%;
@@ -792,10 +799,13 @@ form .main-actions .button {
 	font-size:15px;
 	line-height:30px;
     text-align: center;
+    text-decoration: none;
 }
-form .main-actions .button :hover {
-	background-color:rgba(0, 0, 0, 0.5);
-	color:#fff;
+form .main-actions .button:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    color: #fff;
+    opacity: 0.8;
 }
 .edition_content form textarea {
 	background:rgba(0, 0, 0, 0.5);

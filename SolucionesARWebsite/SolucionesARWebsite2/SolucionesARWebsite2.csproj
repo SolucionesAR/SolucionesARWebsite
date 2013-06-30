@@ -9,7 +9,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A9DBD1C4-43BF-45C4-8E4B-F1717633780A}</ProjectGuid>
     <!--<ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids> -->
-	    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SolucionesARWebsite2</RootNamespace>
@@ -198,25 +198,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="App_Start\Business\Logic\AccountLogic.cs" />
-    <Compile Include="App_Start\Business\Logic\TransactionsLogic.cs" />
-    <Compile Include="App_Start\Business\Logic\UsersLogic.cs" />
-    <Compile Include="App_Start\Business\Management\CantonsManagement.cs" />
-    <Compile Include="App_Start\Business\Management\CompaniesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\CreditProcessesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\CreditProcessLogsManagement.cs" />
-    <Compile Include="App_Start\Business\Management\CustomersManagement.cs" />
-    <Compile Include="App_Start\Business\Management\CreditStatusesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\DistrictsManagement.cs" />
-    <Compile Include="App_Start\Business\Management\IdentificationTypesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\InventoryManagement.cs" />
-    <Compile Include="App_Start\Business\Management\LocationsManagement.cs" />
-    <Compile Include="App_Start\Business\Management\ProvincesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\RelationshipTypesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\RolesManagement.cs" />
-    <Compile Include="App_Start\Business\Management\StoresManagement.cs" />
-    <Compile Include="App_Start\Business\Management\TransactionsManagement.cs" />
-    <Compile Include="App_Start\Business\Management\UsersManagement.cs" />
+    <Compile Include="Business\Logic\AccountLogic.cs" />
+    <Compile Include="Business\Logic\TransactionsLogic.cs" />
+    <Compile Include="Business\Logic\UsersLogic.cs" />
+    <Compile Include="Business\Management\CantonsManagement.cs" />
+    <Compile Include="Business\Management\CompaniesManagement.cs" />
+    <Compile Include="Business\Management\CreditProcessesManagement.cs" />
+    <Compile Include="Business\Management\CreditProcessLogsManagement.cs" />
+    <Compile Include="Business\Management\CustomersManagement.cs" />
+    <Compile Include="Business\Management\CreditStatusesManagement.cs" />
+    <Compile Include="Business\Management\DistrictsManagement.cs" />
+    <Compile Include="Business\Management\IdentificationTypesManagement.cs" />
+    <Compile Include="Business\Management\LocationsManagement.cs" />
+    <Compile Include="Business\Management\ProvincesManagement.cs" />
+    <Compile Include="Business\Management\RelationshipTypesManagement.cs" />
+    <Compile Include="Business\Management\RolesManagement.cs" />
+    <Compile Include="Business\Management\StoresManagement.cs" />
+    <Compile Include="Business\Management\TransactionsManagement.cs" />
+    <Compile Include="Business\Management\UsersManagement.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CantonsController.cs" />
@@ -227,7 +226,6 @@
     <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentificationTypesController.cs" />
-    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
     <Compile Include="Controllers\RelationshipTypesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -250,7 +248,6 @@
     <Compile Include="DataAccess\Interfaces\IStoresRepository.cs" />
     <Compile Include="DataAccess\Interfaces\ITransactionsRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IUsersRepository.cs" />
-    <Compile Include="DataAccess\InventoryAccess.cs" />
     <Compile Include="DataAccess\LocationsAccess.cs" />
     <Compile Include="DataAccess\Repositories\CantonsRepository.cs" />
     <Compile Include="DataAccess\Repositories\CompaniesRepository.cs" />
@@ -354,12 +351,14 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\solucionesar.errors.css" />
     <Content Include="Content\images\creditprocess.png" />
     <Content Include="Content\images\creditprocess_menu.png" />
     <Content Include="Content\images\creditstatus.png" />
     <Content Include="Content\images\creditstatus_menu.png" />
     <Content Include="Content\images\users.png" />
     <Content Include="Content\images\users_menu.png" />
+    <Content Include="Images\error_image.gif" />
     <Content Include="Images\jquery.confirm\body_bg.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -461,7 +460,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="Scripts\Copy of solucionesar.credit-processes.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery.confirm.js" />
@@ -491,7 +489,6 @@
     <Compile Include="ViewModels\Customers\IndexViewModel.cs" />
     <Compile Include="ViewModels\Districts\EditViewModel.cs" />
     <Compile Include="ViewModels\Districts\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Forms\Inventory\UploadFormModel.cs" />
     <Compile Include="ViewModels\IdentificationTypes\EditViewModel.cs" />
     <Compile Include="ViewModels\IdentificationTypes\IndexViewModel.cs" />
     <Compile Include="ViewModels\Lists\InventoryList.cs" />
@@ -509,6 +506,7 @@
     <Compile Include="ViewModels\Reports\CustomerReportViewModel.cs" />
     <Compile Include="ViewModels\Reports\IndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\Report.cs" />
+    <Compile Include="ViewModels\Reports\TransactionForFileType.cs" />
     <Compile Include="ViewModels\Reports\UserToShow.cs" />
     <Compile Include="ViewModels\Roles\EditViewModel.cs" />
     <Compile Include="ViewModels\Roles\IndexViewModel.cs" />
@@ -522,9 +520,6 @@
     <Compile Include="ViewModels\Users\PayViewModel.cs" />
     <Compile Include="ViewModels\Users\EditViewModel.cs" />
     <Compile Include="ViewModels\Users\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Views\Inventory\DetailsViewModel.cs" />
-    <Compile Include="ViewModels\Views\Inventory\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Views\Inventory\UploadViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
@@ -678,9 +673,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Header.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Inventory\Details.cshtml" />
-    <Content Include="Views\Inventory\Index.cshtml" />
-    <Content Include="Views\Inventory\New.cshtml" />
     <Content Include="Views\Provinces\Edit.cshtml" />
     <Content Include="Views\Provinces\Index.cshtml" />
     <Content Include="Views\Reports\Application.cshtml" />

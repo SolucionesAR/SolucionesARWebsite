@@ -12,6 +12,7 @@ namespace SolucionesARWebsite2.ViewModels.IdentificationTypes
         public int IdentificationTypeId { get; set; }
 
         [Display(Name = "Descripcion*", Prompt = "Descripcion")]
+        [Required(ErrorMessage = "Descripcion es requerida")]
         public string Description { get; set; }
         
         #endregion

@@ -1,5 +1,6 @@
 ﻿@using SolucionesARWebsite2.Helpers
 @using SolucionesARWebsite2.ViewModels.Users
+
 @model EditViewModel
 @{
     ViewBag.Title = "SolucionesAR | Usuarios";
@@ -42,7 +43,6 @@
                             <br />
                             @Html.DropDownListForIdenficationlList(model => model.IdentificationType.IdentificationTypeId)
                         </span>
-                        @Html.ValidationMessageFor(model => model.IdentificationNumber)
                         @Html.EditorFor(model => model.IdentificationNumber)
                         @Html.EditorFor(model => model.Nationality)
                         @Html.EditorFor(model => model.Enabled)
@@ -59,11 +59,13 @@
                             @Html.LabelFor(model => model.Day)
                             <br />
                             @Html.DropDownListFor(model => model.Day, Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Día --")
-                        </span><span>
+                        </span>
+                        <span>
                             @Html.LabelFor(model => model.Month)
                             <br />
                             @Html.DropDownListFor(model => model.Month, Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }), "-- Mes --")
-                        </span><span>
+                        </span>
+                        <span>
                             @Html.LabelFor(model => model.Year)
                             <br />
                             @Html.DropDownListFor(model => model.Year, Enumerable.Range(1920, DateTime.Now.Year).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Año --")
@@ -76,11 +78,13 @@
                             @Html.LabelFor(model => model.ProvinceId)
                             <br />
                             @Html.DropDownListForProviceslList(ViewBag.ProvincesList as System.Collections.IEnumerable, model => model.ProvinceId)
-                        </span><span>
+                        </span>
+                        <span>
                             @Html.LabelFor(model => model.CantonId)
                             <br />
                             @Html.DropDownListForCantonslList(ViewBag.CantonsList as System.Collections.IEnumerable, model => model.CantonId)
-                        </span><span>
+                        </span>
+                        <span>
                             @Html.LabelFor(model => model.DistrictId)
                             <br />
                             @Html.DropDownListForCantonslList(ViewBag.DistrictsList as System.Collections.IEnumerable, model => model.DistrictId)
@@ -93,77 +97,60 @@
                             @Html.LabelFor(model => model.RelationshipType)
                             <br />
                             @Html.DropDownListForRelationshipTypeslList(model => model.RelationshipType.RelationshipTypeId)
-                        </span><span>
+                        </span>
+                        <span>
                             @Html.LabelFor(model => model.UserRol)
                             <br />
                             @Html.DropDownListForRolesList(model => model.UserRol.RolId)
-                        </span><span>
+                        </span>
+                        <span>
                             @Html.LabelFor(model => model.Company)
                             <br />
                             @Html.DropDownListForCompanieslList(model => model.Company.CompanyId)
                         </span>
                     </fieldset>
-                
-                    <div class="main-actions">
-                        <input name="submit" type="submit" value="Guardar">
-                    </div>
+                    
+                    <br /><br />
+                    <input name="submit" type="submit" value="Guardar">
                 }
             </div>
         </div>
-        </div>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $(".datepicker").datepicker({
-                    changeMonth: true,
-                    changeYear: true
-                });
+    </div>
+}
 
-                //display the required masks
-                $("#IdentificationNumber").mask("9-9999-9999");
-                $("#PhoneNumber").mask("9999-9999");
-                $("#Cellphone").mask("9999-9999");
-                $("#ParentIdentificationNumber").mask("?9-9999-9999");
 
-                //handle the IdentificationNumber mask
-                $("#IdentificationType_IdentificationTypeId").change(function () {
-                    var identificationType = $(this).val();
-                    //cédula
-                    if (identificationType == 1) {
-                        $("#IdentificationNumber").mask("9-9999-9999");
-                    }
-                    else {
-                        $("#IdentificationNumber").unmask();
-                    }
-                });
-
-                //handle the cantons values
-                $("#ProvinceId").change(function () {
-                    var provinceId = $(this).val();
-                    $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
-                        function (result) {
-                            var select = $("#CantonId");
-                            select.empty();
-                            $.each(result, function (index, itemData) {
-                                select.append($('<option/>', {
-                                    value: itemData.Value,
-                                    text: itemData.Text
-                                }));
-                            });
-                            updateDistricts(result[0].Value);
-                        });
-                });
-
-                //handle the districts values
-                $("#CantonId").change(function () {
-                    var cantonId = $(this).val();
-                    updateDistricts(cantonId);
-                });
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true
             });
 
-            function updateDistricts(cantonId) {
-                $.getJSON("/Districts/GetDistrictsByCanton", { cantonId: cantonId },
+            //display the required masks
+            $("#IdentificationNumber").mask("9-9999-9999");
+            $("#PhoneNumber").mask("9999-9999");
+            $("#Cellphone").mask("9999-9999");
+            $("#ParentIdentificationNumber").mask("?9-9999-9999");
+
+            //handle the IdentificationNumber mask
+            $("#IdentificationType_IdentificationTypeId").change(function () {
+                var identificationType = $(this).val();
+                //cédula
+                if (identificationType == 1) {
+                    $("#IdentificationNumber").mask("9-9999-9999");
+                }
+                else {
+                    $("#IdentificationNumber").unmask();
+                }
+            });
+
+            //handle the cantons values
+            $("#ProvinceId").change(function () {
+                var provinceId = $(this).val();
+                $.getJSON("/Cantons/GetCantonsByProvice", { provinceId: provinceId },
                     function (result) {
-                        var select = $("#DistrictId");
+                        var select = $("#CantonId");
                         select.empty();
                         $.each(result, function (index, itemData) {
                             select.append($('<option/>', {
@@ -171,7 +158,29 @@
                                 text: itemData.Text
                             }));
                         });
+                        updateDistricts(result[0].Value);
                     });
-            }
-        </script>
+            });
+
+            //handle the districts values
+            $("#CantonId").change(function () {
+                var cantonId = $(this).val();
+                updateDistricts(cantonId);
+            });
+        });
+
+        function updateDistricts(cantonId) {
+            $.getJSON("/Districts/GetDistrictsByCanton", { cantonId: cantonId },
+                function (result) {
+                    var select = $("#DistrictId");
+                    select.empty();
+                    $.each(result, function (index, itemData) {
+                        select.append($('<option/>', {
+                            value: itemData.Value,
+                            text: itemData.Text
+                        }));
+                    });
+                });
+        }
+    </script>
 }

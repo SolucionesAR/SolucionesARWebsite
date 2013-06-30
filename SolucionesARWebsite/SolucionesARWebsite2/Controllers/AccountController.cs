@@ -31,14 +31,8 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Login(string returnUrl)
         {
             HttpContext.Response.Cookies.Remove("__RequestVerificationToken_Lw__");
-            /*
-            if (!string.IsNullOrEmpty(homePage) && (access == null || !access.Value))
-                return Redirect(homePage);
-
-            if (_authManager.IsLoggedIn())
-                return Redirect(_authManager.GetDefaultUrl());
-            */
             var loginViewModel = new LoginViewModel();
+
             return View(loginViewModel);
         }
         
@@ -51,12 +45,14 @@ namespace SolucionesARWebsite2.Controllers
             {
                 FormsAuthentication.SetAuthCookie(loginFormModel.Username, false);
                 Session[Constants.RoleBasedMenu.ToStringValue()] = null;
+
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("Username", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("Username", "El Nombre de Usuario o la contraseña es incorrecta");
             loginFormModel.Password = string.Empty;
+
             return View(loginFormModel);
         }
 
@@ -69,11 +65,13 @@ namespace SolucionesARWebsite2.Controllers
             {
                 FormsAuthentication.SetAuthCookie(loginFormModel.Username, false);
                 Session[Constants.RoleBasedMenu.ToStringValue()] = null;
+
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("Username", "Hey you...! We got you :P");
+
             return View("Login", loginFormModel);
         }
 
@@ -81,6 +79,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             FormsAuthentication.SignOut();
             Session[Constants.RoleBasedMenu.ToStringValue()] = null;
+
             return RedirectToAction("Index", "Home");
         }
 

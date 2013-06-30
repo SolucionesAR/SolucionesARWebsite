@@ -20,31 +20,40 @@
 
 @section Messages {
     @Html.ValidationSummary()
-    <p class="note">Favor complete el siguiente formulario</p>
 }
 
 @section EditionContent {
-    <div class="edition_content content_box ">
-        <div class="entry jspScrollable">
-            <div class="jspContainer" style="width: 960px; height: 400px;">
-                <div class="jspPane" style="padding: 15px 25px 0px; top: 0px;">
-                    @using (Html.BeginForm("Save", "Companies"))
-                    {
-                        @Html.HiddenFor(model => model.CompanyId)
-                        <fieldset>
-                            @Html.EditorFor(model => model.CorporateId)
-                            @Html.EditorFor(model => model.CompanyName)
-                            @Html.EditorFor(model => model.CompanyNickname)
-                        </fieldset>
-                        <fieldset>
-                            @Html.EditorFor(model => model.CashBackPercentaje)
-                            @Html.EditorFor(model => model.Enabled)
-                            @Html.EditorFor(model => model.IsFinantial)
-                        </fieldset>
-                        <input name="submit" type="submit" value="Guardar">
-                    }
-                </div>
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "Companies"))
+                {
+                    <p class="note">Favor complete el siguiente formulario</p>
+                    @Html.HiddenFor(model => model.CompanyId)
+                    <fieldset>
+                        @Html.EditorFor(model => model.CorporateId)
+                        @Html.EditorFor(model => model.CompanyName)
+                        @Html.EditorFor(model => model.CompanyNickname)
+                    </fieldset>
+                    <fieldset>
+                        @Html.EditorFor(model => model.CashBackPercentage)
+                        @Html.EditorFor(model => model.Enabled)
+                        @Html.EditorFor(model => model.IsFinantial)
+                    </fieldset>
+                    
+                    <br /><br />
+                    <input name="submit" type="submit" value="Guardar">
+                }
             </div>
         </div>
     </div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //display the required masks
+            $("#CorporateId").mask("9-999-999999");
+        });
+    </script>
 }

@@ -11,11 +11,11 @@
 @section Header {
     @if (Model.CreditStatusId > 0)
     {
-        <h1>EDITAR ESTADO</h1>
+        <h1>EDITAR ESTADO DE CREDITO</h1>
     }
     else
     {
-        <h1>NUEVA ESTADO</h1>
+        <h1>NUEVO ESTADO DE CREDITO</h1>
     }
 }
 
@@ -25,14 +25,23 @@
 
 
 @section EditionContent {
-    @using (Html.BeginForm("Save", "CreditStatuses"))
-    {
-        @Html.HiddenFor(model => model.CreditStatusId)
+    <div class="entry jspScrollable">
+        <div class="jspContainer">
+            <div class="jspPane">
+                @using (Html.BeginForm("Save", "CreditStatuses"))
+                {
+                    @Html.HiddenFor(model => model.CreditStatusId)
 
-        <fieldset>
-            @Html.EditorFor(model => model.CreditStatusDescription)
-        </fieldset>
-                            
-        <input name="submit" type="submit" value="Submit">
-    }
+                    <fieldset>
+                        @Html.LabelFor(model => model.CreditStatusDescription)
+                        @Html.TextBoxFor(model => model.CreditStatusDescription)
+                        @Html.ValidationMessageFor(model => model.CreditStatusDescription)
+                    </fieldset>
+                    
+                    <br/><br/>
+                    <input name="submit" type="submit" value="Guardar">
+                }
+            </div>
+        </div>
+    </div>
 }

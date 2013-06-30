@@ -12,12 +12,12 @@ namespace SolucionesARWebsite2.ViewModels.Cantons
         [Required]
         public int CantonId { get; set; }
 
-        [Required]
         [Display(Name = "Provincia*")]
+        [Required(ErrorMessage = "Provincia es requerida")]
         public int ProvinceId { get; set; }
 
-        [Required]
         [Display(Name = "Nombre*", Prompt = "Nombre")]
+        [Required(ErrorMessage = "Nombre del canton es requerido")]
         public string CantonName { get; set; }
         
         #endregion

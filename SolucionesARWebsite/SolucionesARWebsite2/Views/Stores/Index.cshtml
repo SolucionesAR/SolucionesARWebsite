@@ -1,4 +1,5 @@
-﻿@using SolucionesARWebsite2.ViewModels.Stores
+﻿@using PagedList.Mvc
+@using SolucionesARWebsite2.ViewModels.Stores
 
 @model IndexViewModel
 
@@ -14,13 +15,20 @@
     TIENDAS
 }
 
+@section ListPaging {
+    @{      
+        @Html.PagedListPager(Model.PagedItems,
+            page => Url.Action("Index", new RouteValueDictionary {
+                   { "Page", page },
+                   { "EmailAddress", Model.EmailAddress },
+                   { "LastName", Model.LastName }
+            }),
+            PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }   
+}
+
 @section ListActions {
-   @* @if (Model.StoresList.HasFilters())
-    {
-        @Html.ActionLink("Mostrar Todo", "Index", null, new { @class = "button" } )
-    }*@
-        @Html.ActionLink("Nueva Tienda", "Create", null, new { @class = "button" })
-    }
+    @Html.ActionLink("Nueva Tienda", "Create", null, new { @class = "button" })
 }
 
 @section ListContent {
@@ -37,11 +45,12 @@
                     <th>
                         Compañia
                     </th>
-                    
-                    <th></th>
+                    <th>
+                        Acciones
+                    </th>
                 </tr>
 
-                @foreach (var item in Model.StoresList.Items) {
+                @foreach (var item in Model.PagedItems) {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.StoreId)
@@ -60,15 +69,4 @@
             </table>
         </div>
     </div>
-}
-
-@section ListPaging {
-    @{
-        /*
-        @Html.DropDownListForPaging(4, 5, Model.RouteValues)
-        var totalLabel = Model.UsersList.TotalItems != 1 ? "users" : "user";
-        @ListHelper.TotalItems(Model.UsersList.TotalItems, totalLabel)
-        @ListHelper.Paging(Url, Model.UsersList)
-        */
-    }
 }

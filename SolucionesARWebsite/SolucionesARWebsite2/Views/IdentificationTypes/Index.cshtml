@@ -28,7 +28,7 @@
 }
 
 @section ListActions {
-        @Html.ActionLink("Nuevo Tipo de Identificacion", "Create", null, new { @class = "button" })
+        @Html.ActionLink("Nuevo Tipo", "Create", null, new { @class = "button" })
     }
 }
 
@@ -43,8 +43,9 @@
                     <th>
                         Nombre
                     </th>
-                    
-                    <th></th>
+                    <th>
+                        Acciones
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.PagedItems) {

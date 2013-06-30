@@ -8,7 +8,7 @@
 }
 
 @section Messages {
-
+    @Html.ValidationSummary()
 }
 
 @section PublicContent {
@@ -20,11 +20,14 @@
                     {
                         @Html.AntiForgeryToken()
                         <fieldset>
-                            @Html.EditorFor(model => model.Username)
+                            @Html.LabelFor(model => model.Username)
+                            @Html.TextBoxFor(model => model.Username)
+                            @Html.ValidationMessageFor(model => model.Username)
                         </fieldset>
                         <fieldset>
                             @Html.LabelFor(model => model.Password)
                             @Html.PasswordFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
                         </fieldset>
                         <input name="submit" type="submit" value="Ingresar">
                     }

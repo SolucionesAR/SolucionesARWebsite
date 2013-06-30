@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SolucionesARWebsite2.ViewModels.Users
 {
@@ -37,12 +38,8 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// <summary>
         /// The total amount of users cash back with colones format 
         /// </summary>
-        public double LastCashback { get; set; }
-
-        /// <summary>
-        /// The total amount of users cash back with colones format 
-        /// </summary>
         [DisplayName("Monto a Debitar")]
+        [Required]
         public double Cashback { get; set; }
 
         #endregion
