@@ -74,6 +74,18 @@ namespace SolucionesARWebsite2.DataAccess.Repositories
             _databaseModel.SaveChanges();
         }
 
+        public List<User> GetOtherUsers(int id)
+        {
+            var users = _databaseModel.Users.Where(u => u.Enabled).ToList();
+            var userToRemove = _databaseModel.Users.FirstOrDefault(u => u.UserId == id);
+            
+            if (userToRemove != null)
+            {
+                users.Remove(userToRemove);
+            }
+            return users;
+        }
+
         public List<User> GetOrderedUsersList()
         {
             var users = _databaseModel.Users.OrderBy(u => u.CedNumber).ToList();

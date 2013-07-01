@@ -39,7 +39,7 @@ namespace SolucionesARWebsite2.ViewModels.Customers
         /// <summary>
         /// The users phone number
         /// </summary>
-        [Display(Name = "Teléfono Fijo", Prompt = "2222-2222")]
+        [Display(Name = "Teléfono", Prompt = "8888-8888")]
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -57,9 +57,18 @@ namespace SolucionesARWebsite2.ViewModels.Customers
         /// <summary>
         /// Salary per month
         /// </summary>
-        [Display(Name = "Salario", Prompt = "Salario")]
+        [Display(Name = "Salario", Prompt = "0")]
         public string Salary { get; set; }
 
+        /// <summary>
+        /// Laboral Time
+        /// </summary>
+        [Display(Name = "Tiempo de Laborar", Prompt = "Años")]
+        public string LaboralTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime CreatedAt { get; set; }
         #endregion
         

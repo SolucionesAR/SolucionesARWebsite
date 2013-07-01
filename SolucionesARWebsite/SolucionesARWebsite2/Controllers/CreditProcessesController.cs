@@ -56,8 +56,8 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Create()
         {
-            var usersToShow = GenerateUsersToShow(GetAvailableUsersList());
-            var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
+            var usersToShow = GenerateUsersToShowList(GetAvailableUsersList());
+            var customersToShow = GenerateCustomersToShowList(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
                                         CreditProcessId = 0,
@@ -79,8 +79,8 @@ namespace SolucionesARWebsite2.Controllers
         {
             var creditProcess = _creditProcessesManagement.GetCreditProcess(id);
             var flowsPerCreditProcessList = _creditProcessesManagement.GetFlowsPerCreditProcess(id);
-            var usersToShow = GenerateUsersToShow(GetAvailableUsersList());
-            var customersToShow = GenerateUsersToShow(_customersManagement.GetCustomers());
+            var usersToShow = GenerateUsersToShowList(GetAvailableUsersList());
+            var customersToShow = GenerateCustomersToShowList(_customersManagement.GetCustomers());
             var editViewModel = new EditViewModel
                                     {
                                         CreditProcessId = id,
@@ -102,18 +102,19 @@ namespace SolucionesARWebsite2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(EditViewModel editFormModel)
+        public ActionResult Save(EditViewModel editViewModel)
         {
             if (ModelState.IsValid)
             {
                 //this call includes the credit flows as extra parameter 
-                var processFlowsList = GetCurrentProcessFlows(editFormModel.CreditProcessId);
-                _creditProcessesManagement.Save(editFormModel, processFlowsList);
-                ClearCurrentProcessFlows(editFormModel.CreditProcessId);
+                var processFlowsList = GetCurrentProcessFlows(editViewModel.CreditProcessId);
+                _creditProcessesManagement.Save(editViewModel, processFlowsList);
+                ClearCurrentProcessFlows(editViewModel.CreditProcessId);
                 return RedirectToAction("Index");   
             }
-
-            return View("Edit", editFormModel);
+            editViewModel.SalesmenList = GenerateUsersToShowList(GetAvailableUsersList());
+            editViewModel.CustomersList = GenerateCustomersToShowList(_customersManagement.GetCustomers());
+            return View("Edit", editViewModel);
         }
 
         [HttpPost]
@@ -202,24 +203,6 @@ namespace SolucionesARWebsite2.Controllers
         #endregion
 
         #region Private Members
-
-        private List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
-        {
-            return usersList.Select(user => new UserToShow
-                {
-                    UserToShowId = user.UserId,
-                    CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
-                }).ToList();
-        }
-
-        private List<UserToShow> GenerateUsersToShow(IEnumerable<Customer> customersList)
-        {
-            return customersList.Select(customer => new UserToShow
-                {
-                    UserToShowId = customer.CustomerId,
-                    CustomerName = customer.FName + " " + customer.LName + " - " + customer.CedNumber
-                }).ToList();
-        }
 
         private List<ProcessFlowViewModel> GetCurrentProcessFlows(int creditProcessId)
         {

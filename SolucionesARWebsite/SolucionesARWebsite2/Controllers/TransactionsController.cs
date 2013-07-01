@@ -46,7 +46,7 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Create()
         {
             var usersList = GetAvailableUsersList();
-            var usersToShow = GenerateUsersToShow(usersList);
+            var usersToShow = GenerateUsersToShowList(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
             var now = DateTime.Now;
             var editViewModel = new EditViewModel
@@ -72,7 +72,7 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult FileUpload()
         {
             var usersList = GetAvailableUsersList();
-            var usersToShow = GenerateUsersToShow(usersList);
+            var usersToShow = GenerateUsersToShowList(usersList);
             var companiesList = _companiesManagement.GetCompaniesList();
             var now = DateTime.Now;
             var editViewModel = new EditViewModel
@@ -98,7 +98,7 @@ namespace SolucionesARWebsite2.Controllers
         {
             var transaction = _transactionsManagement.GetTransaction(id);
             var usersList = GetAvailableUsersList();
-            var usersToShow = GenerateUsersToShow(usersList);
+            var usersToShow = GenerateUsersToShowList(usersList);
             var editViewModel = new EditViewModel
                 {
                     TransactionId = id,
@@ -160,9 +160,9 @@ namespace SolucionesARWebsite2.Controllers
                 return RedirectToAction("Index");
             }
 
-            //editFormModel.CustomersList = GetAvailableUsersList();
+            //editViewModel.CustomersList = GetAvailableUsersList();
             var usersList = GetAvailableUsersList();
-            var usersToShow = GenerateUsersToShow(usersList);
+            var usersToShow = GenerateUsersToShowList(usersList);
             editFormModel.CompaniesList = _companiesManagement.GetCompaniesList();
             editFormModel.UsersToShowList = usersToShow;
             return View("Edit", editFormModel);
@@ -196,14 +196,7 @@ namespace SolucionesARWebsite2.Controllers
 
         #region Private Methods
 
-        private static List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
-        {
-            return usersList.Select(user => new UserToShow
-            {
-                UserToShowId = user.UserId,
-                CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
-            }).ToList();
-        }
+
 
         #endregion
     }

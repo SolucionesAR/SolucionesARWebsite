@@ -64,5 +64,13 @@ namespace SolucionesARWebsite2.Helpers
                                               new SelectList(districtsList, "DistrictId", "Name",
                                                              htmlHelper.ViewData.Model.DistrictId));
         }
+
+        public static MvcHtmlString DropDownListForUsersListToShow(this HtmlHelper<EditViewModel> htmlHelper,
+           Expression<Func<EditViewModel, int>> expression)
+        {
+            return htmlHelper.DropDownListFor(expression,
+                                              new SelectList(htmlHelper.ViewData.Model.UsersToShowList, "UserToShowId", "CustomerName",
+                                                             htmlHelper.ViewData.Model.ParentUser.UserId));
+        }
     }
 }

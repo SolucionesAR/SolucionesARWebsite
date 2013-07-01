@@ -167,22 +167,13 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Customer()
         {
             var orderedUsers = _usersManagement.GetOrderedUsersList();
-            var usersToShow = GenerateUsersToShow(orderedUsers);
+            var usersToShow = GenerateUsersToShowList(orderedUsers);
             var customerReportViewModel = new CustomerReportViewModel
             {
                 Customer = new User(),
                 UsersToShowList = usersToShow,
             };
             return View(customerReportViewModel);
-        }
-
-        private List<UserToShow> GenerateUsersToShow(IEnumerable<User> usersList)
-        {
-            return usersList.Select(user => new UserToShow
-            {
-                UserToShowId = user.UserId,
-                CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
-            }).ToList();
         }
 
         [HttpPost]

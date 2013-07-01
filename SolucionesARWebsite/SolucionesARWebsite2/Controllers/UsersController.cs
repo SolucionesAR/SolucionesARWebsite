@@ -65,6 +65,8 @@ namespace SolucionesARWebsite2.Controllers
         public ActionResult Create()
         {
             var editViewModel = GenerateBasicEditViewModel();
+
+            editViewModel.UsersToShowList = GenerateUsersToShowList(GetAvailableUsersList());
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
             ViewBag.CantonsList = _cantonsManagement.GetCantons((int) Constants.DefaultProvince);
             ViewBag.DistrictsList = _districtsManagement.GetDistricts((int) Constants.DefaultCanton);
@@ -79,6 +81,7 @@ namespace SolucionesARWebsite2.Controllers
             var province = _provincesManagement.GetProvinceByCanton(canton.CantonId);
 
             var editViewModel = Map(user);
+            editViewModel.UsersToShowList = GenerateUsersToShowList(_usersManagement.GetOtherUsers(id));
             editViewModel.CantonId = canton.CantonId;
             editViewModel.ProvinceId = province.ProvinceId;
 
@@ -103,7 +106,7 @@ namespace SolucionesARWebsite2.Controllers
             editViewModel.IdentificationTypesList = GetIdentificationTypesList();
             editViewModel.RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList();
             editViewModel.RolesList = _rolesManagement.GetRoles(SecurityContext);
-
+            editViewModel.UsersToShowList = GenerateUsersToShowList(GetAvailableUsersList());
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
             ViewBag.CantonsList = _cantonsManagement.GetCantons(editViewModel.ProvinceId);
             ViewBag.DistrictsList = _districtsManagement.GetDistricts(editViewModel.CantonId);
@@ -147,11 +150,9 @@ namespace SolucionesARWebsite2.Controllers
             return View("Pay", payViewModel);
         }
 
-        public JsonResult IsValidParentUser(string identificationNumber)
+        public JsonResult IsValidParentUser(User user)
         {
-            var user =
-                _usersManagement.GetUserByIdentificationNumber(
-                    Convert.ToInt32(identificationNumber.Replace("-", string.Empty)));
+          
             //TODO: missing users table modification
             //check if the user...
             //1. exists
@@ -238,6 +239,7 @@ namespace SolucionesARWebsite2.Controllers
 
         private EditViewModel GenerateBasicEditViewModel()
         {
+            
             var editViewModel = new EditViewModel
                 {
                     UserId = 0,
@@ -261,7 +263,8 @@ namespace SolucionesARWebsite2.Controllers
                     RelationshipTypeList = _relationshipTypesManagement.GetRelationshipTypesList(),
                     RolesList = _rolesManagement.GetRoles(SecurityContext),
                     UserRol = new Rol(),
-                    ParentIdentificationNumber = Constants.SolucionesArUser.ToString(),
+
+                    //ParentIdentificationNumber = Constants.SolucionesArUser.ToString(),
                 };
 
             return editViewModel;
@@ -296,12 +299,13 @@ namespace SolucionesARWebsite2.Controllers
                     PhoneNumber = editViewModel.PhoneNumber,
                     RelationshipTypeId = editViewModel.RelationshipType.RelationshipTypeId,
                     UserId = editViewModel.UserId,
-                    UserReferenceId = !string.IsNullOrEmpty(editViewModel.ParentIdentificationNumber)
+                    UserReferenceId = editViewModel.ParentUser.UserId
+                    /*UserReferenceId = !string.IsNullOrEmpty(editViewModel.ParentIdentificationNumber)
                                           ? _usersManagement.GetUserByIdentificationNumber(
                                               Convert.ToInt32(
                                                   editViewModel.ParentIdentificationNumber.Replace("-", string.Empty)))
                                                             .UserId
-                                          : (int) Constants.SolucionesArUser,
+                                          : (int) Constants.SolucionesArUser,*/
                 };
 
             //update the user password with the SAR generated code
@@ -345,10 +349,11 @@ namespace SolucionesARWebsite2.Controllers
                     RolesList = _rolesManagement.GetRoles(SecurityContext),
                     UserId = user.UserId,
                     UserRol = user.UserRol,
-                    ParentIdentificationNumber =
+                    ParentUser = user.UserReference
+                    /*ParentIdentificationNumber =
                         user.UserReference != null
                             ? user.UserReference.CedNumber.ToString(CultureInfo.InvariantCulture)
-                            : Constants.SolucionesArUser.ToString(),
+                            : Constants.SolucionesArUser.ToString(),*/
                 };
 
             return editViewModel;

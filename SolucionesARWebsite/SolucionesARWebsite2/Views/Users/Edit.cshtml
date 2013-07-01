@@ -92,7 +92,10 @@
                         @Html.EditorFor(model => model.Address1, new { style = "width=400px" })
                     </fieldset>
                     <fieldset>
-                        @Html.EditorFor(model => model.ParentIdentificationNumber)
+                        <span>
+                            @Html.LabelFor(model => model.ParentUser) <br/>
+                            @Html.DropDownListForUsersListToShow(model => model.ParentUser.UserId)
+                        </span>
                         <span>
                             @Html.LabelFor(model => model.RelationshipType)
                             <br />

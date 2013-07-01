@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using SolucionesARWebsite2.Models;
+using SolucionesARWebsite2.ViewModels.Lists;
 
 namespace SolucionesARWebsite2.ViewModels.CreditProcesses
 {

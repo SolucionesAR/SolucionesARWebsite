@@ -482,7 +482,6 @@
     <Compile Include="ViewModels\CreditProcesses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\IndexViewModel.cs" />
     <Compile Include="ViewModels\CreditProcesses\ProcessFlowViewModel.cs" />
-    <Compile Include="ViewModels\CreditProcesses\UserToShow.cs" />
     <Compile Include="ViewModels\CreditStatuses\EditViewModel.cs" />
     <Compile Include="ViewModels\CreditStatuses\IndexViewModel.cs" />
     <Compile Include="ViewModels\Customers\EditViewModel.cs" />
@@ -496,6 +495,7 @@
     <Compile Include="ViewModels\Lists\RelationshipTypeList.cs" />
     <Compile Include="ViewModels\Lists\StoresList.cs" />
     <Compile Include="ViewModels\Lists\TransactionsList.cs" />
+    <Compile Include="ViewModels\Lists\UserToShow.cs" />
     <Compile Include="ViewModels\ModelErrors.cs" />
     <Compile Include="ViewModels\Provinces\EditViewModel.cs" />
     <Compile Include="ViewModels\Provinces\IndexViewModel.cs" />
@@ -507,7 +507,6 @@
     <Compile Include="ViewModels\Reports\IndexViewModel.cs" />
     <Compile Include="ViewModels\Reports\Report.cs" />
     <Compile Include="ViewModels\Reports\TransactionForFileType.cs" />
-    <Compile Include="ViewModels\Reports\UserToShow.cs" />
     <Compile Include="ViewModels\Roles\EditViewModel.cs" />
     <Compile Include="ViewModels\Roles\IndexViewModel.cs" />
     <Compile Include="ViewModels\Stores\EditViewModel.cs" />
@@ -516,7 +515,6 @@
     <Compile Include="ViewModels\Transactions\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Transactions\EditViewModel.cs" />
     <Compile Include="ViewModels\Transactions\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Transactions\UserToShow.cs" />
     <Compile Include="ViewModels\Users\PayViewModel.cs" />
     <Compile Include="ViewModels\Users\EditViewModel.cs" />
     <Compile Include="ViewModels\Users\IndexViewModel.cs" />

@@ -98,6 +98,7 @@ namespace SolucionesARWebsite2.Controllers
                                         PhoneNumber = customer.PhoneNumber,
                                         Possition = customer.Possition,
                                         Salary = customer.Salary,
+                                        LaboralTime = customer.LaboralTime,
                                         CreatedAt = customer.CreatedAt
                                     };
             return editViewModel;

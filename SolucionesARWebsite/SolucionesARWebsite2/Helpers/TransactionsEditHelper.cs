@@ -21,7 +21,7 @@ namespace SolucionesARWebsite2.Helpers
            Expression<Func<EditViewModel, int>> expression)
         {
             return htmlHelper.DropDownListFor(expression,
-                                              new SelectList(htmlHelper.ViewData.Model.UsersToShowList, "UserToShowId", "CustomerName", //TODO: ver si esto se vale...
+                                              new SelectList(htmlHelper.ViewData.Model.UsersToShowList, "UserToShowId", "CustomerName", 
                                                              htmlHelper.ViewData.Model.Customer.UserId));
         }
 

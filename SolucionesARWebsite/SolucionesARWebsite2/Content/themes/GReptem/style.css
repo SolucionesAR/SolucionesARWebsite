@@ -222,6 +222,10 @@ td a:hover { color: #fff; text-decoration: underline; }
 		width: 1350px;
 		margin: -125px 0 0 -480px;
 	}
+	#nav_menu_top {
+	    
+		width: 800px;
+	}
 	nav ul {
 		overflow: hidden;
 		text-align: center;

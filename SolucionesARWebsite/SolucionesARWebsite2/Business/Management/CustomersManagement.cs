@@ -67,6 +67,7 @@ namespace SolucionesARWebsite2.Business.Management
                                    PhoneNumber = editViewModel.PhoneNumber,
                                    Possition = editViewModel.Possition,
                                    Salary = editViewModel.Salary,
+                                   LaboralTime = editViewModel.LaboralTime,
                                    CreatedAt = editViewModel.CreatedAt
                                };
 

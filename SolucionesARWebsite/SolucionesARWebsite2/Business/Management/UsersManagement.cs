@@ -97,6 +97,11 @@ namespace SolucionesARWebsite2.Business.Management
             return _usersRepository.HasValidIdentificationNumber(userId, Convert.ToInt32(identificationNumber.Replace("-", string.Empty)));
         }
 
+        public IEnumerable<User> GetOtherUsers(int id)
+        {
+            return _usersRepository.GetOtherUsers(id);
+        }
+
         #endregion
 
         #region Private Methods
@@ -122,5 +127,7 @@ namespace SolucionesARWebsite2.Business.Management
         }
 
         #endregion
+
+        
     }
 }

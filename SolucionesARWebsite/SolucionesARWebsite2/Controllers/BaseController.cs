@@ -8,6 +8,7 @@ using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.Enumerations;
 using SolucionesARWebsite2.Utils;
+using SolucionesARWebsite2.ViewModels.Lists;
 
 namespace SolucionesARWebsite2.Controllers
 {
@@ -69,6 +70,34 @@ namespace SolucionesARWebsite2.Controllers
         {
             var availableUsersList = _usersManagement.GetUsersList();
             Session[Constants.AvailableUsers.ToStringValue()] = availableUsersList;
+        }
+
+        /// <summary>
+        /// Generates a list of users with a different format, full name and ced number
+        /// </summary>
+        /// <param name="usersList"></param>
+        /// <returns></returns>
+        public List<UserToShow> GenerateUsersToShowList(IEnumerable<User> usersList)
+        {
+            return usersList.Select(user => new UserToShow
+            {
+                UserToShowId = user.UserId,
+                CustomerName = user.FName + " " + user.LName1 + " " + user.LName2 + " - " + user.CedNumber
+            }).ToList();
+        }
+
+        /// <summary>
+        /// Generates a list of customers with a different format, full name and ced number
+        /// </summary>
+        /// <param name="customersList"></param>
+        /// <returns></returns>
+        public List<UserToShow> GenerateCustomersToShowList(IEnumerable<Customer> customersList)
+        {
+            return customersList.Select(customer => new UserToShow
+            {
+                UserToShowId = customer.CustomerId,
+                CustomerName = customer.FName + " " + customer.LName + " - " + customer.CedNumber
+            }).ToList();
         }
 
         #endregion

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using SolucionesARWebsite2.Models;
+using SolucionesARWebsite2.ViewModels.Lists;
 
 namespace SolucionesARWebsite2.ViewModels.Users
 {
@@ -147,12 +148,7 @@ namespace SolucionesARWebsite2.ViewModels.Users
         [DisplayName("Habilitado")]
         public bool Enabled { get; set; }
 
-        /// <summary>
-        /// A code that will be generated automatically to each user
-        /// </summary>
-        [Display(Name = "Referente", Prompt = "Cédula del Referente")]
-        [Remote("IsValidParentUser", "Users", ErrorMessage = "El usuario no ingresado no cumple con los requisitos")]
-        public string ParentIdentificationNumber { get; set; }
+        
 
         /// <summary>
         /// The Rol id
@@ -189,7 +185,23 @@ namespace SolucionesARWebsite2.ViewModels.Users
         /// The Relationship List
         /// </summary>
         public List<RelationshipType> RelationshipTypeList { get; set; }
+
+        /// <summary>
+        /// List of users to select the parent user
+        /// </summary>
         
+        public List<UserToShow> UsersToShowList { get; set; }
+
+        /// <summary>
+        /// Parent User
+        /// </summary>
+        [Required]
+        [Display(Name = "Referente*", Prompt = "Seleccione un Usuario")]
+        [Remote("IsValidParentUser", "Users", ErrorMessage = "El usuario ingresado no cumple con los requisitos")]
+        public User ParentUser { get; set; }
+
+        
+
         #endregion
         
         #region Contructors
