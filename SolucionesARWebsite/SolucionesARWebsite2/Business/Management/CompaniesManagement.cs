@@ -88,12 +88,10 @@ namespace SolucionesARWebsite2.Business.Management
 
             return companiesList;
         }
-        
-        public void Save(EditViewModel editViewModel)
+
+        public void Save(Company company)
         {
-            var company = Map(editViewModel);
-            
-            if (editViewModel.CompanyId == 0)
+            if (company.CompanyId == 0)
             {
                 AddCompany(company);
             }
@@ -123,26 +121,6 @@ namespace SolucionesARWebsite2.Business.Management
             _companiesRepository.EditCompany(company);
         }
 
-        private static Company Map(EditViewModel editViewModel)
-        {
-            return new Company
-                {
-                    CashBackPercentaje = Convert.ToDouble(editViewModel.CashBackPercentage),
-                    CompanyId = editViewModel.CompanyId,
-                    CompanyName = editViewModel.CompanyName.ToUpper(),
-                    CompanyNickName =
-                        editViewModel.CompanyNickname != null ? editViewModel.CompanyNickname.ToUpper() : string.Empty,
-                    CorporateId =
-                        editViewModel.CorporateId != null
-                            ? editViewModel.CorporateId.Replace("-", string.Empty)
-                            : string.Empty,
-                    Enabled = editViewModel.Enabled,
-                    IsFinantial = editViewModel.IsFinantial,
-                };
-        }
-
         #endregion
-
-        
     }
 }

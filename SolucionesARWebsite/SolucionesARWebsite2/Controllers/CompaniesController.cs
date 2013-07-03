@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
 using System.Web.Mvc;
+using AutoMapper;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
+using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.ViewModels.Companies;
 
 namespace SolucionesARWebsite2.Controllers
@@ -49,30 +51,39 @@ namespace SolucionesARWebsite2.Controllers
 
         public ActionResult Edit(int id)
         {
-            var companyInformation = _companiesManagement.GetCompany(id);
-            var editViewModel = new EditViewModel
-                                    {
-                                        CompanyId = id,
-                                        CashBackPercentage = companyInformation.CashBackPercentaje.ToString(CultureInfo.CurrentCulture),
-                                        CompanyName = companyInformation.CompanyName,
-                                        CorporateId = companyInformation.CorporateId,
-                                        CompanyNickname = companyInformation.CompanyNickName,
-                                        Enabled = companyInformation.Enabled,
-                                        IsFinantial = companyInformation.IsFinantial,
-                                    };
+            var company = _companiesManagement.GetCompany(id);
+
+            Mapper.CreateMap<Company, EditViewModel>()
+                  .ForMember(dest => dest.CashBackPercentage, opt => opt.MapFrom(src => src.CashBackPercentaje)); 
+            var editViewModel = Mapper.Map<Company, EditViewModel>(company);
+
             return View(editViewModel);
         }
 
         [HttpPost]
-        public ActionResult Save(EditViewModel editViewModel)
+        public ActionResult Save(EditViewModel editFormModel)
         {
             if (ModelState.IsValid)
             {
-                _companiesManagement.Save(editViewModel);
+                Mapper.CreateMap<EditViewModel, Company>()
+                      .ForMember(dest => dest.CashBackPercentaje, opt => opt.MapFrom(src => src.CashBackPercentage))
+                      .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.CompanyName.ToUpper()))
+                      .ForMember(dest => dest.CompanyNickName,
+                                 opt =>
+                                 opt.MapFrom(
+                                     src => src.CompanyNickname != null ? src.CompanyNickname.ToUpper() : string.Empty))
+                      .ForMember(dest => dest.CorporateId,
+                                 opt =>
+                                 opt.MapFrom(
+                                     src => src.CorporateId != null ? src.CorporateId.Replace("-", string.Empty) : string.Empty));
+                var company = Mapper.Map<EditViewModel, Company>(editFormModel);
+
+                _companiesManagement.Save(company);
+
                 return RedirectToAction("Index");
             }
 
-            return View("Edit", editViewModel);
+            return View("Edit", editFormModel);
         }
 
         #endregion

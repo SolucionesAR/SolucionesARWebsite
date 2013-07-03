@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using PagedList;
 using SolucionesARWebsite2.Business.Management;
+using SolucionesARWebsite2.Models;
 using SolucionesARWebsite2.ViewModels.Cantons;
 
 namespace SolucionesARWebsite2.Controllers
@@ -50,23 +52,23 @@ namespace SolucionesARWebsite2.Controllers
             var editViewModel = new EditViewModel
                                     {
                                         CantonId = 0,
-                                        CantonName = string.Empty,
+                                        Name = string.Empty,
                                         ProvinceId = 1,
                                     };
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
+
             return View("Edit", editViewModel);
         }
 
         public ActionResult Edit(int id)
         {
-            var cantonInformation = _cantonsManagement.GetCanton(id);
-            var editViewModel = new EditViewModel
-                                    {
-                                        CantonId = cantonInformation.CantonId,
-                                        CantonName = cantonInformation.Name,
-                                        ProvinceId = cantonInformation.Province.ProvinceId,
-                                    };
+            var canton = _cantonsManagement.GetCanton(id);
+            
+            Mapper.CreateMap<Canton, EditViewModel>();
+            var editViewModel = Mapper.Map<Canton, EditViewModel>(canton);
+
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
+
             return View(editViewModel);
         }
 
@@ -75,11 +77,17 @@ namespace SolucionesARWebsite2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _cantonsManagement.Save(editFormModel);
+                Mapper.CreateMap<EditViewModel, Canton>()
+                      .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name.ToUpper()));
+                var canton = Mapper.Map<EditViewModel, Canton>(editFormModel);
+
+                _cantonsManagement.Save(canton);
+
                 return RedirectToAction("Index");
             }
 
             ViewBag.ProvincesList = _provincesManagement.GetProvinces();
+
             return View("Edit", editFormModel);
         }
 

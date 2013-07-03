@@ -18,7 +18,7 @@ namespace SolucionesARWebsite2.ViewModels.Cantons
 
         [Display(Name = "Nombre*", Prompt = "Nombre")]
         [Required(ErrorMessage = "Nombre del canton es requerido")]
-        public string CantonName { get; set; }
+        public string Name { get; set; }
         
         #endregion
 

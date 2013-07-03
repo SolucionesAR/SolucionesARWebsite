@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using AutoMapper;
 using SolucionesARWebsite2.DataAccess.Interfaces;
 using SolucionesARWebsite2.DataObjects;
 using SolucionesARWebsite2.Models;
@@ -74,11 +76,9 @@ namespace SolucionesARWebsite2.Business.Management
             return cantonsList;
         }
         
-        public void Save(EditViewModel editViewModel)
+        public void Save(Canton canton)
         {
-            var canton = Map(editViewModel);
-
-            if (editViewModel.CantonId.Equals(0))
+            if (canton.CantonId.Equals(0))
             {
                 AddCanton(canton);
             }
@@ -93,6 +93,7 @@ namespace SolucionesARWebsite2.Business.Management
             var canton = _cantonsRepository.GetCantonByDistrict(districtId);
             return canton;
         }
+
         #endregion
 
         #region Private Methods
@@ -105,16 +106,6 @@ namespace SolucionesARWebsite2.Business.Management
         private void EditCanton(Canton canton)
         {
             _cantonsRepository.EditCanton(canton);
-        }
-
-        private static Canton Map(EditViewModel editViewMode)
-        {
-            return new Canton
-                       {
-                           CantonId = editViewMode.CantonId,
-                           Name = editViewMode.CantonName.ToUpper(),
-                           ProvinceId = editViewMode.ProvinceId,
-                       };
         }
 
         #endregion
